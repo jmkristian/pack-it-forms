@@ -223,6 +223,60 @@ td.border-left {
     padding-right: 0.5em;
 }
 
+/* Error logging/presentation */
+
+#err {
+    background-color: #eeeeee;
+    color: #888888;
+    display: none;
+}
+
+#err.occured {
+    display: block;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 95%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 4em;
+    border: 2px solid black;
+    padding: 1ex 1em;
+    visibility: visible;
+    opacity: 1.0;
+    z-index: 9999;
+}
+
+#err h1 {
+    padding-top: 1ex;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+#error-log {
+    font-family: monospace;
+    margin: 3ex 0 0;
+    padding-top: 1ex;
+    font-size: 10pt;
+    border-top: 1px solid #888888;
+    white-space: pre;
+}
+
+#error-indicator {
+    visibility: hidden;
+    background-color: #ffaaaa;
+    color: #444444;
+    font-weight: bold;
+    display: inline;
+    padding: 0.25ex 1em;
+    position: fixed;
+    top: 1ex;
+    right: 1em;
+}
+
+#error-indicator.occured {
+    visibility: visible;
+}
 
 /* Form validation */
 
