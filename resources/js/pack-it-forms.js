@@ -1339,14 +1339,22 @@ function emptystr_if_null(argument) {
 
 /* --- Cross-browser convenience functions --- */
 
-function fireEvent(target, evt) {
-    var event = document.createEvent('Event');
-    event.initEvent(evt, true, true);
-    if (target.disabled && evt == 'input') {
-        // work around firefox not firing input events on disabled events
-        target.parentElement.dispatchEvent(event);
+function fireEvent(target, type) {
+    if (is_function(document.createEvent)) {
+        var event = document.createEvent('Event');
+        event.initEvent(type, true, true);
+        if (target.disabled && type == 'input') {
+            // work around firefox not firing input events on disabled target
+            target.parentElement.dispatchEvent(event);
+        } else {
+            target.dispatchEvent(event);
+        }
     } else {
-        target.dispatchEvent(event);
+        // Typically Internet Explorer <= 8
+        var event = document.createEventObject();
+        event.type = type;
+        event.target = target;
+        target.fireEvent("on" + type, event);
     }
 }
 
