@@ -1112,7 +1112,7 @@ function value_based_enabler(e, enabledValues, target_name, target_disabled_valu
         target.value = target_disabled_value;
         target.disabled = true;
     }
-    fireEvent(target, 'input');
+    fireEvent(target, (MSIE_version <= 8) ? "change" : "input");
     check_the_form_validity();
 }
 
