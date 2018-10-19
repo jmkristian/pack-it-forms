@@ -254,39 +254,8 @@ function parse_form_data_text(text) {
 }
 
 function FormDataParseError(linenum, desc) {
-    var msgtext = "Parse error on line " + linenum.toString() + ": " + desc;
-
-    Object.defineProperty(this, 'name', {
-        enumerable: false,
-        writable: false,
-        value: "FormDataParseError"
-    });
-
-    Object.defineProperty(this, 'linenum', {
-        enumerable: false,
-        writable: false,
-        value: linenum
-    });
-
-    Object.defineProperty(this, 'message', {
-        enumerable: false,
-        writable: true,
-        value: msgtext
-    });
-
-    if (Error.hasOwnProperty('captureStackTrace')) {
-        Error.captureStackTrace(this, FormDataParseError);
-    } else {
-        Object.defineProperty(this, 'stack', {
-            enumerable: false,
-            writable: false,
-            value: (new Error(msgtext)).stack
-        });
-    }
+    return Error.call(this, "Parse error on line " + linenum.toString() + ": " + desc);
 }
-FormDataParseError.prototype = Object.create(Error.prototype, {
-    constructor: { value: FormDataParseError }
-});
 
 function index_of_field_name_sep(linenum, line, startAt) {
     var idx = line.indexOf(":", startAt);
