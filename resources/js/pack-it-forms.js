@@ -1157,7 +1157,12 @@ function formChanged(event) {
 function opdirect_submit(e) {
     write_pacforms_representation();
     hide_form_data();
-    e.preventDefault();
+    if (is_function(e.preventDefault)) {
+        e.preventDefault();
+    } else {
+        // Typically Internet Explorer <= 8
+        e.returnValue = false;
+    }
     if (check_the_form_validity()) {
         document.querySelector("#form-data-form").submit();
     }
