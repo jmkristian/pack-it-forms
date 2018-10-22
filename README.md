@@ -323,7 +323,6 @@ The following template types are available:
 | msg-field         | field name | Value of a field in the received message        |
 | query-string      | key        | Value of query string parameter with name 'key' |
 | envelope          | field name | Value of !OUTPOST! envelope field               |
-| div-id            | id value   | Text content of the named `div` element         |
 | filename          | none       | Filename of the form (final name in URI path)   |
 | title             | none       | Title of the HTML document                      |
 | expand-while-null | templates  | Comma separated templates (\, escapes)          |
@@ -445,12 +444,6 @@ execution so that they can be presented to the user appropriately.
 
 The actual from itself replaces the ellipses here.  The Javascript
 requires that the id of the form have the value "the-form".
-
-        <div data-include-html="outpost_message_header"></div>
-
-An include reference that is replaced with data used to format the
-outpost message header.  This is required for the Javascript to work
-properly.  It should come after the form.
 
         <div data-include-html="submit-buttons"></div>
 
