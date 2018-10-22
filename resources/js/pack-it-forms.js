@@ -828,9 +828,8 @@ argument, which is a selector suitable to be passed to
 document.querySelectorAll.  This does not have to be used on input
 elements; attribute determines what attribute will be read and
 expanded. */
-function init_text_fields(selector, attribute) {
-    console_log("init_text_fields(" + selector + ", " + attribute + ")");
-    var fields = document.querySelectorAll(selector);
+function init_text_fields(fields, attribute) {
+    console_log("init_text_fields(" + fields.length + ", " + attribute + ")");
     array_for_each(fields, function (field) {
         field[attribute] = expand_template(field[attribute]);
     });
@@ -1194,9 +1193,25 @@ function setup_view_mode(next) {
 /* --- Misc. utility functions */
 
 function expand_templated_items() {
-    init_text_fields(".templated", "textContent");
-    init_text_fields("input:not(.no-load-init):not(.msg-value)", "value");
+    init_text_fields(document.querySelectorAll(".templated"), "textContent");
+    init_text_fields(
+        exclude_classes(["no-load-init", "msg-value"],
+                        document.querySelectorAll("input")),
+        "value");
     console_log("expand_templated_items complete");
+}
+
+function exclude_classes(classNames, elements) {
+    var included = [];
+    array_for_each(elements, function(element) {
+        var match = classNames.some(function(className) {
+            return has_class(element, className);
+        });
+        if (!match) {
+            included.push(element);
+        }
+    });
+    return included;
 }
 
 function get_form_data_from_div() {
