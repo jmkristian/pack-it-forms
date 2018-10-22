@@ -42,16 +42,38 @@ function is_function(thing) {
 }
 
 function add_event_listener(target, type, listener, options) {
-    if (MSIE_version <= 9) {
-        target.addEventListener(type, function(event) {
-            if (is_function(listener)) {
-                listener.call(target, event || window.event);
-            } else {
-                listener.handleEvent(event || window.event);
-            }
-        }, options);
+    if (is_function(target.addEventListener)) {
+        if (MSIE_version <= 9) {
+            target.addEventListener(type, function(event) {
+                if (is_function(listener)) {
+                    listener.call(target, event || window.event);
+                } else {
+                    listener.handleEvent(event || window.event);
+                }
+            }, options);
+        } else {
+            target.addEventListener(type, listener, options);
+        }
+    } else if (type == "DOMContentLoaded") {
+        throw new Error("add_event_listener(" + type + ") is not implemented.");
     } else {
-        target.addEventListener(type, listener, options);
+        // options will be ignored
+        target.attachEvent("on" + type, function(event) {
+            if (!event) {
+                event = window.event;
+            }
+            if (!event.target) {
+                event.target = event.srcElement;
+            }
+            if (!event.currentTarget) {
+                event.currentTarget = target;
+            }
+            if (is_function(listener)) {
+                listener.call(target, event);
+            } else {
+                listener.handleEvent(event);
+            }
+        });
     }
 }
 
