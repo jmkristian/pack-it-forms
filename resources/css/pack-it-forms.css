@@ -176,10 +176,6 @@ table ~ table :first-child:first-child > td {
     display: none;
 }
 
-#message-header {
-    display: none;
-}
-
 #form-data {
     position: fixed;
     top: 0px;
@@ -449,7 +445,7 @@ td.rotated:not(.not-rotated) > div > div::after, th.rotated:not(.not-rotated) > 
        border: 0px;
        padding: 0px;
    }
-   #loading,#message-header,#button-header,#form-data-form {
+   #loading,#button-header,#form-data-form {
        display: none;
    }
    table {

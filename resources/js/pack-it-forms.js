@@ -21,7 +21,15 @@ var query_object = {};     // Cached query string parameters
 var outpost_envelope = {}; // Cached outpost envelop information
 var callprefixes = {};     // Cached call prefixes for expansion
 var msgfields = {};        // Cached message field values
-var versions = {};         // Version information
+var versions =             // Version information
+    {includes: [{name: "outpost_message_header", version: "0.1.0"}]};
+var outpost_message_header =
+    "!PACF! {{field:MsgNo}}_{{field:4.severity|truncate:1}}/{{field:5.handling|truncate:1}}_{{title|split:: |nth:0}}_{{field:10.subject|expandtmpl}}"
+    + "\r\n# {{title|split:: |nth:1}}"
+    + "\r\n# JS-ver. PR-3.9-2.6, 08/11/13,"
+    + "\r\n# FORMFILENAME: {{filename}}"
+    + "\r\n# FORMVERSION: {{version}}"
+    + "\r\n";
 var MSIE_version = function(userAgent) {
     if (!userAgent) {
         return undefined;
@@ -467,8 +475,7 @@ function write_pacforms_representation() {
             fldtxt += "\r\n"+resultText;
         }
     });
-    var msg = expand_template(
-        document.querySelector("#message-header").textContent).trim();
+    var msg = expand_template(outpost_message_header).trim();
     msg += fldtxt + "\r\n#EOF\r\n";
     set_form_data_div(msg);
 }
@@ -718,10 +725,6 @@ var template_repl_func = {
 
     "envelope" : function(arg) {
         return emptystr_if_null(outpost_envelope[arg]);
-    },
-
-    "div-id" : function(arg) {
-        return document.querySelector("#"+arg).textContent;
     },
 
     "filename" : function (arg) {
@@ -1409,7 +1412,6 @@ function query_string_to_object(next) {
 
 function load_form_version(next) {
     versions.form = document.querySelector(".version").textContent;
-    versions.includes = [];
     next();
 }
 
