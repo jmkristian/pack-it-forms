@@ -1051,8 +1051,8 @@ function radio_checked(parent, radio) {
     var checked = radio.checked;
     if (!checked && radio.name) {
         var selector = "[name=\"" + radio.getAttribute("name") + "\"]";
-        array_some(parent.querySelectorAll(selector), function(sibling) {
-            checked = checked || sibling.checked;
+        checked = array_some(parent.querySelectorAll(selector), function(sibling) {
+            return sibling.checked;
         });
     }
     return !!checked;
@@ -1279,7 +1279,7 @@ function remove_class(element, className) {
         var oldClasses = element.className.split(" ");
         var newClasses = [];
         var removed = false;
-        array_for_each(oldClasses, function(oldClass) {
+        oldClasses.forEach(function(oldClass) {
             if (oldClass == className) {
                 removed = true;
             } else if (oldClass) {
