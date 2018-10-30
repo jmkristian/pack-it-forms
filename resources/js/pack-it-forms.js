@@ -112,13 +112,10 @@ function init_form(next) {
     }, true);
     add_event_listener(the_form, "input", formChanged);
     if (MSIE_version <= 9) {
-        add_event_listener(document, "selectionchange", function() {
-            var el = document.activeElement;
-            if (el.tagName.toLowerCase() == "textarea"
-                || (el.tagName.toLowerCase() == "input" && el.type.toLowerCase() == "text")) {
-                formChanged();
-            }
-        });
+        listen_to_selection(document, formChanged);
+        if (MSIE_version <= 8) {
+            listen_to_focus(the_form, formChanged);
+        }
     }
 
     var text = get_form_data_from_div();
@@ -158,6 +155,99 @@ function init_form(next) {
         write_pacforms_representation();
         next();
     }, 10);
+}
+
+/** Call the listener when the selection changes in an active text input. */
+function listen_to_selection(parent, listener) {
+    add_event_listener(parent, "selectionchange", function() {
+        var active = document.activeElement;
+        if (is_text_input(active)) {
+            listener({type: "input", target: active});
+        }
+    });
+}
+
+/** Call the listener when the user changes the value of a text input that has the focus. */
+function listen_to_focus(parent, listener) {
+    var active = null; // the input that has the focus
+    var activeValue = null;
+    var activeValueProperty = null;
+    var activeValueObserver = {
+        get: function() {
+            return activeValueProperty.get.call(this);
+        },
+        set: function(newValue) {
+            // Javascript code is setting the value.
+            // Don't call the listener for this change.
+            activeValue = newValue;
+            activeValueProperty.set.call(this, newValue);
+        }
+    };
+
+    /** Call the listener if active.value has changed. */
+    var onValueSet = function(newValue) {
+        if (active && activeValue != newValue) {
+            activeValue = newValue;
+            listener({type: "input", target: active});
+        }
+    };
+
+    var onPropertyChange = function(event) {
+        if (event.propertyName == "value") {
+            onValueSet(event.srcElement.value);
+        }
+    };
+
+    /** Stop tracking propertychange events from the active element (if any). */
+    var stopWatching = function() {
+        if (active) {
+            active.detachEvent("onpropertychange", onPropertyChange);
+            delete active.value; // restore the original property definition
+            active = null;
+        }
+        activeValue = null;
+        activeValueProperty = null;
+    };
+
+    /** Start tracking propertychange events from the target, if it's a text input. */
+    var startWatching = function(target) {
+        stopWatching(); // just in case we missed a previous focusout
+        if (is_text_input(target)) {
+            active = target;
+            activeValue = target.value;
+            activeValueProperty = Object.getOwnPropertyDescriptor(active.constructor.prototype, "value");
+            // Don't call the listener when Javascript code changes the value:
+            Object.defineProperty(active, "value", activeValueObserver);
+            active.attachEvent("onpropertychange", onPropertyChange);
+        }
+    }
+
+    startWatching(document.activeElement);
+
+    add_event_listener(parent, "focusin", function(event) {
+        startWatching(event.target);
+    });
+
+    add_event_listener(parent, "focusout", stopWatching);
+
+    // On the first user input after Javascript sets a value, IE8
+    // fires only keydown, keypress, keyup, not focusin or focusout.
+    // To work around this:
+    add_event_listener(parent, "keyup", function() {
+        if (active) {
+            onValueSet(active.value);
+        }
+    });
+}
+
+function is_text_input(node) {
+    if (!node) return false;
+    var nodeName = node.nodeName.toLowerCase();
+    return nodeName == "textarea"
+        || (nodeName == "input" &&
+            array_contains(["text", "password"], node.type.toLowerCase()));
+    // The HTML5 spec lists more types that should trigger input events,
+    // but none of them exist in IE 8 or 9, so we don't check them here.
 }
 
 /* Cross-browser resource loading w/local file handling
@@ -1095,7 +1185,7 @@ function value_based_enabler(e, enabledValues, target_name, target_disabled_valu
         target.value = target_disabled_value;
         target.disabled = true;
     }
-    fireEvent(target, 'input');
+    fireEvent(target, (MSIE_version <= 8) ? "change" : "input");
     check_the_form_validity();
 }
 
