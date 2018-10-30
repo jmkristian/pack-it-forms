@@ -28,16 +28,38 @@ function is_function(thing) {
 }
 
 function add_event_listener(target, type, listener, options) {
-    if (MSIE_version <= 9) {
-        target.addEventListener(type, function(event) {
-            if (is_function(listener)) {
-                listener.call(target, event || window.event);
-            } else {
-                listener.handleEvent(event || window.event);
-            }
-        }, options);
+    if (is_function(target.addEventListener)) {
+        if (MSIE_version <= 9) {
+            target.addEventListener(type, function(event) {
+                if (is_function(listener)) {
+                    listener.call(target, event || window.event);
+                } else {
+                    listener.handleEvent(event || window.event);
+                }
+            }, options);
+        } else {
+            target.addEventListener(type, listener, options);
+        }
+    } else if (type == "DOMContentLoaded") {
+        throw new Error("add_event_listener(" + type + ") is not implemented.");
     } else {
-        target.addEventListener(type, listener, options);
+        // options will be ignored
+        target.attachEvent("on" + type, function(event) {
+            if (!event) {
+                event = window.event;
+            }
+            if (!event.target) {
+                event.target = event.srcElement;
+            }
+            if (!event.currentTarget) {
+                event.currentTarget = target;
+            }
+            if (is_function(listener)) {
+                listener.call(target, event);
+            } else {
+                listener.handleEvent(event);
+            }
+        });
     }
 }
 
@@ -1023,7 +1045,12 @@ function formChanged(event) {
 function opdirect_submit(e) {
     write_pacforms_representation();
     hide_form_data();
-    e.preventDefault();
+    if (is_function(e.preventDefault)) {
+        e.preventDefault();
+    } else {
+        // Typically Internet Explorer <= 8
+        e.returnValue = false;
+    }
     if (check_the_form_validity()) {
         document.querySelector("#form-data-form").submit();
     }
@@ -1298,13 +1325,21 @@ function emptystr_if_null(argument) {
 /* --- Cross-browser convenience functions --- */
 
 function fireEvent(target, evt) {
-    var event = document.createEvent('Event');
-    event.initEvent(evt, true, true);
-    if (target.disabled && evt == 'input') {
-        // work around firefox not firing input events on disabled events
-        target.parentElement.dispatchEvent(event);
+    if (is_function(document.createEvent)) {
+        var event = document.createEvent('Event');
+        event.initEvent(evt, true, true);
+        if (target.disabled && evt == 'input') {
+            // work around firefox not firing input events on disabled target
+            target.parentElement.dispatchEvent(event);
+        } else {
+            target.dispatchEvent(event);
+        }
     } else {
-        target.dispatchEvent(event);
+        // Typically Internet Explorer <= 8
+        var event = document.createEventObject();
+        event.type = evt;
+        event.target = target;
+        target.fireEvent("on" + evt, event);
     }
 }
 
