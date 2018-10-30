@@ -215,10 +215,10 @@ td.border-left {
     border-left: 1px solid #aaaaaa;
 }
 
-.fullsize-textfields td:not(.noft) input, .fullsize-textfields td:not(.noft) textarea {
+.fullsize-textfields td input, .fullsize-textfields td textarea {
     width:100%;
 }
-.fullsize-textfields td:not(.noft) {
+.fullsize-textfields td {
     padding-left: 0.5em;
     padding-right: 0.5em;
 }
@@ -387,15 +387,15 @@ form input.init-on-submit {
 
 /* Rotation for headers.  Inspiration: http://kizu.ru/en/fun/rotated-text/ */
 
-.rotated td:not(.not-rotated), .rotated th:not(.not-rotated) {
+.rotated td, .rotated th {
     vertical-align: bottom;
     text-align: center;
 }
-.rotated td:not(.not-rotated) > div, .rotated th:not(.not-rotated) > div {
+.rotated td > div, .rotated th > div {
     display: inline-block;
     width: 1.5em;
 }
-.rotated td:not(.not-rotated) > div > div, .rotated th:not(.not-rotated) > div > div {
+.rotated td > div > div, .rotated th > div > div {
     font-size: 75%;
     display: inline-block;
     white-space: nowrap;
@@ -406,21 +406,21 @@ form input.init-on-submit {
     -webkit-transform: translate(0, 100%) rotate(-90deg);
     -webkit-transform-origin: 0 0;
 }
-.rotated td:not(.not-rotated) > div > div::after, .rotated th:not(.not-rotated) > div > div::after {
+.rotated td > div > div::after, .rotated th > div > div::after {
     content: "";
     float: left;
     margin-top: 100%;
 }
 
-td.rotated:not(.not-rotated), th.rotated:not(.not-rotated) {
+td.rotated, th.rotated {
     vertical-align: bottom;
     text-align: center;
 }
-td.rotated:not(.not-rotated) > div, th.rotated:not(.not-rotated) > div {
+td.rotated > div, th.rotated > div {
     display: inline-block;
     width: 1.5em;
 }
-td.rotated:not(.not-rotated) > div > div, th.rotated:not(.not-rotated) > div > div {
+td.rotated > div > div, th.rotated > div > div {
     font-size: 75%;
     display: inline-block;
     white-space: nowrap;
@@ -431,7 +431,7 @@ td.rotated:not(.not-rotated) > div > div, th.rotated:not(.not-rotated) > div > d
     -webkit-transform: translate(0, 100%) rotate(-90deg);
     -webkit-transform-origin: 0 0;
 }
-td.rotated:not(.not-rotated) > div > div::after, th.rotated:not(.not-rotated) > div > div::after {
+td.rotated > div > div::after, th.rotated > div > div::after {
     content: "";
     float: left;
     margin-top: 100%;
