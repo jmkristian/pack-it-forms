@@ -22,20 +22,6 @@ var outpost_envelope = {}; // Cached outpost envelop information
 var callprefixes = {};     // Cached call prefixes for expansion
 var msgfields = {};        // Cached message field values
 var versions = {};         // Version information
-var MSIE_version = function(userAgent) {
-    if (!userAgent) {
-        return undefined;
-        // Not truthy. Comparison with any number yields false.
-    }
-    var match = /MSIE (\d*)/.exec(userAgent);
-    if (!match) {
-        return undefined;
-    }
-    if (match[1]) {
-        return parseInt(match[1]);
-    }
-    return 999999;
-}(navigator.userAgent);
 
 function is_function(thing) {
     return (typeof thing) == "function";

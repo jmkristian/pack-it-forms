@@ -63,3 +63,29 @@ if (!String.prototype.trim) {
         return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
     };
 }
+
+var MSIE_version = function(userAgent) {
+    if (!userAgent) {
+        return undefined;
+        // Not truthy. Comparison with any number yields false.
+    }
+    var match = /MSIE (\d*)/.exec(userAgent);
+    if (!match) {
+        return undefined;
+    }
+    if (match[1]) {
+        return parseInt(match[1]);
+    }
+    return 999999;
+}(navigator.userAgent);
+
+if (MSIE_version <= 8) {
+    Object.defineProperty(Element.prototype, "textContent", {
+        get: function() {
+            return this.innerText;
+        },
+        set: function(newValue) {
+            this.innerText = newValue;
+        }
+    });
+}
