@@ -555,7 +555,12 @@ var pacform_representation_funcs = {
         return element.value ? element.value : null;
     },
     "textarea": function(element) {
-        return element.value ? escape_pacforms_string(element.value) : null;
+        var value = element.value;
+        if (value && MSIE_version <= 8) {
+            // Line breaks in value are Windows style.
+            value = value.replace(/\r\n/g, "\n");
+        }
+        return value ? escape_pacforms_string(value) : null;
     },
     "radio": function(element) {
         return element.checked ? element.value : null;
@@ -1322,6 +1327,10 @@ function padded_int_str(num, cnt) {
 function create_text_div(text, className) {
     var elem = document.createElement("div");
     add_class(elem, className);
+    if (text && MSIE_version <= 8) {
+        // \r\n will be displayed as two line breaks.
+        text = text.replace(/\r\n/g, "\n");
+    }
     var textelem = document.createTextNode(text);
     elem.appendChild(textelem);
     return elem;
