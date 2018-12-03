@@ -3,13 +3,12 @@
   <head>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="resources/css/loading.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="resources/css/pack-it-forms.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="resources/css/form-oa-muni-status.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/ics-header.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/ics-footer.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/form-ics213.css"/>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
-
-    <title>Santa Clara OA Municipal Status</title>
+    <title>SCC OA Municipal Status</title>
   </head>
 
   <body>
@@ -22,15 +21,107 @@
         <div id="error-log"></div>
       </div>
     </div>
-    <div>
-      <form id="the-form" name="the-form" class="fullsize-textfields">
-        <h1>Santa Clara OA Municipal Status</h1>
+    <form id="the-form" name="the-form">
+      <table id="form-row-1">
+        <tr>
+          <td class="block-caption" colspan="3">
+            <h2 class="templated" style="color:blue;text-align:center;">{{title}}</h2>
+          </td>
+        </tr><tr>
+          <td>
+        <label class="label-sameline">Sender's Msg #<span class="field-number">A</span>
+          <input name="2.txmsgno" class="" type="text" size="11" style="width:auto;"
+                 value="{{query-string:txmsgno}}"/>
+        </label>
+          </td><td>
+        <label class="label-sameline">My Msg #<span class="field-number">B</span>
+          <input name="MsgNo" class="no-msg-init" type="text" size="11" style="width:auto;"
+                 required="required" value="{{expand-while-null:{{envelope:RCVNUM}},{{query-string:msgno}}}}"/>
+        </label>
+          </td><td>
+        <label class="label-sameline">Receiver's Msg #<span class="field-number">C</span>
+          <input name="3.rxmsgno" class="no-msg-init" type="text" size="11" style="width:auto;"/>
+        </label>
+          </td>
+        </tr>
+      </table><table id="form-row-2">
+    <tr>
+      <td>
+        <label>Date:
+          <input name="1a.date" class="" type="text" size="10"
+                 required="required" pattern="\d{1,2}/\d{1,2}/\d{4}"
+                 value="{{date}}"/>
+        </label>
+      </td><td rowspan="2">
+        <fieldset>
+          <legend>Severity<span class="field-number">D</span></legend>
+          <label title="Life Threat">
+            <input name="4.severity" type="radio"
+                   required="required" value="EMERGENCY"/> Emergency
+          </label><label title="Property Threat">
+            <input name="4.severity" type="radio"
+                   required="required" value="URGENT"/> Urgent
+          </label><label>
+            <input name="4.severity" type="radio"
+                   required="required" value="OTHER"/> Other
+          </label>
+        </fieldset>
+      </td><td rowspan="2">
+        <fieldset>
+          <legend>Message Handling Order
+            <span class="field-number">E</span>
+          </legend>
+          <label title="As soon as possible">
+            <input name="5.handling" type="radio"
+                   required="required" value="IMMEDIATE"/> Immediate
+          </label><label title="Less than one hour">
+            <input name="5.handling" type="radio"
+                   required="required" value="PRIORITY"/> Priority
+          </label><label title="More than one hour">
+            <input name="5.handling" type="radio"
+                   required="required" value="ROUTINE"/> Routine
+          </label>
+        </fieldset>
+      </td><td rowspan="2">
+        <fieldset>
+          <legend>Message Requests You To:
+            <span class="field-number">F</span>
+          </legend>
+          <br/>
+          <fieldset class="horizontal">
+            <legend>Reply</legend>
+            <label><input name="6b.reply" type="radio" value="Yes"/>Yes,</label>
+            <label>by: <input name="6d.reply-by" type="text"/></label>
+            <label>
+              <input name="6b.reply" type="radio" value="No"/> No
+            </label>
+          </fieldset>
+        </fieldset>
+      </td>
+    </tr><tr>
+      <td>
+        <label>Time:
+          <input name="1b.time" class="" type="text"
+                 required="required" pattern="\d{4}"
+                 value="{{time}}"/>
+        </label>
+      </td>
+    </tr>
+      </table>
+      <div class="fullsize-textfields">
         <fieldset id="incident">
-          <label class="bold">Incident:
-            <input name="1.incident-name" required="required" size="60"
-                   placeholder="Name of incident or 'Incident independent'"/>
-          </label><br/>
-          <label class="bold">Municipality Name/Unincorporated:
+          <table>
+            <tr>
+              <td style="padding-top:16px;padding-bottom:0;">
+          <label class="bold">Incident Name:</label>
+              </td><td style="padding-top:14px;padding-bottom:0;" width="87%">
+            <input name="1.incident-name" required="required"
+                   placeholder="or 'Incident independent'"/>
+              </td>
+            </tr><tr>
+              <td style="padding-top:16px;padding-bottom:0;">
+          <label class="bold">Municipality:</label>
+              </td><td style="padding-top:14px;padding-bottom:0;">
             <select name="2.municipality-name" required="required">
               <option value="" disabled="disabled" selected="selected">
                 Select one...
@@ -52,7 +143,9 @@
               <option value="Sunnyvale">Sunnyvale</option>
               <option value="Unincorporated">Unincorporated</option>
             </select>
-          </label>
+              </td>
+            </tr>
+          </table>
         </fieldset>
         <fieldset id="contact-info" class="labeled-box">
           <legend>Contact Information</legend>
@@ -204,24 +297,39 @@
           </table>
         </fieldset>
         <fieldset id="proclamation" class="labeled-box">
-          <legend>Proclamation</legend>
-          <label for="state-of-emergency">State of Emergency:
-            <select name="20.state-of-emergency">
-              <option value="Unknown" selected="selected">Unknown</option>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>
-          </label>
-          <br/>
-          Send a copy of your proclamation to the OA EOC
+          <legend>Proclamations</legend>
+          <table>
+            <tr>
+              <td class="label">
+                <label for="state-of-emergency" class="label-sameline">State of Emergency:</label>
+              </td><td>
+                <select name="20.state-of-emergency" required="required">
+                  <option value="Unknown" selected="selected" disabled="disabled">Unknown</option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </td><td>
+              </td>
+            </tr><tr>
+              <td colspan="3" style="padding-top:6px;padding-bottom:0;">
+                Send a copy of your proclamation to the county EOC (fax, e-mail, ...)
+              </td>
+            </tr><tr>
+              <td style="padding-top:8px;padding-bottom:0;">Indicate how sent: 
+              </td><td style="padding-top:6px;padding-bottom:0;" colspan="2">
+                <input name="99.how-sent" type="text"
+                       placeholder="method/to"/>
+              </td>
+            </tr>
+          </table>
         </fieldset>
         <fieldset  id="current-situation" class="labeled-box">
           <legend>Current Situation</legend>
           <table>
             <tr>
-              <th class="label">Type</th>
-              <th>Status</th>
-              <th>Comments</th>
+              <th style="text-align:left;" class="label">Type</th>
+              <th style="text-align:left;">Status</th>
+              <th style="text-align:left;">Comments</th>
             </tr>
             <tr>
               <td class="label">Communications</td>
@@ -237,7 +345,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="21.1.communications-comments" rows="3"
+                <textarea name="21.1.communications-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -255,7 +363,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="22.1.debris-comments" rows="3"
+                <textarea name="22.1.debris-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -273,7 +381,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="23.1.flooding-comments" rows="3"
+                <textarea name="23.1.flooding-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -291,7 +399,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="24.1.hazmat-comments" rows="3"
+                <textarea name="24.1.hazmat-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -309,7 +417,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="25.1.emergency-services-comments" rows="3"
+                <textarea name="25.1.emergency-services-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -327,7 +435,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="26.1.casualties-comments" rows="3"
+                <textarea name="26.1.casualties-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -345,7 +453,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="27.1.utilities-gas-comments" rows="3"
+                <textarea name="27.1.utilities-gas-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -363,7 +471,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="28.1.utilities-electric-comments" rows="3"
+                <textarea name="28.1.utilities-electric-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -381,7 +489,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="29.1.infrastructure-power-comments" rows="3"
+                <textarea name="29.1.infrastructure-power-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -399,7 +507,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="30.1.infrastructure-water-systems-comments" rows="3"
+                <textarea name="30.1.infrastructure-water-systems-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -417,7 +525,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="31.1.infrastructure-sewer-systems-comments" rows="3"
+                <textarea name="31.1.infrastructure-sewer-systems-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -435,7 +543,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="32.1.search-and-rescue-comments" rows="3"
+                <textarea name="32.1.search-and-rescue-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -453,7 +561,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="33.1.transportation-roads-comments" rows="3"
+                <textarea name="33.1.transportation-roads-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -471,7 +579,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="34.1.transportation-bridges-comments" rows="3"
+                <textarea name="34.1.transportation-bridges-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -489,7 +597,7 @@
                 </select>
               </td>
               <td>
-                <textarea name="35.1.civil-unrest-comments" rows="3"
+                <textarea name="35.1.civil-unrest-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
@@ -507,14 +615,60 @@
                 </select>
               </td>
               <td>
-                <textarea name="36.1.animal-issues-comments" rows="3"
+                <textarea name="36.1.animal-issues-comments" rows="1"
                           required="required" disabled="disabled"></textarea>
               </td>
             </tr>
           </table>
         </fieldset>
-      </form>
-    </div>
+      </div>
+  <table class="noborder">
+    <tr>
+      <td colspan="4" class="block-caption">Operator Use Only:
+      </td>
+    </tr><tr class="horizontal">
+      <td>
+        <span class="bold">
+          How
+          <label class="intext">
+            Received <input name="Rec-Sent" type="radio" value="Received"/>
+          </label>
+          or
+          <label class="intext">
+            Sent <input name="Rec-Sent" type="radio" value="Sent"/>
+          </label>
+        </span>
+      </td><td colspan="2" class="border-left">
+        <label class="label-sameline">Call Sign:
+          <input class="no-msg-init" name="OpCall" type="text" size="7"
+                 value="{{expand-while-null:{{envelope:ocall}},{{query-string:ocall}}}}"/>
+        </label>
+        <label class="label-sameline">Name:
+          <input class="no-msg-init" name="OpName" type="text"
+                 value="{{expand-while-null:{{envelope:oname}},{{query-string:oname}}}}"/>
+        </label>
+      </td>
+    </tr><tr class="horizontal">
+      <td>
+        <label>
+          <input name="Method" type="radio" value="Voice"/> Voice
+        </label>
+        <label>
+          <input name="Method" type="radio" value="Packet" checked="checked"/> Packet
+        </label>
+      </td><td class="border-left">
+        <label class="label-sameline">Date:
+          <input name="OpDate" class="no-msg-init init-on-submit" type="text"
+                 value="{{expand-while-null:{{envelope:ordate}},{{open-tmpl}}date{{close-tmpl}}}}" disabled="disabled"/>
+        </label>
+        <label class="label-sameline">Time:
+          <input name="OpTime" class="no-msg-init init-on-submit" type="text"
+                 value="{{expand-while-null:{{envelope:ortime}},{{open-tmpl}}time{{close-tmpl}}}}" disabled="disabled"/>
+        </label>
+      </td>
+    </tr>
+  </table>
+    </form>
     <div data-include-html="outpost_message_header"></div>
     <div data-include-html="submit-buttons"></div>
   </body>
