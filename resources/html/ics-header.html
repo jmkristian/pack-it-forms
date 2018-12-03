@@ -9,7 +9,7 @@
                  value="{{query-string:txmsgno}}"/>
         </label>
       </td><td>
-        <label>My Msg #:
+        <label>My Msg #
           <input name="MsgNo" class="no-msg-init" type="text"
                  required="required" value="{{expand-while-null:{{envelope:RCVNUM}},{{query-string:msgno}}}}"/>
         </label>
@@ -22,14 +22,14 @@
   </table><table id="form-row-2">
     <tr>
       <td>
-        <label>Date<span class="field-number">1a</span>
+        <label>Date:<span class="field-number">1a</span>
           <input name="1a.date" class="" type="text" size="10"
                  required="required" pattern="\d{1,2}/\d{1,2}/\d{4}"
                  value="{{date}}"/>
         </label>
       </td><td rowspan="2">
         <fieldset>
-          <legend>Severity:<span class="field-number">4</span></legend>
+          <legend>Severity<span class="field-number">4</span></legend>
           <label title="Life Threat">
             <input name="4.severity" type="radio"
                    required="required" value="EMERGENCY"/> Emergency
@@ -123,7 +123,7 @@
         From:
       </td><td>
         <fieldset>
-          <legend>ICS Position<span class="field-number">8</span></legend>
+          <legend>ICS Position:<span class="field-number">8</span></legend>
           <select name="8.from-ics-position" onchange="combobox_other_manager(this);" required="required">
             <option value="" disabled="disabled" selected="selected">Select one...</option>
             <option value="Incident Commander">Incident Commander</option>
@@ -141,11 +141,11 @@
       </td>
     </tr><tr>
       <td>
-        <label>Location<span class="field-number">9a</span>
+        <label>Location:<span class="field-number">9a</span>
           <input name="9a.to-location" type="text" required="required"/>
         </label>
       </td><td>
-        <label>Location<span class="field-number">9b</span>
+        <label>Location:<span class="field-number">9b</span>
           <input name="9b.from-location" type="text" required="required"/>
         </label>
       </td>
