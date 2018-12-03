@@ -659,9 +659,8 @@ var template_repl_func = {
 
     "time" : function (arg) {
         var now = new Date();
-        return (padded_int_str(now.getHours(), 2) + ":"
-                + padded_int_str(now.getMinutes(), 2) + ":"
-                + padded_int_str(now.getSeconds(), 2));
+        return (padded_int_str(now.getHours(), 2)
+                + padded_int_str(now.getMinutes(), 2));
     },
 
     "msgno" : function (arg) {
