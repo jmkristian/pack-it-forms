@@ -62,7 +62,7 @@
                 <input name="4.severity" type="radio"
                        required="required" value="URGENT"/> Urgent
               </label><label>
-                <input name="4.severity" type="radio" selected="selected"
+                <input name="4.severity" type="radio" checked="checked"
                        required="required" value="OTHER"/> Other
               </label>
             </fieldset>
@@ -78,7 +78,7 @@
                 <input name="5.handling" type="radio"
                        required="required" value="PRIORITY"/> Priority
               </label><label title="More than one hour">
-                <input name="5.handling" type="radio" selected="selected"
+                <input name="5.handling" type="radio" checked="checked"
                        required="required" value="ROUTINE"/> Routine
               </label>
             </fieldset>
@@ -636,12 +636,12 @@
                 Sent <input name="Rec-Sent" type="radio" value="Sent"/>
               </label>
             </span>
-          </td><td colspan="2" class="border-left">
+          </td><td class="border-left">
             <label class="label-sameline">Call Sign:
-              <input class="no-msg-init" name="OpCall" type="text" size="7"
+              <input class="no-msg-init" name="OpCall" type="text" size="8" style="width:auto;"
                      value="{{expand-while-null:{{envelope:ocall}},{{query-string:ocall}}}}"/>
             </label>
-            <label class="label-sameline">Name:
+            <label class="label-sameline"> Name:
               <input class="no-msg-init" name="OpName" type="text"
                      value="{{expand-while-null:{{envelope:oname}},{{query-string:oname}}}}"/>
             </label>
