@@ -10,7 +10,11 @@
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript">
       function comment_enabler(element, comment_name) {
-          return value_based_enabler(element, ['Problem', 'Failure'], comment_name, '');
+          value_based_enabler(element, ['Problem', 'Failure'], comment_name, '');
+          var comment = document.querySelector('[name="' + comment_name + '"]');
+          if (comment.enabled) {
+              comment.focus();
+          }
       }
     </script>
     <title>SCC OA Municipal Status</title>
@@ -105,6 +109,12 @@
                   <input name="6b.reply" type="radio" value="No"/> No
                 </label>
               </fieldset>
+              <script type="text/javascript">
+                startup_functions.push(function(next) {
+                    radio_enabler('6b.reply', ['Yes'], '6d.reply-by', '');
+                    next();
+                });
+              </script>
             </fieldset>
           </td>
         </tr><tr>

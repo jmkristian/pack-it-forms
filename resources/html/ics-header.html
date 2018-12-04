@@ -72,18 +72,18 @@
           </fieldset>
           <fieldset class="horizontal">
             <legend>Reply</legend>
-            <!-- <label> -->
-            <!--   <label> -->
-            <!--     <input name="6b.reply" type="radio" value="Yes"/> Yes -->
-            <!--   </label> -->
-            <!--   by: <input name="6c.reply-by" type="text" size="12"/> -->
-            <!-- </label> -->
             <label><input name="6b.reply" type="radio" value="Yes"/>Yes,</label>
             <label>by: <input name="6d.reply-by" type="text"/></label>
             <label>
               <input name="6b.reply" type="radio" value="No"/> No
             </label>
           </fieldset>
+          <script type="text/javascript">
+            startup_functions.push(function(next) {
+                radio_enabler('6b.reply', ['Yes'], '6d.reply-by', '');
+                next();
+            });
+          </script>
           <label>
             <input name="6c.fyi" type="checkbox"/>For your information (no action)
           </label>

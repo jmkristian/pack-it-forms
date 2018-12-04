@@ -999,6 +999,29 @@ function combobox_other_manager(e) {
     value_based_enabler(e, ["Other"], e.name + "-other", "");
 }
 
+/* Add event handlers that enable a target input iff selected radio buttons are checked. */
+function radio_enabler(radio_name, enabled_values, target_name, target_disabled_value) {
+    array_for_each(document.getElementsByName(radio_name), function(radio) {
+        radio.addEventListener("change", function(event) {
+            if (event.target.checked) {
+                array_for_each(document.getElementsByName(target_name), function(target) {
+                    if (array_contains(enabled_values, event.target.value)) {
+                        target.disabled = false;
+                        target.focus();
+                    } else {
+                        if (target_disabled_value !== undefined) {
+                            target.value = target_disabled_value;
+                        }
+                        target.disabled = true;
+                        fireEvent(target, "input");
+                    }
+                });
+                check_the_form_validity();
+            }
+        }, true);
+    });
+}
+
 /* Handle form data message visibility */
 var last_active_form_element;
 
