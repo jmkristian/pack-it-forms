@@ -22,25 +22,29 @@
       </div>
     </div>
     <form id="the-form" name="the-form">
-      <table id="form-row-1">
+      <table style="width:100%;">
         <tr>
-          <td class="block-caption" colspan="3">
+          <td class="block-caption">
             <h2 class="templated" style="color:blue;text-align:center;">{{title}}</h2>
           </td>
-        </tr><tr>
+        </tr>
+      </table>
+      <br/>
+      <table id="form-row-1" class="noborder">
+        <tr>
           <td>
             <label class="label-sameline">Sender's Msg #<span class="field-number">A</span>
-              <input name="2.txmsgno" class="" type="text" size="11" style="width:auto;"
+              <input name="2.txmsgno" class="" type="text" style="width:8em;"
                      value="{{query-string:txmsgno}}"/>
             </label>
           </td><td>
             <label class="label-sameline">My Msg #<span class="field-number">B</span>
-              <input name="MsgNo" class="no-msg-init" type="text" size="11" style="width:auto;"
+              <input name="MsgNo" class="no-msg-init" type="text" style="width:8em;"
                      required="required" value="{{expand-while-null:{{envelope:RCVNUM}},{{query-string:msgno}}}}"/>
             </label>
           </td><td>
             <label class="label-sameline">Receiver's Msg #<span class="field-number">C</span>
-              <input name="3.rxmsgno" class="no-msg-init" type="text" size="11" style="width:auto;"/>
+              <input name="3.rxmsgno" class="no-msg-init" type="text" style="width:8em;"/>
             </label>
           </td>
         </tr>
@@ -48,7 +52,7 @@
         <tr>
           <td>
             <label>Date:
-              <input name="1a.date" class="" type="text" size="10"
+              <input name="1a.date" class="" type="text"
                      required="required" pattern="\d{1,2}/\d{1,2}/\d{4}"
                      value="{{date}}"/>
             </label>
@@ -108,20 +112,21 @@
           </td>
         </tr>
       </table>
+      <br/>
       <div class="fullsize-textfields">
         <fieldset id="incident">
           <table>
             <tr>
-              <td style="padding-top:16px;padding-bottom:0;">
+              <td class="label" style="vertical-align:middle;">
                 <label class="bold">Incident Name:</label>
-              </td><td style="padding-top:14px;padding-bottom:0;" width="87%">
+              </td><td>
                 <input name="1.incident-name" required="required"
                        placeholder="or 'Incident independent'"/>
               </td>
             </tr><tr>
-              <td style="padding-top:16px;padding-bottom:0;">
+              <td class="label" style="vertical-align:middle;">
                 <label class="bold">Municipality:</label>
-              </td><td style="padding-top:14px;padding-bottom:0;">
+              </td><td>
                 <select name="2.municipality-name" required="required">
                   <option value="" disabled="disabled" selected="selected">
                     Select one...
@@ -149,7 +154,7 @@
         </fieldset>
         <fieldset id="contact-info" class="labeled-box">
           <legend>Contact Information</legend>
-          <table id="contact-info-table" class="fullsize-textfields">
+          <table id="contact-info-table">
             <tr>
               <td class="label"><label>EOC Phone:</label></td>
               <td>
@@ -327,9 +332,9 @@
           <legend>Current Situation</legend>
           <table>
             <tr>
-              <th style="text-align:left;" class="label">Type</th>
-              <th style="text-align:left;">Status</th>
-              <th style="text-align:left;" width="70%">Comments</th>
+              <th style="text-align:left;width:1px;" class="label">Type</th>
+              <th style="text-align:left;width:1px;">Status</th>
+              <th style="text-align:left;">Comments</th>
             </tr>
             <tr>
               <td class="label">Communications</td>
@@ -476,7 +481,7 @@
               </td>
             </tr>
             <tr>
-              <td class="label">Infrastructure (Power)</td>
+              <td class="label">Infrastructure<br/>(Power)</td>
               <td>
                 <select name="29.0.infrastructure-power" required="required"
                         onchange="value_based_enabler(this,
@@ -638,7 +643,7 @@
             </span>
           </td><td class="border-left">
             <label class="label-sameline">Call Sign:
-              <input class="no-msg-init" name="OpCall" type="text" size="8" style="width:auto;"
+              <input class="no-msg-init" name="OpCall" type="text" style="width:8em;"
                      value="{{expand-while-null:{{envelope:ocall}},{{query-string:ocall}}}}"/>
             </label>
             <label class="label-sameline"> Name:
