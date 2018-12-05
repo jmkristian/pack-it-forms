@@ -90,6 +90,10 @@ form label.label-sameline input {
     display: inline;;
     margin-left: 1em;
 }
+form label.label-sameline select {
+    display: inline;;
+    margin-left: 1em;
+}
 form fieldset label {
     display: block;
     font-weight: normal;
