@@ -1,37 +1,33 @@
 <div>
-  <table class="noborder">
+  <table class="noborder" style="width:auto;">
     <tr class="horizontal">
       <td>
         <select name="Rec-Sent">
           <option value="Sent">Sent</option>
           <option value="Received">Received</option>
         </select>
-        <label class="intext">via
-          <select name="Method">
-            <option value="Packet">Packet</option>
-            <option value="Voice">Voice</option>
-          </select>
-        </label>
-        <label class="label-sameline">by
-          <input name="OpCall" type="text"
-                 class="no-msg-init" style="width:6em;"
-                 placeholder="call sign"
-                 value="{{expand-while-null:{{envelope:ocall}},{{query-string:ocall}}}}"/>
-          <input name="OpName" type="text"
-                 class="no-msg-init" style="width:12em;"
-                 placeholder="name"
-                 value="{{expand-while-null:{{envelope:oname}},{{query-string:oname}}}}"/>
-        </label>
-        <label class="label-sameline">on
-          <input name="OpDate" type="text"
-                 class="no-msg-init init-on-submit" style="width:6em;"
-                 value="{{expand-while-null:{{envelope:ordate}},{{open-tmpl}}date{{close-tmpl}}}}" disabled="disabled"/>
-        </label>
-        <label class="label-sameline">at
-          <input name="OpTime" type="text"
-                 class="no-msg-init init-on-submit" style="width:6em;"
-                 value="{{expand-while-null:{{envelope:ortime}},{{open-tmpl}}time{{close-tmpl}}}}" disabled="disabled"/>
-        </label>
+        <label>via</label>
+        <select name="Method">
+          <option value="Packet">Packet</option>
+          <option value="Voice">Voice</option>
+        </select>
+        <label class="label-sameline">by</label>
+        <input name="OpCall" type="text"
+               class="no-msg-init" style="width:6em;"
+               placeholder="call sign"
+               value="{{expand-while-null:{{envelope:ocall}},{{query-string:ocall}}}}"/>
+        <input name="OpName" type="text"
+               class="no-msg-init" style="width:12em;"
+               placeholder="operator name"
+               value="{{expand-while-null:{{envelope:oname}},{{query-string:oname}}}}"/>
+        <label class="label-sameline">on</label>
+        <input name="OpDate" type="text"
+               class="no-msg-init init-on-submit" style="width:6em;"
+               value="{{expand-while-null:{{envelope:ordate}},{{open-tmpl}}date{{close-tmpl}}}}" disabled="disabled"/>
+        <label class="label-sameline">at</label>
+        <input name="OpTime" type="text"
+               class="no-msg-init init-on-submit" style="width:6em;"
+               value="{{expand-while-null:{{envelope:ortime}},{{open-tmpl}}time{{close-tmpl}}}}" disabled="disabled"/>
       </td>
     </tr>
   </table>
