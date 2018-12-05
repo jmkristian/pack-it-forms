@@ -1,0 +1,90 @@
+<div>
+  <table id="form-row-1" class="noborder">
+    <tr>
+      <td>
+        <label class="label-sameline">Sender's Msg #<span class="field-number">A</span>
+          <input name="2.txmsgno" class="" type="text"
+                 value="{{query-string:txmsgno}}"/>
+        </label>
+      </td><td>
+        <label class="label-sameline">My Msg #<span class="field-number">B</span>
+          <input name="MsgNo" class="no-msg-init" type="text"
+                 required="required" value="{{expand-while-null:{{envelope:RCVNUM}},{{query-string:msgno}}}}"/>
+        </label>
+      </td><td>
+        <label class="label-sameline">Receiver's Msg #<span class="field-number">C</span>
+          <input name="3.rxmsgno" class="no-msg-init" type="text"/>
+        </label>
+      </td>
+    </tr>
+  </table><table id="form-row-2">
+    <tr>
+      <td>
+        <label>Date:
+          <input name="1a.date" class="" type="text"
+                 required="required" pattern="\d{1,2}/\d{1,2}/\d{4}"
+                 value="{{date}}"/>
+        </label>
+      </td><td rowspan="2">
+        <fieldset>
+          <legend>Severity<span class="field-number">D</span></legend>
+          <label title="Life Threat">
+            <input name="4.severity" type="radio"
+                   required="required" value="EMERGENCY"/> Emergency
+          </label><label title="Property Threat">
+            <input name="4.severity" type="radio"
+                   required="required" value="URGENT"/> Urgent
+          </label><label>
+            <input name="4.severity" type="radio"
+                   required="required" value="OTHER"/> Other
+          </label>
+        </fieldset>
+      </td><td rowspan="2">
+        <fieldset>
+          <legend>Message Handling Order
+            <span class="field-number">E</span>
+          </legend>
+          <label title="As soon as possible">
+            <input name="5.handling" type="radio"
+                   required="required" value="IMMEDIATE"/> Immediate
+          </label><label title="Less than one hour">
+            <input name="5.handling" type="radio"
+                   required="required" value="PRIORITY"/> Priority
+          </label><label title="More than one hour">
+            <input name="5.handling" type="radio"
+                   required="required" value="ROUTINE"/> Routine
+          </label>
+        </fieldset>
+      </td><td rowspan="2">
+        <fieldset>
+          <legend>Message Requests You To:
+            <span class="field-number">F</span>
+          </legend>
+          <br/>
+          <fieldset class="horizontal">
+            <legend>Reply</legend>
+            <label><input name="6b.reply" type="radio" value="Yes"/>Yes,</label>
+            <label>by: <input name="6d.reply-by" type="text"/></label>
+            <label>
+              <input name="6b.reply" type="radio" value="No"/> No
+            </label>
+          </fieldset>
+          <script type="text/javascript">
+            startup_functions.push(function(next) {
+                radio_enabler('6b.reply', ['Yes'], '6d.reply-by', '');
+                next();
+            });
+          </script>
+        </fieldset>
+      </td>
+    </tr><tr>
+      <td>
+        <label>Time:
+          <input name="1b.time" class="" type="text"
+                 required="required" pattern="\d{4}"
+                 value="{{time}}"/>
+        </label>
+      </td>
+    </tr>
+  </table>
+</div>
