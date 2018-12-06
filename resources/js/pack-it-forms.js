@@ -980,14 +980,17 @@ value of the element on which it is add is in the list
 element is disabled and the targets balue is set to
 'target_disabled_value'. */
 function value_based_enabler(e, enabledValues, target_name, target_disabled_value) {
-    var target = document.querySelector("[name=\""+target_name+"\"]");
-    if (array_contains(enabledValues, e.value)) {
-        target.disabled = false;
-    } else {
-        target.value = target_disabled_value;
-        target.disabled = true;
-    }
-    fireEvent(target, 'input');
+    array_for_each(document.getElementsByName(target_name), function(target) {
+        if (array_contains(enabledValues, e.value)) {
+            target.disabled = false;
+        } else {
+            if (target_disabled_value !== undefined) {
+                target.value = target_disabled_value;
+            }
+            target.disabled = true;
+        }
+        fireEvent(target, 'input');
+    });
     check_the_form_validity();
 }
 
