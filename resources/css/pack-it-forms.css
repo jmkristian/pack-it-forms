@@ -74,6 +74,7 @@ form select {
 }
 form textarea {
     display: block;
+    font-size: 133%;
     width: 100%;
     resize: vertical;
     white-space: pre-wrap;
@@ -368,6 +369,7 @@ form input.init-on-submit {
     display: block;
     unicode-bidi: embed;
     font-family: monospace;
+    font-size: 133%;
     white-space: pre-wrap;
     width: 100%;
 }
