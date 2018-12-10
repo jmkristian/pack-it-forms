@@ -4,17 +4,17 @@
     <tr>
       <td>
         <label class="label-sameline">Sender's Msg #<span class="field-number">A</span>
-          <input name="2.txmsgno" class="" type="text"
+          <input name="2.txmsgno" class="" type="text" tabindex="-1"
                  value="{{query-string:txmsgno}}"/>
         </label>
       </td><td>
         <label class="label-sameline">My Msg #<span class="field-number">B</span>
-          <input name="MsgNo" class="no-msg-init" type="text"
+          <input name="MsgNo" class="no-msg-init" type="text" tabindex="1"
                  required="required" value="{{expand-while-null:{{envelope:RCVNUM}},{{query-string:msgno}}}}"/>
         </label>
       </td><td>
         <label class="label-sameline">Receiver's Msg #<span class="field-number">C</span>
-          <input name="3.rxmsgno" class="no-msg-init" type="text"/>
+          <input name="3.rxmsgno" class="no-msg-init" type="text" tabindex="-1"/>
         </label>
       </td>
     </tr>
@@ -22,7 +22,7 @@
     <tr>
       <td>
         <label>Date:
-          <input name="1a.date" class="" type="text"
+          <input name="1a.date" class="" type="text" tabindex="2"
                  required="required" pattern="\d{1,2}/\d{1,2}/\d{4}"
                  value="{{date}}"/>
         </label>
@@ -30,14 +30,14 @@
         <fieldset>
           <legend>Severity<span class="field-number">D</span></legend>
           <label title="Life Threat">
-            <input name="4.severity" type="radio"
+            <input name="4.severity" type="radio" tabindex="4"
                    onchange="if (this.checked) init_form_from_fields({'5.handling': 'IMMEDIATE'}, 'name');"
                    required="required" value="EMERGENCY"/> Emergency
           </label><label title="Property Threat">
-            <input name="4.severity" type="radio"
+            <input name="4.severity" type="radio" tabindex="4"
                    required="required" value="URGENT"/> Urgent
           </label><label>
-            <input name="4.severity" type="radio"
+            <input name="4.severity" type="radio" tabindex="4"
                    required="required" value="OTHER"/> Other
           </label>
         </fieldset>
@@ -47,13 +47,13 @@
             <span class="field-number">E</span>
           </legend>
           <label title="As soon as possible">
-            <input name="5.handling" type="radio"
+            <input name="5.handling" type="radio" tabindex="5"
                    required="required" value="IMMEDIATE"/> Immediate
           </label><label title="Less than one hour">
-            <input name="5.handling" type="radio"
+            <input name="5.handling" type="radio" tabindex="5"
                    required="required" value="PRIORITY"/> Priority
           </label><label title="More than one hour">
-            <input name="5.handling" type="radio"
+            <input name="5.handling" type="radio" tabindex="5"
                    required="required" value="ROUTINE"/> Routine
           </label>
         </fieldset>
@@ -65,10 +65,10 @@
           <br/>
           <fieldset class="horizontal">
             <legend>Reply</legend>
-            <label><input name="6b.reply" type="radio" value="Yes"/>Yes,</label>
+            <label><input name="6b.reply" type="radio" value="Yes" tabindex="7"/>Yes,</label>
             <label>by: <input name="6d.reply-by" type="text"/></label>
             <label>
-              <input name="6b.reply" type="radio" value="No"/> No
+              <input name="6b.reply" type="radio" value="No" tabindex="7"/> No
             </label>
           </fieldset>
           <script type="text/javascript">
@@ -82,7 +82,7 @@
     </tr><tr>
       <td>
         <label>Time:
-          <input name="1b.time" class="" type="text"
+          <input name="1b.time" class="" type="text" tabindex="3"
                  required="required" pattern="\d{1,2}:\d{2}(:\d{2})?"
                  value="{{time}}"/>
         </label>

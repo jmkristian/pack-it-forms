@@ -55,14 +55,14 @@
             <td class="label" style="vertical-align:middle;">
               <label class="bold">Incident Name:</label>
             </td><td>
-              <input name="20.incident-name" required="required"
+              <input name="20.incident-name" required="required" tabindex="20"
                      placeholder="or 'Incident independent'"/>
             </td>
           </tr><tr>
             <td class="label" style="vertical-align:middle;">
               <label class="bold">Municipality:</label>
             </td><td>
-              <select name="10.subject" required="required">
+              <select name="10.subject" required="required" tabindex="21">
                 <option value="" disabled="disabled" selected="selected">
                   Select one...
                 </option>
@@ -93,36 +93,36 @@
           <tr>
             <td class="label"><label>EOC Phone:</label></td>
             <td>
-              <input name="23.eoc-phone"
+              <input name="23.eoc-phone" tabindex="23"
                      style="width:8em;"
                      placeholder="000-000-0000"
                      pattern="\(?[0-9]{3}\)?[ -]?[0-9]{3}[ -]?[0-9]{4}"/>
             </td>
             <td class="label"><label>EOC Fax:</label></td>
             <td>
-              <input name="24.eoc-fax"
+              <input name="24.eoc-fax" tabindex="24"
                      style="width:8em;"
                      placeholder="000-000-0000"
                      pattern="\(?[0-9]{3}\)?[ -]?[0-9]{3}[ -]?[0-9]{4}"/>
             </td>
           </tr><tr>
             <td class="label"><label>Primary EM Contact Name:</label></td>
-            <td><input name="25.pri-em-contact-name" required="required"
+            <td><input name="25.pri-em-contact-name" required="required" tabindex="25"
                        style="width:15em;"></td>
             <td class="label"><label>Primary EM Contact Phone:</label></td>
             <td>
-              <input name="26.pri-em-contact-phone" required="required"
+              <input name="26.pri-em-contact-phone" required="required" tabindex="26"
                      style="width:8em;"
                      placeholder="000-000-0000"
                      pattern="\(?[0-9]{3}\)?[ -]?[0-9]{3}[ -]?[0-9]{4}"/>
             </td>
           </tr><tr>
             <td class="label"><label>Secondary EM Contact Name:</label></td>
-            <td><input name="27.sec-em-contact-name"
+            <td><input name="27.sec-em-contact-name" tabindex="27"
                        style="width:15em;"/></td>
             <td class="label"><label>Secondary EM Contact Phone:</label></td>
             <td>
-              <input name="28.sec-em-contact-phone"
+              <input name="28.sec-em-contact-phone" tabindex="28"
                      style="width:8em;"
                      placeholder="000-000-0000"
                      pattern="\(?[0-9]{3}\)?[ -]?[0-9]{3}[ -]?[0-9]{4}"/>
@@ -138,7 +138,7 @@
               <label for="office-status">Office Status:</label>
             </td><td>
               <select name="29.office-status">
-                <option value="Unknown" selected="selected">Unknown</option>
+                <option value="" selected="selected">Unknown</option>
                 <option value="Open">Open</option>
                 <option value="Closed">Closed</option>
               </select>
@@ -185,13 +185,10 @@
             <td class="label">
               <label for="office-status">EOC Open:</label>
             </td><td>
-              <select name="34.eoc-open" required="required"
+              <select name="34.eoc-open" required="required" tabindex="34"
                       onchange="value_based_enabler(this, ['Yes'],
                                 '35.eoc-activation-level', 'Not applicable');">
-                <option value="Unknown" selected="selected"
-                        disabled="disabled">
-                  Unknown
-                </option>
+                <option value="" selected="selected" disabled="disabled">Unknown</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
@@ -199,12 +196,9 @@
             <td class="label">
               <label for="activation-level">Activation Level:</label>
             </td><td>
-              <select name="35.eoc-activation-level" required="required"
+              <select name="35.eoc-activation-level" required="required" tabindex="35"
                       disabled="disabled">
-                <option value="Not applicable" selected="selected"
-                        disabled="disabled">
-                  Not Applicable
-                </option>
+                <option value="" selected="selected" disabled="disabled">Not Applicable</option>
                 <option value="Unknown">Unknown</option>
                 <option value="Monitor">Monitor</option>
                 <option value="Minimal">Minimal</option>
@@ -249,8 +243,8 @@
             <td class="label">
               <label for="state-of-emergency" class="label-sameline">State of Emergency:</label>
             </td><td>
-              <select name="40.state-of-emergency" required="required">
-                <option value="Unknown" selected="selected" disabled="disabled">Unknown</option>
+              <select name="40.state-of-emergency" required="required" tabindex="40">
+                <option value="" selected="selected" disabled="disabled">Unknown</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
@@ -280,7 +274,7 @@
           <tr>
             <td class="label">Communications</td>
             <td>
-              <select name="41.0.communications" required="required"
+              <select name="41.0.communications" required="required" tabindex="41"
                       onchange="comment_enabler(this, '41.1.communications-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -296,7 +290,7 @@
           <tr>
             <td class="label">Debris</td>
             <td>
-              <select name="42.0.debris" required="required"
+              <select name="42.0.debris" required="required" tabindex="42"
                       onchange="comment_enabler(this, '42.1.debris-comments')"> 
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -312,7 +306,7 @@
           <tr>
             <td class="label">Flooding</td>
             <td>
-              <select name="43.0.flooding" required="required"
+              <select name="43.0.flooding" required="required" tabindex="43"
                       onchange="comment_enabler(this, '43.1.flooding-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -328,7 +322,7 @@
           <tr>
             <td class="label">Hazmat</td>
             <td>
-              <select name="44.0.hazmat" required="required"
+              <select name="44.0.hazmat" required="required" tabindex="44"
                       onchange="comment_enabler(this, '44.1.hazmat-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -344,7 +338,7 @@
           <tr>
             <td class="label">Emergency Services</td>
             <td>
-              <select name="45.0.emergency-services" required="required"
+              <select name="45.0.emergency-services" required="required" tabindex="45"
                       onchange="comment_enabler(this, '45.1.emergency-services-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -360,7 +354,7 @@
           <tr>
             <td class="label">Casualties</td>
             <td>
-              <select name="46.0.casualties" required="required"
+              <select name="46.0.casualties" required="required" tabindex="46"
                       onchange="comment_enabler(this, '46.1.casualties-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -376,7 +370,7 @@
           <tr>
             <td class="label">Utilities (Gas)</td>
             <td>
-              <select name="47.0.utilities-gas" required="required"
+              <select name="47.0.utilities-gas" required="required" tabindex="47"
                       onchange="comment_enabler(this, '47.1.utilities-gas-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -392,7 +386,7 @@
           <tr>
             <td class="label">Utilites (Electric)</td>
             <td>
-              <select name="48.0.utilities-electric" required="required"
+              <select name="48.0.utilities-electric" required="required" tabindex="48"
                       onchange="comment_enabler(this, '48.1.utilities-electric-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -408,7 +402,7 @@
           <tr>
             <td class="label">Infrastructure<br/>(Power)</td>
             <td>
-              <select name="49.0.infrastructure-power" required="required"
+              <select name="49.0.infrastructure-power" required="required" tabindex="49"
                       onchange="comment_enabler(this, '49.1.infrastructure-power-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -424,7 +418,7 @@
           <tr>
             <td class="label">Infrastructure<br/>(Water Systems)</td>
             <td>
-              <select name="50.0.infrastructure-water-systems" required="required"
+              <select name="50.0.infrastructure-water-systems" required="required" tabindex="50"
                       onchange="comment_enabler(this, '50.1.infrastructure-water-systems-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -440,7 +434,7 @@
           <tr>
             <td class="label">Infrastructure<br/>(Sewer Systems)</td>
             <td>
-              <select name="51.0.infrastructure-sewer-systems" required="required"
+              <select name="51.0.infrastructure-sewer-systems" required="required" tabindex="51"
                       onchange="comment_enabler(this, '51.1.infrastructure-sewer-systems-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -456,7 +450,7 @@
           <tr>
             <td class="label">Search and Rescue</td>
             <td>
-              <select name="52.0.search-and-rescue" required="required"
+              <select name="52.0.search-and-rescue" required="required" tabindex="52"
                       onchange="comment_enabler(this, '52.1.search-and-rescue-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -472,7 +466,7 @@
           <tr>
             <td class="label">Transportation (Roads)</td>
             <td>
-              <select name="53.0.transportation-roads" required="required"
+              <select name="53.0.transportation-roads" required="required" tabindex="53"
                       onchange="comment_enabler(this, '53.1.transportation-roads-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -488,7 +482,7 @@
           <tr>
             <td class="label">Transportation (Bridges)</td>
             <td>
-              <select name="54.0.transportation-bridges" required="required"
+              <select name="54.0.transportation-bridges" required="required" tabindex="54"
                       onchange="comment_enabler(this, '54.1.transportation-bridges-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -504,7 +498,7 @@
           <tr>
             <td class="label">Civil Unrest</td>
             <td>
-              <select name="55.0.civil-unrest" required="required"
+              <select name="55.0.civil-unrest" required="required" tabindex="55"
                       onchange="comment_enabler(this, '55.1.civil-unrest-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>
@@ -520,7 +514,7 @@
           <tr>
             <td class="label">Animal Issues</td>
             <td>
-              <select name="56.0.animal-issues" required="required"
+              <select name="56.0.animal-issues" required="required" tabindex="56"
                       onchange="comment_enabler(this, '56.1.animal-issues-comments')">
                 <option value="Unknown" selected="selected">Unknown</option>
                 <option value="Normal">Normal</option>

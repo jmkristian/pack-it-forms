@@ -7,22 +7,22 @@
       </td>
     </tr><tr>
       <td>
-        <textarea name="13.action-taken" rows="3" cols="80" wrap="hard"></textarea>
+        <textarea name="13.action-taken" rows="3" cols="80" wrap="hard" tabindex="100"></textarea>
       </td>
     </tr><tr>
       <td>
         <fieldset class="horizontal">
           <label class="bold">CC: 
           </label><label>
-            <input name="CCMgt" type="checkbox" value="Yes"/>Management
+            <input name="CCMgt" type="checkbox" value="Yes" tabindex="101"/>Management
           </label><label>
-            <input name="CCOps" type="checkbox" value="Yes"/> Operations
+            <input name="CCOps" type="checkbox" value="Yes" tabindex="102"/> Operations
           </label><label>
-            <input name="CCPlan" type="checkbox" value="Yes"/> Planning
+            <input name="CCPlan" type="checkbox" value="Yes" tabindex="103"/> Planning
           </label><label>
-            <input name="CCLog" type="checkbox" value="Yes"/> Logistics
+            <input name="CCLog" type="checkbox" value="Yes" tabindex="104"/> Logistics
           </label><label>
-            <input name="CCFin" type="checkbox" value="Yes"/> Finance
+            <input name="CCFin" type="checkbox" value="Yes" tabindex="105"/> Finance
           </label>
         </fieldset>
       </td>
@@ -38,71 +38,71 @@
         <span class="bold">
           How
           <label class="intext">
-            Received <input name="Rec-Sent" type="radio" value="Received"/>
+            Received <input name="Rec-Sent" type="radio" value="Received" tabindex="106"/>
           </label>
           or
           <label class="intext">
-            Sent <input name="Rec-Sent" type="radio" value="Sent"/>
+            Sent <input name="Rec-Sent" type="radio" value="Sent" tabindex="106"/>
           </label>
         </span>
       </td><td colspan="2" class="border-left">
         <label class="label-sameline">Operator Call Sign:
-          <input class="no-msg-init" name="OpCall" type="text"
+          <input class="no-msg-init" name="OpCall" type="text" tabindex="108"
                  value="{{expand-while-null:{{envelope:ocall}},{{query-string:ocall}}}}"/>
         </label>
       </td>
     </tr><tr class="horizontal">
       <td>
         <label>
-          <input name="Method" type="radio" value="Telephone"/> Telephone
+          <input name="Method" type="radio" value="Telephone" tabindex="107"/> Telephone
         </label>
       </td>
       <td colspan="2">
         <label>
-          <input name="Method" type="radio" value="Dispatch Center"/> Dispatch Center
+          <input name="Method" type="radio" value="Dispatch Center" tabindex="107"/> Dispatch Center
         </label>
       </td>
       <td colspan="2" class="border-left">
         <label class="label-sameline">Operator Name:
-          <input class="no-msg-init" name="OpName" type="text"
+          <input class="no-msg-init" name="OpName" type="text" tabindex="109"
                  value="{{expand-while-null:{{envelope:oname}},{{query-string:oname}}}}"/>
         </label>
       </td>
     </tr><tr class="horizontal">
       <td>
         <label>
-          <input name="Method" type="radio" value="EOC Radio"/> EOC Radio
+          <input name="Method" type="radio" value="EOC Radio" tabindex="107"/> EOC Radio
         </label>
       </td><td>
         <label>
-          <input name="Method" type="radio" value="FAX"/> FAX
+          <input name="Method" type="radio" value="FAX" tabindex="107"/> FAX
         </label>
       </td><td>
         <label>
-          <input name="Method" type="radio" value="Courier"/> Courier
+          <input name="Method" type="radio" value="Courier" tabindex="107"/> Courier
         </label>
       </td><td colspan="2" class="border-left">
       </td>
     </tr><tr class="horizontal">
       <td>
         <label>
-          <input name="Method" type="radio" value="Amateur Radio"/> Amateur Radio
+          <input name="Method" type="radio" value="Amateur Radio" tabindex="107"/> Amateur Radio
         </label>
       </td><td colspan="2">
         <label>
-          <input name="Method" type="radio" value="Other" checked="checked"/> Other:
+          <input name="Method" type="radio" value="Other" checked="checked" tabindex="107"/> Other:
         </label>
         <label>
-          <input name="Other" type="text" value="Packet"/>
+          <input name="Other" type="text" value="Packet" tabindex="-1"/>
         </label>
       </td><td class="border-left">
         <label class="label-sameline">Date:
-          <input name="OpDate" class="no-msg-init init-on-submit" type="text"
+          <input name="OpDate" class="no-msg-init init-on-submit" type="text" tabindex="110"
                  value="{{expand-while-null:{{envelope:ordate}},{{open-tmpl}}date{{close-tmpl}}}}" disabled="disabled"/>
         </label>
       </td><td>
         <label class="label-sameline">Time:
-          <input name="OpTime" class="no-msg-init init-on-submit" type="text"
+          <input name="OpTime" class="no-msg-init init-on-submit" type="text" tabindex="111"
                  value="{{expand-while-null:{{envelope:ortime}},{{open-tmpl}}time{{close-tmpl}}}}" disabled="disabled"/>
         </label>
       </td>
