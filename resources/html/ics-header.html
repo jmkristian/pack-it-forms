@@ -32,6 +32,7 @@
           <legend>Severity<span class="field-number">4</span></legend>
           <label title="Life Threat">
             <input name="4.severity" type="radio"
+                   onchange="if (this.checked) init_form_from_fields({'5.handling': 'IMMEDIATE'}, 'name');"
                    required="required" value="EMERGENCY"/> Emergency
           </label><label title="Property Threat">
             <input name="4.severity" type="radio"
