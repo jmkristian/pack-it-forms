@@ -5,17 +5,17 @@
       <td><h1 class="templated">{{title}}</h1></td>
       <td>
         <label>Sender's Msg #<span class="field-number">2</span>
-          <input name="2.txmsgno" class="" type="text" tabindex="-1"
+          <input name="2.txmsgno" class="message-number" type="text" tabindex="-1"
                  value="{{query-string:txmsgno}}"/>
         </label>
       </td><td>
         <label>My Msg #<span class="field-number"> </span>
-          <input name="MsgNo" class="no-msg-init" type="text" tabindex="1"
+          <input name="MsgNo" class="message-number no-msg-init" type="text" tabindex="1"
                  required="required" value="{{expand-while-null:{{envelope:RCVNUM}},{{query-string:msgno}}}}"/>
         </label>
       </td><td>
         <label>Receiver's Msg #<span class="field-number">3</span>
-          <input name="3.rxmsgno" class="no-msg-init" type="text" tabindex="-1"/>
+          <input name="3.rxmsgno" class="message-number no-msg-init" type="text" tabindex="-1"/>
         </label>
       </td>
     </tr>
@@ -23,8 +23,8 @@
     <tr>
       <td>
         <label>Date:<span class="field-number">1a</span>
-          <input name="1a.date" class="" type="text" size="10" tabindex="2"
-                 required="required" pattern="\d{1,2}/\d{1,2}/\d{4}"
+          <input name="1a.date" class="date" type="text" size="10" tabindex="2"
+                 required="required"
                  value="{{date}}"/>
         </label>
       </td><td rowspan="2">
@@ -93,8 +93,8 @@
     </tr><tr>
       <td>
         <label>Time:<span class="field-number">1b</span>
-          <input name="1b.time" class="" type="text" tabindex="3"
-                 required="required" pattern="\d{1,2}:\d{2}(:\d{2})?"
+          <input name="1b.time" class="time" type="text" tabindex="3"
+                 required="required"
                  value="{{time}}"/>
         </label>
       </td>

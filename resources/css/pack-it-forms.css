@@ -322,7 +322,15 @@ form input.init-on-submit {
     background-color: transparent;
     border-color: transparent;
 }
-
+form input.date {
+    width: 6em;
+}
+form input.time {
+    width: 6em;
+}
+form input.message-number {
+    width: 7em;
+}
 
 /* Prevent things from getting overly wide or narrow */
 #the-form {
