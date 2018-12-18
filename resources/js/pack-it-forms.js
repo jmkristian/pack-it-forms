@@ -1093,15 +1093,17 @@ function setup_view_mode(next) {
         }
     } else { // not readonly
         array_for_each(form.elements, function (el) {
-            if (el.classList.contains("date")) {
-                if (!el.placeholder && !el.readonly) {
+            if (el.disabled || el.readOnly) {
+                el.tabIndex = "-1"; // Don't tab to this element.
+            } else if (el.classList.contains("date")) {
+                if (!el.placeholder) {
                     el.placeholder = "mm/dd/yyyy";
                 }
                 if (!el.pattern) {
                     el.pattern = "(0[1-9]|1[012])/(0[1-9]|1[0-9]|2[0-9]|3[01])/[1-2][0-9][0-9][0-9]";
                 }
             } else if (el.classList.contains("time")) {
-                if (!el.placeholder && !el.readonly) {
+                if (!el.placeholder) {
                     el.placeholder = "hh:mm";
                 }
                 if (!el.pattern) {
