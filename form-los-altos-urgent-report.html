@@ -40,7 +40,7 @@
           <td style="width:60%;"><input name="10.subject" type="text" required/></td>
           <td class="label">Our Msg #</td>
           <td>
-            <input name="MsgNo" type="text" class="no-msg-init" required="required"
+            <input name="MsgNo" type="text" class="message-number no-msg-init" required
                    value="{{expand-while-null:{{envelope:RCVNUM}},{{query-string:msgno}}}}"/>
           </td>
         </tr><tr>
@@ -48,20 +48,16 @@
           <td><input name="22.crossStreet" type="text"/></td>
           <td class="label">Date:</td>
           <td>
-            <input name="1a.date" class="" type="text" size="12"
-                   required="required" pattern="\d{1,2}/\d{1,2}/\d{4}"
-                   value="{{date}}"/>
+            <input name="1a.date" type="text" class="date" value="{{date}}" required/>
           </td>
         </tr><tr>
           <td rowspan="4" class="label" style="vertical-align:top">Description:</td>
           <td rowspan="4">
-            <textarea name="23.description" rows="5" required="required"></textarea>
+            <textarea name="23.description" rows="5" required></textarea>
           </td>
           <td class="label">Time:</td>
           <td>
-            <input name="1b.time" class="" type="text" size="10"
-                   required="required" pattern="\d{1,2}:\d{2}(:\d{2})?"
-                   value="{{time}}"/>
+            <input name="1b.time" type="text" class="time" value="{{time}}" required/>
           </td>
         </tr><tr>
           <td class="label">BAT #</td>
@@ -72,8 +68,8 @@
         </tr><tr>
           <td class="label">Their Msg #</td>
           <td>
-            <input name="2.txmsgno" type="text" readOnly="true"
-                   value="{{query-string:txmsgno}}"/>
+            <input name="2.txmsgno" type="text" readonly
+                   class="message-number" value="{{query-string:txmsgno}}"/>
           </td>
         </tr>
       </table>
