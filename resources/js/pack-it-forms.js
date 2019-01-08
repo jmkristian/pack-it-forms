@@ -18,7 +18,9 @@
 
 /* --- Commonly used global objects */
 var query_object = {};     // Cached query string parameters
-var outpost_envelope = {}; // Cached outpost envelop information
+var outpost_envelope = {
+    subject: "{{field:MsgNo}}_{{field:4.severity|truncate:1}}/{{field:5.handling|truncate:1}}_{{title|split:: |nth:0}}_{{field:10.subject|expandtmpl}}"
+};
 var callprefixes = {};     // Cached call prefixes for expansion
 var msgfields = {};        // Cached message field values
 var versions = {};         // Version information
@@ -203,7 +205,10 @@ function parse_form_data_text(text) {
         }
         if (line.match(/^!OUTPOST! /)) {
             // Grab outpost data fields and store for substitution
-            outpost_envelope = outpost_envelope_to_object(line);
+            var fromOutpost = outpost_envelope_to_object(line);
+            for (var key in fromOutpost) {
+                outpost_envelope[key] = fromOutpost[key];
+            }
             return;
         }
         if (line.match(/^!.*!/)) {
@@ -956,8 +961,8 @@ function email_submit(e) {
     e.preventDefault();
     if (check_the_form_validity()) {
         var pacforms_rep = document.querySelector("#form-data").value;
-        // Use the subject line of the generated form, like outpost does
-        var subject = pacforms_rep.slice(6).split('\n',1)[0];
+        // Use the same subject as Outpost
+        var subject = expand_template(outpost_envelope.subject);
         document.location = "mailto:?to="
                           + "&Content-Type=application/pack-it-forms"
                           + "&Subject=" + encodeURIComponent(subject)
