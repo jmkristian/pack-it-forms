@@ -312,11 +312,12 @@ function init_form_from_fields(fields, attribute, className) {
             if (element.classList.contains("no-msg-init")) {
                 return true;
             }
-            if (init_from_msg_funcs.hasOwnProperty(element.type)) {
+            var type = element.type || element.tagName;
+            if (init_from_msg_funcs.hasOwnProperty(type)) {
                 if (className) {
                     element.classList.add(className);
                 }
-                var stop = init_from_msg_funcs[element.type](element, fields[field]);
+                var stop = init_from_msg_funcs[type](element, fields[field]);
                 fireEvent(element, 'change');
                 return stop;
             } else {
@@ -335,6 +336,10 @@ multiple elements, like radiobuttons.  A return value of true means
 that the caller should stop processing; any other return means that
 the caller should continue. */
 var init_from_msg_funcs = {
+    "TD": function(element, value) {
+        element.innerHTML = value;
+        return true;
+    },
     "text": function(element, value) {
         element.value = value;
         return true;
