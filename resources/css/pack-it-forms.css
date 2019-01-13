@@ -74,6 +74,7 @@ form select {
 }
 form textarea {
     display: block;
+    font-family: consolas,monaco,profont,monospace;
     font-weight: bold;
     width: 100%;
     resize: vertical;
@@ -193,7 +194,7 @@ table ~ table :first-child:first-child > td {
     margin-left: 2.5%;
     margin-right: 2.5%;
     margin-top: 4em;
-    font-family: consolas,monospace;
+    font-family: consolas,monaco,profont,monospace;
     white-space: pre;
     border: 2px solid black;
     height: calc(50% - 4em);
@@ -259,7 +260,7 @@ td.border-left {
 }
 
 #error-log {
-    font-family: consolas,monospace;
+    font-family: consolas,monaco,profont,monospace;
     margin: 3ex 0 0;
     padding-top: 1ex;
     font-size: 10pt;
@@ -376,7 +377,7 @@ form input.message-number {
     min-height: 3ex;
     display: block;
     unicode-bidi: embed;
-    font-family: consolas,monospace;
+    font-family: consolas,monaco,profont,monospace;
     font-weight: bold;
     white-space: pre-wrap;
     width: 100%;
