@@ -8,6 +8,13 @@
     <link rel="stylesheet" type="text/css" href="resources/css/ics-footer.css"/>
     <link rel="stylesheet" type="text/css" href="resources/css/form-ics213.css"/>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
+    <script type="text/javascript">
+      startup_functions.push(function(next) {
+          document.getElementById('button-header').innerHTML +=
+              '<a href="ICS-213_SCC_Message_Form_06-28-07_Fillable.pdf" style="margin-left:0.5em;">Show PDF</a>';
+          next();
+      });
+    </script>
     <title>EOC Message Form</title>
   </head>
 
