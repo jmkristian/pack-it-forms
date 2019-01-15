@@ -1071,6 +1071,7 @@ function setup_view_mode(next) {
         hide_element(document.querySelector("#email-submit"));
         hide_element(document.querySelector("#show-hide-data"));
         hide_element(document.querySelector("#clear-form"));
+        hide_element(document.querySelector("#show-PDF-form"));
         /* In view mode, we don't want to show the input control chrome.  This
            is difficult to do with textareas which might need scrollbars, etc.
            so insert a div with the same contents and use CSS to appropriately
@@ -1164,8 +1165,10 @@ function create_text_div(text, className) {
 }
 
 function hide_element(element) {
-    element.hidden = "true";
-    element.classList.add("hidden");
+    if (element) {
+        element.hidden = "true";
+        element.classList.add("hidden");
+    }
 }
 
 /* Make forEach() & friends easier to use on Array-like objects
@@ -1352,6 +1355,14 @@ function startup_delay(next) {
     }, 10000);
 }
 
+function add_startup_function(toAdd, before) {
+    var index = before ? startup_functions.indexOf(before) : -1;
+    if (index < 0) {
+        startup_functions.push(toAdd);
+    } else {
+        startup_functions.splice(index, 0, toAdd);
+    }
+}
 
 /* --- Registration of startup functions that run on page load */
 
