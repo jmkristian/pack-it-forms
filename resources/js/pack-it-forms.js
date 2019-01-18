@@ -914,8 +914,12 @@ function load_callprefix(next) {
 /* --- Form related utility functions */
 
 /* Clear the form to original contents */
-function clear_form(event) {
-    document.getElementById('the-form').reset();
+function clear_form() {
+    var the_form = document.getElementById('the-form');
+    the_form.reset();
+    array_for_each(the_form.elements, function(element) {
+        element.classList.remove('msg-value');
+    });
     set_form_default_values();
     expand_templated_items();
     check_the_form_validity();
