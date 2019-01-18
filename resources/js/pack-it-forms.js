@@ -914,9 +914,12 @@ function load_callprefix(next) {
 /* --- Form related utility functions */
 
 /* Clear the form to original contents */
-function clear_form() {
-    document.querySelector("#the-form").reset();
-    set_form_data_div("");
+function clear_form(event) {
+    document.getElementById('the-form').reset();
+    set_form_default_values();
+    expand_templated_items();
+    check_the_form_validity();
+    write_pacforms_representation();
 }
 
 /* Check whether the form is valid */
@@ -969,11 +972,6 @@ function email_submit(e) {
                           + "&body=" + encodeURIComponent(pacforms_rep);
     }
     return false;
-}
-
-/* Function invoked to clear the form */
-function clear_form(e) {
-    document.location.reload();
 }
 
 /* Enable or disable a different control based on onChange values
