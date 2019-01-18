@@ -964,7 +964,7 @@ function email_submit(e) {
         // Use the same subject as Outpost
         var subject = expand_template(outpost_envelope.subject);
         document.location = "mailto:?to="
-                          + "&Content-Type=application/pack-it-forms"
+                          + "&Content-Type=text/plain"
                           + "&Subject=" + encodeURIComponent(subject)
                           + "&body=" + encodeURIComponent(pacforms_rep);
     }
