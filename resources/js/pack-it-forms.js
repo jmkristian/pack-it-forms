@@ -915,15 +915,20 @@ function load_callprefix(next) {
 
 /* Clear the form to original contents */
 function clear_form() {
-    var the_form = document.getElementById('the-form');
+    var the_form = document.getElementById("the-form");
     the_form.reset();
     array_for_each(the_form.elements, function(element) {
-        element.classList.remove('msg-value');
+        element.classList.remove("msg-value");
+        if (element.type == "textarea") {
+            // Make Internet Explorer re-evaluate whether it's valid:
+            var oldValue = element.value;
+            element.value = oldValue + ".";
+            element.value = oldValue;
+        }
     });
     set_form_default_values();
     expand_templated_items();
-    check_the_form_validity();
-    write_pacforms_representation();
+    formChanged();
 }
 
 /* Check whether the form is valid */
@@ -945,7 +950,7 @@ function check_the_form_validity() {
 }
 
 /* Callback invoked when the form changes */
-function formChanged(event) {
+function formChanged() {
     write_pacforms_representation();
     check_the_form_validity();
 }
