@@ -11,8 +11,8 @@
     <script type="text/javascript">
       add_startup_function(function(next) {
           document.getElementById('button-header').innerHTML +=
-              '<a id="show-PDF-form" style="margin-left:0.5em;" target="_blank"'
-              + ' href="ICS-213_SCC_Message_Form_06-28-07_Fillable.pdf">Show PDF</a>';
+              '<input type="button" id="show-PDF-form" value="Show PDF"'
+              + ' onclick="window.open(\'ICS-213_SCC_Message_Form_06-28-07_Fillable.pdf\', \'_blank\')"/>';
           next();
       }, setup_view_mode);
       </script>
