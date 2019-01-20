@@ -1140,6 +1140,17 @@ function setup_view_mode(next) {
         array_for_each(form.elements, function (el) {
             if (el.disabled || el.readOnly) {
                 el.tabIndex = "-1"; // Don't tab to this element.
+            } else if (el.classList.contains("cardinal")) {
+                if (!el.pattern) {
+                    el.pattern = "[0-9]*";
+                }
+            } else if (el.classList.contains("phone-number")) {
+                if (!el.placeholder) {
+                    el.placeholder = "000-000-0000";
+                }
+                if (!el.pattern) {
+                    el.pattern = "([0-9]{3})?[ -]?[0-9]{3}[ -]?[0-9]{4}"
+                }
             } else if (el.classList.contains("date")) {
                 if (!el.placeholder) {
                     el.placeholder = "mm/dd/yyyy";

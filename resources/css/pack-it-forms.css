@@ -335,6 +335,12 @@ form input.init-on-submit {
     background-color: transparent;
     border-color: transparent;
 }
+form input.cardinal {
+    width: 4em;
+}
+form input.phone-number {
+    width: 8em;
+}
 form input.date {
     width: 6em;
 }
