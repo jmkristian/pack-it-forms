@@ -27,6 +27,11 @@ h1 {
     vertical-align: top;
     margin-top: 0
 }
+footer {
+    display: none;
+    font-weight: bold;
+    text-align: center;
+}
 table {
     border-collapse: collapse;
     width: 90%;
@@ -452,6 +457,9 @@ td.rotated:not(.not-rotated) > div > div::after, th.rotated:not(.not-rotated) > 
    }
    #loading,#message-header,#button-header,#form-data-form {
        display: none;
+   }
+   footer {
+       display: block;
    }
    table {
       width: 100%;
