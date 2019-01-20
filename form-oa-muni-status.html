@@ -7,6 +7,11 @@
     <link rel="stylesheet" type="text/css" href="resources/css/ics-header.css"/>
     <link rel="stylesheet" type="text/css" href="resources/css/ics-footer.css"/>
     <link rel="stylesheet" type="text/css" href="resources/css/form-ics213.css"/>
+    <style>
+      table {
+          width: 100%;
+      }
+    </style>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript">
       function comment_enabler(element, comment_name) {
@@ -31,37 +36,42 @@
       </div>
     </div>
     <form id="the-form" name="the-form">
-      <table class="block-caption noborder" style="width:100%;">
+      <table class="block-caption noborder">
         <tr>
-          <td class="bold" style="text-align:center;color:blue;font-size:125%;">
+          <td width="20%" rowspan="2" style="border:none;"></td>
+          <td style="border:none;color:blue;font-weight:bold;text-align:center;">
             County of Santa Clara Emergency Operations Center
           </td>
+          <td width="20%" rowspan="2"
+              style="border:none;text-align:right;vertical-align:bottom;font-weight:normal;">
+            Version 20130101<br/>(PR-4.4-1.9, 06/29/18)
+          </td>
         </tr><tr>
-          <td class="bold templated" style="text-align:center;color:blue;font-size:200%;">{{title}}</td>
+          <td style="border:none;color:blue;font-size:133%;font-weight:bold;text-align:center;">
+            SCC OA Municipal Status
+          </td>
         </tr>
       </table>
-      <br/>
-      <div data-include-html="ics-header-short">
+      <div data-include-html="scco-header">
         {
             "4.": "OTHER",
-            "5.": "IMMEDIATE",
-            "6b.": "No"
+            "5.": "ROUTINE"
         }
       </div>
       <br/>
       <fieldset id="incident">
-        <table class="fullsize-textfields">
+        <table>
           <tr>
             <td class="label" style="vertical-align:middle;">
               <label class="bold">Incident Name:</label>
             </td><td>
-              <input name="20.incident-name" required="required" tabindex="20"
+              <input name="20.incident-name" style="width:100%;" required="required" tabindex="20"
                      placeholder="or 'Incident independent'"/>
             </td>
           </tr><tr>
             <td class="label" style="vertical-align:middle;">
               <label class="bold">Municipality:</label>
-            </td><td>
+            </td><td style="white-space:normal;">
               <select name="10.subject" required="required" tabindex="21">
                 <option value="" disabled="disabled" selected="selected">
                   Select one...
@@ -83,6 +93,12 @@
                 <option value="Sunnyvale">Sunnyvale</option>
                 <option value="Unincorporated">Unincorporated</option>
               </select>
+              &nbsp;&nbsp;Date:
+              <input name="1a.date" type="text" tabindex="2"
+                     required="required" class="date" value="{{date}}"/>
+              &nbsp;&nbsp;Time:
+              <input name="1b.time" type="text" tabindex="3"
+                     required="required" class="time" value="{{time}}"/>
             </td>
           </tr>
         </table>

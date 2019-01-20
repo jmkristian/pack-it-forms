@@ -924,6 +924,8 @@ function clear_form() {
             var oldValue = element.value;
             element.value = oldValue + ".";
             element.value = oldValue;
+        } else if (element.type == "checkbox") {
+            fireEvent(element, "change");
         }
     });
     set_form_default_values();
@@ -1036,6 +1038,31 @@ function radio_enabler(radio_name, enabled_values, target_name, target_disabled_
             }
         }, true);
     });
+}
+
+function checkbox_enabler(checkbox, target_name, target_disabled_value) {
+    array_for_each(document.getElementsByName(target_name), function(target) {
+        if (checkbox.checked) {
+            target.enabled = true;
+            target.required = true;
+            target.focus();
+        } else {
+            target.required = false;
+            if (target_disabled_value != undefined) {
+                target.value = target_disabled_value;
+            }
+            target.enabled = false;
+        }
+    });
+    check_the_form_validity();
+}
+
+/** If select has one of the selectValues, set target.value = targetValue. */
+function option_based_setter(select, selectValues, targetFields, targetAttribute) {
+    if (select.options[select.selectedIndex] &&
+        selectValues.indexOf(select.options[select.selectedIndex].value) >= 0) {
+        init_form_from_fields(targetFields, targetAttribute || "name");
+    }
 }
 
 /* Handle form data message visibility */
