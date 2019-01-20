@@ -1140,7 +1140,7 @@ function setup_view_mode(next) {
         array_for_each(form.elements, function (el) {
             if (el.disabled || el.readOnly) {
                 el.tabIndex = "-1"; // Don't tab to this element.
-            } else if (el.classList.contains("cardinal")) {
+            } else if (el.classList.contains("cardinal-number")) {
                 if (!el.pattern) {
                     el.pattern = "[0-9]*";
                 }
