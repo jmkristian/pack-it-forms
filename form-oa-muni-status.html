@@ -11,6 +11,10 @@
       table {
           width: 100%;
       }
+      #the-form fieldset table {
+          margin-left: 0px;
+          margin-right: auto;
+      }
     </style>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript">
@@ -67,7 +71,6 @@
               <label class="bold">Incident Name:</label>
             </td><td>
               <input name="20.incident-name" type="text" required="required" tabindex="20"
-                     style="width:100%;"
                      placeholder="or 'Incident independent'"/>
             </td>
           </tr><tr>
@@ -109,23 +112,22 @@
       </fieldset>
       <fieldset id="contact-info" class="labeled-box">
         <legend>Contact Information</legend>
-        <table id="contact-info-table">
+        <table id="contact-info-table" style="width:auto;">
           <tr>
-            <td style="width:1px;" class="label"><label>EOC Phone:</label></td>
-            <td style="width:1px;">
+            <td class="label"><label>EOC Phone:</label></td>
+            <td>
               <input name="23.eoc-phone" type="text" tabindex="23"
                      style="width:8em;"
                      placeholder="000-000-0000"
                      pattern="\(?[0-9]{3}\)?[ -]?[0-9]{3}[ -]?[0-9]{4}"/>
             </td>
-            <td style="width:1px;" class="label"><label>EOC Fax:</label></td>
-            <td style="width:1px;">
+            <td class="label"><label>EOC Fax:</label></td>
+            <td>
               <input name="24.eoc-fax" type="text" tabindex="24"
                      style="width:8em;"
                      placeholder="000-000-0000"
                      pattern="\(?[0-9]{3}\)?[ -]?[0-9]{3}[ -]?[0-9]{4}"/>
             </td>
-            <td></td>
           </tr><tr>
             <td class="label"><label>Primary EM Contact Name:</label></td>
             <td><input name="25.pri-em-contact-name" type="text" required="required" tabindex="25"
@@ -153,20 +155,19 @@
       </fieldset>
       <fieldset id="gov-office-status" class="labeled-box">
         <legend>Government Office Status</legend>
-        <table>
+        <table style="width:auto;">
           <tr>
-            <td style="width:1px;" class="label">
+            <td class="label">
               <label for="office-status">Office Status:</label>
             </td>
-            <td style="width:1px;">
+            <td>
               <select name="29.office-status" tabindex="29">
                 <option value="" selected="selected">Unknown</option>
                 <option value="Open">Open</option>
                 <option value="Closed">Closed</option>
               </select>
             </td>
-            <td style="width:1px;"></td>
-            <td style="width:1px;"></td>
+            <td></td>
             <td></td>
           </tr><tr>
             <td class="label">
@@ -196,12 +197,12 @@
       </fieldset>
       <fieldset id="eoc-status" class="labeled-box">
         <legend>EOC Status</legend>
-        <table>
+        <table style="width:auto;">
           <tr>
-            <td style="width:1px;" class="label">
+            <td class="label">
               <label for="office-status">EOC Open:</label>
             </td>
-            <td style="width:1px;">
+            <td>
               <select name="34.eoc-open" required="required" tabindex="34"
                       onchange="value_based_enabler(this, ['Yes'],
                                 '35.eoc-activation-level', 'Not applicable');">
@@ -210,10 +211,10 @@
                 <option value="No">No</option>
               </select>
             </td>
-            <td style="width:1px;" class="label">
+            <td class="label">
               <label for="activation-level">Activation Level:</label>
             </td>
-            <td style="width:1px;">
+            <td>
               <select name="35.eoc-activation-level" required="required" tabindex="35"
                       disabled="disabled">
                 <option value="" selected="selected" disabled="disabled"></option>
@@ -224,7 +225,6 @@
                 <option value="Full">Full</option>
               </select>
             </td>
-            <td></td>
           </tr><tr>
             <td class="label">
               <label for="eoc-expected-open-date">Expected to Open Date:</label>
