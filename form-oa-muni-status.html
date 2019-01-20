@@ -16,10 +16,6 @@
     <script type="text/javascript">
       function comment_enabler(element, comment_name) {
           value_based_enabler(element, ['Problem', 'Failure'], comment_name, '');
-          var comment = document.querySelector('[name="' + comment_name + '"]');
-          if (!comment.disabled) {
-              comment.focus();
-          }
       }
       add_startup_function(function(next) {
           outpost_envelope.subject = "{{field:MsgNo}}_{{field:4.severity|truncate:1}}/{{field:5.handling|truncate:1}}"
