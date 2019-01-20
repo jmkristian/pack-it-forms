@@ -115,20 +115,21 @@
         <legend>Contact Information</legend>
         <table id="contact-info-table">
           <tr>
-            <td class="label"><label>EOC Phone:</label></td>
-            <td>
+            <td style="width:1px;" class="label"><label>EOC Phone:</label></td>
+            <td style="width:1px;">
               <input name="23.eoc-phone" type="text" tabindex="23"
                      style="width:8em;"
                      placeholder="000-000-0000"
                      pattern="\(?[0-9]{3}\)?[ -]?[0-9]{3}[ -]?[0-9]{4}"/>
             </td>
-            <td class="label"><label>EOC Fax:</label></td>
-            <td>
+            <td style="width:1px;" class="label"><label>EOC Fax:</label></td>
+            <td style="width:1px;">
               <input name="24.eoc-fax" type="text" tabindex="24"
                      style="width:8em;"
                      placeholder="000-000-0000"
                      pattern="\(?[0-9]{3}\)?[ -]?[0-9]{3}[ -]?[0-9]{4}"/>
             </td>
+            <td></td>
           </tr><tr>
             <td class="label"><label>Primary EM Contact Name:</label></td>
             <td><input name="25.pri-em-contact-name" type="text" required="required" tabindex="25"
@@ -158,16 +159,18 @@
         <legend>Government Office Status</legend>
         <table>
           <tr>
-            <td class="label">
+            <td style="width:1px;" class="label">
               <label for="office-status">Office Status:</label>
-            </td><td>
+            </td>
+            <td style="width:1px;">
               <select name="29.office-status">
                 <option value="" selected="selected">Unknown</option>
                 <option value="Open">Open</option>
                 <option value="Closed">Closed</option>
               </select>
             </td>
-            <td></td>
+            <td style="width:1px;"></td>
+            <td style="width:1px;"></td>
             <td></td>
           </tr><tr>
             <td class="label">
@@ -199,9 +202,10 @@
         <legend>EOC Status</legend>
         <table>
           <tr>
-            <td class="label">
+            <td style="width:1px;" class="label">
               <label for="office-status">EOC Open:</label>
-            </td><td>
+            </td>
+            <td style="width:1px;">
               <select name="34.eoc-open" required="required" tabindex="34"
                       onchange="value_based_enabler(this, ['Yes'],
                                 '35.eoc-activation-level', 'Not applicable');">
@@ -210,12 +214,13 @@
                 <option value="No">No</option>
               </select>
             </td>
-            <td class="label">
+            <td style="width:1px;" class="label">
               <label for="activation-level">Activation Level:</label>
-            </td><td>
+            </td>
+            <td style="width:1px;">
               <select name="35.eoc-activation-level" required="required" tabindex="35"
                       disabled="disabled">
-                <option value="" selected="selected" disabled="disabled">Not Applicable</option>
+                <option value="" selected="selected" disabled="disabled"></option>
                 <option value="Unknown">Unknown</option>
                 <option value="Monitor">Monitor</option>
                 <option value="Minimal">Minimal</option>
@@ -223,6 +228,7 @@
                 <option value="Full">Full</option>
               </select>
             </td>
+            <td></td>
           </tr><tr>
             <td class="label">
               <label for="eoc-expected-open-date">Expected to Open Date:</label>
