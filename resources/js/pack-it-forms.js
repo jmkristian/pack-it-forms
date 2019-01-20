@@ -1047,7 +1047,7 @@ function radio_enabler(radio_name, enabled_values, target_name, target_disabled_
 function checkbox_enabler(checkbox, target_name, target_disabled_value) {
     array_for_each(document.getElementsByName(target_name), function(target) {
         if (checkbox.checked) {
-            target.enabled = true;
+            target.disabled = false;
             target.required = true;
             target.focus();
         } else {
@@ -1055,7 +1055,7 @@ function checkbox_enabler(checkbox, target_name, target_disabled_value) {
             if (target_disabled_value != undefined) {
                 target.value = target_disabled_value;
             }
-            target.enabled = false;
+            target.disabled = true;
         }
     });
     check_the_form_validity();

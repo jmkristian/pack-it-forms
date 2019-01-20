@@ -17,7 +17,7 @@
       function comment_enabler(element, comment_name) {
           value_based_enabler(element, ['Problem', 'Failure'], comment_name, '');
           var comment = document.querySelector('[name="' + comment_name + '"]');
-          if (comment.enabled) {
+          if (!comment.disabled) {
               comment.focus();
           }
       }
