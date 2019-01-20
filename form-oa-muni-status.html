@@ -21,6 +21,11 @@
               comment.focus();
           }
       }
+      add_startup_function(function(next) {
+          outpost_envelope.subject = "{{field:MsgNo}}_{{field:4.severity|truncate:1}}/{{field:5.handling|truncate:1}}"
+          + "_Municipal Status_{{field:21.municipality}}";
+          next();
+      });
     </script>
     <title>SCC OA Municipal Status</title>
   </head>
@@ -72,7 +77,7 @@
             <td class="label" style="vertical-align:middle;">
               <label class="bold">Municipality:</label>
             </td><td style="white-space:normal;">
-              <select name="10.subject" required="required" tabindex="21">
+              <select name="21.municipality" required="required" tabindex="21">
                 <option value="" disabled="disabled" selected="selected">
                   Select one...
                 </option>
@@ -94,10 +99,10 @@
                 <option value="Unincorporated">Unincorporated</option>
               </select>
               &nbsp;&nbsp;Date:
-              <input name="1a.date" type="text" tabindex="2"
+              <input name="1a.date" type="text"
                      required="required" class="date" value="{{date}}"/>
               &nbsp;&nbsp;Time:
-              <input name="1b.time" type="text" tabindex="3"
+              <input name="1b.time" type="text"
                      required="required" class="time" value="{{time}}"/>
             </td>
           </tr>
