@@ -27,9 +27,6 @@
     </style>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript">
-      function comment_enabler(element, comment_name) {
-          value_based_enabler(element, ['Problem', 'Failure'], comment_name, '');
-      }
       add_startup_function(function(next) {
           outpost_envelope.subject = "{{field:MsgNo}}_{{field:4.severity|truncate:1}}/{{field:5.handling|truncate:1}}"
           + "_Municipal Status_{{field:21.municipality}}";
