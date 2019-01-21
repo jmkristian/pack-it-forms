@@ -1144,6 +1144,10 @@ function setup_view_mode(next) {
                 if (!el.pattern) {
                     el.pattern = "[0-9]*";
                 }
+            } else if (el.classList.contains("real-number")) {
+                if (!el.pattern) {
+                    el.pattern = "[-+]?[0-9]+(\.[0-9]+)?";
+                }
             } else if (el.classList.contains("phone-number")) {
                 if (!el.placeholder) {
                     el.placeholder = "000-000-0000";

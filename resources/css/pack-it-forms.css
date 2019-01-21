@@ -52,6 +52,19 @@ td.label{
   white-space: nowrap;
 }
 
+table.layout {
+    border: none;
+    border-collapse: collapse;
+    margin: 0px;
+    padding: 0px;
+}
+table.layout>tr>td, table.layout>tbody>tr>td {
+    border: none;
+    margin: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 label {
     font-weight: bold;
 }
@@ -335,8 +348,15 @@ form input.init-on-submit {
     background-color: transparent;
     border-color: transparent;
 }
+form input.call-sign {
+    width: 6em;
+}
 form input.cardinal-number {
+    text-align: right;
     width: 4em;
+}
+form input.real-number {
+    text-align: right;
 }
 form input.phone-number {
     width: 8em;
