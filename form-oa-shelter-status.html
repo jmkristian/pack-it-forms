@@ -52,7 +52,6 @@
           var output = document.getElementById("repeater-output");
           input = parseFloat(input || "0");
           if (input) {
-              var value = null;
               var standard_offset = // MHz
                   (input < 50)  ? 0.1 :
                   (input < 144) ? 0.5 :
@@ -61,8 +60,11 @@
                   (input < 225) ? 1.6 :
                   (input < 450) ? 5.0 :
                   null;
-              if (!offset || !standard_offset) {
+              var value = null;
+              if (!offset) {
                   value = "" + input;
+              } else if (!standard_offset) {
+                  value = null;
               } else if (offset == "+") {
                   value = "" + (input + standard_offset);
               } else if (offset == "-") {
@@ -77,9 +79,9 @@
           var input = document.getElementById("repeater-input").value;
           var output = document.getElementById("repeater-output").value;;
           var offset = document.getElementById("repeater-offset");
+          input = parseFloat(input || "0");
+          output = parseFloat(output || "0");
           if (input && output) {
-              input = parseFloat(input);
-              output = parseFloat(output);
               var value = null;
               if (input > output) {
                   value = "-";
