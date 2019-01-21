@@ -1001,7 +1001,9 @@ function value_based_enabler(e, enabledValues, target_name, target_disabled_valu
     array_for_each(document.getElementsByName(target_name), function(target) {
         if (array_contains(enabledValues, e.value)) {
             target.disabled = false;
+            target.required = true;
         } else {
+            target.required = false;
             if (target_disabled_value !== undefined &&
                 target.value != target_disabled_value) {
                 target.value = target_disabled_value;
