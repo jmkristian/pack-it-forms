@@ -50,15 +50,23 @@
           var input = document.getElementById("repeater-input").value;
           var offset = document.getElementById("repeater-offset").value;
           var output = document.getElementById("repeater-output");
+          input = parseFloat(input || "0");
           if (input) {
-              input = parseFloat(input);
               var value = null;
-              if (!offset) {
+              var standard_offset = // MHz
+                  (input < 50)  ? 0.1 :
+                  (input < 144) ? 0.5 :
+                  (input < 220) ? 0.6 :
+                  (input < 222) ? 1.0 :
+                  (input < 225) ? 1.6 :
+                  (input < 450) ? 5.0 :
+                  null;
+              if (!offset || !standard_offset) {
                   value = "" + input;
               } else if (offset == "+") {
-                  value = "" + (input + (input > 439 ? 5 : 0.6));
+                  value = "" + (input + standard_offset);
               } else if (offset == "-") {
-                  value = "" + (input - (input > 439 ? 5 : 0.6));
+                  value = "" + (input - standard_offset);
               }
               if (value != null && value != output.value) {
                   output.value = value;
