@@ -1044,7 +1044,7 @@ function radio_enabler(radio_name, enabled_values, target_name, target_disabled_
     });
 }
 
-function checkbox_enabler(checkbox, target_name, target_disabled_value) {
+function checkbox_enabler(checkbox, target_name, target_value, target_disabled) {
     array_for_each(document.getElementsByName(target_name), function(target) {
         if (checkbox.checked) {
             target.disabled = false;
@@ -1052,10 +1052,12 @@ function checkbox_enabler(checkbox, target_name, target_disabled_value) {
             target.focus();
         } else {
             target.required = false;
-            if (target_disabled_value != undefined) {
-                target.value = target_disabled_value;
+            if (target_value != undefined) {
+                target.value = target_value;
             }
-            target.disabled = true;
+            if (target_disabled != undefined) {
+                target.disabled = target_disabled;
+            }
         }
     });
     check_the_form_validity();
