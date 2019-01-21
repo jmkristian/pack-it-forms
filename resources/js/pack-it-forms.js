@@ -1002,12 +1002,13 @@ function value_based_enabler(e, enabledValues, target_name, target_disabled_valu
         if (array_contains(enabledValues, e.value)) {
             target.disabled = false;
         } else {
-            if (target_disabled_value !== undefined) {
+            if (target_disabled_value !== undefined &&
+                target.value != target_disabled_value) {
                 target.value = target_disabled_value;
+                fireEvent(target, "input");
             }
             target.disabled = true;
         }
-        fireEvent(target, 'input');
     });
     check_the_form_validity();
 }
@@ -1031,11 +1032,12 @@ function radio_enabler(radio_name, enabled_values, target_name, target_disabled_
                         target.disabled = false;
                         target.focus();
                     } else {
-                        if (target_disabled_value !== undefined) {
+                        if (target_disabled_value !== undefined &&
+                            target.value != target_disabled_value) {
                             target.value = target_disabled_value;
+                            fireEvent(target, "input");
                         }
                         target.disabled = true;
-                        fireEvent(target, "input");
                     }
                 });
                 check_the_form_validity();
@@ -1052,8 +1054,10 @@ function checkbox_enabler(checkbox, target_name, target_value, target_disabled) 
             target.focus();
         } else {
             target.required = false;
-            if (target_value != undefined) {
+            if (target_value != undefined &&
+                target.value != target_value) {
                 target.value = target_value;
+                fireEvent(target, "input");
             }
             if (target_disabled != undefined) {
                 target.disabled = target_disabled;

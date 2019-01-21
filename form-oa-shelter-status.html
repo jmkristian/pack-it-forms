@@ -70,8 +70,10 @@
               } else if (offset == "-") {
                   value = "" + (input - standard_offset);
               }
-              if (value != null && value != output.value) {
+              if (value && value != output.value) {
                   output.value = value;
+                  fireEvent(output, "input");
+                  check_the_form_validity();
               }
           }
       }
@@ -87,9 +89,13 @@
                   value = "-";
               } else if (input < output) {
                   value = "+";
+              } else {
+                  value = "";
               }
               if (value != null && value != offset.value) {
                   offset.value = value;
+                  fireEvent(offset, "input");
+                  check_the_form_validity();
               }
           }
       }
@@ -171,7 +177,7 @@
           <tr>
             <td class="label">Shelter Type:</td>
             <td>
-              <select name="30.ShelterType" tabindex="30">
+              <select name="30.shelter-type" tabindex="30">
                 <option value="Type 1">Type 1</option>
                 <option value="Type 2">Type 2</option>
                 <option value="Type 3">Type 3</option>
@@ -181,7 +187,7 @@
           </tr><tr>
             <td class="label">Shelter Status:</td>
             <td>
-              <select name="31.ShelterStatus" tabindex="31">
+              <select name="31.shelter-status" tabindex="31">
                 <option value="Closed">Closed</option>
                 <option value="Full">Full</option>
                 <option value="Open">Open</option>
@@ -189,27 +195,27 @@
             </td>
           </tr><tr>
             <td class="label">Name:</td>
-            <td><input type="text" name="32.ShelterName" tabindex="32"/></td>
+            <td><input type="text" name="32.shelter-name" tabindex="32"/></td>
           </tr><tr>
             <td class="label">Address:</td>
-            <td><input type="text" name="33a.ShelterAddress" tabindex="33"/></td>
+            <td><input type="text" name="33a.shelter-address" tabindex="33"/></td>
           </tr><tr>
             <td class="label">City:</td>
             <td>
-              <input type="text" name="33b.ShelterCity" style="width:15em;" tabindex="34"/>
+              <input type="text" name="33b.shelter-city" style="width:15em;" tabindex="34"/>
               <label class="label-sameline">State:
-                <input type="text" name="33c.ShelterState" style="width:2em;" tabindex="35"/>
+                <input type="text" name="33c.shelter-state" style="width:2em;" tabindex="35"/>
               </label>
               <label class="label-sameline">Zip:
-                <input type="text" name="33d.ShelterZip" style="width:10em;" tabindex="36"/>
+                <input type="text" name="33d.shelter-zip" style="width:10em;" tabindex="36"/>
               </label>
             </td>
           </tr><tr>
             <td class="label">Latitude:</td>
             <td>
-              <input type="text" name="37a.Latitude" style="width:8em;" tabindex="37"/>
+              <input type="text" name="37a.latitude" style="width:8em;" tabindex="37"/>
               <label class="label-sameline">Longitude:
-                <input type="text" name="37b.Longitude" style="width:8em;" tabindex="38"/>
+                <input type="text" name="37b.longitude" style="width:8em;" tabindex="38"/>
               </label>
             </td>
           </tr>
@@ -294,10 +300,10 @@
           </tr><tr>
             <td class="label">Secondary Contact:</td>
             <td style="width:20em;">
-              <input type="text" name="52a.primary-contact" tabindex="54"/>
+              <input type="text" name="52a.secondary-contact" tabindex="54"/>
             </td><td>
               <label class="label-sameline">Phone:
-                <input type="text" name="52b.primary-phone" class="phone-number" tabindex="55"/>
+                <input type="text" name="52b.secondary-phone" class="phone-number" tabindex="55"/>
               </label>
             </td>
           </tr>
@@ -323,7 +329,8 @@
                        class="real-number" style="width:5em;" placeholder="=PL tone"/> KHz
               </label>
               <label class="label-sameline">Offset:
-                <input type="text" style="width:1em;" pattern="[+-]" tabindex="64"
+                <input type="text" name="62c.repeater-offset" tabindex="64"
+                       style="width:1em;" pattern="[+-]"
                        onchange="compute_repeater_output(this)" id="repeater-offset"/>
               </label>
             </td>
@@ -350,8 +357,8 @@
           <td></td>
           <td>
             <label class="label-sameline" style="font-weight:normal;margin-left:0px;">
-              <input type="checkbox" name="71.RmvFromList" tabindex="71">
-              Remove from list
+              <input type="checkbox" name="71.remove-from-active-list" tabindex="71">
+              Remove this shelter from the active list of shelters.
             </label>
           </td>
         </tr>
