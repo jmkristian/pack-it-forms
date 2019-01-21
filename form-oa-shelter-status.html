@@ -46,6 +46,43 @@
               availability.value = "";
           }
       }
+      function compute_repeater_output(element) {
+          var input = document.getElementById("repeater-input").value;
+          var offset = document.getElementById("repeater-offset").value;
+          var output = document.getElementById("repeater-output");
+          if (input) {
+              input = parseFloat(input);
+              var value = null;
+              if (!offset) {
+                  value = "" + input;
+              } else if (offset == "+") {
+                  value = "" + (input + (input > 439 ? 5 : 0.6));
+              } else if (offset == "-") {
+                  value = "" + (input - (input > 439 ? 5 : 0.6));
+              }
+              if (value != null && value != output.value) {
+                  output.value = value;
+              }
+          }
+      }
+      function compute_repeater_offset(element) {
+          var input = document.getElementById("repeater-input").value;
+          var output = document.getElementById("repeater-output").value;;
+          var offset = document.getElementById("repeater-offset");
+          if (input && output) {
+              input = parseFloat(input);
+              output = parseFloat(output);
+              var value = null;
+              if (input > output) {
+                  value = "-";
+              } else if (input < output) {
+                  value = "+";
+              }
+              if (value != null && value != offset.value) {
+                  offset.value = value;
+              }
+          }
+      }
       add_startup_function(function(next) {
           outpost_envelope.subject = "{{field:MsgNo}}_{{field:4.severity|truncate:1}}/{{field:5.handling|truncate:1}}"
           + "_Shelter Status_{{field:21.municipality}}";
@@ -171,11 +208,11 @@
           <tr>
             <td class="label">Capacity:</td>
             <td>
-              <input type="text" class="cardinal-number" id="shelter-capacity" name="40a.capacity" tabindex="40"
-                     onchange="compute_availability(this)"/>
+              <input type="text" class="cardinal-number" name="40a.capacity" tabindex="40"
+                     onchange="compute_availability(this)" id="shelter-capacity"/>
               <label class="label-sameline">Occupancy:
-                <input type="text" class="cardinal-number" id="shelter-occupancy" name="40b.occupancy" tabindex="41"
-                       onchange="compute_availability(this)"/>
+                <input type="text" class="cardinal-number" name="40b.occupancy" tabindex="41"
+                       onchange="compute_availability(this)" id="shelter-occupancy"/>
               </label>
               <label class="label-sameline">Availability:
                 <input type="text" class="cardinal-number" id="shelter-availability" tabindex="-1" disabled="disabled"/>
@@ -266,22 +303,25 @@
             <td class="label">Repeater Input:</td>
             <td>
               <input type="text" name="62a.repeater-input" tabindex="62"
-                     class="real-number" style="width:6em;"/> MHz
+                     class="real-number" style="width:6em;"
+                     onchange="compute_repeater_output(this)" id="repeater-input"/> MHz
               <label class="label-sameline">CTCSS tone:
                 <input type="text" name="62b.repeater-input-tone" tabindex="63"
                        class="real-number" style="width:5em;" placeholder="=PL tone"/> KHz
               </label>
               <label class="label-sameline">Offset:
-                <input type="text" tabindex="65" style="width:1em;" pattern="[+-]"/>
+                <input type="text" style="width:1em;" pattern="[+-]" tabindex="64"
+                       onchange="compute_repeater_output(this)" id="repeater-offset"/>
               </label>
             </td>
           </tr><tr>
             <td class="label">Repeater Output:</td>
             <td>
-              <input type="text" name="63a.repeater-ouput" tabindex="66"
-                     class="real-number" style="width:6em;"/> MHz
+              <input type="text" name="63a.repeater-output" tabindex="65"
+                     class="real-number" style="width:6em;"
+                     onchange="compute_repeater_offset(this)" id="repeater-output"/> MHz
               <label class="label-sameline">CTCSS tone:
-                <input type="text" name="63b.repeater-output-tone" tabindex="67"
+                <input type="text" name="63b.repeater-output-tone" tabindex="66"
                        class="real-number" style="width:5em;" placeholder="=PL tone"/> KHz
               </label>
             </td>
