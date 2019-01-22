@@ -83,8 +83,8 @@ form input {
     display: block;
 }
 form input[type="text"] {
-    font-family: consolas,monaco,profont,monospace;
     font-size: 9pt;
+    font-family: consolas,monaco,profont,monospace;
     font-weight: bold;
     width: 100%;
 }
@@ -92,14 +92,14 @@ form select {
     border: 1px solid #cccccc;
     padding: 1px;
     background: #ffffff;
-    font-family: consolas,monaco,profont,monospace;
     font-size: 9pt;
+    font-family: consolas,monaco,profont,monospace;
     font-weight: bold;
 }
 form textarea {
     display: block;
-    font-family: consolas,monaco,profont,monospace;
     font-size: 9pt;
+    font-family: consolas,monaco,profont,monospace;
     font-weight: bold;
     width: 100%;
     resize: vertical;
