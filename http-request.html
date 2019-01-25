@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <script type="text/javascript">
+      (function() {
+          var url = document.URL;
+          url = '/ping' + url.substring(url.lastIndexOf('-'));
+          var ping_sequence = 0;
+          setInterval(function() {
+              var img = new Image();
+              // To discourage caching, use a new query string for each ping.
+              img.src = url + '?i=' + (ping_sequence++);
+              img = undefined;
+          }, 30000); // request ping every 30 seconds
+      })();
+    </script>
+    <style>
+      table th {
+          text-align: right;
+          vertical-align: top;
+          white-space: nowrap;
+          width: 1px;
+      }
+    </style>
+    <title>Test HTTP</title>
+  </head>
+  <body>
+    <form method="post" action="/test-http">
+      <table style="width:95%;">
+        <tr>
+          <th>method:</th>
+          <td>
+            <select name="method">
+              <option value="GET" selected>GET</option>
+              <option value="POST">POST</option>
+              <option value="PUT">PUT</option>
+              <option value="DELETE">DELETE</option>
+            </select>
+          </td>
+        </tr><tr>
+          <th>URL:</th>
+          <td><input name="URL" type="text" style="width:100%;"
+                     value="http://127.0.0.1:9334/TBD"/></td>
+        </tr><tr>
+          <th>Content-Type:</th>
+          <td><input name="header.Content-Type" type="text" style="width:100%;"
+                     value="text/plain"/></td>
+        </tr><tr>
+          <th>body:</th>
+          <td><textarea name="body" rows="10" style="width:100%;"></textarea></td>
+        </tr><tr>
+          <th></th>
+          <td><input type="submit" value="Send Request"/></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
