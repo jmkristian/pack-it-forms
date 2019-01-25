@@ -14,6 +14,23 @@
               img = undefined;
           }, 30000); // request ping every 30 seconds
       })();
+      function encodeForm(s) {
+          return encodeURIComponent(s).replace(/%20/g, '+');
+      }
+      function encodeValues() {
+          var result = "";
+          for (var i = 1; i <= 3; ++i) {
+              name = document.getElementById('name.' + i).value;
+              value = document.getElementById('value.' + i).value;
+              if (name && value) {
+                  if (result) {
+                      result += "&";
+                  }
+                  result += encodeForm(name) + '=' + encodeForm(value);
+              }
+          }
+          document.getElementById('encoded-values').value = result;
+      }
     </script>
     <style>
       table th {
@@ -22,11 +39,34 @@
           white-space: nowrap;
           width: 1px;
       }
+      table td input[type="text"], table td textarea {
+          width: 100%;
+      }
     </style>
-    <title>Test HTTP</title>
+    <title>HTTP Request</title>
   </head>
   <body>
-    <form method="post" action="/http-request">
+    <table style="width:95%;">
+      <tr>
+        <td>name</td>
+        <td>value</td>
+      </tr><tr>
+        <th><input id="name.1"  type="text" style="width:3em;" value="a"/></th>
+        <td><input id="value.1" type="text" value="add-on"/></td>
+      </tr><tr>
+        <th><input id="name.2"  type="text" style="width:3em;" value="s"/></th>
+        <td><input id="value.2" type="text" value="Peas + Carrots"/></td>
+      </tr><tr>
+        <th><input id="name.3"  type="text" style="width:3em;" value="u"/></th>
+        <td><input id="value.3" type="text" value="true"/></td>
+      </tr><tr>
+        <td><button onclick="encodeValues()">Encode</button></td>
+        <td><input id="encoded-values" type="text"/></td>
+      </tr>
+    </table>
+    <br/>
+    <br/>
+    <form method="post" action="/http-request" target="_blank">
       <table style="width:95%;">
         <tr>
           <th>method:</th>
@@ -40,15 +80,13 @@
           </td>
         </tr><tr>
           <th>URL:</th>
-          <td><input name="URL" type="text" style="width:100%;"
-                     value="http://127.0.0.1:9334/TBD"/></td>
+          <td><input name="URL" type="text" value="http://127.0.0.1:9334/TBD"/></td>
         </tr><tr>
           <th>Content-Type:</th>
-          <td><input name="header.Content-Type" type="text" style="width:100%;"
-                     value="text/plain"/></td>
+          <td><input name="header.Content-Type" type="text" value="text/plain"/></td>
         </tr><tr>
           <th>body:</th>
-          <td><textarea name="body" rows="10" style="width:100%;"></textarea></td>
+          <td><textarea name="body" rows="10"></textarea></td>
         </tr><tr>
           <th></th>
           <td><input type="submit" value="Send Request"/></td>
