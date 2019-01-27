@@ -19,9 +19,10 @@
       }
       function encodeValues() {
           var result = "";
-          for (var i = 1; i <= 3; ++i) {
-              name = document.getElementById('name.' + i).value;
-              value = document.getElementById('value.' + i).value;
+          var name;
+          for (var i = 1; name = document.getElementById('name.' + i); ++i) {
+              name = name.value;
+              var value = document.getElementById('value.' + i).value;
               if (name && value) {
                   if (result) {
                       result += "&";
@@ -51,14 +52,18 @@
         <td>name</td>
         <td>value</td>
       </tr><tr>
-        <th><input id="name.1"  type="text" style="width:3em;" value="a"/></th>
-        <td><input id="value.1" type="text" value="add-on"/></td>
+        <th><input id="name.1"  type="text" style="width:3em;" value="adn"/></th>
+        <td><input id="value.1" type="text" value="Enhanced"/></td>
       </tr><tr>
-        <th><input id="name.2"  type="text" style="width:3em;" value="s"/></th>
-        <td><input id="value.2" type="text" value="Peas + Carrots"/></td>
+        <th><input id="name.2"  type="text" style="width:3em;" value="sub"/></th>
+        <td><input id="value.2" type="text" value="Peas & Carrots"/></td>
       </tr><tr>
-        <th><input id="name.3"  type="text" style="width:3em;" value="u"/></th>
-        <td><input id="value.3" type="text" value="true"/></td>
+        <th><input id="name.3"  type="text" style="width:3em;" value="urg"/></th>
+        <td><input id="value.3" type="text" value=""/></td>
+      </tr><tr>
+        <th><input id="name.4"  type="text" style="width:3em;" value="msg"/></th>
+        <td><textarea id="value.4" rows="5" value="true">Thank you for the food.
+Please send more peas and carrots.</textarea></td>
       </tr><tr>
         <td><button onclick="encodeValues()">Encode</button></td>
         <td><input id="encoded-values" type="text"/></td>
@@ -83,10 +88,13 @@
           <td><input name="URL" type="text" value="http://127.0.0.1:9334/TBD"/></td>
         </tr><tr>
           <th>Content-Type:</th>
-          <td><input name="header.Content-Type" type="text" value="text/plain; charset=utf-8"/></td>
+          <td><input name="header.Content-Type" type="text" value="application/x-www-form-urlencoded"/></td>
         </tr><tr>
           <th>body:</th>
           <td><textarea name="body" rows="10"></textarea></td>
+        </tr><tr>
+          <th>timeout:</th>
+          <td><input name="timeout" type="text" style="width:3em;" value="3.0"/> sec</td>
         </tr><tr>
           <th></th>
           <td>
