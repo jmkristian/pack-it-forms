@@ -15,7 +15,7 @@
           }, 30000); // request ping every 30 seconds
       })();
       function encodeForm(s) {
-          return encodeURIComponent(s).replace(/%20/g, '+').replace(/%0A/g, '%0D%0A');
+          return encodeURIComponent(s.replace(/([^\r])\n/g, '$1\r\n')).replace(/%20/g, '+');
       }
       function encodeValues() {
           var result = "";
@@ -59,11 +59,15 @@
         <td><input id="value.2" type="text" value="Peas & Carrots"/></td>
       </tr><tr>
         <th><input id="name.3"  type="text" style="width:3em;" value="urg"/></th>
-        <td><input id="value.3" type="text" value=""/></td>
+        <td><input id="value.3" type="text" value="" placeholder="[TRUE for an urgent message]"/></td>
       </tr><tr>
         <th><input id="name.4"  type="text" style="width:3em;" value="msg"/></th>
-        <td><textarea id="value.4" rows="5" value="true">Thank you for the food.
-Please send more peas and carrots.</textarea></td>
+        <td><textarea id="value.4" rows="5" value="true">!Enhanced!
+Please send more peas and carrots.
+!/ADDON!</textarea></td>
+      </tr><tr>
+        <th><input id="name.5"  type="text" style="width:3em;" value="4VAO"/></th>
+        <td><input id="value.5" type="text" value="#EOF"/></td>
       </tr><tr>
         <td><button onclick="encodeValues()">Encode</button></td>
         <td><input id="encoded-values" type="text"/></td>
