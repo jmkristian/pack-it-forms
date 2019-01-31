@@ -15,7 +15,7 @@
           }, 30000); // request ping every 30 seconds
       })();
       function encodeForm(s) {
-          return encodeURIComponent(s).replace(/%20/g, '+');
+          return encodeURIComponent(s).replace(/%20/g, '+').replace(/%0A/g, '%0D%0A');
       }
       function encodeValues() {
           var result = "";
