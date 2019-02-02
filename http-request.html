@@ -92,7 +92,14 @@ Please send more peas and carrots.
           </td>
         </tr><tr>
           <th>URL:</th>
-          <td><input name="URL" type="text" value="http://127.0.0.1:9334/TBD"/></td>
+          <td>
+            <table style="width:100%;">
+              <tr>
+                <td style="width:1px;">http://</td>
+                <td><input name="URL" type="text" value="127.0.0.1:9334/TBD"/></td>
+              </tr>
+            </table>
+          </td>
         </tr><tr>
           <th>Content-Type:</th>
           <td><input name="header.Content-Type" type="text" value="application/x-www-form-urlencoded"/></td>
@@ -100,8 +107,18 @@ Please send more peas and carrots.
           <th>body:</th>
           <td><textarea name="body" rows="10"></textarea></td>
         </tr><tr>
-          <th>timeout:</th>
-          <td><input name="timeout" type="text" style="width:3em;" value="3.0"/> sec</td>
+          <th></th>
+          <td>
+            Pause for <input name="pauseTime" type="text" style="width:3em;" value="1.0"/> seconds
+            after sending <input name="pauseStart" type="text" style="width:3em;" value=""/>
+            characters of the body.
+          </td>
+        </tr><tr>
+          <th></th>
+          <td>
+            Disconnect if no response is received within
+            <input name="timeout" type="text" style="width:3em;" value="3.0"/> seconds
+          </td>
         </tr><tr>
           <th></th>
           <td>
