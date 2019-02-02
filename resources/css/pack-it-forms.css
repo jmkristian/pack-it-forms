@@ -27,6 +27,11 @@ h1 {
     vertical-align: top;
     margin-top: 0
 }
+footer {
+    display: none;
+    font-weight: bold;
+    text-align: center;
+}
 table {
     border-collapse: collapse;
     width: 90%;
@@ -47,6 +52,29 @@ td.label{
   white-space: nowrap;
 }
 
+table.layout {
+    border: none;
+    border-collapse: collapse;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+table.layout>tr>th, table.layout>tbody>tr>th {
+    border: none;
+    margin: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-weight: bold;
+    white-space: nowrap;
+    width: 1px;
+}
+table.layout>tr>td, table.layout>tbody>tr>td {
+    border: none;
+    margin: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 label {
     font-weight: bold;
 }
@@ -65,15 +93,23 @@ form input {
     display: block;
 }
 form input[type="text"] {
+    font-size: 9pt;
+    font-family: consolas,monaco,profont,monospace;
+    font-weight: bold;
     width: 100%;
 }
 form select {
     border: 1px solid #cccccc;
     padding: 1px;
     background: #ffffff;
+    font-size: 9pt;
+    font-family: consolas,monaco,profont,monospace;
+    font-weight: bold;
 }
 form textarea {
     display: block;
+    font-size: 9pt;
+    font-family: consolas,monaco,profont,monospace;
     font-weight: bold;
     width: 100%;
     resize: vertical;
@@ -87,7 +123,7 @@ form input:disabled,textarea:disabled {
     background-color: transparent;
     border: 1px solid #cccccc;
 }
-form label.label-sameline input {
+form label.label-sameline input, form label.label-sameline select {
     display: inline;;
     margin-left: 1em;
 }
@@ -189,7 +225,7 @@ table ~ table :first-child:first-child > td {
     margin-left: 2.5%;
     margin-right: 2.5%;
     margin-top: 4em;
-    font-family: monospace;
+    font-family: consolas,monaco,profont,monospace;
     white-space: pre;
     border: 2px solid black;
     height: calc(50% - 4em);
@@ -255,7 +291,7 @@ td.border-left {
 }
 
 #error-log {
-    font-family: monospace;
+    font-family: consolas,monaco,profont,monospace;
     margin: 3ex 0 0;
     padding-top: 1ex;
     font-size: 10pt;
@@ -318,7 +354,28 @@ form input.init-on-submit {
     background-color: transparent;
     border-color: transparent;
 }
-
+form input.call-sign {
+    width: 6em;
+}
+form input.cardinal-number {
+    text-align: right;
+    width: 4em;
+}
+form input.real-number {
+    text-align: right;
+}
+form input.phone-number {
+    width: 8em;
+}
+form input.date {
+    width: 6em;
+}
+form input.time {
+    width: 6em;
+}
+form input.message-number {
+    width: 7em;
+}
 
 /* Prevent things from getting overly wide or narrow */
 #the-form {
@@ -364,7 +421,7 @@ form input.init-on-submit {
     min-height: 3ex;
     display: block;
     unicode-bidi: embed;
-    font-family: monospace;
+    font-family: consolas,monaco,profont,monospace;
     font-weight: bold;
     white-space: pre-wrap;
     width: 100%;
@@ -433,6 +490,9 @@ td.rotated:not(.not-rotated) > div > div::after, th.rotated:not(.not-rotated) > 
    #loading,#message-header,#button-header,#form-data-form {
        display: none;
    }
+   footer {
+       display: block;
+   }
    table {
       width: 100%;
    }
@@ -443,8 +503,30 @@ td.rotated:not(.not-rotated) > div > div::after, th.rotated:not(.not-rotated) > 
    }
    textarea {
        resize: none;
+       overflow: hidden !important;
+       -ms-overflow-style: none;
+       scrollbar-width: none;
    }
-   #the-form :placeholder-shown {
-       visibility: hidden;
+   ::-webkit-scrollbar {
+       display: none;
+       width: 0 !important;
+   }
+   ::-webkit-input-placeholder {
+       color: transparent;
+   }
+   :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+       color: transparent;
+   }
+   ::-moz-placeholder { /* Mozilla Firefox 19+ */
+       color: transparent;
+   }
+   :-ms-input-placeholder { /* Internet Explorer 10+ */
+       color: transparent;
+   }
+   ::-ms-input-placeholder { /* Microsoft Edge */
+       color: transparent;
+   }
+   ::placeholder { /* Most modern browsers */
+       color: transparent;
    }
 }

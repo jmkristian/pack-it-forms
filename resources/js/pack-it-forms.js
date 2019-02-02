@@ -18,10 +18,13 @@
 
 /* --- Commonly used global objects */
 var query_object = {};     // Cached query string parameters
-var outpost_envelope = {}; // Cached outpost envelop information
+var outpost_envelope = {
+    subject: "{{field:MsgNo}}_{{field:4.severity|truncate:1}}/{{field:5.handling|truncate:1}}_{{title|split:: |nth:0}}_{{field:10.subject|expandtmpl}}"
+};
 var callprefixes = {};     // Cached call prefixes for expansion
 var msgfields = {};        // Cached message field values
 var versions = {};         // Version information
+var formDefaultValues;     // Initial values for form inputs.
 var outpost_message_footer = "#EOF\r\n";
 
 /* --- Registration for code to run after page loads
@@ -64,6 +67,7 @@ filled with default contents.  The default data filling includes
 reading the Outpost query string parameters, which should allow for
 good Outpost integration. */
 function init_form(next) {
+    set_form_default_values();
     // Setup focus tracking within the form
     var the_form = document.querySelector("#the-form");
     last_active_form_element = document.activeElement;
@@ -104,6 +108,14 @@ function init_form(next) {
         write_pacforms_representation();
         next();
     }, 10);
+}
+
+function set_form_default_values() {
+    if (formDefaultValues) {
+        for (var f = formDefaultValues.length - 1; f >= 0; f--) {
+            init_form_from_fields(formDefaultValues[f], "name");
+        }
+    }
 }
 
 /* Cross-browser resource loading w/local file handling
@@ -203,7 +215,10 @@ function parse_form_data_text(text) {
         }
         if (line.match(/^!OUTPOST! /)) {
             // Grab outpost data fields and store for substitution
-            outpost_envelope = outpost_envelope_to_object(line);
+            var fromOutpost = outpost_envelope_to_object(line);
+            for (var key in fromOutpost) {
+                outpost_envelope[key] = fromOutpost[key];
+            }
             return;
         }
         if (line.match(/^!.*!/)) {
@@ -861,7 +876,10 @@ function process_html_includes(next) {
             // accumulated and initialized at the end.
             process_html_includes(function() {
                 if (defaults) {
-                    init_form_from_fields(JSON.parse(defaults), 'name');
+                    if (!formDefaultValues) {
+                        formDefaultValues = [];
+                    }
+                    formDefaultValues.push(JSON.parse(defaults));
                 }
                 next();
             });
@@ -910,8 +928,26 @@ function load_callprefix(next) {
 
 /* Clear the form to original contents */
 function clear_form() {
-    document.querySelector("#the-form").reset();
-    set_form_data_div("");
+    var the_form = document.getElementById("the-form");
+    the_form.reset();
+    array_for_each(the_form.elements, function(element) {
+        element.classList.remove("msg-value");
+        if (element.type) {
+            if (element.type.substr(0, 8) == "textarea") {
+                // Make Internet Explorer re-evaluate whether it's valid:
+                var oldValue = element.value;
+                element.value = oldValue + ".";
+                element.value = oldValue;
+            } else if (element.type == "checkbox" ||
+                       element.type.substr(0, 6) == "select") {
+                // Trigger any side-effects:
+                fireEvent(element, "change");
+            }
+        }
+    });
+    set_form_default_values();
+    expand_templated_items();
+    formChanged();
 }
 
 /* Check whether the form is valid */
@@ -933,7 +969,7 @@ function check_the_form_validity() {
 }
 
 /* Callback invoked when the form changes */
-function formChanged(event) {
+function formChanged() {
     write_pacforms_representation();
     check_the_form_validity();
 }
@@ -956,49 +992,95 @@ function email_submit(e) {
     e.preventDefault();
     if (check_the_form_validity()) {
         var pacforms_rep = document.querySelector("#form-data").value;
-        // Use the subject line of the generated form, like outpost does
-        var subject = pacforms_rep.slice(6).split('\n',1)[0];
+        // Use the same subject as Outpost
+        var subject = expand_template(outpost_envelope.subject);
         document.location = "mailto:?to="
-                          + "&Content-Type=application/pack-it-forms"
+                          + "&Content-Type=text/plain"
                           + "&Subject=" + encodeURIComponent(subject)
                           + "&body=" + encodeURIComponent(pacforms_rep);
     }
     return false;
 }
-
-/* Function invoked to clear the form */
-function clear_form(e) {
-    document.location.reload();
-}
-
-/* Enable or disable a different control based on onChange values
-
-This is a callback function to be used in the onChange handler of a
-select. It enables the form element with name 'target_name' when the
-value of the element on which it is add is in the list
-'enabledValues'. When the value is not in that list, then target
-element is disabled and the targets balue is set to
-'target_disabled_value'. */
-function value_based_enabler(e, enabledValues, target_name, target_disabled_value) {
-    var target = document.querySelector("[name=\""+target_name+"\"]");
-    if (array_contains(enabledValues, e.value)) {
-        target.disabled = false;
-    } else {
-        target.value = target_disabled_value;
-        target.disabled = true;
-    }
-    fireEvent(target, 'input');
-    check_the_form_validity();
-}
-
 /* Disable "other" controls when not in use
 
 This is a callback function to be used in the onChange handler of a
 combobox; it will enable the relevant -other field if and only if the
 combobox is set to "Other". */
-function combobox_other_manager(e) {
-    value_based_enabler(e, ["Other"], e.name + "-other", "");
+function combobox_other_manager(source) {
+    var targetActions = {};
+    targetActions[source.name + "-other"] = {enable: true, require: true, otherwise: {value: ""}};
+    return on_value(source, ["Other"], targetActions);
 }
+
+function on_value(source, valuesToMatch, targetActions) {
+    return on_match(array_contains(valuesToMatch, source.value), targetActions);
+}
+
+function on_checked(checkbox, targetActions) {
+    return on_match(checkbox.checked, targetActions);
+}
+
+/** For each targetName in targetActions, call
+    set_properties(targetActions[targetName][match ? "onMatch" : "otherwise"].
+    Use (match XOR targetActions[targetName].require) as the default value of required.
+    Use !(match XOR targetActions[targetName].enable) as the default value of disabled.
+    @return match
+*/
+function on_match(match, targetActions) {
+    var targetProperties = {};
+    for (var targetName in targetActions) {
+        var actions = targetActions[targetName];
+        var properties = actions[match ? "onMatch" : "otherwise"] || {};
+        if (actions.enable !== undefined &&
+            properties.disabled === undefined) {
+            properties.disabled = !(match ? actions.enable : !actions.enable);
+        }
+        if (actions.require !== undefined &&
+            properties.required === undefined) {
+            properties.required = match ? actions.require : !actions.require;
+        }
+        targetProperties[targetName] = properties;
+    }
+    set_properties(targetProperties);
+    return match;
+}
+
+/** For each targetName in targetProperties,
+    copy targetProperties[targetName] into all elements of that name.
+    Fire an input event for each changed value,
+    and call check_the_form_validity if any value changed.
+*/
+function set_properties(targetProperties) {
+    var changed = false;
+    if (targetProperties) {
+        for (var targetName in targetProperties) {
+            var properties = targetProperties[targetName];
+            array_for_each(document.getElementsByName(targetName), function(target) {
+                for (var p in properties) {
+                    if (properties[p] !== undefined) {
+                        if (p == "value" && target.type == "radio") {
+                            if (target.value == properties.value &&
+                                !target.checked) {
+                                target.checked = true;
+                                changed = true;
+                            }
+                        } else if (target[p] != properties[p]) {
+                            target[p] = properties[p];
+                            changed = true;
+                            if (p == "value") {
+                                fireEvent(target, "input");
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+    if (changed) {
+        check_the_form_validity();
+    }
+}
+
 
 /* Handle form data message visibility */
 var last_active_form_element;
@@ -1029,6 +1111,34 @@ function toggle_form_data_visibility() {
     }
 }
 
+function setup_input_elem_from_class(next) {
+    if (query_object.mode != "readonly") {
+        var setup = {
+            "date": {pattern: "(0[1-9]|1[012])/(0[1-9]|1[0-9]|2[0-9]|3[01])/[1-2][0-9][0-9][0-9]",
+                     placeholder: "mm/dd/yyyy"},
+            "time": {pattern: "([01][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?",
+                     placeholder: "hh:mm"},
+            "phone-number": {pattern: "([0-9]{3})?[ -]?[0-9]{3}[ -]?[0-9]{4}",
+                             placeholder: "000-000-0000"},
+            "cardinal-number": {pattern: "[0-9]*"},
+            "real-number": {pattern: "[-+]?[0-9]+(\.[0-9]+)?"}
+        };
+        array_for_each(document.querySelector("#the-form").elements, function (el) {
+            for (var s in setup) {
+                if (el.classList.contains(s)) {
+                    if (!el.pattern && setup[s].pattern != undefined) {
+                        el.pattern = setup[s].pattern;
+                    }
+                    if (!el.placeholder && setup[s].placeholder != undefined) {
+                        el.placeholder = setup[s].placeholder;
+                    }
+                }
+            }
+        });
+    }
+    next();
+}
+
 /* Handle the readonly view mode
 
 This is indicated by a mode=readonly query parameter. */
@@ -1040,6 +1150,7 @@ function setup_view_mode(next) {
         hide_element(document.querySelector("#email-submit"));
         hide_element(document.querySelector("#show-hide-data"));
         hide_element(document.querySelector("#clear-form"));
+        hide_element(document.querySelector("#show-PDF-form"));
         /* In view mode, we don't want to show the input control chrome.  This
            is difficult to do with textareas which might need scrollbars, etc.
            so insert a div with the same contents and use CSS to appropriately
@@ -1049,6 +1160,7 @@ function setup_view_mode(next) {
             if (el.placeholder) {
                 el.placeholder = '';
             }
+            el.tabIndex = "-1"; // Don't tab to this element.
             if (el.type == "radio"
                 || el.type == "checkbox"
                 || (el.type && el.type.substr(0, 6) == "select")) {
@@ -1112,8 +1224,10 @@ function create_text_div(text, className) {
 }
 
 function hide_element(element) {
-    element.hidden = "true";
-    element.classList.add("hidden");
+    if (element) {
+        element.hidden = "true";
+        element.classList.add("hidden");
+    }
 }
 
 /* Make forEach() & friends easier to use on Array-like objects
@@ -1300,6 +1414,14 @@ function startup_delay(next) {
     }, 10000);
 }
 
+function add_startup_function(toAdd, before) {
+    var index = before ? startup_functions.indexOf(before) : -1;
+    if (index < 0) {
+        startup_functions.push(toAdd);
+    } else {
+        startup_functions.splice(index, 0, toAdd);
+    }
+}
 
 /* --- Registration of startup functions that run on page load */
 
@@ -1308,6 +1430,7 @@ startup_functions.push(process_html_includes);
 startup_functions.push(query_string_to_object);
 startup_functions.push(load_callprefix);
 startup_functions.push(init_form);
+startup_functions.push(setup_input_elem_from_class);
 // This must come after query_string_to_object in the startup functions
 startup_functions.push(setup_view_mode);
 // These must be the last startup functions added
