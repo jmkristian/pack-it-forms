@@ -41,7 +41,7 @@
           <td colspan="17">
             <label>Subject:
               <span class="field-number">10</span>
-              <input name="10.subject" type="text"
+              <input name="10.subject" type="text" tabindex="-1"
                      class="no-load-init init-on-submit"
                      value="Damage Summary for BAT(s) {{selected-fields:[name$='batnum']|remove:|sort:num|join:, }}"
                      required="required"
@@ -55,7 +55,7 @@
             <label>
               Reference (e.g. Number of earlier msg.)
               <span class="field-number">11</span>
-              <input name="11.reference" type="text"/>
+              <input name="11.reference" type="text" tabindex="-1"/>
             </label>
           </td>
         </tr><tr>
@@ -90,7 +90,7 @@
         </tr>
         <tr class="fullsize-textfields">
           <td style="width:10%;">
-            <input name="12.0a.batnum" type="text"/>
+            <input name="12.0a.batnum" type="text" tabindex="21"/>
           </td>
           <td><input name="12.0b.ok" type="checkbox"/></td>
           <td><input name="12.0c.people-minor" type="text" pattern="\d+"/></td>
@@ -111,7 +111,7 @@
         </tr>
         <tr class="fullsize-textfields">
           <td style="width:10%;">
-            <input name="12.1a.batnum" type="text"/>
+            <input name="12.1a.batnum" type="text" tabindex="22"/>
           </td>
           <td><input name="12.1b.ok" type="checkbox"/></td>
           <td><input name="12.1c.people-minor" type="text" pattern="\d+"/></td>
@@ -132,7 +132,7 @@
         </tr>
         <tr class="fullsize-textfields">
           <td style="width:10%;">
-            <input name="12.2a.batnum" type="text"/>
+            <input name="12.2a.batnum" type="text" tabindex="23"/>
           </td>
           <td><input name="12.2b.ok" type="checkbox"/></td>
           <td><input name="12.2c.people-minor" type="text" pattern="\d+"/></td>
@@ -153,7 +153,7 @@
         </tr>
         <tr class="fullsize-textfields">
           <td style="width:10%;">
-            <input name="12.3a.batnum" type="text"/>
+            <input name="12.3a.batnum" type="text" tabindex="24"/>
           </td>
           <td><input name="12.3b.ok" type="checkbox"/></td>
           <td><input name="12.3c.people-minor" type="text" pattern="\d+"/></td>
@@ -174,7 +174,7 @@
         </tr>
         <tr class="fullsize-textfields">
           <td style="width:10%;">
-            <input name="12.4a.batnum" type="text"/>
+            <input name="12.4a.batnum" type="text" tabindex="25"/>
           </td>
           <td><input name="12.4b.ok" type="checkbox"/></td>
           <td><input name="12.4c.people-minor" type="text" pattern="\d+"/></td>
@@ -195,7 +195,7 @@
         </tr>
         <tr class="fullsize-textfields">
           <td style="width:10%;">
-            <input name="12.5a.batnum" type="text"/>
+            <input name="12.5a.batnum" type="text" tabindex="26"/>
           </td>
           <td><input name="12.5b.ok" type="checkbox"/></td>
           <td><input name="12.5c.people-minor" type="text" pattern="\d+"/></td>
@@ -216,7 +216,7 @@
         </tr>
         <tr class="fullsize-textfields">
           <td style="width:10%;">
-            <input name="12.6a.batnum" type="text"/>
+            <input name="12.6a.batnum" type="text" tabindex="27"/>
           </td>
           <td><input name="12.6b.ok" type="checkbox"/></td>
           <td><input name="12.6c.people-minor" type="text" pattern="\d+"/></td>
@@ -237,7 +237,7 @@
         </tr>
         <tr class="fullsize-textfields">
           <td style="width:10%;">
-            <input name="12.7a.batnum" type="text"/>
+            <input name="12.7a.batnum" type="text" tabindex="28"/>
           </td>
           <td><input name="12.7b.ok" type="checkbox"/></td>
           <td><input name="12.7c.people-minor" type="text" pattern="\d+"/></td>
@@ -258,7 +258,7 @@
         </tr>
         <tr class="fullsize-textfields">
           <td style="width:10%;">
-            <input name="12.8a.batnum" type="text"/>
+            <input name="12.8a.batnum" type="text" tabindex="29"/>
           </td>
           <td><input name="12.8b.ok" type="checkbox"/></td>
           <td><input name="12.8c.people-minor" type="text" pattern="\d+"/></td>
@@ -279,7 +279,7 @@
         </tr>
         <tr class="fullsize-textfields">
           <td style="width:10%;">
-            <input name="12.9a.batnum" type="text"/>
+            <input name="12.9a.batnum" type="text" tabindex="30"/>
           </td>
           <td><input name="12.9b.ok" type="checkbox"/></td>
           <td><input name="12.9c.people-minor" type="text" pattern="\d+"/></td>
@@ -303,7 +303,8 @@
               <div><div>Notes</div></div>
           </th>
         </tr><tr>
-          <td colspan="17"><textarea name="12.10.general-notes" rows="6" cols="80"></textarea></td>
+          <td colspan="17"><textarea name="12.10.general-notes" tabindex="40"
+                                     rows="6" cols="80"></textarea></td>
         </tr>
       </table>
       <div data-include-html="ics-footer"></div>
