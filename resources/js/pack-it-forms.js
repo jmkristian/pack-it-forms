@@ -476,7 +476,7 @@ function load_form_configuration(next) {
             break;
         case "subject-suffix":
             newMessage.subjectSuffix = value;
-            break;
+            break;
         case "pdf-url":
             var button = document.getElementById("show-PDF-form");
             button.onclick = function(event) {
