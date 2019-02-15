@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="resources/css/loading.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
+    <style>
+      table {
+          width: 100%;
+      }
+      table.noborder {
+          border: 0px;
+          margin-left: 0px;
+      }
+      td.label {
+          font-weight: bold;
+          text-align: right;
+          vertical-align: middle;
+      }
+    </style>
+    <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
+    <script type="text/javascript" src="resources/integration/integration.js"></script>
+    <title>Urgent Report</title>
+  </head>
+
+  <body>
+    <div class="version">0.1.1</div>
+    <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
+    <div id="err">
+      <div>
+        <h2>Something went wrong.</h2>
+        This information might help resolve the problem:
+        <div id="error-log"></div>
+      </div>
+    </div>
+    <form id="the-form" name="the-form" style="background-color:#ffffff;">
+      <h1><span class="templated">{{title}}</span></h1>
+      <table>
+        <tr>
+          <td class="label">Location:</td>
+          <td style="width:60%;"><input name="10.subject" type="text" required tabindex="21"/></td>
+          <td class="label">Our Msg #</td>
+          <td>
+            <input name="MsgNo" type="text" class="no-msg-init" required
+                   value="{{envelope:viewer_message_number}}"/>
+          </td>
+        </tr><tr>
+          <td class="label">Cross Street:</td>
+          <td><input name="22.crossStreet" type="text" tabindex="22"/></td>
+          <td class="label">Date:</td>
+          <td>
+            <input name="1a.date" class="" type="text" size="12"
+                   required pattern="\d{1,2}/\d{1,2}/\d{4}"
+                   value="{{date}}"/>
+          </td>
+        </tr><tr>
+          <td rowspan="4" class="label" style="vertical-align:top">Description:</td>
+          <td rowspan="4">
+            <textarea name="23.description" rows="5" required tabindex="23"></textarea>
+          </td>
+          <td class="label">Time:</td>
+          <td>
+            <input name="1b.time" class="" type="text" size="10"
+                   required pattern="\d{1,2}:\d{2}(:\d{2})?"
+                   value="{{time}}"/>
+          </td>
+        </tr><tr>
+          <td class="label">BAT #</td>
+          <td><input name="20.BAT" type="text" required tabindex="25"/></td>
+        </tr><tr>
+          <td class="label">Reported by:</td>
+          <td><input name="21.reporter" type="text" tabindex="26"/></td>
+        </tr><tr>
+          <td class="label">Their Msg #</td>
+          <td>
+            <input name="2.txmsgno" type="text" readOnly="true"
+                   value="{{expand-while-null:{{envelope:receiver_message_number|view-by:sender}},{{envelope:sender_message_number|view-by:receiver}}}}"
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td class="label" style="text-align:left;vertical-align:top;">Notes/Actions:
+            <textarea name="24.notes" rows="6" tabindex="30"></textarea>
+          </td>
+        </tr>
+      </table>
+      <br/>
+      <table class="noborder">
+        <tr>
+          <td class="label">Severity:</td>
+          <td>
+            <select name="4.severity" tabindex="50">
+              <option value="EMERGENCY">Emergency (life threat)</option>
+              <option value="URGENT" selected>Urgent (property threat)</option>
+              <option value="OTHER">Other</option>
+            </select>
+          </td>
+        </tr><tr>
+          <td class="label">Handling:</td>
+          <td>
+            <select name="5.handling" tabindex="51">
+              <option value="IMMEDIATE">Immediate (as soon as possible)</option>
+              <option value="PRIORITY" selected>Priority (less than one hour)</option>
+              <option value="ROUTINE">Routine (more than one hour)</option>
+            </select>
+          </td>
+        </tr><tr>
+          <td class="label" style="vertical-align:bottom;">Deliver to:</td>
+          <td>
+            <fieldset class="horizontal">
+              <label>
+                <input name="7a.toMgt" type="checkbox" value="Yes"/>Management
+              </label><label>
+                <input name="7b.toOps" type="checkbox" value="Yes" checked/>Operations
+              </label><label>
+                <input name="7c.toPlan" type="checkbox" value="Yes"/>Planning
+              </label><label>
+                <input name="7d.toLog" type="checkbox" value="Yes"/>Logistics
+              </label><label>
+                <input name="7e.toFin" type="checkbox" value="Yes"/>Finance
+              </label>
+            </fieldset>
+          </td>
+        </tr>
+      </table>
+    </form>
+    <div data-include-html="submit-buttons"></div>
+  </body>
+</html>

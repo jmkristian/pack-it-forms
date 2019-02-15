@@ -9,11 +9,11 @@
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
     <meta name="pack-it-forms-pdf-URL" content="resources/pdf/ICS-213_SCC_Message_Form_06-28-07_Fillable.pdf"/>
-    <title>ICS213: Message Form</title>
+    <title>XSC EOC Message Form</title>
   </head>
 
   <body>
-    <div class="version">0.1.1</div>
+    <div class="version">05/02/18</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -23,7 +23,15 @@
       </div>
     </div>
     <form id="the-form" name="the-form">
-      <div data-include-html="ics-header"></div>
+      <div data-include-html="ics-header">
+        {
+            "header-title": "&lt;div style=\"font-size:166%;font-weight:bold;padding-bottom:0.5ex;\"&gt;EOC Message Form&lt;/div&gt;6/28/2007; (PR-4.4-4.3, 05/02/18)",
+            "4.": "OTHER",
+            "5.": "ROUTINE",
+            "6a.": "No",
+            "6b.": "No"
+        }
+      </div>
       <table id="form-body" class="noborder border">
         <tr>
           <td>
@@ -33,7 +41,7 @@
                   <span class="field-number">10</span>
                 </th>
                 <td>
-                  <input name="10.subject" type="text" required/>
+                  <input name="10.subject" type="text" required tabindex="20"/>
                 </td>
               </tr>
             </table>
@@ -42,19 +50,19 @@
           <td>
             <table class="same-line-label-layout">
               <tr>
-                <th>
-                  Reference (e.g. Number of earlier msg.)
+                <th>Reference:
                   <span class="field-number">11</span>
                 </th><td>
-                  <input name="11.reference" type="text"/>
+                  <input name="11.reference" type="text" tabindex="21"
+                     placeholder="e.g. Number of earlier msg."/>
                 </td>
               </tr>
             </table>
           </td>
         </tr><tr>
           <td>
-            <label>Message<span class="field-number">12</span>
-              <textarea name="12.message" rows="6" cols="80" wrap="hard"></textarea>
+            <label>Message:<span class="field-number">12</span>
+              <textarea name="12.message" rows="6" cols="80" wrap="hard" required tabindex="22"></textarea>
             </label>
           </td>
         </tr>

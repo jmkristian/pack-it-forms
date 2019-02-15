@@ -44,6 +44,29 @@ var formDefaultValues;     // Initial values for form inputs. May contain templa
 var templatedElements = [];// Initial values for templated elements with no name. All templates.
 var errorLog = [];         // Errors that occurred before there was a place to show them.
 var EOL = "\r\n";
+var MS_Edge = 12;
+var MSIE_version = (function() {
+    var userAgent = navigator.userAgent;
+    if (userAgent) {
+        if (navigator.appName == "Netscape" &&
+            navigator.appVersion &&
+            navigator.appVersion.indexOf(" /Trident") < 0) {
+            return MS_Edge;
+        }
+        if (userAgent.indexOf(" Trident/") >= 0) {
+            return 11;
+        }
+        var match = /MSIE (\d*)/.exec(userAgent);
+        if (match) {
+            if (match[1]) {
+                return parseInt(match[1]);
+            } else {
+                return 9999;
+            }
+        }
+    }
+    return undefined; // Not truthy. Comparison with any number yields false.
+})();
 
 /* --- Registration for code to run after page loads
 
@@ -976,26 +999,6 @@ function write_message_to_form_data(toSubmit) {
     form_data.value = text;
 }
 
-/* Enable or disable a different control based on onChange values
-
-This is a callback function to be used in the onChange handler of a
-select. It enables the form element with name 'target_name' when the
-value of the element on which it is add is in the list
-'enabledValues'. When the value is not in that list, then target
-element is disabled and the targets balue is set to
-'target_disabled_value'. */
-function value_based_enabler(e, enabledValues, target_name, target_disabled_value) {
-    var target = document.querySelector("[name=\""+target_name+"\"]");
-    if (array_contains(enabledValues, e.value)) {
-        target.disabled = false;
-    } else {
-        target.value = target_disabled_value;
-        target.disabled = true;
-    }
-    fireEvent(target, 'input');
-    check_the_form_validity();
-}
-
 /* Disable "other" controls when not in use
 
 This is a callback function to be used in the onChange handler of a
@@ -1127,6 +1130,13 @@ function setup_input_elem_from_class(next) {
                         el.placeholder = setup[s].placeholder;
                     }
                 }
+            }
+            if (MSIE_version && el.required &&
+                (el.tagName.toLowerCase() == "select" ||
+                 (el.tagName.toLowerCase() == "input" && el.type == "radio"))) {
+                // Work around a deficiency in IE:
+                el.addEventListener("blur", formChanged);
+                el.addEventListener("change", formChanged);
             }
         });
     }
@@ -1310,6 +1320,22 @@ function query_string_to_object() {
     return data;
 }
 
+function check_boiler_plate(next) {
+    if (!document.getElementById("error-log")) {
+        alert("This form doesn't have an error-log."
+              + " It probably needs the boilerplate described in "
+              + "http://github.com/pack-it-forms/pack-it-forms/blob/master"
+              + "/README.md#user-content-explanation-of-the-form-boilerplate .");
+    }
+    if (!document.getElementById("button-header")) {
+        logError("This form doesn't have a button-header.");
+    }
+    if (!document.getElementById("form-data")) {
+        logError("This form doesn't have a form-data.");
+    }
+    next();
+}
+
 function load_form_version(next) {
     versions.form = document.querySelector(".version").textContent;
     next();
@@ -1436,6 +1462,7 @@ startup_functions.push(call_integration("early_startup"));
 startup_functions.push(load_form_version);
 startup_functions.push(call_integration("expand_includes"));
 startup_functions.push(update_error_log);
+startup_functions.push(check_boiler_plate);
 startup_functions.push(call_integration("load_configuration"));
 startup_functions.push(load_form_configuration);
 startup_functions.push(call_integration("get_old_message"));
