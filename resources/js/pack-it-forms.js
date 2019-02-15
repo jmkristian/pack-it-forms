@@ -476,7 +476,7 @@ function load_form_configuration(next) {
             break;
         case "subject-suffix":
             newMessage.subjectSuffix = value;
-            break;
+            break;
         case "pdf-url":
             var button = document.getElementById("show-PDF-form");
             button.onclick = function(event) {
@@ -612,6 +612,9 @@ Additionally, multiple filters can be chained one after another in the
 manner of unix pipelines.  Each filter may take an optional argument,
 which may be ignored. */
 function expand_template(tmpl_str) {
+    if (!tmpl_str) {
+        return tmpl_str;
+    }
     var final_str = "";
     var tokens = tokenize_template(tmpl_str);
     tokens.forEach(function (t) {
@@ -889,7 +892,7 @@ function find_templated_text(selector, property) {
     var elements = document.querySelectorAll(selector);
     array_for_each(elements, function (element) {
         if (!element.classList.contains("no-load-init")) {
-            var value = element[property];
+            var value = element[property] || element.getAttribute(property);
             if (is_a_template(value)) {
                 var name = element.name || element.getAttribute("name");
                 var init = get_init_function(element);
@@ -1191,12 +1194,7 @@ function find_default_values() {
     if (!formDefaultValues) {
         formDefaultValues = {};
     }
-    array_for_each(document.querySelectorAll("[data-default-value]"), function(field) {
-        var name = short_name(field.name);
-        if (formDefaultValues[name] == undefined) {
-            formDefaultValues[name] = field.getAttribute("data-default-value");
-        }
-    });
+    find_templated_text("[data-default-value]", "data-default-value");
     find_templated_text(".templated", "innerHTML");
     find_templated_text("input", "value");
 }
