@@ -13,8 +13,7 @@
     }
 
     var setDateTime = function setDateTime(into, from) {
-        if (!from) return;
-        var found = /(\S+)\s*(.*)/.exec(from);
+        var found = from && /(\S+)\s*(.*)/.exec(from);
         if (found) {
             into.date = found[1];
             into.time = found[2];
@@ -38,7 +37,7 @@
             }
         }
     };
-    setDateTime(envelope.sender, environment.MSG_DATETIME_OP_SENT);
+    setDateTime(envelope.sender, environment.MSG_DATETIME_OP_SENT || environment.MSG_DATETIME_HEADER);
     setDateTime(envelope.receiver, environment.MSG_DATETIME_OP_RCVD);
 
     var getOldMessage = function getOldMessage(next) {
@@ -47,6 +46,10 @@
         var MsgNo = msg_field('MsgNo');
         var OpCall = msg_field('OpCall');
         var OpName = msg_field('OpName');
+        if (!OpCall && environment.MSG_FROM_LOCAL) {
+            OpCall = environment.MSG_FROM_LOCAL;
+            OpName = '';
+        }
         if (envelope.viewer == 'receiver') {
             envelope.sender.message_number = MsgNo;
             envelope.sender.operator_call_sign = OpCall;
