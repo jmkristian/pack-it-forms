@@ -49,7 +49,7 @@
           <td><input name="22.crossStreet" type="text" tabindex="22"/></td>
           <td class="label">Date:</td>
           <td>
-            <input name="1a.date" class="" type="text" size="12"
+            <input name="1a.date" type="text" size="12"
                    required pattern="\d{1,2}/\d{1,2}/\d{4}"
                    value="{{date}}"/>
           </td>
@@ -60,7 +60,7 @@
           </td>
           <td class="label">Time:</td>
           <td>
-            <input name="1b.time" class="" type="text" size="10"
+            <input name="1b.time" type="text" size="10"
                    required pattern="\d{1,2}:\d{2}(:\d{2})?"
                    value="{{time}}"/>
           </td>
@@ -124,6 +124,10 @@
           </td>
         </tr>
       </table>
+      <input name="OpCall" type="text" class="call-sign hidden" hidden="hidden" tabindex="-1"
+             value="{{envelope:sender_operator_call_sign}}"/>
+      <input name="OpName" type="text" class="hidden" hidden="hidden" tabindex="-1"
+             value="{{envelope:sender_operator_name}}"/>
     </form>
     <div data-include-html="submit-buttons"></div>
   </body>
