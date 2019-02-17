@@ -353,18 +353,18 @@ The rest of the argument may be any one of:
 | Name                | Description                                           |
 |---------------------|-------------------------------------------------------|
 | message_number      | assigned message number                               |
-| operator_call_sign  | FCC call sign of the operator                         |
-| operator_name       | Personal name of the operator                         |
+| operator_call_sign  | Call sign of the operator (legal or tactical)         |
+| operator_name       | Name of the operator (personal or tactical)           |
 | date                | calendar date when the message was sent or received   |
 | time                | time of day when the message was sent or received     |
 
-For example, {{envelope:receiver_operator_name}} expands to the personal name
+For example, {{envelope:receiver_operator_name}} expands to the name
 of the operator who received the message, and
 {{envelope:sender_message_number}} expands to the message number that was
 assigned at the sender's station.
 
 The argument to the envelope template may also start with "viewer_",
-which says it expands to information relating to the current operator's role.
+which means it expands to information relating to the current operator's role.
 So, it's equivalent to "sender_" when viewing a transmitted message, or
 "receiver_" when viewing a received message.
 And finally, if the argument to the envelope template is simply "viewer",
