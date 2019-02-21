@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="resources/css/loading.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
+    <style>
+      #the-form {
+          max-width: 3.25in;
+          min-width: 3.25in;
+      }
+      table {
+          width: 100%;
+      }
+      table.same-line-label-layout>tr>th, table.same-line-label-layout>tbody>tr>th {
+          padding-left: 0px;
+          padding-right: 0px;
+      }
+      table.same-line-label-layout>tr>td, table.same-line-label-layout>tbody>tr>td {
+          padding-left: 0px;
+          padding-right: 0px;
+      }
+      label {
+          font-size: 7pt;
+          font-weight: normal;
+      }
+      div.view-mode-textarea {
+          font-size: 9pt;
+          font-weight: bold;
+      }
+      input[type="checkbox"] {
+          display: inline;
+          margin-left: 0px;
+          vertical-align: middle;
+      }
+      select option {
+          padding-left: 0px;
+      }
+      td>span {
+          margin-left: 0.5em;
+          margin-right: 0.5em;
+      }
+    </style>
+    <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
+    <script type="text/javascript" src="resources/integration/integration.js"></script>
+    <title>Emergency Report</title>
+  </head>
+
+  <body>
+    <div class="version">0.1.1</div>
+    <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
+    <div id="err">
+      <div>
+        <h2>Something went wrong.</h2>
+        This information might help resolve the problem:
+        <div id="error-log"></div>
+      </div>
+    </div>
+    <form id="the-form" name="the-form">
+      <table>
+        <tr>
+          <td>
+            <label>TYPE OF INCIDENT:
+              <input name="20.incident-type" type="text"/>
+            </label>
+          </td><td style="width:6em;">
+            <label>OFFICER:
+              <input name="21.officer" type="text"/>
+            </label>
+          </td><td style="width:3em;">
+            <label>&nbsp;
+              <input name="22.blank" type="text"/>
+            </label>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td>
+            <label>LOCATION:
+              <input name="23.location" type="text"/>
+            </label>
+          </td>
+        </tr><tr>
+          <td>
+            <label>RP:
+              <input name="24.rp" type="text"/>
+            </label>
+          </td>
+        </tr><tr>
+          <td>
+            <label class="label-sameline">ADDRESS:
+              <input name="25b.same-address" type="checkbox"/>
+              SAME
+            </label>
+            <input name="25.address" type="text"/>
+          </td>
+        </tr><tr>
+          <td>
+            <label>PHONE:
+              <input name="26.phone" type="text" class="phone-number"/>
+            </label>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td>
+            <label>COLOR
+              <input name="30.color" type="text"/>
+            </label>
+          </td><td style="width:3em;">
+            <label>YEAR
+              <input name="31.year" type="text"/>
+            </label>
+          </td><td>
+            <label>MODEL
+              <input name="32.model" type="text"/>
+            </label>
+          </td><td>
+            <label>MAKE
+              <input name="33.make" type="text"/>
+            </label>
+          </td><td>
+            <label>LICENSE
+              <input name="34.license" type="text"/>
+            </label>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td>
+            <label>RACE
+              <input name="40.race" type="text"/>
+            </label>
+          </td><td style="width:1px;">
+            <label>SEX
+              <input name="41.sex" type="text"/>
+            </label>
+          </td><td>
+            <label>AGE
+              <input name="42.age" type="text"/>
+            </label>
+          </td><td style="width:3em;">
+            <label>HT
+              <input name="43.height" type="text"/>
+            </label>
+          </td><td style="width:2em;">
+            <label>WT
+              <input name="44.weight" type="text"/>
+            </label>
+          </td><td>
+            <label>BUILD
+              <input name="45.build" type="text"/>
+            </label>
+          </td><td>
+            <label>HAIR
+              <input name="46.hair" type="text"/>
+            </label>
+          </td><td>
+            <label>EYES
+              <input name="47.eyes" type="text"/>
+            </label>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td>
+            <label>CLOTHING:
+              <input name="50.clothing" type="text"/>
+            </label> 
+          </td>
+        </tr><tr>
+          <td style="height:2in;">
+            <label>DETAILS:
+              <textarea name="51.details" rows="12"></textarea>
+            </label>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td>
+            <label>DISPOSITION:
+              <input name="60.disposition" type="text"/>
+            </label>
+          </td><td style="font-size:7pt;width:1.2in;">
+            <table class="same-line-label-layout">
+              <tr>
+                <td>
+                  <input name="61a.nrw" type="checkbox"/>
+                  NRW
+                </td><td>
+                  <input name="61b.10-15" type="checkbox"/>
+                  10-15
+                </td>
+              </tr><tr>
+                <td>
+                  <input name="61a.nrw" type="checkbox"/>
+                  R-NW
+                </td><td>
+                  <input name="61b.10-15" type="checkbox"/>
+                  TOW
+                </td>
+              </tr>
+            </table>
+          </td><td style="width:1px;">
+            <label>RCD
+              <input name="62.rcd" type="text"/>
+            </label>
+          </td><td style="width:1px;">
+            <label>DSP
+              <input name="64.dsp" type="text"/>
+            </label>
+          </td>
+        </tr>
+      </table>
+      <br/>
+      <table style="border-top:1px solid #aaaaaa;">
+        <tr>
+          <td>
+            Sent
+            at <span data-default-value="{{envelope:sender_time}}"></span>
+            on <span data-default-value="{{envelope:sender_date}}"></span>
+            <br/>
+            by <span data-default-value="{{envelope:sender_operator_name}}"></span>
+            <span data-default-value="{{envelope:sender_operator_call_sign}}"></span>
+            msg <span data-default-value="{{envelope:sender_message_number}}"></span>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td>
+            Received
+            at <span data-default-value="{{envelope:receiver_time}}"></span>
+            on <span data-default-value="{{envelope:receiver_date}}"></span>
+            <br/>
+            by <span data-default-value="{{envelope:receiver_operator_name}}"></span>
+            <span data-default-value="{{envelope:receiver_operator_call_sign}}"></span>
+            msg <span data-default-value="{{envelope:receiver_message_number}}"></span>
+          </td>
+        </tr>
+      </table>
+    </form>
+    <div data-include-html="submit-buttons"></div>
+  </body>
+</html>

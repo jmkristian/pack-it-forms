@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="resources/css/loading.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/ics-footer.css"/>
+    <style>
+      #the-form {
+          max-width: 5.5in;
+          max-width: 7.5in;
+      }
+      table.same-line-label-layout>tr>th, table.same-line-label-layout>tbody>tr>th {
+          font-weight: normal;
+          text-align: right;
+      }
+      fieldset {
+          margin-left: 1em;
+      }
+      input[type="checkbox"] {
+          display: inline;
+          vertical-align: middle;
+      }
+    </style>
+    <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
+    <script type="text/javascript" src="resources/integration/integration.js"></script>
+    <meta name="pack-it-forms-subject-prefix" content="{{field:MsgNo}}">
+    <meta name="pack-it-forms-subject-suffix" content="_Emergency_{{field:20.incident-type}}_{{field:23.location}}">
+    <title>Emergency Report</title>
+  </head>
+
+  <body>
+    <div class="version">0.1.1</div>
+    <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
+    <div id="err">
+      <div>
+        <h2>Something went wrong.</h2>
+        This information might help resolve the problem:
+        <div id="error-log"></div>
+      </div>
+    </div>
+    <form id="the-form" name="the-form">
+      <table class="same-line-label-layout" style="width:95%;margin-left:1.5em;">
+        <tr>
+          <td colspan="2">
+            <h2 style="margin-top:0px;">Los Altos Emergency Report</h2>
+          </td>
+          <th>Message number:</th>
+          <td style="width:12em;padding-left:0.5em;vertical-align:middle;">
+            <input name="MsgNo" type="text" class="message-number" required
+                   value="{{envelope:sender_message_number}}"/>
+          </td>
+        </tr><tr>
+          <th>Type of Incident:</th>
+          <td style="padding-left:0.5em;">
+            <select name="20.incident-type" required>
+              <option value=""></option>
+              <option value="Law">Police</option>
+              <option value="Fire">Fire</option>
+              <option value="Med">Medical</option>
+              <option value="City">City Services</option>
+            </select>
+          </td>
+          <th>Reporting officer:</th>
+          <td style="padding-left:0.5em;">
+            <input name="21.officer" type="text"/>
+          </td>
+        </tr><tr>
+          <th style="padding-top:0.5em;">Location:</th>
+          <td colspan="3" style="padding-top:0.5em;padding-left:0.5em;">
+            <input name="23.location" type="text"/>
+          </td>
+        </tr>
+      </table>
+      <fieldset class="labeled-box">
+        <legend>Reporting Person</legend>
+        <table class="same-line-label-layout">
+          <tr>
+            <th>Name:</th>
+            <td><input name="24.rp" type="text"/></td>
+          </tr><tr>
+            <th style="vertical-align:top;">Address:</th>
+            <td>
+              <input name="25b.same-address" type="checkbox"
+                     onclick="on_checked(this, {'25.address': {enable: false, onMatch: {value: ''}}});"/>
+              Same as location
+              <input name="25.address" type="text"/>
+            </td>
+          </tr><tr>
+            <th>Phone:</th>
+            <td><input name="26.phone" type="text" class="phone-number"/></td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset class="labeled-box">
+        <legend>Subject</legend>
+        <table class="same-line-label-layout">
+          <tr>
+            <th style="width:1px;">Race</th>
+            <td style="width:1px;">
+              <select name="40.race">
+                <option value=""></option>
+                <option value="wht">White</option>
+                <option value="blk">Black</option>
+                <option value="lat">Latino</option>
+                <option value="asn">Asian</option>
+              </select>
+            </td>
+            <th style="width:1px;">Height</th>
+            <td style="width:1px;">
+              <input name="43.height" type="text"
+                     placeholder="ft'in&quot;" pattern="\d*'\d*&quot;"/>
+            </td>
+            <th style="width:1px;">Hair</th>
+            <td>
+              <select name="46.hair">
+                <option value=""></option>
+                <option value="blk">Black</option>
+                <option value="brn">Brown</option>
+                <option value="yel">Blonde</option>
+                <option value="red">Red</option>
+                <option value="wht">White</option>
+              </select>
+            </td>
+          </tr><tr>
+            <th>Sex</th>
+            <td>
+              <select name="41.sex">
+                <option value=""></option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+              </select>
+            </td>
+            <th>Weight</th>
+            <td>
+              <input name="44.weight" type="text"
+                     placeholder="pounds" pattern="\d*"/>
+            </td>
+            <th>Eyes</th>
+            <td>
+              <select name="47.eyes">
+                <option value=""></option>
+                <option value="blk">Black</option>
+                <option value="brn">Brown</option>
+                <option value="blu">Blue</option>
+                <option value="hzl">Hazel</option>
+                <option value="grn">Green</option>
+              </select>
+            </td>
+          </tr><tr>
+            <th>Age</th>
+            <td>
+              <input name="42.age" type="text"
+                     placeholder="years" pattern="\d*"/>
+            </td>
+            <th>Build</th>
+            <td>
+              <select name="45.build">
+                <option value=""></option>
+                <option value="lt">Light</option>
+                <option value="med">Medium</option>
+                <option value="hvy">Heavy</option>
+              </select>
+            </td>
+            <th>Clothing</th>
+            <td>
+              <input name="50.clothing" type="text"/>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset class="labeled-box">
+        <legend>Vehicle</legend>
+        <table class="same-line-label-layout" style="width:auto;">
+          <tr>
+            <th>Color:</th>
+            <td style="width:8em;">
+              <input name="30.color" type="text"/>
+            </td>
+            <th>Year:</th>
+            <td style="width:7em;">
+              <input name="31.year" type="text" pattern="\d\d\d\d"/>
+            </td>
+          </tr><tr>
+            <th>Make:</th>
+            <td><input name="33.make" type="text"/></td>
+            <th>License:</th>
+            <td><input name="34.license" type="text"/></td>
+          </tr><tr>
+            <th>Model:</th>
+            <td><input name="32.model" type="text"/></td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset class="labeled-box" style="padding-left:1em;padding-right:1em;padding-bottom:1em;">
+        <legend>Details</legend>
+        <textarea name="51.details" rows="6"></textarea>
+      </fieldset>
+      <br/>
+      <div data-include-html="ics-footer-short"></div>
+    </form>
+    <div data-include-html="submit-buttons"></div>
+  </body>
+</html>
