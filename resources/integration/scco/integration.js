@@ -11,6 +11,9 @@
     if (environment.MSG_LOCAL_ID == '-1') { // a sentinel value
         delete environment.MSG_LOCAL_ID;
     }
+    if (/^\?*$/.test(environment.MSG_DATETIME_HEADER)) { // a sentinel value
+        delete environment.MSG_DATETIME_HEADER;
+    }
 
     var setDateTime = function setDateTime(into, from) {
         var found = from && /(\S+)\s*(.*)/.exec(from);
