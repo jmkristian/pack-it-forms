@@ -17,7 +17,8 @@
 
 #form tr td:first-child { text-align: right; }
 body {
-    margin-top: 4em;
+    margin-top: 0;
+    padding-top: 4em;
     background-color: #f8f8f8;
     font-family: sans-serif;
     font-size: 9pt;
@@ -197,12 +198,10 @@ table ~ table :first-child:first-child > td {
     top: 0px;
     left: 0px;
     width: 100%;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    height: 2.5em;
     padding-left: 3px;
     background-color: #aaaaaa;
     border-bottom: 1px solid #888888;
-    overflow: hidden;
 }
 
 .hidden {

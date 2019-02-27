@@ -109,12 +109,13 @@
         }
         if ((status == 'new' || status == 'draft') && envelope.readOnly) {
             // This message was just submitted to Outpost. Let the operator know:
-            var div = document.createElement('div');
-            div.style="position:absolute;height:20pt;top:50%;margin-top:-10pt;margin-left:5pt;font-weight:bold;";
-            div.innerHTML =
-                '<img src="icon-check.png" alt="OK" style="width:20pt;height:20pt;vertical-align:middle;">' +
+            var element = document.getElementById('button-header');
+            while (element.tagName != "TD") {
+                element = element.children[0];
+            }
+            element.innerHTML =
+                '<img src="icon-check.png" alt="OK" style="width:2em;height:2em;vertical-align:middle;">' +
                 '&nbsp;&nbsp;The message has been submitted to Outpost. You can close this page.';
-            document.getElementById('button-header').appendChild(div);
         }
         next();
     };
