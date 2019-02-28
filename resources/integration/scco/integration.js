@@ -74,11 +74,9 @@
         // Change the message header from PACF format to ADDON format:
         newMessage.header = function() {
             return '!' + environment.addon_name + '!'
-                + EOL + '# ' + document.title
-                + EOL + '# JS-ver. PR-3.9-2.6, 08/11/13,'
-                + EOL + '# FORMFILENAME: ' + environment.ADDON_MSG_TYPE
-                + EOL + '# FORMVERSION: ' + form_version()
-                + EOL + '# SUBJECT: ' + new_message_subject()
+                + EOL + '#Subject: ' + new_message_subject()
+                + EOL + '#T: ' + environment.ADDON_MSG_TYPE
+                + EOL + '#V: ' + form_version()
                 + EOL;
         };
         newMessage.footer = '!/ADDON!\r\n';
