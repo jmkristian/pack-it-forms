@@ -1294,6 +1294,29 @@ function emptystr_if_null(argument) {
 
 /* --- Cross-browser convenience functions --- */
 
+function map_backgroundColor(element, colorMap, property) {
+    var value = element[property || "value"] || element.getAttribute(property || "value");
+    var color = null;
+    if (!element.validity || element.validity.valid) {
+        color = colorMap[value] || colorMap.otherwise;
+    }
+    if (color) {
+        element.style.setProperty("background-color", color);
+    } else {
+        element.style.removeProperty("background-color");
+    }
+}
+
+function select_backgroundColor(selectElement, colorMap) {
+    map_backgroundColor(selectElement, colorMap);
+    array_for_each(selectElement.querySelectorAll("option"), function(option) {
+        map_backgroundColor(option, colorMap);
+    });
+    selectElement.addEventListener("change", function() {
+        map_backgroundColor(selectElement, colorMap);
+    });
+}
+
 function fireEvent(target, evt) {
     var event = document.createEvent('Event');
     event.initEvent(evt, true, true);
