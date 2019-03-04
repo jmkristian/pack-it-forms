@@ -1,71 +1,166 @@
 <div>
   <div class="version">0.1.0</div>
-  <table class="block-caption noborder">
+  <table class="block-caption noborder" style="background-color:#E2F0D9;">
     <tr>
-      <td width="20%" rowspan="2" style="border:none;"></td>
-      <td style="border:none;color:blue;font-weight:bold;text-align:center;">
-        County of Santa Clara Emergency Operations Center
+      <td style="border:none;padding:4pt 4pt;">
+        <span name="header-title" class="templated no-msg-init" style="font-size:150%;"></span>
+        <br/>
+        <span name="header-subtitle" class="templated no-msg-init"></span>
       </td>
-      <td width="20%" rowspan="2"
-          style="border:none;text-align:right;vertical-align:bottom;font-weight:normal;">
+      <td style="border:none;padding:2pt 4pt;text-align:right;vertical-align:bottom;">
         <span name="header-version" class="templated no-msg-init"></span>
-      </td>
-    </tr><tr>
-      <td style="border:none;color:blue;font-size:133%;font-weight:bold;text-align:center;">
-        <span name="header-title" class="templated no-msg-init"></span>
       </td>
     </tr>
   </table>
-  <table id="form-row-1" class="noborder">
+  <table>
+    <tr>
+      <td style="width:1px;white-space:nowrap;vertical-align:middle;">
+        <label class="label-sameline">Message Numbers:</label>
+      </td><td>
+        <label class="label-sameline">Origin:
+          <input type="text" name="MsgNo" class="message-number no-msg-init" tabindex="-1"
+                 value="{{envelope:sender_message_number}}" required="required"/>
+        </label>
+      </td><td>
+        <label class="label-sameline">Destination:
+          <input type="text" class="message-number" disabled="disabled" tabindex="-1"
+                 date-default-value="{{envelope:receiver_message_number}}"/>
+        </label>
+      </td>
+    </tr><tr>
+      <td colspan="3" class="block-caption" style="background-color:#FFFF67;">
+        This section to be completed by message sender:
+      </td>
+    </tr>
+  </table>
+  <table>
     <tr>
       <td>
-        <label class="label-sameline">Sender's Msg #
-          <input name="2.txmsgno" class="message-number no-msg-init" type="text" tabindex="-1"
-                 value="{{envelope:sender_message_number|view-by:receiver}}"/>
+        <label class="label-sameline">Date:
+          <input type="text" name="1a.date" class="date" value="{{date}}" required="required" tabindex="3"/>
         </label>
       </td><td>
-        <label class="label-sameline">My Msg #
-          <input name="MsgNo" class="message-number no-msg-init" type="text" tabindex="1"
-                 value="{{envelope:viewer_message_number}}"
-                 required="required"/>
+        <label class="label-sameline">Time:
+          <input type="text" name="1b.time" class="time" value="{{time}}" required="required" tabindex="4"/>
         </label>
-      </td><td>
-        <label class="label-sameline">Receiver's Msg #
-          <input name="3.rxmsgno" class="message-number no-msg-init" type="text" tabindex="-1"
-                 value="{{envelope:receiver_message_number|view-by:sender}}"/>
+      </td><td style="vertical-align:middle;">
+        <label class="label-sameline">Handling:</label>
+        <label class="label-sameline" style="margin-left:1em;">
+          <input type="radio" name="5.handling" tabindex="5"
+                 required="required" value="IMMEDIATE"/>Immediate
+          <span style="font-weight:normal;">(ASAP)</span>
+        </label>
+        <label class="label-sameline" style="margin-left:1em;">
+          <input type="radio" name="5.handling" tabindex="5"
+                 required="required" value="PRIORITY"/>Priority
+          <span style="font-weight:normal;">(&lt;1 hr)</span>
+        </label>
+        <label class="label-sameline" style="margin-left:1em;">
+          <input type="radio" name="5.handling" tabindex="5"
+                 required="required" value="ROUTINE"/>Routine
+          <span style="font-weight:normal;">(&lt;2 hr)</span>
         </label>
       </td>
     </tr>
-  </table><table id="form-row-2">
+  </table>
+  <table id="form-row-3">
     <tr>
-      <td>
-        <fieldset>
-          <legend>Situation Severity:</legend>
-          <select name="4.severity" tabindex="4"
-                  onchange="on_value(this, ['EMERGENCY'], {'5.handling': {onMatch: {value: 'IMMEDIATE'}}})">
-            <option value="EMERGENCY">Emergency (e.g. life threat)</option>
-            <option value="URGENT">Urgent (e.g. property threat)</option>
-            <option value="OTHER">Other</option>
-          </select>
-        </fieldset>
+      <td rowspan="4" class="block-caption">
+        T<br/>O
       </td><td>
-        <fieldset>
-          <legend>Msg Handling Order:</legend>
-          <select name="5.handling" tabindex="5">
-            <option value="IMMEDIATE">Immediate (as soon as possible)</option>
-            <option value="PRIORTY">Priority (less than one hour)</option>
-            <option value="ROUTINE">Routine (more than one hour)</option>
-          </select>
-        </fieldset>
-      </td><td style="white-space:normal;">
-        <label>Message Requests You to:
-          <fieldset>
-            <input name="6b.reply" type="checkbox" value="Yes" tabindex="-1"
-                   onchange="on_checked(this, {'6d.reply-by': {enable: true, otherwise: {value: ''}}})"/>
-            reply by:
-            <input name="6d.reply-by" type="text" style="width:10em;" disabled="disabled"/>
-          </fieldset>
-        </label>
+        <table class="same-line-label-layout">
+          <tr>
+            <th>ICS Position:</th>
+            <td>
+              <select name="7a.to-ics-position" onchange="combobox_other_manager(this);" required="required" tabindex="6">
+                <option value="" disabled="disabled" selected="selected">Select one...</option>
+                <option value="Incident Commander">Incident Commander</option>
+                <option value="Operations">Operations</option>
+                <option value="Planning">Planning</option>
+                <option value="Logistics">Logistics</option>
+                <option value="Finance/Admin.">Finance/Admin.</option>
+                <option value="Public Info. Officer">Public Info. Officer</option>
+                <option value="Liaison Officer">Liaison Officer</option>
+                <option value="Safety Officer">Safety Officer</option>
+                <option value="Other">Other:</option>
+              </select>
+            </td><td>
+              <input type="text" name="7a.to-ics-position-other" disabled="disabled" required="required" tabindex="-1"/>
+            </td>
+          </tr>
+        </table>
+      </td><td rowspan="4" class="block-caption">
+        F<br/>R<br/>O<br/>M
+      </td><td>
+        <table class="same-line-label-layout">
+          <tr>
+            <th>ICS Position:</th>
+            <td>
+              <select name="8a.from-ics-position" onchange="combobox_other_manager(this);" required="required" tabindex="10">
+                <option value="" disabled="disabled" selected="selected">Select one...</option>
+                <option value="Incident Commander">Incident Commander</option>
+                <option value="Operations">Operations</option>
+                <option value="Planning">Planning</option>
+                <option value="Logistics">Logistics</option>
+                <option value="Finance/Admin.">Finance/Admin.</option>
+                <option value="Public Info. Officer">Public Info. Officer</option>
+                <option value="Liaison Officer">Liaison Officer</option>
+                <option value="Safety Officer">Safety Officer</option>
+                <option value="Other">Other:</option>
+              </select>
+            </td><td>
+              <input type="text" name="8a.from-ics-position-other" disabled="disabled" required="required" tabindex="-1"/>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr><tr>
+      <td>
+        <table class="same-line-label-layout">
+          <tr>
+            <th>Location:</th>
+            <td><input type="text" name="7b.to-location" required="required" tabindex="7"/></td>
+          </tr>
+        </table>
+      </td><td>
+        <table class="same-line-label-layout">
+          <tr>
+            <th>Location:</th>
+            <td><input type="text" name="8b.from-location" required="required" tabindex="11"/></td>
+          </tr>
+        </table>
+      </td>
+    </tr><tr>
+      <td>
+        <table class="same-line-label-layout">
+          <tr>
+            <th>Name:</th>
+            <td><input type="text" name="7c.to-name" tabindex="8"/></td>
+          </tr>
+        </table>
+      </td><td>
+        <table class="same-line-label-layout">
+          <tr>
+            <th>Name:</th>
+            <td><input type="text" name="8c.from-name" tabindex="12"/></td>
+          </tr>
+        </table>
+      </td>
+    </tr><tr>
+      <td>
+        <table class="same-line-label-layout">
+          <tr>
+            <th>Contact Info:</th>
+            <td><input type="text" name="7d.to-contact" tabindex="9"/></td>
+          </tr>
+        </table>
+      </td><td>
+        <table class="same-line-label-layout"
+          <tr>
+            <th>Contact Info:</th>
+            <td><input type="text" name="8d.from-contact" tabindex="13"/></td>
+          </tr>
+        </table>
       </td>
     </tr>
   </table>

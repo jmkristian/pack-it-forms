@@ -1,0 +1,59 @@
+<div>
+  <div class="version">0.1.0</div>
+  <table class="border" style="border:1px solid #aaaaaa;">
+    <tr class="block-caption">
+      <td colspan="2">Radio Operator Only:</td>
+    </tr><tr>
+      <td>
+        <table class="same-line-label-layout">
+          <tr>
+            <th>Relay From:</th>
+            <td>
+              <input type="text" name="OpRelayFrom" class="no-msg-init" tabindex="-1"/>
+            </td>
+          </tr>
+        </table>
+      </td><td>
+        <table class="same-line-label-layout">
+          <tr>
+            <th>Relay To:</th>
+            <td>
+              <input type="text" name="OpRelayTo" class="no-msg-init" tabindex="-1"/>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table><table>
+    <tr>
+      <td>
+        <table class="same-line-label-layout">
+          <tr>
+            <th>Name:</th>
+            <td>
+              <input type="text" name="OpName" class="no-msg-init" tabindex="502"
+                     value="{{envelope:viewer_operator_name}}"/>
+            </td>
+          </tr>
+        </table>
+      </td><td>
+        <label class="label-sameline">Call Sign:
+          <input type="text" name="OpCall" class="no-msg-init call-sign" tabindex="503"
+                 value="{{envelope:viewer_operator_call_sign}}"/>
+        </label>
+      </td><td>
+        <label class="label-sameline">Date:
+          <input type="text" name="OpDate" class="no-msg-init date" tabindex="504"
+                 disabled="disabled"
+                 value="{{expand-while-null:{{envelope:viewer_date}},{{open-tmpl}}date{{close-tmpl}}}}"/>
+        </label>
+      </td><td>
+        <label class="label-sameline">Time:
+          <input type="text" name="OpTime" class="no-msg-init time" tabindex="505"
+                 disabled="disabled"
+                 value="{{expand-while-null:{{envelope:viewer_time}},{{open-tmpl}}time{{close-tmpl}}}}"/>
+        </label>
+      </td>
+    </tr>
+  </table>
+</div>
