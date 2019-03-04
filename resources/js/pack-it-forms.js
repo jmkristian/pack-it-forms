@@ -44,6 +44,10 @@ var formDefaultValues;     // Initial values for form inputs. May contain templa
 var templatedElements = [];// Initial values for templated elements with no name. All templates.
 var errorLog = [];         // Errors that occurred before there was a place to show them.
 var EOL = "\r\n";
+var selectGreen = "#88ff88";
+var selectYellow = "#ffff67";
+var selectRed = "#facccc";
+var selectWhite = "#ffffff";
 var MS_Edge = 12;
 var MSIE_version = (function() {
     var userAgent = navigator.userAgent;

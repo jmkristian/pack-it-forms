@@ -24,23 +24,19 @@
       }
       var standardEarlyStartup = integration.early_startup;
       integration.early_startup = function(next) {
-          var green = "#00ff00";
-          var yellow = "#ffff00";
-          var red = "#f8cccc";
-          var white = "#ffffff";
           standardEarlyStartup(function() {
               select_backgroundColor(
                   document.querySelector('select[name="29.office-status"]'),
-                  {Open: green, Closed: yellow, otherwise: white});
+                  {Open: selectGreen, Closed: selectYellow, otherwise: selectWhite});
               select_backgroundColor(
                   document.querySelector('select[name="34.eoc-open"]'),
-                  {Yes: green, No: yellow, otherwise: white});
+                  {Yes: selectGreen, No: selectYellow, otherwise: selectWhite});
               select_backgroundColor(
                   document.querySelector('select[name="40.state-of-emergency"]'),
-                  {Yes: red, No: green, otherwise: white});
+                  {Yes: selectRed, No: selectGreen, otherwise: white});
               array_for_each(document.querySelectorAll('option[value="Problem"]'), function(option) {
                   select_backgroundColor(option.parentNode, {
-                      Normal: green, Problem: yellow, Failure: red, otherwise: white});
+                      Normal: selectGreen, Problem: selectYellow, Failure: selectRed, otherwise: selectWhite});
               });
               next();
           });
