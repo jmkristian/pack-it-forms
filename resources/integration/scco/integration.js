@@ -36,7 +36,7 @@
                 } else if (hour < 10) {
                     hour = '0' + hour;
                 }
-                into.time = hour + ':' + min + (sec ? sec : '');
+                into.time = hour + ':' + min;
             }
         }
     };

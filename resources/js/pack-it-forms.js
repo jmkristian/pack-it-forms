@@ -758,8 +758,7 @@ var template_repl_func = {
     "time" : function (arg) {
         var now = new Date();
         return (padded_int_str(now.getHours(), 2) + ":"
-                + padded_int_str(now.getMinutes(), 2) + ":"
-                + padded_int_str(now.getSeconds(), 2));
+                + padded_int_str(now.getMinutes(), 2));
     },
 
     "field" : field_value,
@@ -1120,7 +1119,7 @@ function setup_input_elem_from_class(next) {
         var setup = {
             "date": {pattern: "(0[1-9]|1[012])/(0[1-9]|1[0-9]|2[0-9]|3[01])/[1-2][0-9][0-9][0-9]",
                      placeholder: "mm/dd/yyyy"},
-            "time": {pattern: "([01][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?",
+            "time": {pattern: "([01][0-9]|2[0-3]):[0-5][0-9]",
                      placeholder: "hh:mm"},
             "phone-number": {pattern: "([0-9]{3})?[ -]?[0-9]{3}[ -]?[0-9]{4}",
                              placeholder: "000-000-0000"},
