@@ -3,11 +3,24 @@
   <table id="form-row-1">
     <tr>
       <td>
-        <span name="header-title" class="templated no-msg-init"><h1>{{title}}</h1></span>
+        <table class="same-line-label-layout">
+          <tr>
+            <td>
+              <span name="header-title" class="templated no-msg-init"
+                    style="font-size:200%;font-weight:bold;">{{title}}</span>
+            </td>
+            <td rowspan="2" style="text-align:right;vertical-align:bottom;">
+              <span name="header-version" class="templated no-msg-init"></span>
+            </td>
+          </tr><tr>
+            <td><span name="header-subtitle" class="templated no-msg-init"></span></td>
+          </tr>
+        </table>
       </td><td>
         <label>Sender's Msg #<span class="field-number">2</span>
           <input name="2.txmsgno" class="message-number no-msg-init" type="text" tabindex="-1"
-                 value="{{envelope:sender_message_number|view-by:receiver}}"/>
+                 value="{{envelope:sender_message_number|view-by:receiver}}"
+                 disabled="disabled"/>
         </label>
       </td><td>
         <label>My Msg #<span class="field-number"> </span>
@@ -18,14 +31,15 @@
       </td><td>
         <label>Receiver's Msg #<span class="field-number">3</span>
           <input name="3.rxmsgno" class="message-number no-msg-init" type="text" tabindex="-1"
-                 value="{{envelope:receiver_message_number|view-by:sender}}"/>
+                 value="{{envelope:receiver_message_number|view-by:sender}}"
+                 disabled="disabled"/>
         </label>
       </td>
     </tr>
   </table><table id="form-row-2">
     <tr>
       <td>
-        <label>Date:<span class="field-number">1a</span>
+        <label>Date:<span class="field-number">1</span>
           <input name="1a.date" class="date" type="text" tabindex="2"
                  required="required"
                  value="{{date}}"/>
@@ -89,13 +103,13 @@
             </label>
           </fieldset>
           <label>
-            <input name="6c.fyi" type="checkbox" tabindex="-1"/>For your information (no action)
+            <input name="6c.fyi" type="checkbox" tabindex="-1"/>For your info (no action required)
           </label>
         </fieldset>
       </td>
     </tr><tr>
       <td>
-        <label>Time:<span class="field-number">1b</span>
+        <label>Time:
           <input name="1b.time" class="time" type="text" tabindex="3"
                  required="required"
                  value="{{time}}"/>
@@ -104,44 +118,18 @@
     </tr>
   </table><table id="form-row-3">
     <tr>
-      <td rowspan="4" class="block-caption">
+      <td rowspan="4" class="block-caption" style="width:1px;font-size:125%;">
         To:
       </td><td>
-        <fieldset>
-          <legend>ICS Position:<span class="field-number">7</span></legend>
-          <select name="7.to-ics-position" onchange="combobox_other_manager(this);" required="required" tabindex="10">
-            <option value="" disabled="disabled" selected="selected">Select one...</option>
-            <option value="Incident Commander">Incident Commander</option>
-            <option value="Operations">Operations</option>
-            <option value="Planning">Planning</option>
-            <option value="Logistics">Logistics</option>
-            <option value="Finance/Admin.">Finance/Admin.</option>
-            <option value="Public Info. Officer">Public Info. Officer</option>
-            <option value="Liaison Officer">Liaison Officer</option>
-            <option value="Safety Officer">Safety Officer</option>
-            <option value="Other">Other:</option>
-          </select>
-          <input name="7.to-ics-position-other" type="text" disabled="disabled" required="required"/>
-        </fieldset>
-      </td><td rowspan="4" class="block-caption">
+        <label>ICS Position:<span class="field-number">7</span>
+          <input name="7.to-ics-position-other" type="text" required="required" tabindex="10"/>
+        </label>
+      </td><td rowspan="4" class="block-caption" style="width:1px;font-size:125%;">
         From:
       </td><td>
-        <fieldset>
-          <legend>ICS Position:<span class="field-number">8</span></legend>
-          <select name="8.from-ics-position" onchange="combobox_other_manager(this);" required="required" tabindex="15">
-            <option value="" disabled="disabled" selected="selected">Select one...</option>
-            <option value="Incident Commander">Incident Commander</option>
-            <option value="Operations">Operations</option>
-            <option value="Planning">Planning</option>
-            <option value="Logistics">Logistics</option>
-            <option value="Finance/Admin.">Finance/Admin.</option>
-            <option value="Public Info. Officer">Public Info. Officer</option>
-            <option value="Liaison Officer">Liaison Officer</option>
-            <option value="Safety Officer">Safety Officer</option>
-            <option value="Other">Other:</option>
-          </select>
-          <input name="8.from-ics-position-other" type="text" disabled="disabled" required="required"/>
-        </fieldset>
+        <label>ICS Position:<span class="field-number">8</span>
+          <input name="8.from-ics-position" type="text" required="required" tabindex="15"/>
+        </label>
       </td>
     </tr><tr>
       <td>

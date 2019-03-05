@@ -571,7 +571,7 @@ function form_version() {
     var includes = versions.includes.map(function(i) {
         return i.name + "=" + i.version;
     }).join(", ");
-    return versions.form + "; " + includes;
+    return versions.form + (includes ? "; " + includes : "");
 }
 
 /* --- Template expansion */

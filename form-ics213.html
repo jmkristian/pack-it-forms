@@ -6,6 +6,22 @@
     <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
     <link rel="stylesheet" type="text/css" href="resources/css/ics-header.css"/>
     <link rel="stylesheet" type="text/css" href="resources/css/ics-footer.css"/>
+    <style>
+      table#form-row-2 {
+          border-top: 2px solid #444444;
+          border-left: 2px solid #444444;
+          border-right: 2px solid #444444;
+      }
+      table#form-row-3 {
+          border-left: 2px solid #444444;
+          border-right: 2px solid #444444;
+      }
+      #form-body {
+          border-left: 2px solid #444444;
+          border-right: 2px solid #444444;
+          border-bottom: 2px solid #444444;
+      }
+    </style>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
     <meta name="pack-it-forms-pdf-URL" content="resources/pdf/ICS-213_SCC_Message_Form_06-28-07_Fillable.pdf">
@@ -13,7 +29,7 @@
   </head>
 
   <body>
-    <div class="version">05/02/18</div>
+    <div class="version">1.0</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -25,7 +41,9 @@
     <form id="the-form" name="the-form">
       <div data-include-html="ics-header">
         {
-            "header-title": "&lt;div style=\"font-size:166%;font-weight:bold;padding-bottom:0.5ex;\"&gt;EOC Message Form&lt;/div&gt;6/28/2007; (PR-4.4-4.3, 05/02/18)",
+            "header-title": "MESSAGE FORM",
+            "header-subtitle": "SCCo ICS Form 213 - 6/28/2007",
+            "header-version": "PIF {{version}}",
             "4.": "OTHER",
             "5.": "ROUTINE",
             "6a.": "No",
