@@ -4,8 +4,6 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="resources/css/loading.css"/>
     <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
-    <link rel="stylesheet" type="text/css" href="resources/css/ics-header.css"/>
-    <link rel="stylesheet" type="text/css" href="resources/css/ics-footer.css"/>
     <style>
       #the-form fieldset table {
           margin-left: 0px;
@@ -27,13 +25,13 @@
           standardEarlyStartup(function() {
               select_backgroundColor(
                   document.querySelector('select[name="29.office-status"]'),
-                  {Open: selectGreen, Closed: selectYellow, otherwise: selectWhite});
+                  {Open: selectGreen, Closed: selectRed, otherwise: selectWhite});
               select_backgroundColor(
                   document.querySelector('select[name="34.eoc-open"]'),
-                  {Yes: selectGreen, No: selectYellow, otherwise: selectWhite});
+                  {Yes: selectGreen, No: selectRed, otherwise: selectWhite});
               select_backgroundColor(
                   document.querySelector('select[name="40.state-of-emergency"]'),
-                  {Yes: selectRed, No: selectGreen, otherwise: white});
+                  {Yes: selectRed, No: selectGreen, otherwise: selectWhite});
               array_for_each(document.querySelectorAll('option[value="Problem"]'), function(option) {
                   select_backgroundColor(option.parentNode, {
                       Normal: selectGreen, Problem: selectYellow, Failure: selectRed, otherwise: selectWhite});
@@ -46,7 +44,7 @@
   </head>
 
   <body>
-    <div class="version">20130101</div>
+    <div class="version">1.0</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -58,35 +56,21 @@
     <form id="the-form" name="the-form">
       <div data-include-html="scco-header">
         {
-            "header-title": "SCC OA Municipal Status",
-            "header-version": "Version 20130101&lt;br/&gt;(PR-4.4-1.9, 06/29/18)",
-            "4.": "OTHER",
+            "header-title": "Santa Clara OA Jurisdiction Status",
+            "header-version": "PIF {{version}}&lt;br/&gt;WebEOC 20130101",
             "5.": "ROUTINE"
         }
       </div>
       <br/>
       <fieldset id="incident">
-        <table>
+        <table class="same-line-label-layout">
           <tr>
-            <td class="label" style="vertical-align:middle;">
-              <label class="bold">Incident Name:</label>
-            </td><td>
-              <input name="20.incident-name" type="text" required="required" tabindex="20"
+            <th>Jurisdiction:</th>
+            <td style="width:1px;"><div data-include-html="select-municipality"></div></td>
+            <th>Incident Name:</th>
+            <td>
+              <input type="text" name="20.incident-name" required="required" tabindex="20"
                      placeholder="or 'Incident independent'"/>
-            </td>
-          </tr><tr>
-            <td style="padding-top:0.5em;"></td>
-          </tr><tr>
-            <td class="label" style="vertical-align:middle;">
-              <label class="bold">Municipality:</label>
-            </td><td style="white-space:normal;">
-              <div data-include-html="select-municipality"></div>
-              &nbsp;&nbsp;Date:
-              <input name="1a.date" type="text"
-                     required="required" class="date" value="{{date}}"/>
-              &nbsp;&nbsp;Time:
-              <input name="1b.time" type="text"
-                     required="required" class="time" value="{{time}}"/>
             </td>
           </tr>
         </table>
@@ -218,7 +202,7 @@
         </table>
       </fieldset>
       <fieldset id="proclamation" class="labeled-box">
-        <legend>Proclamations</legend>
+        <legend>Declarations</legend>
         <table>
           <tr>
             <td class="label">
@@ -512,7 +496,7 @@
         </table>
       </fieldset>
       <br/>
-      <div data-include-html="ics-footer-short"></div>
+      <div data-include-html="scco-footer"></div>
     </form>
     <div data-include-html="submit-buttons"></div>
     <footer><br/>Page 2 of 2</footer>
