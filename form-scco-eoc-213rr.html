@@ -28,7 +28,7 @@
   </head>
 
   <body>
-    <div class="version">8.17</div>
+    <div class="version">1.0</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -40,8 +40,8 @@
     <form id="the-form" name="the-form">
       <div data-include-html="scco-header">
         {
-            "header-title": "Resource Request (EOC Form 213RR)",
-            "header-version": "Version 08/17&lt;br/&gt;(PR-4.4-2.98, 06/29/18)",
+            "header-title": "Resource Request Form 213RR",
+            "header-version": "PIF {{version}}&lt;br/&gt;PDF 8/17",
             "4.": "OTHER",
             "5.": "ROUTINE"
         }
@@ -54,18 +54,17 @@
             </label>
           </td><td style="width:1px;">
             <label>Date Initiated<span class="field-number">2</span>
-              <input type="text" name="1a.date" required="required" tabindex="-1"
-                     class="date" value="{{date}}"/>
+              <input type="text" name="22.date" required="required" tabindex="-1"
+                     class="date"/>
             </label>
           </td><td style="width:1px;">
             <label>Time Initiated<span class="field-number">3</span>
-              <input type="text" name="1b.time" required="required" tabindex="-1"
-                     class="time" value="{{time}}"/>
+              <input type="text" name="23.time" required="required" tabindex="-1"
+                     class="time"/>
             </label>
-          </td><td style="width:1px;">
+          </td><td style="width:15em;">
             <label>Tracking Number<span class="field-number">4</span>
-              <input type="text" name="24.tracking-number" disabled="disabled" tabindex="-1"
-                     style="width:15em;" placeholder="Completed by OA EOC"/>
+              <input type="text" name="24.tracking-number" disabled="disabled" tabindex="-1"/>
             </label>
           </td>
         </tr><tr>
@@ -266,8 +265,7 @@
             </td>
           </tr>
         </table>
-        <br/>
-        <div data-include-html="ics-footer-short"></div>
+        <div data-include-html="scco-footer"></div>
       </div>
     </form>
     <div data-include-html="submit-buttons"></div>
