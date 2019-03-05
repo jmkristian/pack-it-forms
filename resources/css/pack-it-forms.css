@@ -360,7 +360,7 @@ form input.real-number {
     text-align: right;
 }
 form input.phone-number {
-    width: 8em;
+    width: 11em;
 }
 form input.date {
     width: 6em;
