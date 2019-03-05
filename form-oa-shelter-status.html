@@ -5,9 +5,6 @@
     <link rel="stylesheet" type="text/css" href="resources/css/loading.css"/>
     <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
     <style>
-      table.shelter-status {
-          margin-top: 2em;
-      }
       table.shelter-status th {
           border: none;
           white-space: nowrap;
@@ -144,22 +141,20 @@
             "5.": "ROUTINE"
         }
       </div>
+      <br/>
+      <table class="same-line-label-layout" style="margin-top:0.5em;">
+        <tr>
+          <th>Municipality:</th>
+          <td style="width:1px;"><div data-include-html="select-municipality"></div></td>
+          <th>Incident Name:</th>
+          <td>
+            <input type="text" name="20.incident-name" required="required" tabindex="20"
+                   placeholder="or 'Incident independent'"/>
+          </td>
+        </tr>
+      </table>
       <table class="shelter-status">
         <tr>
-          <th style="font-weight:bold;">Incident Name:</th>
-          <td>
-            <table class="same-line-label-layout">
-              <tr>
-                <td>
-                  <input type="text" name="20.incident-name" required="required" tabindex="20"
-                         placeholder="or 'Incident independent'"/>
-                </td>
-                <th>Municipality:</th>
-                <td><div data-include-html="select-municipality"></div></td>
-              </tr>
-            </table>
-          </td>
-        </tr><tr>
           <th colspan="2" class="section-head">Shelter<hr/></th>
         </tr><tr>
           <th>Shelter Type:</th>
