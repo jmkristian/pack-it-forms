@@ -36,11 +36,6 @@
                    {'99.how-sent': {enable: true, require: true, otherwise: {value: ''}},
                     '98.how-to-send': {onMatch: {display: 'inline'}, otherwise: {display: 'none'}}});
       }
-      function comment_enabler(element, comment_name) {
-          var actions = {};
-          actions[comment_name] = {enable: true, require: true, otherwise: {value: ""}};
-          on_value(element, ["Problem", "Failure"], actions);
-      }
       var standardEarlyStartup = integration.early_startup;
       integration.early_startup = function(next) {
           standardEarlyStartup(function() {
@@ -67,7 +62,7 @@
                       Normal: selectGreen,
                       Problem: selectYellow,
                       Failure: selectRed,
-                      otherwise: selectWhite}); 
+                      otherwise: selectWhite});
               });
               next();
           });
@@ -101,7 +96,7 @@
           <td style="width:1px;"><div data-include-html="select-municipality"></div></td>
           <th>Incident Name:</th>
           <td>
-            <input type="text" name="20.incident-name" required="required" tabindex="22"
+            <input type="text" name="20.incident-name" required tabindex="22"
                    placeholder="or 'Incident independent'"/>
           </td>
         </tr>
@@ -116,7 +111,7 @@
             <td><input name="24.eoc-fax" type="text" class="phone-number" tabindex="24"/></td>
           </tr><tr>
             <td><label for="pri-em-contact-name">Primary EM Contact Name:</label></td>
-            <td><input name="25.pri-em-contact-name" type="text" required="required" tabindex="25"></td>
+            <td><input name="25.pri-em-contact-name" type="text" required tabindex="25"></td>
             <td><label for="pri-em-contact-phone">Primary EM Contact Phone:</label></td>
             <td><input name="26.pri-em-contact-phone" type="text" class="phone-number" required tabindex="26"/></td>
           </tr><tr>
@@ -160,7 +155,7 @@
           <tr>
             <td><label for="eoc-open">EOC Open:</label></td>
             <td>
-              <select name="34.eoc-open" required="required" tabindex="34"
+              <select name="34.eoc-open" required tabindex="34"
                       onchange="on_value(this, ['Yes'], {'35.eoc-activation-level':
                                 {enable: true, require: true, otherwise: {value: ''}}});">
                 <option value="Unknown" selected>Unknown</option>
@@ -170,8 +165,8 @@
             </td>
             <td><label for="activation-level">Activation Level:</label></td>
             <td>
-              <select name="35.eoc-activation-level" disabled="disabled" tabindex="35">
-                <option value="" selected="selected" disabled="disabled"></option>
+              <select name="35.eoc-activation-level" disabled tabindex="35">
+                <option value="" selected disabled></option>
                 <option value="Normal">Normal</option>
                 <option value="Duty Officer">Duty Officer</option>
                 <option value="Monitor">Monitor</option>
@@ -198,7 +193,7 @@
           <tr>
             <td style="width:1px;white-space:nowrap;"><label>State of Emergency:<label></td>
             <td style="width:1px;">
-              <select name="40.state-of-emergency" required="required" tabindex="40"
+              <select name="40.state-of-emergency" required tabindex="40"
                       onchange="on_state_of_emergency(this);">
                 <option value="Unknown" selected>Unknown</option>
                 <option value="Yes">Yes</option>
@@ -227,9 +222,8 @@
           <tr>
             <td class="label">Communications</td>
             <td>
-              <select name="41.0.communications" required="required" tabindex="41"
-                      onchange="comment_enabler(this, '41.1.communications-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="41.0.communications" required tabindex="41">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -239,16 +233,14 @@
               </select>
             </td>
             <td>
-              <textarea name="41.1.communications-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="41.1.communications-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Debris</td>
             <td>
-              <select name="42.0.debris" required="required" tabindex="42"
-                      onchange="comment_enabler(this, '42.1.debris-comments')"> 
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="42.0.debris" required tabindex="42">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -258,16 +250,14 @@
               </select>
             </td>
             <td>
-              <textarea name="42.1.debris-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="42.1.debris-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Flooding</td>
             <td>
-              <select name="43.0.flooding" required="required" tabindex="43"
-                      onchange="comment_enabler(this, '43.1.flooding-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="43.0.flooding" required tabindex="43">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -277,16 +267,14 @@
               </select>
             </td>
             <td>
-              <textarea name="43.1.flooding-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="43.1.flooding-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Hazmat</td>
             <td>
-              <select name="44.0.hazmat" required="required" tabindex="44"
-                      onchange="comment_enabler(this, '44.1.hazmat-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="44.0.hazmat" required tabindex="44">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -296,16 +284,14 @@
               </select>
             </td>
             <td>
-              <textarea name="44.1.hazmat-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="44.1.hazmat-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Emergency Services</td>
             <td>
-              <select name="45.0.emergency-services" required="required" tabindex="45"
-                      onchange="comment_enabler(this, '45.1.emergency-services-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="45.0.emergency-services" required tabindex="45">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -315,16 +301,14 @@
               </select>
             </td>
             <td>
-              <textarea name="45.1.emergency-services-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="45.1.emergency-services-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Casualties</td>
             <td>
-              <select name="46.0.casualties" required="required" tabindex="46"
-                      onchange="comment_enabler(this, '46.1.casualties-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="46.0.casualties" required tabindex="46">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -334,16 +318,14 @@
               </select>
             </td>
             <td>
-              <textarea name="46.1.casualties-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="46.1.casualties-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Utilities (Gas)</td>
             <td>
-              <select name="47.0.utilities-gas" required="required" tabindex="47"
-                      onchange="comment_enabler(this, '47.1.utilities-gas-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="47.0.utilities-gas" required tabindex="47">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -353,16 +335,14 @@
               </select>
             </td>
             <td>
-              <textarea name="47.1.utilities-gas-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="47.1.utilities-gas-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Utilites (Electric)</td>
             <td>
-              <select name="48.0.utilities-electric" required="required" tabindex="48"
-                      onchange="comment_enabler(this, '48.1.utilities-electric-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="48.0.utilities-electric" required tabindex="48">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -372,16 +352,14 @@
               </select>
             </td>
             <td>
-              <textarea name="48.1.utilities-electric-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="48.1.utilities-electric-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Infrastructure<br/>(Power)</td>
             <td>
-              <select name="49.0.infrastructure-power" required="required" tabindex="49"
-                      onchange="comment_enabler(this, '49.1.infrastructure-power-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="49.0.infrastructure-power" required tabindex="49">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -391,16 +369,14 @@
               </select>
             </td>
             <td>
-              <textarea name="49.1.infrastructure-power-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="49.1.infrastructure-power-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Infrastructure<br/>(Water Systems)</td>
             <td>
-              <select name="50.0.infrastructure-water-systems" required="required" tabindex="50"
-                      onchange="comment_enabler(this, '50.1.infrastructure-water-systems-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="50.0.infrastructure-water-systems" required tabindex="50">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -410,16 +386,14 @@
               </select>
             </td>
             <td>
-              <textarea name="50.1.infrastructure-water-systems-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="50.1.infrastructure-water-systems-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Infrastructure<br/>(Sewer Systems)</td>
             <td>
-              <select name="51.0.infrastructure-sewer-systems" required="required" tabindex="51"
-                      onchange="comment_enabler(this, '51.1.infrastructure-sewer-systems-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="51.0.infrastructure-sewer-systems" required tabindex="51">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -429,16 +403,14 @@
               </select>
             </td>
             <td>
-              <textarea name="51.1.infrastructure-sewer-systems-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="51.1.infrastructure-sewer-systems-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Search and Rescue</td>
             <td>
-              <select name="52.0.search-and-rescue" required="required" tabindex="52"
-                      onchange="comment_enabler(this, '52.1.search-and-rescue-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="52.0.search-and-rescue" required tabindex="52">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -448,16 +420,14 @@
               </select>
             </td>
             <td>
-              <textarea name="52.1.search-and-rescue-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="52.1.search-and-rescue-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Transportation (Roads)</td>
             <td>
-              <select name="53.0.transportation-roads" required="required" tabindex="53"
-                      onchange="comment_enabler(this, '53.1.transportation-roads-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="53.0.transportation-roads" required tabindex="53">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -467,16 +437,14 @@
               </select>
             </td>
             <td>
-              <textarea name="53.1.transportation-roads-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="53.1.transportation-roads-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Transportation (Bridges)</td>
             <td>
-              <select name="54.0.transportation-bridges" required="required" tabindex="54"
-                      onchange="comment_enabler(this, '54.1.transportation-bridges-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="54.0.transportation-bridges" required tabindex="54">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -486,16 +454,14 @@
               </select>
             </td>
             <td>
-              <textarea name="54.1.transportation-bridges-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="54.1.transportation-bridges-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Civil Unrest</td>
             <td>
-              <select name="55.0.civil-unrest" required="required" tabindex="55"
-                      onchange="comment_enabler(this, '55.1.civil-unrest-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="55.0.civil-unrest" required tabindex="55">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -505,16 +471,14 @@
               </select>
             </td>
             <td>
-              <textarea name="55.1.civil-unrest-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="55.1.civil-unrest-comments" rows="3"></textarea>
             </td>
           </tr>
           <tr>
             <td class="label">Animal Issues</td>
             <td>
-              <select name="56.0.animal-issues" required="required" tabindex="56"
-                      onchange="comment_enabler(this, '56.1.animal-issues-comments')">
-                <option value="Unknown" selected="selected">Unknown</option>
+              <select name="56.0.animal-issues" required tabindex="56">
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
@@ -524,8 +488,7 @@
               </select>
             </td>
             <td>
-              <textarea name="56.1.animal-issues-comments" rows="2"
-                        required="required" disabled="disabled"></textarea>
+              <textarea name="56.1.animal-issues-comments" rows="3"></textarea>
             </td>
           </tr>
         </table>
