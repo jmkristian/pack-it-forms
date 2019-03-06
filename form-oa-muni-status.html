@@ -45,23 +45,35 @@
       integration.early_startup = function(next) {
           standardEarlyStartup(function() {
               select_backgroundColor(
-                  document.querySelector('select[name="29.office-status"]'),
-                  {Open: selectGreen, Closed: selectYellow, otherwise: selectWhite});
+                  document.querySelector('select[name="29.office-status"]'), {
+                      Unknown: selectGray, Open: selectGreen, Closed: selectRed});
               select_backgroundColor(
-                  document.querySelector('select[name="34.eoc-open"]'),
-                  {Yes: selectGreen, No: selectYellow, otherwise: selectWhite});
+                  document.querySelector('select[name="34.eoc-open"]'), {
+                      Unknown: selectGray, Yes: selectRed, No: selectGreen});
               select_backgroundColor(
-                  document.querySelector('select[name="40.state-of-emergency"]'),
-                  {Yes: selectRed, No: selectGreen, otherwise: selectWhite});
+                  document.querySelector('select[name="35.eoc-activation-level"]'), {
+                      Normal: selectGreen,
+                      'Duty Officer': selectYellow,
+                      Monitor: selectOrange,
+                      Partial: selectRed,
+                      Full: selectRed,
+                      otherwise: selectWhite});
+              select_backgroundColor(
+                  document.querySelector('select[name="40.state-of-emergency"]'), {
+                      Yes: selectRed, No: selectGreen, otherwise: selectGray});
               array_for_each(document.querySelectorAll('option[value="Problem"]'), function(option) {
                   select_backgroundColor(option.parentNode, {
-                      Normal: selectGreen, Problem: selectYellow, Failure: selectRed, otherwise: selectWhite});
+                      Unknown: selectGray,
+                      Normal: selectGreen,
+                      Problem: selectYellow,
+                      Failure: selectRed,
+                      otherwise: selectWhite}); 
               });
               next();
           });
       };
     </script>
-    <title>Santa Clara OA Municipal Status</title>
+    <title>Santa Clara OA Jurisdiction Status</title>
   </head>
 
   <body>
@@ -89,7 +101,7 @@
           <td style="width:1px;"><div data-include-html="select-municipality"></div></td>
           <th>Incident Name:</th>
           <td>
-            <input type="text" name="20.incident-name" required="required" tabindex="20"
+            <input type="text" name="20.incident-name" required="required" tabindex="22"
                    placeholder="or 'Incident independent'"/>
           </td>
         </tr>
@@ -122,7 +134,7 @@
             <td><label for="office-status">Office Status:</label></td>
             <td>
               <select name="29.office-status" tabindex="29">
-                <option value="" selected="selected">Unknown</option>
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Open">Open</option>
                 <option value="Closed">Closed</option>
               </select>
@@ -151,7 +163,7 @@
               <select name="34.eoc-open" required="required" tabindex="34"
                       onchange="on_value(this, ['Yes'], {'35.eoc-activation-level':
                                 {enable: true, require: true, otherwise: {value: ''}}});">
-                <option value="" selected="selected" disabled="disabled">Unknown</option>
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
@@ -160,9 +172,9 @@
             <td>
               <select name="35.eoc-activation-level" disabled="disabled" tabindex="35">
                 <option value="" selected="selected" disabled="disabled"></option>
-                <option value="Unknown">Unknown</option>
+                <option value="Normal">Normal</option>
+                <option value="Duty Officer">Duty Officer</option>
                 <option value="Monitor">Monitor</option>
-                <option value="Minimal">Minimal</option>
                 <option value="Partial">Partial</option>
                 <option value="Full">Full</option>
               </select>
@@ -188,7 +200,7 @@
             <td style="width:1px;">
               <select name="40.state-of-emergency" required="required" tabindex="40"
                       onchange="on_state_of_emergency(this);">
-                <option value="" selected="selected" disabled="disabled">Unknown</option>
+                <option value="Unknown" selected>Unknown</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
@@ -208,8 +220,8 @@
         <label>Current Situation</label>
         <table id="current-situation" class="zebra-striped">
           <tr style="background-color:#bbeeff;">
-            <td class="bold">Type</td>
-            <td class="bold">Status</td>
+            <td class="bold label">Type</td>
+            <td class="bold label">Status</td>
             <td class="bold">Comments</td>
           </tr>
           <tr>
@@ -221,6 +233,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -237,6 +252,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -253,6 +271,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -269,6 +290,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -285,6 +309,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -301,6 +328,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -317,6 +347,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -333,6 +366,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -349,6 +385,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -365,6 +404,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -381,6 +423,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -397,6 +442,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -413,6 +461,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -429,6 +480,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -445,6 +499,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
@@ -461,6 +518,9 @@
                 <option value="Normal">Normal</option>
                 <option value="Problem">Problem</option>
                 <option value="Failure">Failure</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Closed">Closed</option>
+                <option value="Early Out">Early Out</option>
               </select>
             </td>
             <td>
