@@ -459,8 +459,8 @@ var newMessage = { // a namespace
     */
     subjectPrefix: function() {
         return field_value("MsgNo")
-            + "_" + field_value("4.severity").substring(0, 1)
-            + "/" + field_value("5.handling").substring(0, 1);
+            + "_" + (field_value("4.severity") || "O").substring(0, 1)
+            + "/" + (field_value("5.handling") || "R").substring(0, 1);
     },
 
     /** Construct the suffix of the subject of a SCCo ICS-213 message.
