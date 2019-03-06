@@ -47,15 +47,6 @@
     <meta name="pack-it-forms-pdf-URL" content="resources/pdf/XSC_OA_ShelterStatus_v20130814.pdf">
     <meta name="pack-it-forms-subject-suffix" content="_Shelter Status_{{field:21.municipality}}">
     <script type="text/javascript">
-      var standardEarlyStartup = integration.early_startup;
-      integration.early_startup = function(next) {
-          standardEarlyStartup(function() {
-              select_backgroundColor(
-                  document.querySelector('select[name="31.shelter-status"]'),
-                  {Open: selectGreen, Full: selectYellow, Closed: selectRed});
-              next();
-          });
-      };
       function compute_availability(element) {
           var capacity = document.getElementById("shelter-capacity").value;
           var occupancy = document.getElementById("shelter-occupancy").value;
@@ -137,22 +128,15 @@
       <div data-include-html="scco-header">
         {
             "header-title": "Santa Clara OA Shelter Status",
+            "header-subtitle": "Incident Independent",
             "header-version": "PIF {{version}}&lt;br/&gt;WebEOC 20130814",
             "5.": "ROUTINE"
         }
       </div>
       <br/>
-      <table class="same-line-label-layout" style="margin-top:0.5em;">
-        <tr>
-          <th>Municipality:</th>
-          <td style="width:1px;"><div data-include-html="select-municipality"></div></td>
-          <th>Incident Name:</th>
-          <td>
-            <input type="text" name="20.incident-name" required="required" tabindex="20"
-                   placeholder="or 'Incident independent'"/>
-          </td>
-        </tr>
-      </table>
+      <label class="label-sameline" style="margin-top:0.5em;">Municipality:
+        <div data-include-html="select-municipality"></div>
+      </label>
       <table class="shelter-status">
         <tr>
           <th colspan="2" class="section-head">Shelter<hr/></th>
@@ -179,11 +163,21 @@
           <th>Name:</th>
           <td><input type="text" name="32.shelter-name" tabindex="32"/></td>
         </tr><tr>
-          <th>City:</th>
-          <td><input type="text" name="33b.shelter-city" tabindex="33"/></td>
-        </tr><tr>
           <th>Address:</th>
-          <td><input type="text" name="33a.shelter-address" tabindex="34"/></td>
+          <td><input type="text" name="33a.shelter-address" tabindex="33"/></td>
+        </tr><tr>
+          <th>City:</th>
+          <td>
+            <table class="same-line-label-layout">
+              <tr>
+                <td><input type="text" name="33b.shelter-city" tabindex="34"/></td>
+                <th style="font-weight:normal;">State:</th>
+                <td style="width:2em;"><input type="text" name="33c.shelter-state" tabindex="35"/></td>
+                <th style="font-weight:normal;">Zip:</th>
+                <td style="width:8em;"><input type="text" name="33d.shelter-zip" tabindex="36"/></td>
+              </tr>
+            </table>
+          </td>
         </tr><tr>
           <th>Latitude:</th>
           <td>
@@ -206,7 +200,7 @@
                    onchange="compute_availability(this)" id="shelter-occupancy"/>
             <label class="label-sameline">Availability:
               <input type="text" class="cardinal-number" id="shelter-availability" tabindex="-1"
-                     disabled="disabled"/>
+                     disabled style="color:red;"/>
             </label>
           </td>
         </tr><tr>
@@ -322,9 +316,9 @@
         </tr><tr>
           <th></th>
           <td>
-            <label class="label-sameline" style="margin-left:0px;">
+            <label class="label-sameline" style="margin-left:0px;font-weight:bold;">
               <input type="checkbox" name="71.remove-from-active-list" tabindex="71">
-              Remove from list
+              Remove from List
             </label>
           </td>
         </tr>
