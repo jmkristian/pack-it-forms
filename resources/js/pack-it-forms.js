@@ -1068,6 +1068,10 @@ function set_properties(targetProperties) {
                                 target.checked = true;
                                 changed = true;
                             }
+                        } else if (p == "display") {
+                            if (target.style) {
+                                target.style.display = properties[p];
+                            }
                         } else if (target[p] != properties[p]) {
                             target[p] = properties[p];
                             changed = true;

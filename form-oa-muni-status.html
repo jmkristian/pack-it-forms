@@ -5,9 +5,25 @@
     <link rel="stylesheet" type="text/css" href="resources/css/loading.css"/>
     <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
     <style>
-      #the-form fieldset table {
-          margin-left: 0px;
-          margin-right: auto;
+      #the-form table.zebra-striped {
+          margin-top: 0.5em;
+      }
+      #the-form table.zebra-striped tr:nth-child(even) {
+          background-color: #ffffff;
+      }
+      #the-form table.zebra-striped td>label {
+          font-weight: normal;
+      }
+      #the-form table.grid td {
+          padding-top: 3px;
+          padding-bottom: 3px;
+          vertical-align: center;
+      }
+      #the-form table.grid td:nth-child(odd) {
+          width: 25%;
+      }
+      #the-form table.grid td:nth-child(3n) {
+          text-align: right;
       }
     </style>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
@@ -15,6 +31,11 @@
     <meta name="pack-it-forms-pdf-URL" content="resources/pdf/XSC_OA_MuniStatus_v20130101.pdf">
     <meta name="pack-it-forms-subject-suffix" content="_Municipal Status_{{field:21.municipality}}">
     <script type="text/javascript">
+      function on_state_of_emergency(emergency) {
+          on_value(emergency, ['Yes'],
+                   {'99.how-sent': {enable: true, require: true, otherwise: {value: ''}},
+                    '98.how-to-send': {onMatch: {display: 'inline'}, otherwise: {display: 'none'}}});
+      }
       function comment_enabler(element, comment_name) {
           var actions = {};
           actions[comment_name] = {enable: true, require: true, otherwise: {value: ""}};
@@ -25,10 +46,10 @@
           standardEarlyStartup(function() {
               select_backgroundColor(
                   document.querySelector('select[name="29.office-status"]'),
-                  {Open: selectGreen, Closed: selectRed, otherwise: selectWhite});
+                  {Open: selectGreen, Closed: selectYellow, otherwise: selectWhite});
               select_backgroundColor(
                   document.querySelector('select[name="34.eoc-open"]'),
-                  {Yes: selectGreen, No: selectRed, otherwise: selectWhite});
+                  {Yes: selectGreen, No: selectYellow, otherwise: selectWhite});
               select_backgroundColor(
                   document.querySelector('select[name="40.state-of-emergency"]'),
                   {Yes: selectRed, No: selectGreen, otherwise: selectWhite});
@@ -62,57 +83,43 @@
         }
       </div>
       <br/>
-      <fieldset id="incident">
-        <table class="same-line-label-layout">
+      <table class="same-line-label-layout">
+        <tr>
+          <th>Jurisdiction:</th>
+          <td style="width:1px;"><div data-include-html="select-municipality"></div></td>
+          <th>Incident Name:</th>
+          <td>
+            <input type="text" name="20.incident-name" required="required" tabindex="20"
+                   placeholder="or 'Incident independent'"/>
+          </td>
+        </tr>
+      </table>
+      <br/>
+      <label>Contact Information
+        <table id="contact-info-table" class="zebra-striped grid">
           <tr>
-            <th>Jurisdiction:</th>
-            <td style="width:1px;"><div data-include-html="select-municipality"></div></td>
-            <th>Incident Name:</th>
-            <td>
-              <input type="text" name="20.incident-name" required="required" tabindex="20"
-                     placeholder="or 'Incident independent'"/>
-            </td>
+            <td><label for="eoc-phone">EOC Phone:</label></td>
+            <td><input name="23.eoc-phone" type="text" class="phone-number" tabindex="23"/></td>
+            <td><label for="">EOC Fax:</label></td>
+            <td><input name="24.eoc-fax" type="text" class="phone-number" tabindex="24"/></td>
+          </tr><tr>
+            <td><label for="pri-em-contact-name">Primary EM Contact Name:</label></td>
+            <td><input name="25.pri-em-contact-name" type="text" required="required" tabindex="25"></td>
+            <td><label for="pri-em-contact-phone">Primary EM Contact Phone:</label></td>
+            <td><input name="26.pri-em-contact-phone" type="text" class="phone-number" required tabindex="26"/></td>
+          </tr><tr>
+            <td><label for="sec-em-contact-name">Secondary EM Contact Name:</label></td>
+            <td><input name="27.sec-em-contact-name" type="text" tabindex="27"/></td>
+            <td><label for="sec-em-contact-phone">Secondary EM Contact Phone:</label></td>
+            <td><input name="28.sec-em-contact-phone" type="text" class="phone-number" tabindex="28"/></td>
           </tr>
         </table>
-      </fieldset>
-      <fieldset id="contact-info" class="labeled-box">
-        <legend>Contact Information</legend>
-        <table id="contact-info-table" style="width:auto;">
+      </label>
+      <br/>
+      <label>Government Office Status
+        <table id="gov-office-status" class="zebra-striped grid">
           <tr>
-            <td class="label"><label>EOC Phone:</label></td>
-            <td>
-              <input name="23.eoc-phone" type="text" class="phone-number" tabindex="23"/>
-            </td>
-            <td class="label"><label>EOC Fax:</label></td>
-            <td>
-              <input name="24.eoc-fax" type="text" class="phone-number" tabindex="24"/>
-            </td>
-          </tr><tr>
-            <td class="label"><label>Primary EM Contact Name:</label></td>
-            <td><input name="25.pri-em-contact-name" type="text" required="required" tabindex="25"
-                       style="width:15em;"></td>
-            <td class="label"><label>Primary EM Contact Phone:</label></td>
-            <td>
-              <input name="26.pri-em-contact-phone" type="text" class="phone-number" required="required" tabindex="26"/>
-            </td>
-          </tr><tr>
-            <td class="label"><label>Secondary EM Contact Name:</label></td>
-            <td><input name="27.sec-em-contact-name" type="text" tabindex="27"
-                       style="width:15em;"/></td>
-            <td class="label"><label>Secondary EM Contact Phone:</label></td>
-            <td>
-              <input name="28.sec-em-contact-phone" type="text" class="phone-number" tabindex="28"/>
-            </td>
-          </tr>
-        </table>
-      </fieldset>
-      <fieldset id="gov-office-status" class="labeled-box">
-        <legend>Government Office Status</legend>
-        <table style="width:auto;">
-          <tr>
-            <td class="label">
-              <label for="office-status">Office Status:</label>
-            </td>
+            <td><label for="office-status">Office Status:</label></td>
             <td>
               <select name="29.office-status" tabindex="29">
                 <option value="" selected="selected">Unknown</option>
@@ -123,38 +130,23 @@
             <td></td>
             <td></td>
           </tr><tr>
-            <td class="label">
-              <label for="gov-expected-open-date">
-                Expected to Open Date:
-              </label>
-            </td>
-            <td>
-              <input name="30.gov-expected-open-date" type="text" class="date"/>
-            </td><td class="label">
-              <label for="gov-expected-open-time">Expected to Open Time:</label>
-            </td><td>
-              <input name="31.gov-expected-open-time" type="text" class="time"/>
-            </td>
+            <td><label for="gov-expected-open-date">Expected to Open Date:</label></td>
+            <td><input name="30.gov-expected-open-date" type="text" class="date"/></td>
+            <td><label for="gov-expected-open-time">Expected to Open Time:</label></td>
+            <td><input name="31.gov-expected-open-time" type="text" class="time"/></td>
           </tr><tr>
-            <td class="label">
-              <label for="gov-expected-close-date">Expected to Close Date:</label>
-            </td><td>
-              <input name="32.gov-expected-close-date" type="text" class="date"/>
-            </td><td class="label">
-              <label for="gov-expected-close-time">Expected to Close Time:</label>
-            </td><td>
-              <input name="33.gov-expected-close-time" type="text" class="time"/>
-            </td>
+            <td><label for="gov-expected-close-date">Expected to Close Date:</label></td>
+            <td><input name="32.gov-expected-close-date" type="text" class="date"/></td>
+            <td><label for="gov-expected-close-time">Expected to Close Time:</label></td>
+            <td><input name="33.gov-expected-close-time" type="text" class="time"/></td>
           </tr>
         </table>
-      </fieldset>
-      <fieldset id="eoc-status" class="labeled-box">
-        <legend>EOC Status</legend>
-        <table style="width:auto;">
+      </label>
+      <br/>
+      <label>EOC Status
+        <table id="eoc-status" class="zebra-striped grid">
           <tr>
-            <td class="label">
-              <label for="office-status">EOC Open:</label>
-            </td>
+            <td><label for="eoc-open">EOC Open:</label></td>
             <td>
               <select name="34.eoc-open" required="required" tabindex="34"
                       onchange="on_value(this, ['Yes'], {'35.eoc-activation-level':
@@ -164,9 +156,7 @@
                 <option value="No">No</option>
               </select>
             </td>
-            <td class="label">
-              <label for="activation-level">Activation Level:</label>
-            </td>
+            <td><label for="activation-level">Activation Level:</label></td>
             <td>
               <select name="35.eoc-activation-level" disabled="disabled" tabindex="35">
                 <option value="" selected="selected" disabled="disabled"></option>
@@ -178,64 +168,49 @@
               </select>
             </td>
           </tr><tr>
-            <td class="label">
-              <label for="eoc-expected-open-date">Expected to Open Date:</label>
-            </td><td>
-              <input name="36.eoc-expected-open-date" type="text" class="date"/>
-            </td><td class="label">
-              <label for="eoc-expected-open-time">Expected to Open Time:</label>
-            </td><td>
-              <input name="37.eoc-expected-open-time" type="text" class="time"/>
-            </td>
+            <td><label for="eoc-expected-open-date">Expected to Open Date:</label></td>
+            <td><input name="36.eoc-expected-open-date" type="text" class="date"/></td>
+            <td><label for="eoc-expected-open-time">Expected to Open Time:</label></td>
+            <td><input name="37.eoc-expected-open-time" type="text" class="time"/></td>
           </tr><tr>
-            <td class="label">
-              <label for="eoc-expected-close-date">Expected to Close Date:</label>
-            </td><td>
-              <input name="38.eoc-expected-close-date" type="text" class="date"/>
-            </td>
-            <td class="label">
-              <label for="eoc-expected-close-time">Expected to Close Time:</label>
-            </td><td>
-              <input name="39.eoc-expected-close-time" type="text" class="time"/>
-            </td>
+            <td><label for="eoc-expected-close-date">Expected to Close Date:</label></td>
+            <td><input name="38.eoc-expected-close-date" type="text" class="date"/></td>
+            <td><label for="eoc-expected-close-time">Expected to Close Time:</label></td>
+            <td><input name="39.eoc-expected-close-time" type="text" class="time"/></td>
           </tr>
         </table>
-      </fieldset>
-      <fieldset id="proclamation" class="labeled-box">
-        <legend>Declarations</legend>
-        <table>
+      </label>
+      <br/>
+      <label>Declarations
+        <table id="declarations" class="zebra-striped">
           <tr>
-            <td class="label">
-              <label for="state-of-emergency" class="label-sameline">State of Emergency:</label>
-            </td><td>
-              <select name="40.state-of-emergency" required="required" tabindex="40">
+            <td style="width:1px;white-space:nowrap;"><label>State of Emergency:<label></td>
+            <td style="width:1px;">
+              <select name="40.state-of-emergency" required="required" tabindex="40"
+                      onchange="on_state_of_emergency(this);">
                 <option value="" selected="selected" disabled="disabled">Unknown</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
             </td><td>
+              <input name="98.how-to-send" type="text" style="display:none" disabled
+                     value="Send a copy of your proclamation to the county EOC (fax, e-mail, ...)"/>
             </td>
           </tr><tr>
-            <td colspan="3" style="padding-top:6px;padding-bottom:0;">
-              Send a copy of your proclamation to the county EOC (fax, e-mail, ...)
-            </td>
-          </tr><tr>
-            <td style="padding-top:8px;padding-bottom:0;">Indicate how sent: 
-            </td><td style="padding-top:6px;padding-bottom:0;" colspan="2">
-              <input name="99.how-sent" type="text"
-                     placeholder="method/to"/>
-            </td>
+            <td style="width:1px;white-space:nowrap;"><label>Indicate how sent (method/to):</label></td>
+            <td colspan="2"><input name="99.how-sent" type="text" disabled/></td>
           </tr>
         </table>
-      </fieldset>
+      </label>
+      <br/>
       <footer><br/>Page 1 of 2</footer>
-      <fieldset id="current-situation" class="labeled-box" style="page-break-inside:avoid;">
-        <legend>Current Situation</legend>
-        <table>
-          <tr>
-            <th style="text-align:left;width:1px;" class="label">Type</th>
-            <th style="text-align:left;width:1px;">Status</th>
-            <th style="text-align:left;">Comments</th>
+      <div style="page-break-inside:avoid;">
+        <label>Current Situation</label>
+        <table id="current-situation" class="zebra-striped">
+          <tr style="background-color:#bbeeff;">
+            <td class="bold">Type</td>
+            <td class="bold">Status</td>
+            <td class="bold">Comments</td>
           </tr>
           <tr>
             <td class="label">Communications</td>
@@ -494,7 +469,7 @@
             </td>
           </tr>
         </table>
-      </fieldset>
+      </div>
       <br/>
       <div data-include-html="scco-footer"></div>
     </form>
