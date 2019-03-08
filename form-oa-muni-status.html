@@ -155,9 +155,7 @@
           <tr>
             <td><label for="eoc-open">EOC Open:</label></td>
             <td>
-              <select name="34.eoc-open" required tabindex="34"
-                      onchange="on_value(this, ['Yes'], {'35.eoc-activation-level':
-                                {enable: true, require: true, otherwise: {value: ''}}});">
+              <select name="34.eoc-open" required tabindex="34">
                 <option value="Unknown" selected>Unknown</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
@@ -165,7 +163,7 @@
             </td>
             <td><label for="activation-level">Activation Level:</label></td>
             <td>
-              <select name="35.eoc-activation-level" disabled tabindex="35">
+              <select name="35.eoc-activation-level" tabindex="35">
                 <option value="" selected disabled></option>
                 <option value="Normal">Normal</option>
                 <option value="Duty Officer">Duty Officer</option>
