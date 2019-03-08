@@ -50,16 +50,16 @@
         <tr>
           <td style="width:45%;">
             <label>Incident Name<span class="field-number">1</span>
-              <input type="text" name="21.incident-name" required="required" tabindex="20"/>
+              <input type="text" name="21.incident-name" required="required" tabindex="21"/>
             </label>
-          </td><td style="width:1px;">
+          </td><td style="width:1px;white-space:nowrap;">
             <label>Date Initiated<span class="field-number">2</span>
-              <input type="text" name="22.date" required="required" tabindex="-1"
+              <input type="text" name="22.date" required="required" tabindex="22"
                      class="date"/>
             </label>
-          </td><td style="width:1px;">
+          </td><td style="width:1px;white-space:nowrap;">
             <label>Time Initiated<span class="field-number">3</span>
-              <input type="text" name="23.time" required="required" tabindex="-1"
+              <input type="text" name="23.time" required="required" tabindex="23"
                      class="time"/>
             </label>
           </td><td style="width:15em;">
@@ -68,66 +68,21 @@
             </label>
           </td>
         </tr><tr>
-          <td>
+          <td rowspan="2">
             <label>Requested by<span class="field-number">5</span>
-              <textarea name="25.requested-by" required="required" tabindex="22"
-                        rows="5" placeholder="name, agency, position, email, phone"></textarea>
+              <textarea name="25.requested-by" required="required" tabindex="25"
+                        rows="9" placeholder="name, agency, position, email, phone"></textarea>
             </label>
-          </td><td colspan="3" rowspan="3">
-            <table class="same-line-label-layout">
-              <tr>
-                <td></td>
-                <td style="text-decoration:underline;font-weight:bold;">How to use EOC Form 213RR</td>
-              </tr><tr>
-                <th>Purpose</th>
-                <td>
-  	          To request non-mutual aid supplies,
-                  services, personnel, teams, equipment, utilities, fuel, facilities,
-                  or any other resource or incident management activity
-                  required from the Operational Area (OA.)
-                </td>
-              </tr><tr>
-                <th>When to use</th>
-                <td>
-	          Any time during any Operational Period.
-                  If the OA EOC is not activated the Duty Officer will serve to coordinate the request.
-                </td>
-              </tr><tr>
-                <th>Prepared by</th>
-	        <td>Any EOC position or agency requesting resources from the OA EOC.</td>
-              </tr><tr>
-                <th>Approved by</th>
-	        <td>Section Chief of the requesting EOC or Supervising Official at Requesting Agency</td>
-              </tr><tr>
-                <th>Routed to</th>
-                <td>
-	          Planning Section Resource Status Unit -> Logistics Section -> Finance/Admin Section
-                  -> EOC Director -> Planning -> Intelligence Section
-                </td>
-              </tr><tr>
-                <th>Filed with</th>
-                <td>Planning Section Documentation Unit.</td>
-              </tr><tr>
-                <th>User Notes</th>
-                <td>
-	          This is a two-sided form. Side one is completed by the requestor.
-                  Side two is completed by the OA EOC.
-                  <span style="font-weight:bold;">Please check that both sides are available.</span>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr><tr>
-          <td>
+          </td><td colspan="3">
             <label>Prepared by<span class="field-number">6</span>
-              <textarea name="26.prepared-by" tabindex="23"
+              <textarea name="26.prepared-by" tabindex="26"
                         rows="4" placeholder="name, position, email, phone"></textarea>
             </label>
           </td>
         </tr><tr>
-          <td>
+          <td colspan="3">
             <label>Approved By<span class="field-number">7</span>
-              <textarea name="27.approved-by" tabindex="24"
+              <textarea name="27.approved-by" tabindex="27"
                         rows="4" placeholder="name, position, email, phone"></textarea>
             </label>
           </td>
