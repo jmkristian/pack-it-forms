@@ -76,6 +76,10 @@ table.same-line-label-layout>tr>td, table.same-line-label-layout>tbody>tr>td {
     padding-bottom: 0px;
 }
 
+#the-form table.zebra-striped tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
 label {
     font-weight: bold;
 }
