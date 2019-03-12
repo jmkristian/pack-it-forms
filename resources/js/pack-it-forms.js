@@ -1176,9 +1176,9 @@ function setup_view_mode(next) {
                 el.placeholder = '';
             }
             el.tabIndex = "-1"; // Don't tab to this element.
-            if (el.type == "radio"
-                || el.type == "checkbox"
-                || (el.type && el.type.substr(0, 6) == "select")) {
+            if (el.type == "radio" || el.type == "checkbox") {
+                el.onclick = function() {return false;}; // not grayed out
+            } else if (el.type && el.type.substr(0, 6) == "select") {
                 el.disabled = "true";
             } else {
                 el.readOnly = "true";
