@@ -1138,8 +1138,13 @@ function setup_input_elem_from_class(next) {
                     if (!el.pattern && setup[s].pattern != undefined) {
                         el.pattern = setup[s].pattern;
                     }
-                    if (!el.placeholder && setup[s].placeholder != undefined) {
-                        el.placeholder = setup[s].placeholder;
+                    if (setup[s].placeholder != undefined) {
+                        if (!el.placeholder) {
+                            el.placeholder = setup[s].placeholder;
+                        }
+                        if (!el.title) {
+                            el.title = setup[s].placeholder;
+                        }
                     }
                 }
             }
