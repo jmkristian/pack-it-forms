@@ -80,6 +80,10 @@
                 + EOL;
         };
         newMessage.footer = '!/ADDON!\r\n';
+        newMessage.subjectPrefix = function() {
+            return field_value("MsgNo")
+                + "_" + (field_value("5.handling") || "R").substring(0, 1);
+        };
 
         if (environment.pingURL && !envelope.readOnly) {
             // Ping the server periodically, to keep it alive while the form is open.
