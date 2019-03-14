@@ -990,6 +990,8 @@ function email_submit(e) {
         var pacforms_rep = document.querySelector("#form-data").value;
         // Use the same subject as Outpost
         var subject = new_message_subject();
+        hide_element(document.querySelector("#opdirect-submit"));
+        hide_element(document.querySelector("#email-submit"));
         document.location = "mailto:?to="
                           + "&Content-Type=text/plain"
                           + "&Subject=" + encodeURIComponent(subject)
