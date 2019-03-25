@@ -983,6 +983,9 @@ function opdirect_submit(e) {
 
 /* Function invoked when form is sent over email */
 function email_submit(e) {
+    array_for_each(document.querySelectorAll('input[name="Other"][type="text"]'), function(input) {
+        input.value = "email";
+    });
     write_message_to_form_data(true);
     hide_form_data();
     e.preventDefault();
