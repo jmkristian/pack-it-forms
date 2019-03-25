@@ -28,8 +28,10 @@ h1 {
     vertical-align: top;
     margin-top: 0
 }
-footer {
+.print-only {
     display: none;
+}
+footer {
     font-weight: bold;
     text-align: center;
 }
@@ -489,7 +491,7 @@ td.rotated:not(.not-rotated) > div > div::after, th.rotated:not(.not-rotated) > 
    #loading,#button-header,#form-data-form {
        display: none;
    }
-   footer {
+   .print-only {
        display: block;
    }
    table {

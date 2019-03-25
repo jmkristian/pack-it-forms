@@ -19,6 +19,13 @@
           display: inline;
           margin-left: 0px;
       }
+      td.rotated:not(.not-rotated) {
+          vertical-align: middle;
+      }
+      td.rotated:not(.not-rotated) > div > div {
+          font-size: 100%;
+          font-weight: bold;
+      }
     </style>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
@@ -37,13 +44,13 @@
           });
       };
     </script>
-    <meta name="pack-it-forms-pdf-URL" content="resources/pdf/XSC_EOC-213RR_v1708.pdf">
+    <meta name="pack-it-forms-pdf-URL" content="resources/pdf/XSC_EOC-213RR_Form_and_Guide_v170803.pdf">
     <meta name="pack-it-forms-subject-suffix" content="_EOC213RR_{{field:21.incident-name}}">
-    <title>XSC EOC-213RR Resource Request</title>
+    <title>Resource Request Form 213RR</title>
   </head>
 
   <body>
-    <div class="version">1.2</div>
+    <div class="version">1.3</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -161,7 +168,7 @@
             <td colspan="2">
               <label>Suitable Substitutes / Suggested Sources<span class="field-number">15</span>
                 <textarea name="35.substitutes" tabindex="37"
-                          rows="3" placeholder="name, source, website"></textarea>
+                          rows="3" placeholder="name, phone, website"></textarea>
               </label>
             </td>
           </tr><tr>
@@ -236,8 +243,81 @@
           </tr>
         </table>
         <div data-include-html="scco-footer"></div>
+        <footer class="print-only"><br/>Page 1 of 2</footer>
       </div>
     </form>
+    <div class="print-only" style="page-break-inside:avoid;max-width:9in;">
+      <table class="block-caption noborder">
+        <tr>
+          <td colspan="2" style="background-color:#bbeeff;font-size:125%;text-align:center;">
+            Completed by OA EOC or Duty Officer
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td rowspan="2" class="rotated" style="background-color:#8DB3E2;">
+            <div><div>
+                Plan/Intel
+                <br/><span style="font-size:75%;">Section</span>
+            </div></div>
+          </td>
+          <td style="height:7em;"><b>18. Plan/Intel Section Remarks/Comments</b>
+            <i>(Include general description of request)</i></td>
+        </tr><tr>
+          <td style="height:4em;"><b>19. Plan/Intel Section Chief Approval</b>
+            <i>(print and sign)</i></td>
+        </tr><tr>
+          <td rowspan="5" class="rotated" style="background-color:#F9BF8F;">
+            <div><div>
+                Logistics
+                <br/><span style="font-size:75%;">Section</span>
+            </div></div>
+          </td>
+          <td style="height:6em;"><b>20. Order Placed By</b>
+            <i>(name, position, agency, phone, radio, email)</i></td>
+        </tr><tr>
+          <td style="height:6em;"><b>21. Method of Procurement</b>
+            <i>(filled-in house, agreement, purchase, etc.)</i></td>
+        </tr><tr>
+          <td style="height:6em;"><b>22. Supplier Name / Point-of-Contact Information</b>
+            <i>(name, address, phone, fax, email)</i></td>
+        </tr><tr>
+          <td style="height:8em;"><b>23. Logistics Section Remarks</b></td>
+        </tr><tr>
+          <td style="height:5em;"><b>24. Logistics Section Chief Approval</b>
+            <i>(print and sign)</i></td>
+        </tr><tr style="height:9em;">
+          <td class="rotated" style="background-color:#C2D59D;">
+            <div><div>
+                Fin/Admin
+                <br/><span style="font-size:75%;">Section</span>
+            </div></div>
+          </td>
+          <td>
+            <table class="same-line-label-layout">
+              <tr>
+                <th>25. Finance/Admin Remarks</th>
+                <th style="width:20%;">Date/Time</th>
+              </tr>
+            </table>
+          </td>
+        </tr><tr style="height:9em;">
+          <td class="rotated" style="background-color:#F9BF8F;">
+            <div><div>Logistics<br/><span style="font-size:75%;">Section</span></div></div>
+          </td>
+          <td>
+            <table class="same-line-label-layout">
+              <tr>
+                <th>26. Logistics Section Final/Demobilization Remarks</th>
+                <th style="width:20%;">Date/Time</th>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <footer><br/>Page 2 of 2</footer>
+    </div>
     <div data-include-html="submit-buttons"></div>
   </body>
 </html>
