@@ -26,7 +26,7 @@
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
     <meta name="pack-it-forms-pdf-URL" content="resources/pdf/XSC_OA_MuniStatus_v20130101.pdf">
-    <meta name="pack-it-forms-subject-suffix" content="_OAMuniStat_{{field:21.municipality}}">
+    <meta name="pack-it-forms-subject-suffix" content="_MuniStat_{{field:21.municipality}}">
     <script type="text/javascript">
       function on_state_of_emergency(emergency) {
           on_value(emergency, ['Yes'],
@@ -65,7 +65,7 @@
           });
       };
     </script>
-    <title>XSC OA Municipal Status</title>
+    <title>OA Municipal Status</title>
   </head>
 
   <body>
@@ -81,7 +81,7 @@
     <form id="the-form" name="the-form">
       <div data-include-html="scco-header">
         {
-            "header-title": "Santa Clara OA Jurisdiction Status",
+            "header-title": "{{title}}",
             "header-version": "PIF {{version}}&lt;br/&gt;WebEOC 20130101"
         }
       </div>
