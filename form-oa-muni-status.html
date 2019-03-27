@@ -36,30 +36,12 @@
       var standardEarlyStartup = integration.early_startup;
       integration.early_startup = function(next) {
           standardEarlyStartup(function() {
-              select_backgroundColor(
-                  document.querySelector('select[name="29.office-status"]'), {
-                      Unknown: selectGray, Open: selectGreen, Closed: selectRed});
-              select_backgroundColor(
-                  document.querySelector('select[name="34.eoc-open"]'), {
-                      Unknown: selectGray, Yes: selectRed, No: selectGreen});
-              select_backgroundColor(
-                  document.querySelector('select[name="35.eoc-activation-level"]'), {
-                      Normal: selectGreen,
-                      'Duty Officer': selectYellow,
-                      Monitor: selectOrange,
-                      Partial: selectRed,
-                      Full: selectRed,
-                      otherwise: selectWhite});
-              select_backgroundColor(
-                  document.querySelector('select[name="40.state-of-emergency"]'), {
-                      Yes: selectRed, No: selectGreen, otherwise: selectGray});
               array_for_each(document.querySelectorAll('option[value="Problem"]'), function(option) {
-                  select_backgroundColor(option.parentNode, {
-                      Unknown: selectGray,
-                      Normal: selectGreen,
-                      Problem: selectYellow,
-                      Failure: selectRed,
-                      otherwise: selectWhite});
+                  select_backgroundColors(option.parentNode, {
+                      Unknown: "gray",
+                      Normal: "green",
+                      Problem: "yellow",
+                      Failure: "red"});
               });
               next();
           });
@@ -125,9 +107,9 @@
             <td><label for="office-status">Office Status:</label></td>
             <td>
               <select name="29.office-status" tabindex="29">
-                <option value="Unknown" selected>Unknown</option>
-                <option value="Open">Open</option>
-                <option value="Closed">Closed</option>
+                <option value="Unknown" data-background-color="gray" selected>Unknown</option>
+                <option value="Open" data-background-color="green">Open</option>
+                <option value="Closed" data-background-color="red">Closed</option>
               </select>
             </td>
             <td></td>
@@ -152,20 +134,20 @@
             <td><label for="eoc-open">EOC Open:</label></td>
             <td>
               <select name="34.eoc-open" required tabindex="34">
-                <option value="Unknown" selected>Unknown</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
+                <option value="Unknown" data-background-color="gray" selected>Unknown</option>
+                <option value="Yes" data-background-color="red">Yes</option>
+                <option value="No" data-background-color="green">No</option>
               </select>
             </td>
             <td><label for="activation-level">Activation Level:</label></td>
             <td>
               <select name="35.eoc-activation-level" tabindex="35">
                 <option value="" selected disabled></option>
-                <option value="Normal">Normal</option>
-                <option value="Duty Officer">Duty Officer</option>
-                <option value="Monitor">Monitor</option>
-                <option value="Partial">Partial</option>
-                <option value="Full">Full</option>
+                <option value="Normal" data-background-color="green">Normal</option>
+                <option value="Duty Officer" data-background-color="yellow">Duty Officer</option>
+                <option value="Monitor" data-background-color="orange">Monitor</option>
+                <option value="Partial" data-background-color="red">Partial</option>
+                <option value="Full" data-background-color="red">Full</option>
               </select>
             </td>
           </tr><tr>
@@ -189,9 +171,9 @@
             <td style="width:1px;">
               <select name="40.state-of-emergency" required tabindex="40"
                       onchange="on_state_of_emergency(this);">
-                <option value="Unknown" selected>Unknown</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
+                <option value="Unknown" data-background-color="gray" selected>Unknown</option>
+                <option value="Yes" data-background-color="red">Yes</option>
+                <option value="No" data-background-color="green">No</option>
               </select>
             </td><td>
               <input name="98.how-to-send" type="text" style="display:none" disabled

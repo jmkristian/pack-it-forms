@@ -44,13 +44,15 @@ var formDefaultValues;     // Initial values for form inputs. May contain templa
 var templatedElements = [];// Initial values for templated elements with no name. All templates.
 var errorLog = [];         // Errors that occurred before there was a place to show them.
 var EOL = "\r\n";
-var selectGray = "#eeeeee";
-var selectGreen = "#aaffaa";
-var selectYellow = "#ffff67";
-var selectOrange = "#ffcc88";
-var selectRed = "#facccc";
-var selectWhite = "#ffffff";
-var selectBlack = "white on black";
+var optionColors = {       // Pale backgrounds for color-coded options in a <select>.
+    black: "black",
+    gray: "#eeeeee",
+    green: "#aaffaa",
+    yellow: "#ffff66",
+    orange: "#ffcc88",
+    red: "#facccc",
+    white: "white"
+};
 var MS_Edge = 12;
 var MSIE_version = (function() {
     var userAgent = navigator.userAgent;
@@ -492,7 +494,7 @@ function load_form_configuration(next) {
         }
     });
     next();
-}
+};
 
 function _toString(arg) {
     switch(typeof arg) {
@@ -1126,6 +1128,30 @@ function toggle_form_data_visibility() {
     }
 }
 
+function setup_select_colors(next) {
+    var selectElements = [];
+    var backgroundColors = [];
+    array_for_each(document.querySelectorAll("option[data-background-color]"), function(option) {
+        var selectElement = option.parentElement;
+        var colors = {};
+        for (var s = 0; s < selectElements.length; ++s) {
+            if (selectElements[s] === selectElement) {
+                colors = backgroundColors[s];
+                break;
+            }
+        }
+        if (s == selectElements.length) {
+            selectElements.push(selectElement);
+            backgroundColors.push(colors);
+        }
+        colors[option.value] = option.getAttribute("data-background-color");
+    });
+    for (var s = 0; s < selectElements.length; ++s) {
+        select_backgroundColors(selectElements[s], backgroundColors[s]);
+    }
+    next();
+}
+
 function setup_input_elem_from_class(next) {
     if (!envelope.readOnly) {
         var setup = {
@@ -1315,25 +1341,31 @@ function emptystr_if_null(argument) {
 /* --- Cross-browser convenience functions --- */
 
 function map_backgroundColor(element, colorMap, property) {
-    var value = element[property || "value"] || element.getAttribute(property || "value");
-    var color = null;
+    property = property || "value";
+    var value = element[property] || element.getAttribute(property);
     if (!element.validity || element.validity.valid) {
-        color = colorMap[value] || colorMap.otherwise;
-    }
-    if (color == selectBlack) {
-        element.style.setProperty("background-color", "black");
-        element.style.setProperty("color", selectWhite);
-    } else {
-        element.style.setProperty("color", "black");
-        if (color) {
-            element.style.setProperty("background-color", color);
+        var colors = colorMap[value] || {background: "white"};
+        if (colors.background) {
+            element.style.setProperty("background-color", colors.background);
         } else {
             element.style.removeProperty("background-color");
         }
+        element.style.setProperty("color", colors.text || "black");
     }
 }
 
-function select_backgroundColor(selectElement, colorMap) {
+function select_backgroundColors(selectElement, backgroundColors) {
+    var colorMap = {};
+    for (var b in backgroundColors) {
+        var color = optionColors[backgroundColors[b]];
+        if (!color) {
+            colorMap[b] = {};
+        } else if (color == optionColors.black) {
+            colorMap[b] = {background: color, text: optionColors.white};
+        } else {
+            colorMap[b] = {background: color};
+        }
+    }
     map_backgroundColor(selectElement, colorMap);
     array_for_each(selectElement.querySelectorAll("option"), function(option) {
         map_backgroundColor(option, colorMap);
@@ -1512,6 +1544,7 @@ startup_functions.push(update_error_log);
 startup_functions.push(check_boiler_plate);
 startup_functions.push(call_integration("load_configuration"));
 startup_functions.push(load_form_configuration);
+startup_functions.push(setup_select_colors);
 startup_functions.push(call_integration("get_old_message"));
 startup_functions.push(init_form);
 startup_functions.push(setup_input_elem_from_class);
