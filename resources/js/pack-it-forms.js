@@ -51,6 +51,7 @@ var optionColors = {       // Pale backgrounds for color-coded options in a <sel
     yellow: "#ffff66",
     orange: "#ffcc88",
     red: "#facccc",
+    purple: "lavender",
     white: "white"
 };
 var MS_Edge = 12;
