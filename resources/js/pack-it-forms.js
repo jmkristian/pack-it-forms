@@ -50,6 +50,7 @@ var selectYellow = "#ffff67";
 var selectOrange = "#ffcc88";
 var selectRed = "#facccc";
 var selectWhite = "#ffffff";
+var selectBlack = "white on black";
 var MS_Edge = 12;
 var MSIE_version = (function() {
     var userAgent = navigator.userAgent;
@@ -505,9 +506,9 @@ function _toString(arg) {
 }
 
 function short_name(name) {
-    var numberMatch = /((?:[0-9]+[a-z]?\.)+).*/.exec(name);
+    var numberMatch = /^([0-9]+[a-z]?\.)+/.exec(name);
     if (numberMatch) {
-        return numberMatch[1];
+        return numberMatch[0];
     } else {
         return name;
     }
@@ -1319,10 +1320,16 @@ function map_backgroundColor(element, colorMap, property) {
     if (!element.validity || element.validity.valid) {
         color = colorMap[value] || colorMap.otherwise;
     }
-    if (color) {
-        element.style.setProperty("background-color", color);
+    if (color == selectBlack) {
+        element.style.setProperty("background-color", "black");
+        element.style.setProperty("color", selectWhite);
     } else {
-        element.style.removeProperty("background-color");
+        element.style.setProperty("color", "black");
+        if (color) {
+            element.style.setProperty("background-color", color);
+        } else {
+            element.style.removeProperty("background-color");
+        }
     }
 }
 
