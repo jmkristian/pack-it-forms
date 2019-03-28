@@ -71,47 +71,47 @@
         <tr>
           <td style="width:50%;">
             <label>Facility Name:
-              <input name="20.facility" type="text" required/>
+              <input name="20.facility" type="text" required tabindex="20"/>
             </label>
           </td><td>
             <label>Facility Type:
-              <input name="21.facility-type" type="text" required/>
+              <input name="21.facility-type" type="text" required tabindex="21"/>
             </label>
           </td><td style="width:1px;">
             <label>Date:
-              <input name="22d.date" type="text" class="date" value="{{date}}" required/>
+              <input name="22d.date" type="text" class="date" value="{{date}}" required tabindex="22"/>
             </label>
           </td><td style="width:1px;">
             <label>Time:
-              <input name="22t.time" type="text" class="time" required/>
+              <input name="22t.time" type="text" class="time" required tabindex="23"/>
             </label>
           </td>
         </tr><tr>
           <td>
             <label>Contact Name:
-              <input name="23.contact" type="text" required/>
+              <input name="23.contact" type="text" required tabindex="24"/>
             </label>
           </td><td>
             <label>Phone #
-              <input name="23p.contact-phone" type="text" class="phone-number" required/>
+              <input name="23p.contact-phone" type="text" class="phone-number" required tabindex="25"/>
             </label>
           </td><td colspan="2">
             <label>Fax #
-              <input name="23f.contact-fax" type="text" class="phone-number"/>
+              <input name="23f.contact-fax" type="text" class="phone-number" tabindex="26"/>
             </label>
           </td>
         </tr><tr>
           <td>
             <label>Other Phone, Fax, Cell Phone, Radio:
-              <input name="24.other-contact" type="text"/>
+              <input name="24.other-contact" type="text" tabindex="27"/>
             </label>
           </td><td colspan="2" style="border-right:none;">
             <label>Incident Name and Date:
-              <input name="25.incident" type="text" required/>
+              <input name="25.incident" type="text" required tabindex="28"/>
             </label>
           </td><td style="border-left:none;">
             <label>&nbsp;
-              <input name="25d.incident-date" type="text" class="date" required/>
+              <input name="25d.incident-date" type="text" class="date" required tabindex="29"/>
             </label>
           </td>
         </tr>
@@ -124,42 +124,42 @@
           <td>
             <label for="30.status.1">Green - Fully Functional</label>
           </td>
-          <td><input name="30.status" id="30.status.1" type="radio" required/></td>
+          <td><input name="30.status" id="30.status.1" type="radio" required tabindex="30"/></td>
           <td colspan="4">NHICS/ICS Organization Chart</td>
           <td colspan="2" class="yes-no">
             <label class="label-sameline">
-              <input name="26a.attach-org-chart" type="radio" value="Yes" required/> Yes
+              <input name="26a.attach-org-chart" type="radio" value="Yes" required tabindex="50"/> Yes
             </label>
             <label class="label-sameline">
-              <input name="26a.attach-org-chart" type="radio" value="No" required/> No
+              <input name="26a.attach-org-chart" type="radio" value="No" required tabindex="50"/> No
             </label>
           </td>
         </tr><tr>
           <td>
             <label for="30.status.2">Red - Limited Services</label>
           </td>
-          <td><input name="30.status" id="30.status.2" type="radio" required/></td>
+          <td><input name="30.status" id="30.status.2" type="radio" required tabindex="30"/></td>
           <td colspan="4">DEOC-9A Resource Request Forms</td>
           <td colspan="2" class="yes-no">
             <label class="label-sameline">
-              <input name="26b.attach-RR" type="radio" value="Yes" required/> Yes
+              <input name="26b.attach-RR" type="radio" value="Yes" required tabindex="51"/> Yes
             </label>
             <label class="label-sameline">
-              <input name="26b.attach-RR" type="radio" value="No" required/> No
+              <input name="26b.attach-RR" type="radio" value="No" required tabindex="51"/> No
             </label>
           </td>
         </tr><tr>
           <td>
             <label for="30.status.3">Black - Impaired/Closed</label>
           </td>
-          <td><input name="30.status" id="30.status.3" type="radio" required/></td>
+          <td><input name="30.status" id="30.status.3" type="radio" required tabindex="30"/></td>
           <td colspan="4">NHICS/ICS Status Report Form - Standard</td>
           <td colspan="2" class="yes-no">
             <label class="label-sameline">
-              <input name="26c.attach-status" type="radio" value="Yes" required/> Yes
+              <input name="26c.attach-status" type="radio" value="Yes" required tabindex="52"/> Yes
             </label>
             <label class="label-sameline">
-              <input name="26c.attach-status" type="radio" value="No" required/> No
+              <input name="26c.attach-status" type="radio" value="No" required tabindex="52"/> No
             </label>
           </td>
         </tr><tr>
@@ -167,49 +167,49 @@
           <td colspan="4">NHICS/ICS Incident Action Plan</td>
           <td colspan="2" class="yes-no">
             <label class="label-sameline">
-              <input name="26d.attach-action-plan" type="radio" value="Yes" required/> Yes
+              <input name="26d.attach-action-plan" type="radio" value="Yes" required tabindex="53"/> Yes
             </label>
             <label class="label-sameline">
-              <input name="26d.attach-action-plan" type="radio" value="No" required/> No
+              <input name="26d.attach-action-plan" type="radio" value="No" required tabindex="53"/> No
             </label>
           </td>
         </tr><tr>
           <td>Facility EOC Main Contact Number</td>
-          <td><input name="27p.eoc-phone" type="text" class="phone-number" required/></td>
+          <td><input name="27p.eoc-phone" type="text" class="phone-number" required tabindex="31"/></td>
           <td colspan="4">Phone/Communications Directory</td>
           <td colspan="2" class="yes-no">
             <label class="label-sameline">
-              <input name="26e.attach-directory" type="radio" value="Yes" required/> Yes
+              <input name="26e.attach-directory" type="radio" value="Yes" required tabindex="54"/> Yes
             </label>
             <label class="label-sameline">
-              <input name="26e.attach-directory" type="radio" value="No" required/> No
+              <input name="26e.attach-directory" type="radio" value="No" required tabindex="54"/> No
             </label>
           </td>
         </tr><tr>
           <td>Facility EOC Main Contact Fax</td>
-          <td><input name="27f.eoc-fax" type="text" class="phone-number"/></td>
+          <td><input name="27f.eoc-fax" type="text" class="phone-number" tabindex="32"/></td>
           <td colspan="6" class="block-caption" style="text-align:center;">
             General Summary of Situation/Conditions
           </td>
         </tr><tr>
           <td>Facility Liaison Officer Name: Liaison to Public Health/Medical Health Branch</td>
-          <td><input name="28.liaison" type="text" required/></td>
-          <td colspan="6" rowspan="5"><textarea name="29.summary" rows="8"></textarea></td>
+          <td><input name="28.liaison" type="text" required tabindex="32"/></td>
+          <td colspan="6" rowspan="5"><textarea name="29.summary" rows="8" tabindex="55"></textarea></td>
         </tr><tr>
           <td>Facility Liaison Contact Number</td>
-          <td><input name="28p.liaison-phone" type="text" class="phone-number"/></td>
+          <td><input name="28p.liaison-phone" type="text" class="phone-number" tabindex="33"/></td>
         </tr><tr>
           <td>Facility Information Officer Name</td>
-          <td><input name="29.info-officer" type="text"/></td>
+          <td><input name="29.info-officer" type="text" tabindex="34"/></td>
         </tr><tr>
           <td>Facility Information Officer Contact Number</td>
-          <td><input name="29p.info-officer-phone" type="text" class="phone-number"/></td>
+          <td><input name="29p.info-officer-phone" type="text" class="phone-number" tabindex="35"/></td>
         </tr><tr>
           <td>Facility Information Officer Contact Email</td>
-          <td><input name="29e.info-officer-email" type="text"/></td>
+          <td><input name="29e.info-officer-email" type="text" tabindex="36"/></td>
         </tr><tr>
           <td>If Facility EOC is Not Activated, Who Should be Contacted for Questions/Requests</td>
-          <td><input name="30.eoc" type="text" required/></td>
+          <td><input name="30.eoc" type="text" required tabindex="37"/></td>
           <td class="resource bold">Bed Resource Availability</td>
           <td class="available">Staffed Bed-M</td>
           <td class="available">Staffed Bed-F</td>
@@ -218,71 +218,71 @@
           <td class="available">*Surge #</td>
         </tr><tr>
           <td>Facility Contact Number</td>
-          <td><input name="30p.eoc-phone" type="text" class="phone-number" required/></td>
+          <td><input name="30p.eoc-phone" type="text" class="phone-number" required tabindex="38"/></td>
           <td class="resource">Skilled Nursing</td>
-          <td class="available"><input name="40a.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="40b.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="40c.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="40d.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="40e.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="40a.beds" type="text" class="cardinal-number" tabindex="60"/></td>
+          <td class="available"><input name="40b.beds" type="text" class="cardinal-number" tabindex="61"/></td>
+          <td class="available"><input name="40c.beds" type="text" class="cardinal-number" tabindex="62"/></td>
+          <td class="available"><input name="40d.beds" type="text" class="cardinal-number" tabindex="63"/></td>
+          <td class="available"><input name="40e.beds" type="text" class="cardinal-number" tabindex="64"/></td>
         </tr><tr>
           <td>Facility Contact Email</td>
-          <td><input name="30e.eoc-email" type="text" required/></td>
+          <td><input name="30e.eoc-email" type="text" required tabindex="39"/></td>
           <td class="resource">Assisted Living</td>
-          <td class="available"><input name="41a.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="41b.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="41c.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="41d.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="41e.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="41a.beds" type="text" class="cardinal-number" tabindex="65"/></td>
+          <td class="available"><input name="41b.beds" type="text" class="cardinal-number" tabindex="66"/></td>
+          <td class="available"><input name="41c.beds" type="text" class="cardinal-number" tabindex="67"/></td>
+          <td class="available"><input name="41d.beds" type="text" class="cardinal-number" tabindex="68"/></td>
+          <td class="available"><input name="41e.beds" type="text" class="cardinal-number" tabindex="69"/></td>
         </tr><tr>
           <td class="block-caption">Facility Patient Flow Information</td>
           <td class="block-caption">Total</td>
           <td class="resource">Sub-Acute</td>
-          <td class="available"><input name="42a.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="42b.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="42c.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="42d.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="42e.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="42a.beds" type="text" class="cardinal-number" tabindex="70"/></td>
+          <td class="available"><input name="42b.beds" type="text" class="cardinal-number" tabindex="71"/></td>
+          <td class="available"><input name="42c.beds" type="text" class="cardinal-number" tabindex="72"/></td>
+          <td class="available"><input name="42d.beds" type="text" class="cardinal-number" tabindex="73"/></td>
+          <td class="available"><input name="42e.beds" type="text" class="cardinal-number" tabindex="74"/></td>
         </tr><tr>
           <td>Facility Patients to Evacuate</td>
-          <td><input name="31a.evac" type="text" class="cardinal-number"/></td>
+          <td><input name="31a.evac" type="text" class="cardinal-number" tabindex="39"/></td>
           <td class="resource">Alzeimers/Dementia</td>
-          <td class="available"><input name="43a.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="43b.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="43c.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="43d.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="43e.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="43a.beds" type="text" class="cardinal-number" tabindex="75"/></td>
+          <td class="available"><input name="43b.beds" type="text" class="cardinal-number" tabindex="76"/></td>
+          <td class="available"><input name="43c.beds" type="text" class="cardinal-number" tabindex="77"/></td>
+          <td class="available"><input name="43d.beds" type="text" class="cardinal-number" tabindex="78"/></td>
+          <td class="available"><input name="43e.beds" type="text" class="cardinal-number" tabindex="79"/></td>
         </tr><tr>
           <td>Facility Patients Injured - Minor</td>
-          <td><input name="31b.injured" type="text" class="cardinal-number"/></td>
+          <td><input name="31b.injured" type="text" class="cardinal-number" tabindex="40"/></td>
           <td class="resource">Pediatric-Sub Acute</td>
-          <td class="available"><input name="44a.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="44b.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="44c.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="44d.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="44e.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="44a.beds" type="text" class="cardinal-number" tabindex="80"/></td>
+          <td class="available"><input name="44b.beds" type="text" class="cardinal-number" tabindex="81"/></td>
+          <td class="available"><input name="44c.beds" type="text" class="cardinal-number" tabindex="82"/></td>
+          <td class="available"><input name="44d.beds" type="text" class="cardinal-number" tabindex="83"/></td>
+          <td class="available"><input name="44e.beds" type="text" class="cardinal-number" tabindex="84"/></td>
         </tr><tr>
           <td>Facility Patients Transfered Out of County</td>
-          <td><input name="31c.transfered" type="text" class="cardinal-number"/></td>
+          <td><input name="31c.transfered" type="text" class="cardinal-number" tabindex="41"/></td>
           <td class="resource">Psychiatric</td>
-          <td class="available"><input name="45a.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="45b.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="45c.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="45d.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="45e.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="45a.beds" type="text" class="cardinal-number" tabindex="85"/></td>
+          <td class="available"><input name="45b.beds" type="text" class="cardinal-number" tabindex="86"/></td>
+          <td class="available"><input name="45c.beds" type="text" class="cardinal-number" tabindex="87"/></td>
+          <td class="available"><input name="45d.beds" type="text" class="cardinal-number" tabindex="88"/></td>
+          <td class="available"><input name="45e.beds" type="text" class="cardinal-number" tabindex="89"/></td>
         </tr><tr>
           <td colspan="2" rowspan="2">
             Other Facility Patient Care Information
-            <input name="33.other-care" type="text"/>
+            <input name="33.other-care" type="text" tabindex="42"/>
           </td>
           <td class="resource" style="padding-left:0.1em;padding-right:0.1em;">
-            <input name="46a.beds" type="text" style="margin-left:0;"/>
+            <input name="46a.beds" type="text" style="margin-left:0;" tabindex="90"/>
           </td>
-          <td class="available"><input name="46a.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="46b.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="46c.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="46d.beds" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="46e.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="46a.beds" type="text" class="cardinal-number" tabindex="91"/></td>
+          <td class="available"><input name="46b.beds" type="text" class="cardinal-number" tabindex="92"/></td>
+          <td class="available"><input name="46c.beds" type="text" class="cardinal-number" tabindex="93"/></td>
+          <td class="available"><input name="46d.beds" type="text" class="cardinal-number" tabindex="94"/></td>
+          <td class="available"><input name="46e.beds" type="text" class="cardinal-number" tabindex="95"/></td>
         </tr><tr>
           <td colspan="6">*surge number: # of beds in addition to vacant available beds</td>
         </tr>
@@ -300,39 +300,39 @@
           <td rowspan="6"></td>
         </tr><tr>
           <td class="resource">Dialysis</td>
-          <td class="available"><input name="50a.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="50b.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="50c.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="50d.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="50e.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="50a.resource" type="text" class="cardinal-number" tabindex="100"/></td>
+          <td class="available"><input name="50b.resource" type="text" class="cardinal-number" tabindex="101"/></td>
+          <td class="available"><input name="50c.resource" type="text" class="cardinal-number" tabindex="102"/></td>
+          <td class="available"><input name="50d.resource" type="text" class="cardinal-number" tabindex="103"/></td>
+          <td class="available"><input name="50e.resource" type="text" class="cardinal-number" tabindex="104"/></td>
         </tr><tr>
           <td class="resource">Surgical</td>
-          <td class="available"><input name="51a.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="51b.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="51c.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="51d.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="51e.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="51a.resource" type="text" class="cardinal-number" tabindex="105"/></td>
+          <td class="available"><input name="51b.resource" type="text" class="cardinal-number" tabindex="106"/></td>
+          <td class="available"><input name="51c.resource" type="text" class="cardinal-number" tabindex="107"/></td>
+          <td class="available"><input name="51d.resource" type="text" class="cardinal-number" tabindex="108"/></td>
+          <td class="available"><input name="51e.resource" type="text" class="cardinal-number" tabindex="109"/></td>
         </tr><tr>
           <td class="resource">Clinic</td>
-          <td class="available"><input name="52a.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="52b.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="52c.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="52d.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="52e.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="52a.resource" type="text" class="cardinal-number" tabindex="110"/></td>
+          <td class="available"><input name="52b.resource" type="text" class="cardinal-number" tabindex="111"/></td>
+          <td class="available"><input name="52c.resource" type="text" class="cardinal-number" tabindex="112"/></td>
+          <td class="available"><input name="52d.resource" type="text" class="cardinal-number" tabindex="113"/></td>
+          <td class="available"><input name="52e.resource" type="text" class="cardinal-number" tabindex="114"/></td>
         </tr><tr>
           <td class="resource">Home Health</td>
-          <td class="available"><input name="53a.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="53b.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="53c.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="53d.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="53e.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="53a.resource" type="text" class="cardinal-number" tabindex="115"/></td>
+          <td class="available"><input name="53b.resource" type="text" class="cardinal-number" tabindex="116"/></td>
+          <td class="available"><input name="53c.resource" type="text" class="cardinal-number" tabindex="117"/></td>
+          <td class="available"><input name="53d.resource" type="text" class="cardinal-number" tabindex="118"/></td>
+          <td class="available"><input name="53e.resource" type="text" class="cardinal-number" tabindex="119"/></td>
         </tr><tr>
           <td class="resource">Adult Day Center</td>
-          <td class="available"><input name="54a.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="54b.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="54c.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="54d.resource" type="text" class="cardinal-number"/></td>
-          <td class="available"><input name="54e.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="54a.resource" type="text" class="cardinal-number" tabindex="120"/></td>
+          <td class="available"><input name="54b.resource" type="text" class="cardinal-number" tabindex="121"/></td>
+          <td class="available"><input name="54c.resource" type="text" class="cardinal-number" tabindex="122"/></td>
+          <td class="available"><input name="54d.resource" type="text" class="cardinal-number" tabindex="123"/></td>
+          <td class="available"><input name="54e.resource" type="text" class="cardinal-number" tabindex="124"/></td>
         </tr>
       </table>
       <br/>
