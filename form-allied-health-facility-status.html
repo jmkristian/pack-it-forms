@@ -4,14 +4,53 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="resources/css/loading.css"/>
     <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
+    <style>
+      #the-form {
+          max-width: 10in;
+      }
+      table.section {
+          page-break-inside: avoid;
+      }
+      table.section td.yes-no {
+          white-space: nowrap;
+      }
+      table.section label {
+          font-weight: normal;
+      }
+      table.section td.resource {
+          background-color: lightyellow;
+          width: 9em;
+      }
+      table.section td.available {
+          font-weight: normal;
+          background-color: lightyellow;
+          padding-left: 0.1em;
+          padding-right: 0.1em;
+          width: 4em;
+      }
+      form input.cardinal-number {
+          margin-left: 0;
+          margin-right: 0;
+          width: 3.8em;
+      }
+      form input.phone-number {
+          width: 9em;
+      }
+      table.same-line-label-layout>tr>th,
+      table.same-line-label-layout>tbody>tr>th {
+          font-weight: normal;
+          text-align: left;
+      }
+    </style>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
-    <meta name="pack-it-forms-subject-suffix" content="_Beds Status_{{field:20.hospital}}_{{field:22.status}}">
-    <title>Allied Health Facility Status</title>
+    <meta name="pack-it-forms-pdf-URL" content="resources/pdf/Allied_Health_Facility_Status_Short_Form_w_Instructions_v1802.pdf">
+    <meta name="pack-it-forms-subject-suffix" content="_AHFacStat_{{field:20.facility}}">
+    <title>Allied Health Status Report</title>
   </head>
 
   <body>
-    <div class="version">0.1.1</div>
+    <div class="version">1.0</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -23,10 +62,280 @@
     <form id="the-form" name="the-form">
       <div data-include-html="scco-header">
         {
-            "header-title": "{{title}}",
-            "header-version": "PIF 1.0"
+            "header-title": "SCCo Allied Health Status Report",
+            "header-subtitle": "Short Form (DEOC-9)",
+            "header-version": "PIF {{version}}&lt;br/&gt;PDF February 2018"
         }
       </div>
+      <table class="section">
+        <tr>
+          <td style="width:50%;">
+            <label>Facility Name:
+              <input name="20.facility" type="text" required/>
+            </label>
+          </td><td>
+            <label>Facility Type:
+              <input name="21.facility-type" type="text" required/>
+            </label>
+          </td><td style="width:1px;">
+            <label>Date:
+              <input name="22d.date" type="text" class="date" value="{{date}}" required/>
+            </label>
+          </td><td style="width:1px;">
+            <label>Time:
+              <input name="22t.time" type="text" class="time" required/>
+            </label>
+          </td>
+        </tr><tr>
+          <td>
+            <label>Contact Name:
+              <input name="23.contact" type="text" required/>
+            </label>
+          </td><td>
+            <label>Phone #
+              <input name="23p.contact-phone" type="text" class="phone-number" required/>
+            </label>
+          </td><td colspan="2">
+            <label>Fax #
+              <input name="23f.contact-fax" type="text" class="phone-number"/>
+            </label>
+          </td>
+        </tr><tr>
+          <td>
+            <label>Other Phone, Fax, Cell Phone, Radio:
+              <input name="24.other-contact" type="text"/>
+            </label>
+          </td><td colspan="2" style="border-right:none;">
+            <label>Incident Name and Date:
+              <input name="25.incident" type="text" required/>
+            </label>
+          </td><td style="border-left:none;">
+            <label>&nbsp;
+              <input name="25d.incident-date" type="text" class="date" required/>
+            </label>
+          </td>
+        </tr>
+      </table>
+      <table class="section">
+        <tr class="block-caption">
+          <td colspan="2">Facility Status</td>
+          <td colspan="6">Additional Attachments Provided</td>
+        </tr><tr>
+          <td>
+            <label for="30.status.1">Green - Fully Functional</label>
+          </td>
+          <td><input name="30.status" id="30.status.1" type="radio" required/></td>
+          <td colspan="4">NHICS/ICS Organization Chart</td>
+          <td colspan="2" class="yes-no">
+            <label class="label-sameline">
+              <input name="26a.attach-org-chart" type="radio" value="Yes" required/> Yes
+            </label>
+            <label class="label-sameline">
+              <input name="26a.attach-org-chart" type="radio" value="No" required/> No
+            </label>
+          </td>
+        </tr><tr>
+          <td>
+            <label for="30.status.2">Red - Limited Services</label>
+          </td>
+          <td><input name="30.status" id="30.status.2" type="radio" required/></td>
+          <td colspan="4">DEOC-9A Resource Request Forms</td>
+          <td colspan="2" class="yes-no">
+            <label class="label-sameline">
+              <input name="26b.attach-RR" type="radio" value="Yes" required/> Yes
+            </label>
+            <label class="label-sameline">
+              <input name="26b.attach-RR" type="radio" value="No" required/> No
+            </label>
+          </td>
+        </tr><tr>
+          <td>
+            <label for="30.status.3">Black - Impaired/Closed</label>
+          </td>
+          <td><input name="30.status" id="30.status.3" type="radio" required/></td>
+          <td colspan="4">NHICS/ICS Status Report Form - Standard</td>
+          <td colspan="2" class="yes-no">
+            <label class="label-sameline">
+              <input name="26c.attach-status" type="radio" value="Yes" required/> Yes
+            </label>
+            <label class="label-sameline">
+              <input name="26c.attach-status" type="radio" value="No" required/> No
+            </label>
+          </td>
+        </tr><tr>
+          <td colspan="2" class="block-caption">Facility Contact Information</td>
+          <td colspan="4">NHICS/ICS Incident Action Plan</td>
+          <td colspan="2" class="yes-no">
+            <label class="label-sameline">
+              <input name="26d.attach-action-plan" type="radio" value="Yes" required/> Yes
+            </label>
+            <label class="label-sameline">
+              <input name="26d.attach-action-plan" type="radio" value="No" required/> No
+            </label>
+          </td>
+        </tr><tr>
+          <td>Facility EOC Main Contact Number</td>
+          <td><input name="27p.eoc-phone" type="text" class="phone-number" required/></td>
+          <td colspan="4">Phone/Communications Directory</td>
+          <td colspan="2" class="yes-no">
+            <label class="label-sameline">
+              <input name="26e.attach-directory" type="radio" value="Yes" required/> Yes
+            </label>
+            <label class="label-sameline">
+              <input name="26e.attach-directory" type="radio" value="No" required/> No
+            </label>
+          </td>
+        </tr><tr>
+          <td>Facility EOC Main Contact Fax</td>
+          <td><input name="27f.eoc-fax" type="text" class="phone-number"/></td>
+          <td colspan="6" class="block-caption" style="text-align:center;">
+            General Summary of Situation/Conditions
+          </td>
+        </tr><tr>
+          <td>Facility Liaison Officer Name: Liaison to Public Health/Medical Health Branch</td>
+          <td><input name="28.liaison" type="text" required/></td>
+          <td colspan="6" rowspan="5"><textarea name="29.summary" rows="8"></textarea></td>
+        </tr><tr>
+          <td>Facility Liaison Contact Number</td>
+          <td><input name="28p.liaison-phone" type="text" class="phone-number"/></td>
+        </tr><tr>
+          <td>Facility Information Officer Name</td>
+          <td><input name="29.info-officer" type="text"/></td>
+        </tr><tr>
+          <td>Facility Information Officer Contact Number</td>
+          <td><input name="29p.info-officer-phone" type="text" class="phone-number"/></td>
+        </tr><tr>
+          <td>Facility Information Officer Contact Email</td>
+          <td><input name="29e.info-officer-email" type="text"/></td>
+        </tr><tr>
+          <td>If Facility EOC is Not Activated, Who Should be Contacted for Questions/Requests</td>
+          <td><input name="30.eoc" type="text" required/></td>
+          <td class="resource bold">Bed Resource Availability</td>
+          <td class="available">Staffed Bed-M</td>
+          <td class="available">Staffed Bed-F</td>
+          <td class="available">Vacant Beds-M</td>
+          <td class="available">Vacant Beds-F</td>
+          <td class="available">*Surge #</td>
+        </tr><tr>
+          <td>Facility Contact Number</td>
+          <td><input name="30p.eoc-phone" type="text" class="phone-number" required/></td>
+          <td class="resource">Skilled Nursing</td>
+          <td class="available"><input name="40a.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="40b.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="40c.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="40d.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="40e.beds" type="text" class="cardinal-number"/></td>
+        </tr><tr>
+          <td>Facility Contact Email</td>
+          <td><input name="30e.eoc-email" type="text" required/></td>
+          <td class="resource">Assisted Living</td>
+          <td class="available"><input name="41a.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="41b.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="41c.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="41d.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="41e.beds" type="text" class="cardinal-number"/></td>
+        </tr><tr>
+          <td class="block-caption">Facility Patient Flow Information</td>
+          <td class="block-caption">Total</td>
+          <td class="resource">Sub-Acute</td>
+          <td class="available"><input name="42a.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="42b.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="42c.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="42d.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="42e.beds" type="text" class="cardinal-number"/></td>
+        </tr><tr>
+          <td>Facility Patients to Evacuate</td>
+          <td><input name="31a.evac" type="text" class="cardinal-number"/></td>
+          <td class="resource">Alzeimers/Dementia</td>
+          <td class="available"><input name="43a.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="43b.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="43c.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="43d.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="43e.beds" type="text" class="cardinal-number"/></td>
+        </tr><tr>
+          <td>Facility Patients Injured - Minor</td>
+          <td><input name="31b.injured" type="text" class="cardinal-number"/></td>
+          <td class="resource">Pediatric-Sub Acute</td>
+          <td class="available"><input name="44a.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="44b.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="44c.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="44d.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="44e.beds" type="text" class="cardinal-number"/></td>
+        </tr><tr>
+          <td>Facility Patients Transfered Out of County</td>
+          <td><input name="31c.transfered" type="text" class="cardinal-number"/></td>
+          <td class="resource">Psychiatric</td>
+          <td class="available"><input name="45a.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="45b.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="45c.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="45d.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="45e.beds" type="text" class="cardinal-number"/></td>
+        </tr><tr>
+          <td colspan="2" rowspan="2">
+            Other Facility Patient Care Information
+            <input name="33.other-care" type="text"/>
+          </td>
+          <td class="resource" style="padding-left:0.1em;padding-right:0.1em;">
+            <input name="46a.beds" type="text" style="margin-left:0;"/>
+          </td>
+          <td class="available"><input name="46a.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="46b.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="46c.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="46d.beds" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="46e.beds" type="text" class="cardinal-number"/></td>
+        </tr><tr>
+          <td colspan="6">*surge number: # of beds in addition to vacant available beds</td>
+        </tr>
+      </table>
+      <table class="section">
+        <tr class="block-caption">
+          <td style="text-align:center;">DEOC/EOC/Duty Chief Use</td>
+          <td rowspan="2">Available Resources by Facility Type</td>
+          <td rowspan="2" style="font-weight:normal;">Chairs/ Room</td>
+          <td rowspan="2" style="font-weight:normal;">Vacant Chairs/ Room</td>
+          <td rowspan="2" style="font-weight:normal;">Front Desk Staff</td>
+          <td rowspan="2" style="font-weight:normal;">Medical Support Staff</td>
+          <td rowspan="2" style="font-weight:normal;">Provider Staff</td>
+        </tr><tr>
+          <td rowspan="6"></td>
+        </tr><tr>
+          <td class="resource">Dialysis</td>
+          <td class="available"><input name="50a.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="50b.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="50c.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="50d.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="50e.resource" type="text" class="cardinal-number"/></td>
+        </tr><tr>
+          <td class="resource">Surgical</td>
+          <td class="available"><input name="51a.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="51b.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="51c.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="51d.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="51e.resource" type="text" class="cardinal-number"/></td>
+        </tr><tr>
+          <td class="resource">Clinic</td>
+          <td class="available"><input name="52a.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="52b.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="52c.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="52d.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="52e.resource" type="text" class="cardinal-number"/></td>
+        </tr><tr>
+          <td class="resource">Home Health</td>
+          <td class="available"><input name="53a.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="53b.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="53c.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="53d.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="53e.resource" type="text" class="cardinal-number"/></td>
+        </tr><tr>
+          <td class="resource">Adult Day Center</td>
+          <td class="available"><input name="54a.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="54b.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="54c.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="54d.resource" type="text" class="cardinal-number"/></td>
+          <td class="available"><input name="54e.resource" type="text" class="cardinal-number"/></td>
+        </tr>
+      </table>
+      <br/>
       <div data-include-html="scco-footer"></div>
     </form>
     <div data-include-html="submit-buttons"></div>
