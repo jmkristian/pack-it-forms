@@ -8,11 +8,12 @@
       #the-form {
           max-width: 10in;
       }
-      #the-form table.section :first-child:first-child > td {
-          border-top: 1px solid #aaaaaa;
-      }
       table.section {
           page-break-inside: avoid;
+      }
+      table.section      >tr:first-child>td,
+      table.section>tbody>tr:first-child>td {
+          border-top: 1px solid #aaaaaa;
       }
       table.section td.yes-no {
           white-space: nowrap;
