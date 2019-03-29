@@ -257,6 +257,18 @@ function index_of_field_value_start(linenum, line, startAt) {
     return idx;
 }
 
+function copy_initial_value(fromName, intoName) {
+    array_for_each(document.getElementsByName(fromName), function(from) {
+        from.addEventListener("change", function() {
+            array_for_each(document.getElementsByName(intoName), function(into) {
+                if (!into.value) {
+                    into.value = from.value;
+                }
+            });
+        });
+    });
+}
+
 /** Initialize the values of form elements.
     The object "fields" is {"field-name": fieldValue, ...}.
     The boolean "fromMessage" means "fields" was extracted from

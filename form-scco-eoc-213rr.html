@@ -33,13 +33,7 @@
       var standardStartup = integration.late_startup;
       integration.late_startup = function(next) {
           standardStartup(function() {
-              var headerTime = document.querySelector('input[type="text"][name^="1b."]');
-              var timeInitiated = document.querySelector('input[type="text"][name="23.time"]');
-              if (headerTime && timeInitiated && !timeInitiated.value) {
-                  headerTime.addEventListener("change", function() {
-                      timeInitiated.value = headerTime.value;
-                  });
-              }
+              copy_initial_value("1b.time", "23.time");
               next();
           });
       };
