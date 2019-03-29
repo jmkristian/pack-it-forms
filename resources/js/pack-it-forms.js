@@ -195,10 +195,10 @@ function get_message_fields(body) {
             idx = index_of_field_value_start(linenum, line, idx);
         }
         field_value += line.substring(idx);
-        idx = field_value.length - 1;
-        if (idx > 0 && field_value.charAt(idx) == "]" && field_value.charAt(idx - 1) != "`") {
+        var value = unbracket_data(field_value);
+        if (value) {
             // Field is complete on this line
-            fields[field_name] = unbracket_data(field_value);
+            fields[field_name] = value;
             field_name = null;
             field_value = "";
         }
@@ -550,7 +550,14 @@ function bracket_data(data) {
 }
 
 function unbracket_data(data) {
-    return data.substring(1, data.length - 1).replace(/`]/g, "]");
+    var match = /[^`]]\s*$/.exec(data);
+    if (match) {
+        // data is complete
+        data = data.substring(1, data.length - match[0].length + 1);
+        return data.replace(/`]/g, "]");
+    } else {
+        return null;
+    }
 }
 
 function selected_field_values(css_selector) {
