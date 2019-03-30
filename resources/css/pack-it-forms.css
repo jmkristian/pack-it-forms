@@ -77,11 +77,20 @@ table.same-line-label-layout>tr>td, table.same-line-label-layout>tbody>tr>td {
     padding-top: 0px;
     padding-bottom: 0px;
 }
-
+table.same-line-label-layout>tr>th>label,  table.same-line-label-layout>tbody>tr>th>label,
+table.same-line-label-layout>tr>th>input,  table.same-line-label-layout>tbody>tr>th>input,
+table.same-line-label-layout>tr>th>select, table.same-line-label-layout>tbody>tr>th>select {
+    display: inline;
+}
 #the-form table.zebra-striped tr:nth-child(even) {
     background-color: #ffffff;
 }
-
+table.section {
+    page-break-inside: avoid;
+}
+table.section>tr:first-child>td, table.section>tbody>tr:first-child>td {
+    border-top: 1px solid #aaaaaa;
+}
 label {
     font-weight: bold;
 }
@@ -133,6 +142,18 @@ form input:disabled,textarea:disabled {
 form label.label-sameline input, form label.label-sameline select {
     display: inline;;
     margin-left: 1em;
+}
+form td.label-sameline {
+    white-space: nowrap;
+}
+form td.label-sameline>label,
+form td.label-sameline>input,
+form td.label-sameline>select {
+    display: inline;
+}
+form td.label-sameline>label>input,
+form td.label-sameline>label>select {
+    display: inline;
 }
 form fieldset label {
     display: block;

@@ -8,16 +8,6 @@
       #the-form {
           max-width: 10in;
       }
-      table.section {
-          page-break-inside: avoid;
-      }
-      table.section      >tr:first-child>td,
-      table.section>tbody>tr:first-child>td {
-          border-top: 1px solid #aaaaaa;
-      }
-      table.section td.yes-no {
-          white-space: nowrap;
-      }
       table.section label {
           font-weight: normal;
       }
@@ -40,8 +30,8 @@
       form input.phone-number {
           width: 9.5em;
       }
-      table.same-line-label-layout>tr>th,
-      table.same-line-label-layout>tbody>tr>th {
+      table.section table.same-line-label-layout>tr>th,
+      table.section table.same-line-label-layout>tbody>tr>th {
           font-weight: normal;
           text-align: left;
       }
@@ -70,7 +60,7 @@
             "header-version": "PIF {{version}}&lt;br/&gt;PDF February 2018"
         }
       </div>
-      <table class="section">
+      <table>
         <tr>
           <td style="width:50%;">
             <label>Facility Name:
@@ -129,11 +119,11 @@
           </td>
           <td><input name="30.status" id="30.status.1" type="radio" required tabindex="30"/></td>
           <td colspan="4">NHICS/ICS Organization Chart</td>
-          <td colspan="2" class="yes-no">
-            <label class="label-sameline">
+          <td colspan="2" class="label-sameline">
+            <label>
               <input name="26a.attach-org-chart" type="radio" value="Yes" required tabindex="50"/> Yes
             </label>
-            <label class="label-sameline">
+            <label>
               <input name="26a.attach-org-chart" type="radio" value="No" required tabindex="50"/> No
             </label>
           </td>
@@ -143,11 +133,11 @@
           </td>
           <td><input name="30.status" id="30.status.2" type="radio" required tabindex="30"/></td>
           <td colspan="4">DEOC-9A Resource Request Forms</td>
-          <td colspan="2" class="yes-no">
-            <label class="label-sameline">
+          <td colspan="2" class="label-sameline">
+            <label>
               <input name="26b.attach-RR" type="radio" value="Yes" required tabindex="51"/> Yes
             </label>
-            <label class="label-sameline">
+            <label>
               <input name="26b.attach-RR" type="radio" value="No" required tabindex="51"/> No
             </label>
           </td>
@@ -157,22 +147,22 @@
           </td>
           <td><input name="30.status" id="30.status.3" type="radio" required tabindex="30"/></td>
           <td colspan="4">NHICS/ICS Status Report Form - Standard</td>
-          <td colspan="2" class="yes-no">
-            <label class="label-sameline">
+          <td colspan="2" class="label-sameline">
+            <label>
               <input name="26c.attach-status" type="radio" value="Yes" required tabindex="52"/> Yes
             </label>
-            <label class="label-sameline">
+            <label>
               <input name="26c.attach-status" type="radio" value="No" required tabindex="52"/> No
             </label>
           </td>
         </tr><tr>
           <td colspan="2" class="block-caption">Facility Contact Information</td>
           <td colspan="4">NHICS/ICS Incident Action Plan</td>
-          <td colspan="2" class="yes-no">
-            <label class="label-sameline">
+          <td colspan="2" class="label-sameline">
+            <label>
               <input name="26d.attach-action-plan" type="radio" value="Yes" required tabindex="53"/> Yes
             </label>
-            <label class="label-sameline">
+            <label>
               <input name="26d.attach-action-plan" type="radio" value="No" required tabindex="53"/> No
             </label>
           </td>
@@ -180,11 +170,11 @@
           <td>Facility EOC Main Contact Number</td>
           <td><input name="27p.eoc-phone" type="text" class="phone-number" required tabindex="31"/></td>
           <td colspan="4">Phone/Communications Directory</td>
-          <td colspan="2" class="yes-no">
-            <label class="label-sameline">
+          <td colspan="2" class="label-sameline">
+            <label>
               <input name="26e.attach-directory" type="radio" value="Yes" required tabindex="54"/> Yes
             </label>
-            <label class="label-sameline">
+            <label>
               <input name="26e.attach-directory" type="radio" value="No" required tabindex="54"/> No
             </label>
           </td>
