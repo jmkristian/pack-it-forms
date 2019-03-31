@@ -45,24 +45,37 @@
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
     <meta name="pack-it-forms-pdf-URL" content="resources/pdf/XSC_SheltStat_v190328.pdf">
-    <meta name="pack-it-forms-subject-suffix" content="_OASheltStat_{{field:32.shelter-name}}">
+    <meta name="pack-it-forms-subject-suffix" content="_SheltStat_{{field:32.shelter-name}}">
     <script type="text/javascript">
-      function compute_availability(element) {
-          var capacity = document.getElementById("shelter-capacity").value;
-          var occupancy = document.getElementById("shelter-occupancy").value;
+      function compute_availability() {
+          var valid_int_value = function(id) {
+              var element = document.getElementById(id);
+              return (element.value && element.validity && element.validity.valid)
+                  ? parseInt(element.value) : null;
+          };
+          var capacity = valid_int_value("shelter-capacity");
+          var occupancy = valid_int_value("shelter-occupancy");
+          var newValue = (capacity != null && occupancy != null) ? (capacity - occupancy) : "";
           var availability = document.getElementById("shelter-availability");
-          if (capacity && occupancy) {
-              availability.value = parseInt(capacity) - parseInt(occupancy);
+          availability.value = newValue;
+          if (newValue != "" && newValue < 0) {
+              availability.style.setProperty("background-color", "#f8ecec");
           } else {
-              availability.value = "";
+              availability.style.removeProperty("background-color");
           }
       }
-      function compute_repeater_output(element) {
-          var input = document.getElementById("repeater-input").value;
-          var offset = document.getElementById("repeater-offset").value;
-          var output = document.getElementById("repeater-output");
-          input = parseFloat(input || "0");
-          if (input) {
+      function valid_float_value(id) {
+          var element = document.getElementById(id);
+          return (element.value && element.validity && element.validity.valid)
+              ? parseFloat(element.value) : null;
+      }
+      function round_frequency(frequency) {
+          return frequency && ((Math.round(frequency * 10000) / 10000) + "");
+      }
+      function compute_repeater_output() {
+          var input = valid_float_value("repeater-input");
+          var offset = document.getElementById("repeater-offset")
+          if (input && offset.validity && offset.validity.valid) {
               var standard_offset = // MHz
                   (input < 50)  ? 0.1 :
                   (input < 144) ? 0.5 :
@@ -72,19 +85,21 @@
                   (input < 450) ? 5.0 :
                   null;
               var value = null;
+              offset = offset.value;
               if (!offset) {
                   value = "" + input;
               } else if (offset == "+") {
                   if (standard_offset != null) {
-                      value = "" + (input + standard_offset);
+                      value = round_frequency(input + standard_offset);
                   }
               } else if (offset == "-") {
                   if (standard_offset != null) {
-                      value = "" + (input - standard_offset);
+                      value = round_frequency(input - standard_offset);
                   }
               } else {
-                  value = "" + (input + parseFloat(offset));
+                  value = round_frequency(input + parseFloat(offset));
               }
+              var output = document.getElementById("repeater-output");
               if (value && value != output.value) {
                   output.value = value;
                   fireEvent(output, "input");
@@ -92,19 +107,17 @@
               }
           }
       }
-      function compute_repeater_offset(element) {
-          var input = document.getElementById("repeater-input").value;
-          var output = document.getElementById("repeater-output").value;;
-          var offset = document.getElementById("repeater-offset");
-          input = parseFloat(input || "0");
-          output = parseFloat(output || "0");
+      function compute_repeater_offset() {
+          var input = valid_float_value("repeater-input");
+          var output = valid_float_value("repeater-output");
           if (input && output) {
               var value = null;
               if (input == output) {
                   value = "";
               } else {
-                  value = "" + (output - input);
+                  value = round_frequency(output - input);
               }
+              var offset = document.getElementById("repeater-offset");
               if (value != null && value != offset.value) {
                   offset.value = value;
                   fireEvent(offset, "input");
@@ -113,11 +126,11 @@
           }
       }
     </script>
-    <title>OA Shelter Status</title>
+    <title>Shelter Status</title>
   </head>
 
   <body>
-    <div class="version">1.4</div>
+    <div class="version">1.5</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -129,22 +142,27 @@
     <form id="the-form" name="the-form">
       <div data-include-html="scco-header">
         {
-            "header-title": "OA Shelter Status",
-            "header-subtitle": "Incident Independent",
+            "header-title": "Santa Clara OA Shelter Status",
             "header-version": "WebEOC: 20130814&lt;br/&gt;PIF: {{version}}"
         }
       </div>
       <br/>
-      <label class="label-sameline" style="margin-top:0.5em;">Municipality:
-        <div data-include-html="select-municipality"></div>
-      </label>
+      <table class="same-line-label-layout">
+        <tr>
+          <th>Shelter Name:</th>
+          <td>
+            <input name="32.shelter-name" type="text" required tabindex="29"
+                   onchange="document.getElementById('shelter-name-copy').value = this.value"/>
+          </td>
+        </tr>
+      </table>
       <table class="shelter-status" style="margin-left:0;width:99%;">
         <tr>
           <th colspan="2" class="section-head">Shelter<hr/></th>
         </tr><tr>
           <th>Shelter Type:</th>
           <td>
-            <select name="30.shelter-type" required tabindex="30">
+            <select name="30.shelter-type" tabindex="30">
               <option value="" disabled selected></option>
               <option value="Type 1">Type 1</option>
               <option value="Type 2">Type 2</option>
@@ -153,33 +171,45 @@
             </select>
           </td>
         </tr><tr>
-          <th>Shelter Status:</th>
+          <th>Status:</th>
           <td>
-            <select name="31.shelter-status" required tabindex="31">
+            <select name="31.shelter-status" tabindex="31">
               <option value="" disabled selected></option>
-              <option value="Closed">Closed</option>
-              <option value="Full">Full</option>
-              <option value="Open">Open</option>
+              <option value="Open" data-background-color="green">Open</option>
+              <option value="Closed" data-background-color="red">Closed</option>
+              <option value="Full" data-background-color="yellow">Full</option>
             </select>
           </td>
         </tr><tr>
           <th>Name:</th>
-          <td><input type="text" name="32.shelter-name" tabindex="32"/></td>
+          <td><input id="shelter-name-copy" type="text" disabled tabindex="-1"/></td>
         </tr><tr>
           <th>Address:</th>
           <td><input type="text" name="33a.shelter-address" tabindex="33"/></td>
         </tr><tr>
           <th>City:</th>
-          <td>
-            <table class="same-line-label-layout">
-              <tr>
-                <td><input type="text" name="33b.shelter-city" tabindex="34"/></td>
-                <th style="font-weight:normal;">State:</th>
-                <td style="width:2em;"><input type="text" name="33c.shelter-state" tabindex="35"/></td>
-                <th style="font-weight:normal;">Zip:</th>
-                <td style="width:8em;"><input type="text" name="33d.shelter-zip" tabindex="36"/></td>
-              </tr>
-            </table>
+          <td class="label-sameline">
+            <select name="33b.shelter-city" tabindex="34">
+              <option value="" disabled selected></option>
+              <option value="Campbell">Campbell</option>
+              <option value="Cupertino">Cupertino</option>
+              <option value="Gilroy">Gilroy</option>
+              <option value="Los Altos">Los Altos</option>
+              <option value="Los Altos">Los Altos Hills</option>
+              <option value="Los Gatos">Los Gatos</option>
+              <option value="Milpitas">Milpitas</option>
+              <option value="Morgan Hill">Monte Sereno</option>
+              <option value="Morgan Hill">Morgan Hill</option>
+              <option value="Mountain View">Mountain View</option>
+              <option value="Palo Alto">Palo Alto</option>
+              <option value="San Jose">San Jose</option>
+              <option value="Santa Clara">Santa Clara</option>
+              <option value="Saratoga">Saratoga</option>
+              <option value="Sunnyvale">Sunnyvale</option>
+              <option value="Unincorporated">Unincorporated Areas</option>
+            </select>
+            &nbsp;State: <input name="33c.shelter-state" type="text" style="width:2em;" tabindex="35"/>
+            &nbsp; Zip: <input name="33d.shelter-zip" type="text" style="width:8em;" tabindex="36"/>
           </td>
         </tr><tr>
           <th>Latitude:</th>
@@ -194,16 +224,16 @@
         </tr><tr>
           <th>Capacity:</th>
           <td>
-            <input type="text" class="cardinal-number" name="40a.capacity" tabindex="40"
-                   onchange="compute_availability(this)" id="shelter-capacity"/>
+            <input name="40a.capacity" type="text" class="cardinal-number" tabindex="40"
+                   id="shelter-capacity" onchange="compute_availability(this)" value="0"/>
         </tr><tr>
           <th>Occupancy:</th>
           <td>
-            <input type="text" class="cardinal-number" name="40b.occupancy" tabindex="41"
-                   onchange="compute_availability(this)" id="shelter-occupancy"/>
+            <input name="40b.occupancy" type="text" class="cardinal-number" tabindex="41"
+                   id="shelter-occupancy" onchange="compute_availability(this)" value="0"/>
             <label class="label-sameline">Availability:
               <input type="text" class="cardinal-number" id="shelter-availability" tabindex="-1"
-                     disabled style="color:red;"/>
+                     disabled/>
             </label>
           </td>
         </tr><tr>
@@ -213,15 +243,25 @@
           <th>NSS Number:</th>
           <td><input type="text" name="42.NSS" tabindex="43"/></td>
         </tr><tr>
-          <th><label for="pet-friendly">Pet Friendly:</label></th>
-          <td>
-            <input type="checkbox" name="43a.pet-friendly" id="pet-friendly" tabindex="44"/>
-            <label class="label-sameline">Basic Safety Inspection:
-              <input type="checkbox" name="43b.basic-safety" tabindex="45"/>
-            </label>
-            <label class="label-sameline">ATC 20 Inspection:
-              <input type="checkbox" name="43c.ATC-20" tabindex="46"/>
-            </label>
+          <th>Pet Friendly:</th>
+          <td class="label-sameline">
+            <select name="43a.pet-friendly" style="margin-right:1em;" tabindex="44">
+              <option value="" disabled selected></option>
+              <option value="checked">Yes</option>
+              <option value="false">No</option>
+            </select>
+            Basic Safety Inspection:
+            <select name="43b.basic-safety" style="margin-right:1em;" tabindex="45">
+              <option value="" disabled selected></option>
+              <option value="checked">Yes</option>
+              <option value="false">No</option>
+            </select>
+            ATC 20 Inspection:
+            <select name="43c.ATC-20" tabindex="46">
+              <option value="" disabled selected></option>
+              <option value="checked">Yes</option>
+              <option value="false">No</option>
+            </select>
           </td>
         </tr><tr>
           <th>Available Services:</th>
@@ -239,7 +279,7 @@
         </tr><tr>
           <th>Managed By:</th>
           <td>
-            <select name="50a.managed-by" required tabindex="50">
+            <select name="50a.managed-by" tabindex="50">
               <option value="" disabled selected></option>
               <option value="American Red Cross">American Red Cross</option>
               <option value="Private">Private</option>
@@ -279,10 +319,10 @@
           <td style="font-weight:bold;padding-top:0.5em;">Amateur Radio Contact Information</td>
         </tr><tr>
           <th>Tactical Call Sign:</th>
-          <td><input type="text" name="60.tactical-call" tabindex="60"/></td>
+          <td><input name="60.tactical-call" type="text" tabindex="60"/></td>
         </tr><tr>
           <th>Repeater Call Sign:</th>
-          <td><input type="text" name="61.repeater-call" class="call-sign" tabindex="61"/></td>
+          <td><input name="61.repeater-call" type="text" class="call-sign" tabindex="61"/></td>
         </tr><tr>
           <th>Repeater Input:</th>
           <td>
