@@ -84,7 +84,7 @@
           <th style="padding-left:2em;">Jurisdiction Name:</th>
           <td>
             <select name="21.jurisdiction" required tabindex="21">
-              <option value="" selected disabled>
+              <option value="" selected disabled hidden style="display:none;">
                 Select one...
               </option>
               <option value="Campbell">Campbell</option>
@@ -138,7 +138,7 @@
             <td><label for="office-status">Office Status:</label></td>
             <td>
               <select name="29.office-status" class="required-for-complete" tabindex="29">
-                <option value="" selected disabled></option>
+                <option value="" selected disabled hidden style="display:none;"></option>
                 <option value="Unknown" data-background-color="gray">Unknown</option>
                 <option value="Open" data-background-color="green">Open</option>
                 <option value="Closed" data-background-color="red">Closed</option>
@@ -166,7 +166,7 @@
             <td><label for="eoc-open">EOC Open:</label></td>
             <td>
               <select name="34.eoc-open" class="required-for-complete" tabindex="34">
-                <option value="" selected disabled></option>
+                <option value="" selected disabled hidden style="display:none;"></option>
                 <option value="Unknown" data-background-color="gray">Unknown</option>
                 <option value="Yes" data-background-color="red">Yes</option>
                 <option value="No" data-background-color="green">No</option>
@@ -175,7 +175,7 @@
             <td><label for="activation-level">Activation Level:</label></td>
             <td>
               <select name="35.eoc-activation-level" class="required-for-complete" tabindex="35">
-                <option value="" selected disabled></option>
+                <option value="" selected disabled hidden style="display:none;"></option>
                 <option value="Normal" data-background-color="green">Normal</option>
                 <option value="Duty Officer" data-background-color="yellow">Duty Officer</option>
                 <option value="Monitor" data-background-color="orange">Monitor</option>
@@ -204,7 +204,7 @@
             <td style="width:1px;">
               <select name="40.state-of-emergency" class="required-for-complete" tabindex="40"
                       onchange="on_state_of_emergency(this);">
-                <option value="" selected disabled></option>
+                <option value="" selected disabled hidden style="display:none;"></option>
                 <option value="Unknown" data-background-color="gray">Unknown</option>
                 <option value="Yes" data-background-color="red">Yes</option>
                 <option value="No" data-background-color="green">No</option>

@@ -1369,15 +1369,13 @@ function emptystr_if_null(argument) {
 function map_backgroundColor(element, colorMap, property) {
     property = property || "value";
     var value = element[property] || element.getAttribute(property);
-    if (!element.validity || element.validity.valid) {
-        var colors = colorMap[value] || {background: "white"};
-        if (colors.background) {
-            element.style.setProperty("background-color", colors.background);
-        } else {
-            element.style.removeProperty("background-color");
-        }
-        element.style.setProperty("color", colors.text || "black");
+    var colors = !value ? {} : (colorMap[value] || {background: "white"});
+    if (colors.background) {
+        element.style.setProperty("background-color", colors.background);
+    } else {
+        element.style.removeProperty("background-color");
     }
+    element.style.setProperty("color", colors.text || "black");
 }
 
 function select_backgroundColors(selectElement, backgroundColors) {
