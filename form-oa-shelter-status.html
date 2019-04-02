@@ -149,8 +149,19 @@
       <br/>
       <table class="same-line-label-layout">
         <tr>
-          <th>Shelter Name:</th>
-          <td>
+          <th>Report Type:</th>
+          <td class="label-sameline" style="width:1px;">
+            <label class="label-sameline" style="font-weight:normal;">
+              <input name="19.report-type" type="radio" value="Update" required tabindex="19"
+                     onchange="on_report_type(false)">Update
+            </label>
+            <label class="label-sameline" style="font-weight:normal;">
+              <input name="19.report-type" type="radio" value="Complete" required tabindex="19"
+                     onchange="on_report_type(true)">Complete
+            </label>
+          </td>
+          <th style="padding-left:2em;">Shelter Name:</th>
+          <td class="label-sameline">
             <input name="32.shelter-name" type="text" required tabindex="29"
                    onchange="document.getElementById('shelter-name-copy').value = this.value"/>
           </td>
@@ -162,7 +173,7 @@
         </tr><tr>
           <th>Shelter Type:</th>
           <td>
-            <select name="30.shelter-type" tabindex="30">
+            <select name="30.shelter-type" class="required-for-complete" tabindex="30">
               <option value="" disabled selected></option>
               <option value="Type 1">Type 1</option>
               <option value="Type 2">Type 2</option>
@@ -173,7 +184,7 @@
         </tr><tr>
           <th>Status:</th>
           <td>
-            <select name="31.shelter-status" tabindex="31">
+            <select name="31.shelter-status" class="required-for-complete" tabindex="31">
               <option value="" disabled selected></option>
               <option value="Open" data-background-color="green">Open</option>
               <option value="Closed" data-background-color="red">Closed</option>
@@ -185,11 +196,11 @@
           <td><input id="shelter-name-copy" type="text" disabled tabindex="-1"/></td>
         </tr><tr>
           <th>Address:</th>
-          <td><input type="text" name="33a.shelter-address" tabindex="33"/></td>
+          <td><input type="text" name="33a.shelter-address" class="required-for-complete" tabindex="33"/></td>
         </tr><tr>
           <th>City:</th>
           <td class="label-sameline">
-            <select name="33b.shelter-city" tabindex="34">
+            <select name="33b.shelter-city" class="required-for-complete" tabindex="34">
               <option value="" disabled selected></option>
               <option value="Campbell">Campbell</option>
               <option value="Cupertino">Cupertino</option>
@@ -208,7 +219,8 @@
               <option value="Sunnyvale">Sunnyvale</option>
               <option value="Unincorporated">Unincorporated Areas</option>
             </select>
-            &nbsp;State: <input name="33c.shelter-state" type="text" style="width:2em;" tabindex="35"/>
+            &nbsp;State: <input name="33c.shelter-state" type="text" style="width:2em;" tabindex="35"
+                                 class="required-for-complete"/>
             &nbsp; Zip: <input name="33d.shelter-zip" type="text" style="width:8em;" tabindex="36"/>
           </td>
         </tr><tr>
@@ -224,13 +236,13 @@
         </tr><tr>
           <th>Capacity:</th>
           <td>
-            <input name="40a.capacity" type="text" class="cardinal-number" tabindex="40"
-                   id="shelter-capacity" onchange="compute_availability(this)"/>
+            <input name="40a.capacity" type="text" class="cardinal-number required-for-complete"
+                   id="shelter-capacity" onchange="compute_availability(this)" tabindex="40"/>
         </tr><tr>
           <th>Occupancy:</th>
           <td>
-            <input name="40b.occupancy" type="text" class="cardinal-number" tabindex="41"
-                   id="shelter-occupancy" onchange="compute_availability(this)"/>
+            <input name="40b.occupancy" type="text" class="cardinal-number required-for-complete"
+                   id="shelter-occupancy" onchange="compute_availability(this)" tabindex="41"/>
             <label class="label-sameline">Availability:
               <input type="text" class="cardinal-number" id="shelter-availability" tabindex="-1"
                      disabled/>
@@ -279,7 +291,7 @@
         </tr><tr>
           <th>Managed By:</th>
           <td>
-            <select name="50a.managed-by" tabindex="50">
+            <select name="50a.managed-by" class="required-for-complete" tabindex="50">
               <option value="" disabled selected></option>
               <option value="American Red Cross">American Red Cross</option>
               <option value="Private">Private</option>
@@ -297,9 +309,11 @@
           <td>
             <table class="same-line-label-layout">
               <tr>
-                <td><input type="text" name="51a.primary-contact" tabindex="52"/></td>
+                <td><input type="text" name="51a.primary-contact" class="required-for-complete"
+                           tabindex="52"/></td>
                 <th style="font-weight:normal;">Phone:</th>
-                <td><input type="text" name="51b.primary-phone" class="phone-number" tabindex="53"/></td>
+                <td><input type="text" name="51b.primary-phone" class="phone-number required-for-complete"
+                           tabindex="53"/></td>
               </tr>
             </table>
           </td>

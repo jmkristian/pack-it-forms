@@ -1035,6 +1035,12 @@ function write_message_to_form_data(toSubmit) {
     form_data.value = text;
 }
 
+function on_report_type(complete) {
+    array_for_each(document.querySelectorAll(".required-for-complete"), function(field) {
+        field.required = complete;
+    });
+}
+
 /* Disable "other" controls when not in use
 
 This is a callback function to be used in the onChange handler of a
