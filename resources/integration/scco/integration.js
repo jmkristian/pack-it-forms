@@ -76,7 +76,7 @@
             return '!' + environment.addon_name + '!'
                 + EOL + '#Subject: ' + new_message_subject()
                 + EOL + '#T: ' + environment.ADDON_MSG_TYPE
-                + EOL + '#V: ' + form_version()
+                + EOL + '#V: ' + environment.addon_version + '-' + form_version()
                 + EOL;
         };
         newMessage.footer = '!/ADDON!\r\n';
