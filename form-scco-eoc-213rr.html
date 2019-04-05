@@ -19,10 +19,17 @@
           display: inline;
           margin-left: 0px;
       }
-      td.rotated:not(.not-rotated) {
+      div.print-only td.rotated:not(.not-rotated) {
+          padding-top: 0;
+          padding-left: 0;
+          padding-right: 0;
+          padding-bottom: 2.5em;
           vertical-align: middle;
       }
-      td.rotated:not(.not-rotated) > div > div {
+      div.print-only td.rotated:not(.not-rotated) > div {
+          width: 3.5em;
+      }
+      div.print-only td.rotated:not(.not-rotated) > div > div {
           font-size: 100%;
           font-weight: bold;
       }
@@ -44,7 +51,7 @@
   </head>
 
   <body>
-    <div class="version">1.3</div>
+    <div class="version">1.4</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -56,7 +63,7 @@
     <form id="the-form" name="the-form">
       <div data-include-html="scco-header">
         {
-            "header-title": "Resource Request Form 213RR",
+            "header-title": "Santa Clara County EOC Resource Request Form 213RR",
             "header-version": "Version: 8/17&lt;br/&gt;PIF: {{version}}"
         }
       </div>
@@ -160,7 +167,7 @@
             </td>
           </tr><tr>
             <td colspan="2">
-              <label>Suitable Substitutes / Suggested Sources<span class="field-number">15</span>
+              <label>Substitute/Suggested Sources<span class="field-number">15</span>
                 <textarea name="35.substitutes" tabindex="37"
                           rows="3" placeholder="name, phone, website"></textarea>
               </label>
@@ -240,31 +247,40 @@
         <footer class="print-only"><br/>Page 1 of 2</footer>
       </div>
     </form>
-    <div class="print-only" style="page-break-inside:avoid;max-width:9in;">
-      <table class="block-caption noborder">
+    <div class="print-only" style="page-break-inside:avoid;max-width:8.5in;">
+      <div style="text-align:center;">
+        Santa Clara County EOC
+        </br><span style="font-size:125%;font-weight:bold;">Resource Request Form 213RR</span>
+      </div>
+      <br/>
+      <table style="border:2px solid black;">
         <tr>
-          <td colspan="2" style="background-color:#bbeeff;font-size:125%;text-align:center;">
+          <td colspan="2" class="block-caption"
+              style="background-color:#bbeeff;border-bottom:2px solid black;font-size:125%;text-align:center;">
             Completed by OA EOC or Duty Officer
           </td>
-        </tr>
-      </table>
-      <table>
-        <tr>
-          <td rowspan="2" class="rotated" style="background-color:#8DB3E2;">
-            <div><div>
-                Plan/Intel
+        </tr><tr>
+          <td rowspan="2" class="rotated" style="background-color:#8DB3E2;border-bottom:2px solid black;">
+            <div>
+              <div>
+                <span style="font-size:75%;">OA EOC</span>
+                <br/>Plan/Intel
                 <br/><span style="font-size:75%;">Section</span>
-            </div></div>
+              </div>
+            </div>
           </td>
           <td style="height:7em;"><b>18. Plan/Intel Section Remarks/Comments</b>
             <i>(Include general description of request)</i></td>
         </tr><tr>
-          <td style="height:4em;"><b>19. Plan/Intel Section Chief Approval</b>
-            <i>(print and sign)</i></td>
+          <td style="height:4em;border-bottom:2px solid black;">
+            <b>19. Plan/Intel Section Chief Approval</b>
+            <i>(print and sign)</i>
+          </td>
         </tr><tr>
-          <td rowspan="5" class="rotated" style="background-color:#F9BF8F;">
+          <td rowspan="5" class="rotated" style="background-color:#F9BF8F;border-bottom:2px solid black;">
             <div><div>
-                Logistics
+                <span style="font-size:75%;">OA EOC</span>
+                <br/>Logistics
                 <br/><span style="font-size:75%;">Section</span>
             </div></div>
           </td>
@@ -279,16 +295,19 @@
         </tr><tr>
           <td style="height:8em;"><b>23. Logistics Section Remarks</b></td>
         </tr><tr>
-          <td style="height:5em;"><b>24. Logistics Section Chief Approval</b>
-            <i>(print and sign)</i></td>
+          <td style="height:5em;border-bottom:2px solid black;">
+            <b>24. Logistics Section Chief Approval</b>
+            <i>(print and sign)</i>
+          </td>
         </tr><tr style="height:9em;">
-          <td class="rotated" style="background-color:#C2D59D;">
+          <td class="rotated" style="background-color:#C2D59D;border-bottom:2px solid black;">
             <div><div>
-                Fin/Admin
+                <span style="font-size:75%;">OA EOC</span>
+                <br/>Fin/Admin
                 <br/><span style="font-size:75%;">Section</span>
             </div></div>
           </td>
-          <td>
+          <td style="border-bottom:2px solid black;">
             <table class="same-line-label-layout">
               <tr>
                 <th>25. Finance/Admin Remarks</th>
@@ -298,7 +317,11 @@
           </td>
         </tr><tr style="height:9em;">
           <td class="rotated" style="background-color:#F9BF8F;">
-            <div><div>Logistics<br/><span style="font-size:75%;">Section</span></div></div>
+            <div><div>
+                <span style="font-size:75%;">OA EOC</span>
+                <br/>Logistics
+                <br/><span style="font-size:75%;">Section</span>
+            </div></div>
           </td>
           <td>
             <table class="same-line-label-layout">
