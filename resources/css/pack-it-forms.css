@@ -70,12 +70,14 @@ table.same-line-label-layout>tr>th, table.same-line-label-layout>tbody>tr>th {
     font-weight: bold;
     white-space: nowrap;
     width: 1px;
+    vertical-align: middle;
 }
 table.same-line-label-layout>tr>td, table.same-line-label-layout>tbody>tr>td {
     border: none;
     margin: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
+    vertical-align: middle;
 }
 table.same-line-label-layout>tr>th>label,  table.same-line-label-layout>tbody>tr>th>label,
 table.same-line-label-layout>tr>th>input,  table.same-line-label-layout>tbody>tr>th>input,
@@ -112,6 +114,7 @@ form input[type="text"] {
     font-weight: bold;
     font-size: 10pt;
     font-family: consolas,monaco,profont,monospace;
+    text-overflow: ellipsis;
     width: 100%;
 }
 form select {
@@ -407,10 +410,6 @@ form input.message-number {
 
 /* Readonly (display) form styling */
 
-#the-form textarea[readonly] {
-    display: none;
-}
-
 #the-form :placeholder-shown[readonly] {
     visibility: hidden;
 }
@@ -441,12 +440,10 @@ form input.message-number {
 
 #the-form div.view-mode-textarea {
     min-height: 3ex;
-    display: block;
     unicode-bidi: embed;
-    font-weight: bold;
-    font-family: consolas,monaco,profont,monospace;
-    white-space: pre-wrap;
-    width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;/* an archaic synonym for overflow-wrap */
+    word-break: break-word;
 }
 
 /* Rotation for headers.  Inspiration: http://kizu.ru/en/fun/rotated-text/ */

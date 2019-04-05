@@ -1231,9 +1231,9 @@ function setup_view_mode(next) {
         hide_element(document.querySelector("#show-PDF-form"));
         /* In view mode, we don't want to show the input control chrome.  This
            is difficult to do with textareas which might need scrollbars, etc.
-           so insert a div with the same contents and use CSS to appropriately
-           style it and hide the textarea. */
-        var textareas_to_redisplay = [];
+           so replace it with a div that contains the same text. */
+        var oldTextElements = [];
+        var newTextElements = [];
         array_for_each(document.querySelector("#the-form").elements, function (el) {
             if (el.placeholder) {
                 el.placeholder = '';
@@ -1245,20 +1245,23 @@ function setup_view_mode(next) {
                 el.disabled = "true";
             } else {
                 el.readOnly = "true";
-                if (el.type && el.type.substr(0, 8) == "textarea") {
-                    textareas_to_redisplay.push(el);
+                if (el.type && el.type.substr(0, 4) == "text"
+                    && (el.value || el.type.substr(0, 8) == "textarea")) {
+                    // There's no need to replace an empty text input.
+                    oldTextElements.push(el);
+                    newTextElements.push(create_text_div(el));
                 }
             }
         });
-        for (var i = 0; i < textareas_to_redisplay.length; i++) {
-            var el = textareas_to_redisplay[i];
-            var textNode = create_text_div(el.value,"view-mode-textarea");
-            el.parentNode.insertBefore(textNode, el);
+        for (var i = 0; i < oldTextElements.length; i++) {
+            var oldTextElement = oldTextElements[i];
+            var parent = oldTextElement.parentNode;
+            parent.insertBefore(newTextElements[i], oldTextElement);
+            parent.removeChild(oldTextElement);
         }
     }
     next();
 }
-
 
 /* --- Misc. utility functions */
 
@@ -1287,14 +1290,26 @@ function padded_int_str(num, cnt) {
     return s;
 }
 
-/* Create a DIV element containing the provided text */
-function create_text_div(text, className) {
-    var elem = document.createElement("div");
-    elem.classList.add(className);
-    var textelem = document.createTextNode(text);
-    elem.appendChild(textelem);
-    return elem;
+/* Create a DIV element that contains oldText.value and lays out like oldText. */
+function create_text_div(oldText) {
+    var newText = document.createElement("div");
+    newText.classList.add("view-mode-textarea");
+    newText.style.display = get_style(oldText, "display") || "block";
+    newText.style.width = get_style(oldText, "width") || (oldText.offsetWidth + "px");
+    newText.style["font-weight"] = get_style(oldText, "font-weight") || "bold";
+    newText.style["font-family"] = get_style(oldText, "font-family") || "monospace";
+    var textNode = document.createTextNode(oldText.value);
+    newText.appendChild(textNode);
+    return newText;
 }
+
+var get_style = ((typeof window.getComputedStyle) == "function")
+    ? function(element, property) {
+        return element.style[property] || getComputedStyle(element)[property];
+    }
+    : function(element, property) {
+        return element.style[property];
+    };
 
 function hide_element(element) {
     if (element) {
