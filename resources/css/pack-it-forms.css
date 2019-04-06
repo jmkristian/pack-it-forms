@@ -416,7 +416,7 @@ form input.message-number {
 
 
 #the-form [readonly] {
-    background-color: transparent;
+    background-color: white;
     border-color: transparent;
     color: black;
 }
