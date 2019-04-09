@@ -40,6 +40,51 @@
     <script type="text/javascript" src="resources/integration/integration.js"></script>
     <meta name="pack-it-forms-pdf-URL" content="resources/pdf/Allied_Health_Facility_Status_Short_Form_w_Instructions_v1802.pdf">
     <meta name="pack-it-forms-subject-suffix" content="_AHFacStat_{{field:20.facility}}">
+    <script type="text/javascript">
+      function all_or_none(rowNumber, nameSuffix) {
+          var required = false;
+          var names = [];
+          array_for_each(['a', 'b', 'c', 'd', 'e'], function(column) {
+              names.push(rowNumber + column + "." + nameSuffix);
+          });
+          var onChange = function() {
+              var anyValue = false;
+              array_for_each(names, function(name) {
+                  array_for_each(document.getElementsByName(name), function(input) {
+                      if (input.value) {
+                          anyValue = true;
+                      }
+                  });
+              });
+              if (required != anyValue) {
+                  required = anyValue;
+                  array_for_each(names, function(name) {
+                      array_for_each(document.getElementsByName(name), function(input) {
+                          input.required = required;
+                      });
+                  });
+              }
+          };
+          array_for_each(names, function(name) {
+              array_for_each(document.getElementsByName(name), function(input) {
+                  input.addEventListener("change", onChange);
+              });
+          });
+      }
+      var standardStartup = integration.early_startup;
+      integration.early_startup = function(next) {
+          standardStartup(function() {
+              copy_initial_value("1b.time", "22t.time");
+              array_for_each([40, 41, 42, 43, 44, 45, 46], function(rowNumber) {
+                  all_or_none(rowNumber, "beds");
+              });
+              array_for_each([50, 51, 52, 53, 54], function(rowNumber) {
+                  all_or_none(rowNumber, "resource");
+              });
+              next();
+          });
+      };
+    </script>
     <title>Allied Health Status Report</title>
   </head>
 
@@ -62,13 +107,25 @@
       </div>
       <table>
         <tr>
+          <td colspan="4">
+            <span class="bold">Report Type:</span>
+            <label class="label-sameline" style="font-weight:normal;">
+              <input name="19.report-type" type="radio" value="Update" required tabindex="19"
+                     onchange="on_report_type(false)">Update
+            </label>
+            <label class="label-sameline" style="font-weight:normal;">
+              <input name="19.report-type" type="radio" value="Complete" required tabindex="19"
+                     onchange="on_report_type(true)">Complete
+            </label>
+          </td>
+        </tr><tr>
           <td style="width:50%;">
             <label>Facility Name:
               <input name="20.facility" type="text" required tabindex="20"/>
             </label>
           </td><td>
             <label>Facility Type:
-              <input name="21.facility-type" type="text" required tabindex="21"/>
+              <input name="21.facility-type" type="text" class="required-for-complete" tabindex="21"/>
             </label>
           </td><td style="width:1px;">
             <label>Date:
@@ -82,11 +139,11 @@
         </tr><tr>
           <td>
             <label>Contact Name:
-              <input name="23.contact" type="text" required tabindex="24"/>
+              <input name="23.contact" type="text" class="required-for-complete" tabindex="24"/>
             </label>
           </td><td>
             <label>Phone #
-              <input name="23p.contact-phone" type="text" class="phone-number" required tabindex="25"/>
+              <input name="23p.contact-phone" type="text" class="phone-number required-for-complete" tabindex="25"/>
             </label>
           </td><td colspan="2">
             <label>Fax #
@@ -115,44 +172,47 @@
           <td colspan="6">Additional Attachments Provided</td>
         </tr><tr>
           <td>
-            <label for="30.status.1">Green - Fully Functional</label>
+            <label for="35.status.1">Green - Fully Functional</label>
           </td>
-          <td><input name="30.status" id="30.status.1" type="radio" required tabindex="30"/></td>
+          <td><input name="35.status" id="35.status.1" type="radio" value="Fully Functional"
+                     class="required-for-complete" tabindex="30"/></td>
           <td colspan="4">NHICS/ICS Organization Chart</td>
           <td colspan="2" class="label-sameline">
             <label>
-              <input name="26a.attach-org-chart" type="radio" value="Yes" required tabindex="50"/> Yes
+              <input name="26a.attach-org-chart" type="radio" value="Yes" class="required-for-complete" tabindex="50"/> Yes
             </label>
             <label>
-              <input name="26a.attach-org-chart" type="radio" value="No" required tabindex="50"/> No
+              <input name="26a.attach-org-chart" type="radio" value="No" class="required-for-complete" tabindex="50"/> No
             </label>
           </td>
         </tr><tr>
           <td>
-            <label for="30.status.2">Red - Limited Services</label>
+            <label for="35.status.2">Red - Limited Services</label>
           </td>
-          <td><input name="30.status" id="30.status.2" type="radio" required tabindex="30"/></td>
+          <td><input name="35.status" id="35.status.2" type="radio" value="Limited Services"
+                     class="required-for-complete" tabindex="30"/></td>
           <td colspan="4">DEOC-9A Resource Request Forms</td>
           <td colspan="2" class="label-sameline">
             <label>
-              <input name="26b.attach-RR" type="radio" value="Yes" required tabindex="51"/> Yes
+              <input name="26b.attach-RR" type="radio" value="Yes" class="required-for-complete" tabindex="51"/> Yes
             </label>
             <label>
-              <input name="26b.attach-RR" type="radio" value="No" required tabindex="51"/> No
+              <input name="26b.attach-RR" type="radio" value="No" class="required-for-complete" tabindex="51"/> No
             </label>
           </td>
         </tr><tr>
           <td>
-            <label for="30.status.3">Black - Impaired/Closed</label>
+            <label for="35.status.3">Black - Impaired/Closed</label>
           </td>
-          <td><input name="30.status" id="30.status.3" type="radio" required tabindex="30"/></td>
+          <td><input name="35.status" id="35.status.3" type="radio" value="Impaired/Closed"
+                     class="required-for-complete" tabindex="30"/></td>
           <td colspan="4">NHICS/ICS Status Report Form - Standard</td>
           <td colspan="2" class="label-sameline">
             <label>
-              <input name="26c.attach-status" type="radio" value="Yes" required tabindex="52"/> Yes
+              <input name="26c.attach-status" type="radio" value="Yes" class="required-for-complete" tabindex="52"/> Yes
             </label>
             <label>
-              <input name="26c.attach-status" type="radio" value="No" required tabindex="52"/> No
+              <input name="26c.attach-status" type="radio" value="No" class="required-for-complete" tabindex="52"/> No
             </label>
           </td>
         </tr><tr>
@@ -160,22 +220,22 @@
           <td colspan="4">NHICS/ICS Incident Action Plan</td>
           <td colspan="2" class="label-sameline">
             <label>
-              <input name="26d.attach-action-plan" type="radio" value="Yes" required tabindex="53"/> Yes
+              <input name="26d.attach-action-plan" type="radio" value="Yes" class="required-for-complete" tabindex="53"/> Yes
             </label>
             <label>
-              <input name="26d.attach-action-plan" type="radio" value="No" required tabindex="53"/> No
+              <input name="26d.attach-action-plan" type="radio" value="No" class="required-for-complete" tabindex="53"/> No
             </label>
           </td>
         </tr><tr>
           <td>Facility EOC Main Contact Number</td>
-          <td><input name="27p.eoc-phone" type="text" class="phone-number" required tabindex="31"/></td>
+          <td><input name="27p.eoc-phone" type="text" class="phone-number" class="required-for-complete" tabindex="31"/></td>
           <td colspan="4">Phone/Communications Directory</td>
           <td colspan="2" class="label-sameline">
             <label>
-              <input name="26e.attach-directory" type="radio" value="Yes" required tabindex="54"/> Yes
+              <input name="26e.attach-directory" type="radio" value="Yes" class="required-for-complete" tabindex="54"/> Yes
             </label>
             <label>
-              <input name="26e.attach-directory" type="radio" value="No" required tabindex="54"/> No
+              <input name="26e.attach-directory" type="radio" value="No" class="required-for-complete" tabindex="54"/> No
             </label>
           </td>
         </tr><tr>
@@ -186,7 +246,7 @@
           </td>
         </tr><tr>
           <td>Facility Liaison Officer Name: Liaison to Public Health/Medical Health Branch</td>
-          <td><input name="28.liaison" type="text" required tabindex="32"/></td>
+          <td><input name="28.liaison" type="text" class="required-for-complete" tabindex="32"/></td>
           <td colspan="6" rowspan="5"><textarea name="29.summary" rows="8" tabindex="55"></textarea></td>
         </tr><tr>
           <td>Facility Liaison Contact Number</td>
@@ -202,7 +262,7 @@
           <td><input name="29e.info-officer-email" type="text" tabindex="36"/></td>
         </tr><tr>
           <td>If Facility EOC is Not Activated, Who Should be Contacted for Questions/Requests</td>
-          <td><input name="30.eoc" type="text" required tabindex="37"/></td>
+          <td><input name="30.eoc" type="text" class="required-for-complete" tabindex="37"/></td>
           <td class="resource bold">Bed Resource Availability</td>
           <td class="available">Staffed Bed-M</td>
           <td class="available">Staffed Bed-F</td>
@@ -211,7 +271,7 @@
           <td class="available">*Surge #</td>
         </tr><tr>
           <td>Facility Contact Number</td>
-          <td><input name="30p.eoc-phone" type="text" class="phone-number" required tabindex="38"/></td>
+          <td><input name="30p.eoc-phone" type="text" class="phone-number" class="required-for-complete" tabindex="38"/></td>
           <td class="resource">Skilled Nursing</td>
           <td class="available"><input name="40a.beds" type="text" class="cardinal-number" tabindex="60"/></td>
           <td class="available"><input name="40b.beds" type="text" class="cardinal-number" tabindex="61"/></td>
@@ -220,7 +280,7 @@
           <td class="available"><input name="40e.beds" type="text" class="cardinal-number" tabindex="64"/></td>
         </tr><tr>
           <td>Facility Contact Email</td>
-          <td><input name="30e.eoc-email" type="text" required tabindex="39"/></td>
+          <td><input name="30e.eoc-email" type="text" class="required-for-complete" tabindex="39"/></td>
           <td class="resource">Assisted Living</td>
           <td class="available"><input name="41a.beds" type="text" class="cardinal-number" tabindex="65"/></td>
           <td class="available"><input name="41b.beds" type="text" class="cardinal-number" tabindex="66"/></td>
@@ -269,7 +329,7 @@
             <input name="33.other-care" type="text" tabindex="42"/>
           </td>
           <td class="resource" style="padding-left:0.1em;padding-right:0.1em;">
-            <input name="46a.beds" type="text" style="margin-left:0;" tabindex="90"/>
+            <input name="46.bed-resource" type="text" style="margin-left:0;" tabindex="90"/>
           </td>
           <td class="available"><input name="46a.beds" type="text" class="cardinal-number" tabindex="91"/></td>
           <td class="available"><input name="46b.beds" type="text" class="cardinal-number" tabindex="92"/></td>
