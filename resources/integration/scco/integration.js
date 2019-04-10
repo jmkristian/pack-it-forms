@@ -119,9 +119,30 @@
                 '<img src="icon-check.png" alt="OK" style="width:2em;height:2em;vertical-align:middle;">' +
                 '&nbsp;&nbsp;The message has been submitted to Outpost. You can close this page.';
         }
+        if (status == 'emailed') {
+            // This message was just submitted to the operator's email program.
+            // Discourage the operator from sending it via Outpost:
+            var element = document.getElementById('button-header');
+            while (element.tagName != "TD") {
+                element = element.children[0];
+            }
+            element.innerHTML =
+                '<img src="icon-warning.png" alt="Warning" style="width:2em;height:2em;vertical-align:middle;">' +
+                '&nbsp;&nbsp;After you send the message via email, be sure to delete it from Outpost' +
+                ' (to prevent sending it twice).';
+        }
         next();
     };
 
+    var basicEmailMessage = integration.email_message;
+    integration.email_message = function(body) {
+        basicEmailMessage(body);
+        if (status != 'new') {
+            setTimeout(function() {
+                document.location.replace(document.location.pathname + "?message_status=emailed&mode=readonly");
+            }, 500);
+        }
+    }
     integration.get_old_message = getOldMessage;
     integration.late_startup = customizeForm;
 })();

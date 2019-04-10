@@ -1013,15 +1013,7 @@ function email_submit(e) {
     hide_form_data();
     e.preventDefault();
     if (check_the_form_validity()) {
-        var pacforms_rep = document.querySelector("#form-data").value;
-        // Use the same subject as Outpost
-        var subject = new_message_subject();
-        hide_element(document.querySelector("#opdirect-submit"));
-        hide_element(document.querySelector("#email-submit"));
-        document.location = "mailto:?to="
-                          + "&Content-Type=text/plain"
-                          + "&Subject=" + encodeURIComponent(subject)
-                          + "&body=" + encodeURIComponent(pacforms_rep);
+        integration.email_message(document.querySelector("#form-data").value);
     }
     return false;
 }
@@ -1636,5 +1628,16 @@ var integration = {
     /** Called shortly before submitting newMessage.text to Outpost. */
     before_submit_new_message: function(next) {
         next();
+    },
+
+    /** Send the given message via e-mail. */
+    email_message: function(body) {
+        var subject = new_message_subject();
+        hide_element(document.querySelector("#opdirect-submit"));
+        hide_element(document.querySelector("#email-submit"));
+        document.location = "mailto:?to="
+            + "&Content-Type=text/plain"
+            + "&Subject=" + encodeURIComponent(subject)
+            + "&body=" + encodeURIComponent(body);
     }
 };
