@@ -70,39 +70,40 @@
               ? parseFloat(element.value) : null;
       }
       function round_frequency(frequency) {
-          return frequency && ((Math.round(frequency * 10000) / 10000) + "");
+          return frequency && ((Math.round(frequency * 100000) / 100000) + "");
       }
-      function compute_repeater_output() {
-          var input = valid_float_value("repeater-input");
+      function compute_repeater_input() {
+          var output = valid_float_value("repeater-output");
           var offset = document.getElementById("repeater-offset")
-          if (input && offset.validity && offset.validity.valid) {
+          if (output && offset.validity && offset.validity.valid) {
               var standard_offset = // MHz
-                  (input < 50)  ? 0.1 :
-                  (input < 144) ? 0.5 :
-                  (input < 220) ? 0.6 :
-                  (input < 222) ? 1.0 :
-                  (input < 225) ? 1.6 :
-                  (input < 450) ? 5.0 :
+                  (output < 50)  ? 0.1 :
+                  (output < 144) ? 0.5 :
+                  (output < 220) ? 0.6 :
+                  (output < 222) ? 1.0 :
+                  (output < 225) ? 1.6 :
+                  (output < 450) ? 5.0 :
                   null;
               var value = null;
               offset = offset.value;
               if (!offset) {
-                  value = "" + input;
+                  value = output;
               } else if (offset == "+") {
                   if (standard_offset != null) {
-                      value = round_frequency(input + standard_offset);
+                      value = output + standard_offset;
                   }
               } else if (offset == "-") {
                   if (standard_offset != null) {
-                      value = round_frequency(input - standard_offset);
+                      value = output - standard_offset;
                   }
               } else {
-                  value = round_frequency(input + parseFloat(offset));
+                  value = output + parseFloat(offset);
               }
-              var output = document.getElementById("repeater-output");
-              if (value && value != output.value) {
-                  output.value = value;
-                  fireEvent(output, "input");
+              value = round_frequency(value);
+              var input = document.getElementById("repeater-input");
+              if (value && value != input.value) {
+                  input.value = value;
+                  fireEvent(input, "input");
                   check_the_form_validity();
               }
           }
@@ -115,7 +116,7 @@
               if (input == output) {
                   value = "";
               } else {
-                  value = round_frequency(output - input);
+                  value = round_frequency(input - output);
               }
               var offset = document.getElementById("repeater-offset");
               if (value != null && value != offset.value) {
@@ -341,7 +342,7 @@
           <td>
             <input type="text" name="62a.repeater-input" tabindex="62"
                    class="real-number" style="width:6em;"
-                   onchange="compute_repeater_output(this)" id="repeater-input"/> MHz
+                   onchange="compute_repeater_offset(this)" id="repeater-input"/> MHz
             <label class="label-sameline">tone:
               <input type="text" name="62b.repeater-input-tone" tabindex="63"
                      class="real-number" style="width:5em;"/> Hz
@@ -349,7 +350,7 @@
             <label class="label-sameline">Offset:
               <input type="text" name="62c.repeater-offset" tabindex="64"
                      class="real-number" style="width:4em;" pattern="[-+]?([0-9]+(\.[0-9]+)?)?"
-                     onchange="compute_repeater_output(this)" id="repeater-offset"/> MHz
+                     onchange="compute_repeater_input(this)" id="repeater-offset"/> MHz
             </label>
           </td>
         </tr><tr>
@@ -357,7 +358,7 @@
           <td>
             <input type="text" name="63a.repeater-output" tabindex="65"
                    class="real-number" style="width:6em;"
-                   onchange="compute_repeater_offset(this)" id="repeater-output"/> MHz
+                   onchange="compute_repeater_input(this)" id="repeater-output"/> MHz
             <label class="label-sameline">tone:
               <input type="text" name="63b.repeater-output-tone" tabindex="66"
                      class="real-number" style="width:5em;"/> Hz
