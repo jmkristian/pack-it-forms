@@ -439,6 +439,7 @@ form input.message-number {
 }
 
 #the-form div.view-mode-textarea {
+    background-color: white;
     min-height: 3ex;
     unicode-bidi: embed;
     overflow-wrap: break-word;

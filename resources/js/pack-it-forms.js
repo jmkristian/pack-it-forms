@@ -1292,6 +1292,7 @@ function create_text_div(oldText) {
     newText.style["font-family"] = get_style(oldText, "font-family") || "monospace";
     var textNode = document.createTextNode(oldText.value);
     newText.appendChild(textNode);
+    newText.innerHTML = newText.innerHTML.replace(/(\r?\n)/g, "<br/>$1");
     return newText;
 }
 
