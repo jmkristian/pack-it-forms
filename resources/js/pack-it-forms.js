@@ -1027,7 +1027,10 @@ function write_message_to_form_data(toSubmit) {
     form_data.value = text;
 }
 
+var currentReportIsComplete;
+
 function on_report_type(complete) {
+    currentReportIsComplete = complete;
     array_for_each(document.querySelectorAll(".required-for-complete"), function(field) {
         field.required = complete;
     });
@@ -1186,7 +1189,11 @@ function setup_input_elem_from_class(next) {
             for (var s in setup) {
                 if (el.classList.contains(s)) {
                     if (!el.pattern && setup[s].pattern != undefined) {
-                        el.pattern = setup[s].pattern;
+                        if (el.classList.contains("clearable")) {
+                            el.pattern = setup[s].pattern + "|\\{CLEAR\\}";
+                        } else {
+                            el.pattern = setup[s].pattern;
+                        }
                     }
                     if (setup[s].placeholder != undefined) {
                         if (!el.placeholder) {
