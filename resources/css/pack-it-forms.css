@@ -369,7 +369,7 @@ form fieldset:invalid {
 }
 
 #button-header.readonly,#button-header.readonly.valid {
-    background-color: #a8a8e8;
+    background-color: #cfcfff;
     height: 2.5em;
 }
 

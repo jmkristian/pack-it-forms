@@ -140,7 +140,7 @@
         if (status != 'new') {
             setTimeout(function() {
                 document.location.replace(document.location.pathname + "?message_status=emailed&mode=readonly");
-            }, 500);
+            }, 2000);
         }
     }
     integration.get_old_message = getOldMessage;

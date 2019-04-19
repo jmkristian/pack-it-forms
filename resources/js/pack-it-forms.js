@@ -1643,6 +1643,7 @@ var integration = {
         var subject = new_message_subject();
         hide_element(document.querySelector("#opdirect-submit"));
         hide_element(document.querySelector("#email-submit"));
+        hide_element(document.querySelector("#clear-form"));
         document.location = "mailto:?to="
             + "&Content-Type=text/plain"
             + "&Subject=" + encodeURIComponent(subject)
