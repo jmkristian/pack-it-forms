@@ -108,11 +108,11 @@
             <span class="bold">Report Type:</span>
             <label class="label-sameline" style="font-weight:normal;">
               <input name="19.report-type" type="radio" value="Update" required tabindex="19"
-                     onchange="on_report_type(false)">Update
+                     onchange="if (this.checked) on_report_type(false)">Update
             </label>
             <label class="label-sameline" style="font-weight:normal;">
               <input name="19.report-type" type="radio" value="Complete" required tabindex="19"
-                     onchange="on_report_type(true)">Complete
+                     onchange="if (this.checked) on_report_type(true)">Complete
             </label>
           </td>
         </tr><tr>
