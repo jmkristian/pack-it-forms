@@ -410,7 +410,13 @@ function unescape_pacforms_string(string) {
 
 /** Construct the subject of a new message. */
 function new_message_subject() {
-    return _toString(newMessage.subjectPrefix) + _toString(newMessage.subjectSuffix);
+    var subject = _toString(newMessage.subjectPrefix) + _toString(newMessage.subjectSuffix);
+    if (subject) {
+        subject = subject.replace(/[^ -~]/g, function(found) {
+            return '~';
+        });
+    }
+    return subject;
 }
 
 var newMessage = { // a namespace
