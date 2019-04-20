@@ -1228,6 +1228,19 @@ function setup_input_elem_from_class(next) {
 This is indicated by a mode=readonly query parameter. */
 function setup_view_mode(next) {
     if (envelope.readOnly) {
+        // Set the page title = the subject of the message, so that when saving
+        // the page to a file, the default file name will be the subject.
+        var title = document.querySelector("head>title");
+        if (title) {
+            var text = new_message_subject();
+            if (text) {
+                // Replace characters that aren't permitted in a file name:
+                text = text.replace(/[<>:"/\\|?*]/g, function(found) {
+                    return "~";
+                });
+            }
+            title.innerText = text;
+        }
         document.querySelector("#button-header").classList.add("readonly");
         hide_element(document.querySelector("#opdirect-submit"));
         hide_element(document.querySelector("#email-submit"));
