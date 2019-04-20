@@ -1039,6 +1039,21 @@ function on_report_type(complete) {
     currentReportIsComplete = complete;
     array_for_each(document.querySelectorAll(".required-for-complete"), function(field) {
         field.required = complete;
+        if (field.tagName.toUpperCase() == "SELECT") {
+            if (complete && !field.value) {
+                field.style.removeProperty("background-color");
+            }
+            array_for_each(field.querySelectorAll('option[value=""]'), function(option) {
+                option.disabled = complete;
+                option.hidden = complete;
+                option.style.display = complete ? "none" : null;
+                if (complete) {
+                    option.style.removeProperty("background-color");
+                } else {
+                    option.style.setProperty("background-color", "white");
+                }
+            });
+        }
     });
 }
 
@@ -1403,7 +1418,8 @@ function emptystr_if_null(argument) {
 function map_backgroundColor(element, colorMap, property) {
     property = property || "value";
     var value = element[property] || element.getAttribute(property);
-    var colors = !value ? {} : (colorMap[value] || {background: "white"});
+    var colors = (!value && element.parentElement.required) ? {} :
+        (colorMap[value] || {background: "white"});
     if (colors.background) {
         element.style.setProperty("background-color", colors.background);
     } else {
