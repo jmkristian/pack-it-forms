@@ -442,6 +442,7 @@ form input.message-number {
     background-color: white;
     min-height: 3ex;
     unicode-bidi: embed;
+    white-space: normal;
     overflow-wrap: break-word;
     word-wrap: break-word;/* an archaic synonym for overflow-wrap */
     word-break: break-word;
