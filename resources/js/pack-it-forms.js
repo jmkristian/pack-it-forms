@@ -244,7 +244,7 @@ FormDataParseError.prototype = Object.create(Error.prototype, {
 function index_of_field_name_sep(linenum, line, startAt) {
     var idx = line.indexOf(":", startAt);
     if (idx == -1) {
-        throw new FormDataParseError(linenum, "no field name/value separator on line");
+        throw new FormDataParseError(linenum, 'no field name/value separator in "' + line + '"');
     }
     return idx;
 }
@@ -252,7 +252,7 @@ function index_of_field_name_sep(linenum, line, startAt) {
 function index_of_field_value_start(linenum, line, startAt) {
     var idx = line.indexOf("[", startAt);
     if (idx == -1) {
-        throw new FormDataParseError(linenum, "no field value open bracket");
+        throw new FormDataParseError(linenum, 'no field value open bracket in "' + line + '"');
     }
     return idx;
 }
