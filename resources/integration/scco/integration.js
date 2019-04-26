@@ -131,6 +131,15 @@
                 '&nbsp;&nbsp;After you send the message via email, be sure to delete it from Outpost' +
                 ' (to prevent sending it twice).';
         }
+        array_for_each(document.querySelector("#the-form").elements, function(input) {
+            if (input.disabled && input.required && !input.value) {
+                if (status == 'manual' && !environment.readOnly) {
+                    input.disabled = false;
+                } else {
+                    input.required = false;
+                }
+            }
+        });
         next();
     };
 
