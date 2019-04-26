@@ -1213,7 +1213,7 @@ function setup_input_from_classes(input) {
             var standard = standardAttributes[s];
             if (standard != undefined) {
                 pattern = standard.pattern;
-                if (!input.placeholder) {
+                if (!input.placeholder && standard.placeholder) {
                     input.placeholder = standard.placeholder;
                 }
             }
