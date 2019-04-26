@@ -3,3 +3,23 @@
 #the-form input[name="OpName"] { width: 15em; }
 #the-form input[name="OpDate"] { width: 8em; }
 #the-form input[name="OpTime"] { width: 8em; }
+td.print-checkbox {
+    color: #606060;
+}
+td.print-checkbox>div {
+    height: 0.8em;
+    width: 0.8em;
+    display: inline-block;
+    margin-right: 0.5em;
+    background-color: #ebebeb;
+    border:1px solid #cccccc;
+}
+@media print {
+    td.print-checkbox {
+        color: black;
+    }
+    td.print-checkbox>div {
+        background-color: white;
+        border:1px solid #444444;
+    }
+}
