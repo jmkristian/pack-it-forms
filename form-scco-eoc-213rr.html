@@ -33,6 +33,9 @@
           font-size: 100%;
           font-weight: bold;
       }
+      form table.nowrap-captions>tr>td, form table.nowrap-captions>tbody>tr>td {
+          white-space: nowrap;
+      }
     </style>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
@@ -51,7 +54,7 @@
   </head>
 
   <body>
-    <div class="version">1.4</div>
+    <div class="version">1.5</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -67,51 +70,47 @@
             "header-version": "Version: 8/17&lt;br/&gt;PIF: {{version}}"
         }
       </div>
-      <table>
+      <table class="nowrap-captions">
         <tr>
-          <td style="width:45%;">
-            <label>Incident Name<span class="field-number">1</span>
-              <input type="text" name="21.incident-name" required="required" tabindex="21"/>
-            </label>
-          </td><td style="width:1px;white-space:nowrap;">
-            <label>Date Initiated<span class="field-number">2</span>
-              <input type="text" name="22.date" required="required" tabindex="22"
-                     class="date" value="{{date}}"/>
-            </label>
-          </td><td style="width:1px;white-space:nowrap;">
-            <label>Time Initiated<span class="field-number">3</span>
-              <input type="text" name="23.time" required="required" tabindex="23"
-                     class="time"/>
-            </label>
-          </td><td style="width:15em;">
-            <label>Tracking Number<span class="field-number">4</span>
-              <span style="font-weight:normal;">(OA EOC)</span>
-              <input type="text" name="24.tracking-number" disabled="disabled" tabindex="-1"/>
-            </label>
+          <td>
+            <b>1. Incident Name</b>
+            <input type="text" name="21.incident-name" required="required" tabindex="21"/>
+          </td><td style="width:1px;">
+            <b>2. Date Initiated</b>
+            <input type="text" name="22.date" required="required" tabindex="22"
+                   class="date" value="{{date}}"/>
+          </td><td style="width:1px;">
+            <b>3. Time Initiated</b>
+            <input type="text" name="23.time" required="required" tabindex="23"
+                   class="time"/>
+          </td><td>
+            <b>4. Tracking Number</b>
+            (OA EOC)
+            <input type="text" name="24.tracking-number" disabled="disabled" tabindex="-1"/>
           </td>
         </tr><tr>
           <td rowspan="2">
-            <label>Requested by<span class="field-number">5</span>
-              <textarea name="25.requested-by" required="required" tabindex="25"
-                        rows="9" placeholder="name, agency, position, email, phone"></textarea>
-            </label>
+            <b>5. Requested by</b>
+            <i>(name, agency, position, email, phone)</i>
+            <textarea name="25.requested-by" required="required" tabindex="25"
+                      rows="9" title="name, agency, position, email, phone"></textarea>
           </td><td colspan="3">
-            <label>Prepared by<span class="field-number">6</span>
-              <textarea name="26.prepared-by" tabindex="26"
-                        rows="4" placeholder="name, position, email, phone"></textarea>
-            </label>
+            <b>6. Prepared by</b>
+            <i>(name, position, email, phone)</i>
+            <textarea name="26.prepared-by" tabindex="26"
+                      rows="4" title="name, position, email, phone"></textarea>
           </td>
         </tr><tr>
           <td colspan="3">
-            <label>Approved By<span class="field-number">7</span>
-              <textarea name="27.approved-by" tabindex="27"
-                        rows="4" placeholder="name, position, email, phone"></textarea>
-            </label>
+            <b>7. Approved By</b>
+            <i>(name, position, email, phone)</i>
+            <textarea name="27.approved-by" tabindex="27"
+                      rows="4" title="name, position, email, phone"></textarea>
           </td>
         </tr>
       </table>
       <div style="page-break-inside:avoid;">
-        <table>
+        <table class="nowrap-captions">
           <tr>
             <td colspan="5" class="block-caption" style="text-align:center;">
               Requesting Agency / EOC Section
@@ -119,65 +118,62 @@
             </td>
           </tr><tr>
             <td style="width:6em;text-align:right;">
-              <label>Qty/Unit<span class="field-number">8</span>
-                <textarea name="28.qty-unit" required="required" tabindex="30"
-                          rows="4" style="text-align:right;"></textarea>
-              </label>
+              <b>8. Qty/Unit</b>
+              <textarea name="28.qty-unit" required="required" tabindex="30"
+                        rows="4" style="text-align:right;"></textarea>
             </td><td>
-              <label>Resource Description<span class="field-number">9</span>
-                <textarea name="29.resource-description" required="required" tabindex="31"
-                          rows="4" placeholder="Kind/Type if applicable"></textarea>
-              </label>
-            </td><td style="width:11em;">
-              <label>Arrival<span class="field-number">10</span>
-                <textarea name="30.resource-arrival" required="required" tabindex="32"
-                          rows="4" placeholder="date/time"></textarea>
-              </label>
-            </td><td style="width:1px;">
-              <label>Priority:<span class="field-number">11</span>
-                <select name="31.priority" required="required" tabindex="33"
-                        style="display:block;">
-                  <option value="" selected disabled hidden style="display:none;"></option>
-                  <option value="Now">Now</option>
-                  <option value="High">High (0-4 hrs.)</option>
-                  <option value="Medium">Medium (5-12 hrs.)</option>
-                  <option value="Low">Low (12+ hrs.)</option>
-                </select>
-              </label>
-            </td><td style="width:9em;">
-              <label>Est'd Cost<span class="field-number">12</span>
-                <textarea name="32.resource-priority" tabindex="34"
-                          rows="4"></textarea>
-              </label>
+              <b>9. Resource Description</b>
+              <i>(kind/type if applicable)</i>
+              <textarea name="29.resource-description" required="required" tabindex="31"
+                        rows="4" title="kind/type if applicable"></textarea>
+            </td><td>
+              <b>10. Arrival</b>
+              <i>(date/time)</i>
+              <textarea name="30.resource-arrival" required="required" tabindex="32"
+                        rows="4" title="date/time"></textarea>
+            </td><td>
+              <b>11. Priority:</b>
+              <select name="31.priority" required="required" tabindex="33"
+                      style="display:block;">
+                <option value="" selected disabled hidden style="display:none;"></option>
+                <option value="Now">Now</option>
+                <option value="High">High (0-4 hrs.)</option>
+                <option value="Medium">Medium (5-12 hrs.)</option>
+                <option value="Low">Low (12+ hrs.)</option>
+              </select>
+            </td><td>
+              <b>12. Est'd Cost</b>
+              <textarea name="32.resource-priority" tabindex="34"
+                        rows="4"></textarea>
             </td>
           </tr>
         </table>
-        <table>
+        <table class="nowrap-captions">
           <tr>
-            <td style="width:50%;">
-              <label>Deliver to<span class="field-number">13</span>
-                <textarea name="33.deliver-to" required="required" tabindex="35"
-                          rows="5" placeholder="name, agency, position, email, phone"></textarea>
-              </label>
+            <td>
+              <b>13. Deliver to</b>
+              <i>(name, agency, position, email, phone)</i>
+              <textarea name="33.deliver-to" required="required" tabindex="35"
+                        rows="5" title="name, agency, position, email, phone"></textarea>
             </td><td>
-              <label>Location<span class="field-number">14</span>
-                <textarea name="34.deliver-to-location" required="required" tabindex="36"
-                          rows="5" placeholder="address or lat/long, site type"></textarea>
-              </label>
+              <b>14. Location</b>
+              <i>(address or lat/long, site type)</i>
+              <textarea name="34.deliver-to-location" required="required" tabindex="36"
+                        rows="5" title="address or lat/long, site type"></textarea>
             </td>
           </tr><tr>
             <td colspan="2">
-              <label>Substitute/Suggested Sources<span class="field-number">15</span>
-                <textarea name="35.substitutes" tabindex="37"
-                          rows="3" placeholder="name, phone, website"></textarea>
-              </label>
+              <b>15. Substitute/Suggested Sources</b>
+              <i>(name, phone, website)</i>
+              <textarea name="35.substitutes" tabindex="37"
+                        rows="3" title="name, phone, website"></textarea>
             </td>
           </tr><tr>
             <td>
               <table class="same-line-label-layout">
                 <tr>
                   <th colspan="2" style="padding-bottom:1ex;">
-                    Supplemental Requirements<span class="field-number">16</span>
+                    16. Supplemental Requirements
                     <span style="font-weight:normal;">(Include details in #17)</span>
                   </th>
                 </tr><tr>
@@ -237,9 +233,8 @@
               </table>
             </td> 
             <td>
-              <label>Special Instructions<span class="field-number">17</span>
-                <textarea name="37.instructions" rows="5" tabindex="39"></textarea>
-              </label>
+              <b>17. Special Instructions</b>
+              <textarea name="37.instructions" rows="5" tabindex="39"></textarea>
             </td>
           </tr>
         </table>

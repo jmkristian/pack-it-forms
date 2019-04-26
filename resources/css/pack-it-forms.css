@@ -517,6 +517,9 @@ td.rotated:not(.not-rotated) > div > div::after, th.rotated:not(.not-rotated) > 
    table {
       width: 100%;
    }
+   #the-form {
+       max-width: 11in;
+   }
    form input, form input[type="text"], form textarea, form select {
        font-size: 9pt;
    }
