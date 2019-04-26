@@ -143,7 +143,7 @@ form input:disabled,textarea:disabled {
     border: 1px solid #cccccc;
 }
 form label.label-sameline input, form label.label-sameline select {
-    display: inline;;
+    display: inline;
     margin-left: 1em;
 }
 form td.label-sameline {
