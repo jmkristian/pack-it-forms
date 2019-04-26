@@ -1039,7 +1039,8 @@ function on_report_type(complete) {
     currentReportIsComplete = complete;
     array_for_each(document.querySelectorAll(".required-for-complete"), function(field) {
         field.required = complete;
-        if (field.tagName.toUpperCase() == "SELECT") {
+        setup_input_from_classes(field);
+        if (field.tagName.toLowerCase() == "select") {
             if (complete && !field.value) {
                 field.style.removeProperty("background-color");
             }
@@ -1133,6 +1134,7 @@ function set_properties(targetProperties) {
                         }
                     }
                 }
+                setup_input_from_classes(target);
             });
         }
     }
@@ -1194,41 +1196,74 @@ function setup_select_colors(next) {
     next();
 }
 
-function setup_input_elem_from_class(next) {
-    if (!envelope.readOnly) {
-        var setup = {
-            "date": {pattern: "(0[1-9]|1[012])/(0[1-9]|1[0-9]|2[0-9]|3[01])/[1-2][0-9][0-9][0-9]",
-                     placeholder: "mm/dd/yyyy"},
-            "time": {pattern: "([01][0-9]|2[0-3]):?[0-5][0-9]|2400|24:00",
-                     placeholder: "hh:mm"},
-            "phone-number": {pattern: "[a-zA-Z ]*([+][0-9]+ )?[0-9 -]+([xX][0-9]+)?",
-                             placeholder: "000-000-0000 x00"},
-            "cardinal-number": {pattern: "[0-9]*"},
-            "real-number": {pattern: "[-+]?[0-9]+(\.[0-9]+)?"}
-        };
-        array_for_each(document.querySelector("#the-form").elements, function (el) {
-            for (var s in setup) {
-                if (el.classList.contains(s)) {
-                    if (!el.pattern && setup[s].pattern != undefined) {
-                        if (el.classList.contains("clearable")) {
-                            el.pattern = setup[s].pattern + "|\\{CLEAR\\}";
-                        } else {
-                            el.pattern = setup[s].pattern;
-                        }
-                    }
-                    if (setup[s].placeholder != undefined) {
-                        if (!el.placeholder) {
-                            el.placeholder = setup[s].placeholder;
-                        }
-                        if (!el.title) {
-                            el.title = setup[s].placeholder;
-                        }
-                    }
+function setup_input_from_classes(input) {
+    var standardAttributes = {
+        "date": {pattern: "(0[1-9]|1[012])/(0[1-9]|1[0-9]|2[0-9]|3[01])/[1-2][0-9][0-9][0-9]",
+                 placeholder: "mm/dd/yyyy"},
+        "time": {pattern: "([01][0-9]|2[0-3]):?[0-5][0-9]|2400|24:00",
+                 placeholder: "hh:mm"},
+        "phone-number": {pattern: "[a-zA-Z ]*([+][0-9]+ )?[0-9][0-9 -]*([xX][0-9]+)?",
+                         placeholder: "000-000-0000 x00"},
+        "cardinal-number": {pattern: "[0-9]*"},
+        "real-number": {pattern: "[-+]?[0-9]+(\.[0-9]+)?"}
+    };
+    var pattern = null;
+    for (var s in standardAttributes) {
+        if (input.classList.contains(s)) {
+            var standard = standardAttributes[s];
+            if (standard != undefined) {
+                pattern = standard.pattern;
+                if (!input.placeholder) {
+                    input.placeholder = standard.placeholder;
                 }
             }
-            if (MSIE_version && el.required &&
-                (el.tagName.toLowerCase() == "select" ||
-                 (el.tagName.toLowerCase() == "input" && el.type == "radio"))) {
+        }
+    }
+    if (!input.title && input.placeholder) {
+        input.title = input.placeholder;
+    }
+    if (input.type == "textarea") {
+        check_not_blank({target: input});
+    } else if (input.type == "text") {
+        if (input.required) {
+            if (!pattern) {
+                pattern = "\\s*\\S.*"; // not all white space
+            }
+        } else if (pattern) {
+            pattern += "|\\s*"; // all white space
+        }
+    }
+    if (pattern != null) {
+        if (input.classList.contains("clearable")) {
+            pattern += "|\\{CLEAR\\}";
+        }
+        if (input.pattern != pattern) {
+            input.pattern = pattern;
+        }
+    } else if (input.pattern) {
+        input.removeAttribute("pattern");
+    }
+}
+
+function check_not_blank(event) {
+    var input = event.target;
+    if (input.required && !(input.value && input.value.trim())) {
+        input.classList.add("invalid");
+    } else {
+        input.classList.remove("invalid");
+    }
+}
+
+function setup_inputs(next) {
+    if (!envelope.readOnly) {
+        array_for_each(document.querySelector("#the-form").elements, function (el) {
+            setup_input_from_classes(el);
+            var tagName = el.tagName.toLowerCase();
+            if (tagName == "textarea") {
+                el.addEventListener("input", check_not_blank);
+            } else if (MSIE_version &&
+                       (tagName == "select" ||
+                        (tagName == "input" && el.type == "radio"))) {
                 // Work around a deficiency in IE:
                 el.addEventListener("blur", formChanged);
                 el.addEventListener("change", formChanged);
@@ -1621,7 +1656,7 @@ startup_functions.push(load_form_configuration);
 startup_functions.push(setup_select_colors);
 startup_functions.push(call_integration("get_old_message"));
 startup_functions.push(init_form);
-startup_functions.push(setup_input_elem_from_class);
+startup_functions.push(setup_inputs);
 // This must come after get_old_message in the startup functions
 startup_functions.push(setup_view_mode);
 // These must be the last startup functions added
