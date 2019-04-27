@@ -84,6 +84,14 @@ table.same-line-label-layout>tr>th>input,  table.same-line-label-layout>tbody>tr
 table.same-line-label-layout>tr>th>select, table.same-line-label-layout>tbody>tr>th>select {
     display: inline;
 }
+td.same-line-label-layout {
+    padding-right: 0;
+    white-space: nowrap;
+}
+td.same-line-label-layout>input {
+    display: inline;
+    margin-right: 0;
+}
 #the-form table.zebra-striped tr:nth-child(even) {
     background-color: #ffffff;
 }
@@ -502,7 +510,7 @@ td.rotated:not(.not-rotated) > div > div::after, th.rotated:not(.not-rotated) > 
   @page { margin: 0.5in 0.25in; }
    body {
        font-family: sans-serif;
-       font-size: 9pt;
+       font-size: 10pt;
        margin: 0px;
        border: 0px;
        padding: 0px;
@@ -521,7 +529,7 @@ td.rotated:not(.not-rotated) > div > div::after, th.rotated:not(.not-rotated) > 
        max-width: 11in;
    }
    form input, form input[type="text"], form textarea, form select {
-       font-size: 9pt;
+       font-size: 10pt;
    }
    form input[type="text"], form textarea, form select {
        background-color: white;

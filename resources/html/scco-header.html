@@ -14,44 +14,40 @@
   </table>
   <table>
     <tr>
-      <td style="width:1px;white-space:nowrap;vertical-align:middle;">
-        <label class="label-sameline">Message Numbers:</label>
-      </td><td>
-        <label class="label-sameline">Origin:
-          <input type="text" name="MsgNo" class="message-number no-msg-init" tabindex="-1"
-                 value="{{envelope:sender_message_number}}" required="required"/>
-        </label>
-      </td><td>
-        <label class="label-sameline">Destination:
-          <input type="text" class="message-number" disabled="disabled" tabindex="-1"
-                 value="{{envelope:receiver_message_number}}"/>
-        </label>
+      <td style="white-space:nowrap;width:1px;vertical-align:middle;">
+        <b>Message Numbers:</b>
+      </td><td class="same-line-label-layout">
+        <b>Origin:</b>
+        <input type="text" name="MsgNo" class="message-number no-msg-init" tabindex="-1"
+               value="{{envelope:sender_message_number}}" required="required"/>
+      </td><td class="same-line-label-layout">
+        <b>Destination:</b>
+        <input type="text" class="message-number" disabled="disabled" tabindex="-1"
+               value="{{envelope:receiver_message_number}}"/>
       </td>
     </tr>
   </table>
   <table>
     <tr>
-      <td>
-        <label class="label-sameline">Date:
-          <input type="text" name="1a.date" class="date" value="{{date}}" required="required" tabindex="3"/>
-        </label>
-      </td><td>
-        <label class="label-sameline">Time:
-          <input type="text" name="1b.time" class="time" required="required" tabindex="4"/>
-        </label>
-      </td><td style="vertical-align:middle;">
-        <label class="label-sameline">Handling:</label>
-        <label class="label-sameline" style="margin-left:1em;">
+      <td class="same-line-label-layout">
+        <b>Date:</b>
+        <input type="text" name="1a.date" class="date" value="{{date}}" required="required" tabindex="3"/>
+      </td><td class="same-line-label-layout">
+        <b>Time:</b>
+        <input type="text" name="1b.time" class="time" required="required" tabindex="4"/>
+      </td><td class="same-line-label-layout" style="vertical-align:middle;">
+        <b>Handling:</b>
+        <label class="label-sameline" style="margin-left:0;">
           <input type="radio" name="5.handling" tabindex="5"
                  required="required" value="IMMEDIATE"/>Immediate
           <span style="font-weight:normal;">(ASAP)</span>
         </label>
-        <label class="label-sameline" style="margin-left:1em;">
+        <label class="label-sameline" style="margin-left:0;">
           <input type="radio" name="5.handling" tabindex="5"
                  required="required" value="PRIORITY"/>Priority
           <span style="font-weight:normal;">(&lt;1 hr)</span>
         </label>
-        <label class="label-sameline" style="margin-left:1em;">
+        <label class="label-sameline" style="margin-left:0;">
           <input type="radio" name="5.handling" tabindex="5"
                  required="required" value="ROUTINE"/>Routine
           <span style="font-weight:normal;">(&lt;2 hr)</span>
