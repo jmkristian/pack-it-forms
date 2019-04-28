@@ -213,7 +213,7 @@ fieldset.labeled-box legend {
 .field-number {
     vertical-align: super;
     font-weight: normal;
-    font-size: 0.83em;
+    font-size: 75%;
     padding-left: 0.5em;
 }
 
