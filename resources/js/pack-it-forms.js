@@ -993,8 +993,10 @@ function check_the_form_validity() {
 
 /* Callback invoked when the form changes */
 function formChanged() {
-    write_message_to_form_data();
-    check_the_form_validity();
+    integration.on_form_input(function() {
+        write_message_to_form_data();
+        check_the_form_validity();
+    });
 }
 
 /* Function invoked when form is submitted */
@@ -1700,6 +1702,11 @@ var integration = {
         (by taking away the "loading" spinner).
     */
     late_startup: function(next) {
+        next();
+    },
+
+    /** Called when the operator edits a form field. */
+    on_form_input: function(next) {
         next();
     },
 

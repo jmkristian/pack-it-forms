@@ -85,9 +85,8 @@
                 + "_" + (field_value("5.handling") || "R").substring(0, 1);
         };
 
-        if (environment.pingURL && !envelope.readOnly) {
-            // Ping the server periodically, to keep it alive while the form is open.
-            // But not for a read-only message.
+        if (environment.pingURL) {
+            // Ping the server periodically, to retain the form while this page is open.
             var ping_sequence = 0;
             setInterval(function() {
                 var img = new Image();
@@ -102,6 +101,26 @@
     var customizeForm = function customizeForm(next) {
         if (environment.submitURL) {
             document.querySelector('#form-data-form').action = environment.submitURL;
+        }
+        if (environment.saveURL) {
+            // Save the message to the server after it changes and when this page closes.
+            var shouldSaveMessage = false;
+            var saveMessage = function saveMessage() {
+                if (shouldSaveMessage) {
+                    shouldSaveMessage = false;
+                    var request = new XMLHttpRequest();
+                    request.open('POST', environment.saveURL, true);
+                    request.setRequestHeader("Content-Type", "text/plain;charset=utf-8");
+                    request.send(newMessage.text());
+                }
+            }
+            window.addEventListener('beforeunload', saveMessage);
+            setInterval(saveMessage, 10000);
+            var standardOnInput = integration.on_form_input;
+            integration.on_form_input = function onFormInput(next) {
+                shouldSaveMessage = true;
+                standardOnInput(next);
+            };
         }
         if (status == 'manual') {
             var submitButton = document.getElementById('opdirect-submit');
