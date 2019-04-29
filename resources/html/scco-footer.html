@@ -10,7 +10,8 @@
             <tr>
               <th>Relay From:</th>
               <td>
-                <input type="text" name="OpRelayFrom" class="no-msg-init" tabindex="-1"/>
+                <input type="text" name="OpRelayFrom" tabindex="-1"
+                       value="{{msg-field:OpRelayFrom|view-by:sender}}"/>
               </td>
             </tr>
           </table>
@@ -19,7 +20,8 @@
             <tr>
               <th>Relay To:</th>
               <td>
-                <input type="text" name="OpRelayTo" class="no-msg-init" tabindex="-1"/>
+                <input type="text" name="OpRelayTo" tabindex="-1"
+                       value="{{msg-field:OpRelayTo|view-by:sender}}"/>
               </td>
             </tr>
           </table>
