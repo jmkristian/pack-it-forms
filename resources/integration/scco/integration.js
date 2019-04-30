@@ -1,7 +1,8 @@
 // Customize pack-it-forms for use in SCCoPIFO <https://github.com/jmkristian/OutpostForSCCo>
 
 (function SCCoPIFO() {
-    var environment = {{environment}};
+    var environment = integrationEnvironment;
+    var message = integrationMessage;
     var status = environment.message_status;
     envelope.viewer = (status == 'read' || status == 'unread') ? 'receiver' : 'sender';
     envelope.readOnly = (environment.mode == 'readonly');
@@ -44,7 +45,6 @@
     setDateTime(envelope.receiver, environment.MSG_DATETIME_OP_RCVD);
 
     var getOldMessage = function getOldMessage(next) {
-        var message = {{message}};
         msgfields = get_message_fields(unwrap_message(message));
         var MsgNo = msg_field('MsgNo');
         var OpCall = msg_field('OpCall');
@@ -139,7 +139,11 @@
                 '&nbsp;&nbsp;The message has been submitted to Outpost. You can close this page.';
         }
         if (status == 'emailed') {
-            // This message was just submitted to the operator's email program.
+            // Submit the message to the operator's email program:
+            document.location = "mailto:?to="
+                + "&Content-Type=text/plain"
+                + "&Subject=" + encodeURIComponent(environment.subject)
+                + "&body=" + encodeURIComponent(message);
             // Discourage the operator from sending it via Outpost:
             var element = document.getElementById('button-header');
             while (element.tagName != "TD") {
@@ -162,15 +166,11 @@
         next();
     };
 
-    var basicEmailMessage = integration.email_message;
     integration.email_message = function(body) {
-        basicEmailMessage(body);
-        if (status != 'new') {
-            setTimeout(function() {
-                document.location.replace(document.location.pathname + "?message_status=emailed&mode=readonly");
-            }, 2000);
-        }
-    }
+        var formDataForm = document.querySelector('#form-data-form')
+        formDataForm.action = environment.emailURL;
+        formDataForm.submit();
+    };
     integration.get_old_message = getOldMessage;
     integration.late_startup = customizeForm;
 })();

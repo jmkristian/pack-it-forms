@@ -1669,7 +1669,7 @@ startup_functions.push(call_integration("late_startup"));
 startup_functions.push(remove_loading_overlay);
 
 /** Integration points, or "hooks" if you like.
-    Each function must either call next() or throw an exception.
+    Functions that take a next parameter must either call next() or throw an exception.
     An integration will usually replace some of these.
     An integration may also replace fields of newMessage.
  */
