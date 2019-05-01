@@ -394,7 +394,7 @@ form input.cardinal-number {
     text-align: right;
     width: 4em;
 }
-form input.real-number {
+form input.real-number, form input.frequency-offset {
     text-align: right;
 }
 form input.phone-number {

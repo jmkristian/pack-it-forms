@@ -69,8 +69,20 @@
           return (element.value && element.validity && element.validity.valid)
               ? parseFloat(element.value) : null;
       }
-      function round_frequency(frequency) {
-          return frequency && ((Math.round(frequency * 100000) / 100000) + "");
+      function decimal_places(value) {
+          var decimal = value ? value.indexOf(".") : -1;
+          return (decimal < 0) ? 0 : (value.length - decimal - 1);
+      }
+      function round_frequency(frequency, targetDecimalPlaces) {
+          var result = frequency && ((Math.round(frequency * 100000) / 100000) + "");
+          var target = decimal_places(targetDecimalPlaces);
+          for (var r = decimal_places(result); r < target; ++r) {
+              if (result.indexOf(".") < 0) {
+                  result += ".";
+              }
+              result += "0";
+          }
+          return result;
       }
       function compute_repeater_input() {
           var output = valid_float_value("repeater-output");
@@ -99,7 +111,7 @@
               } else {
                   value = output + parseFloat(offset);
               }
-              value = round_frequency(value);
+              value = round_frequency(value, document.getElementById("repeater-output").value);
               var input = document.getElementById("repeater-input");
               if (value && value != input.value) {
                   input.value = value;
@@ -349,7 +361,7 @@
             </label>
             <label class="label-sameline">Offset:
               <input type="text" name="62c.repeater-offset" tabindex="64"
-                     class="real-number" style="width:4em;" pattern="[-+]?([0-9]+(\.[0-9]+)?)?"
+                     class="frequency-offset" style="width:4em;"
                      onchange="compute_repeater_input(this)" id="repeater-offset"/> MHz
             </label>
           </td>
