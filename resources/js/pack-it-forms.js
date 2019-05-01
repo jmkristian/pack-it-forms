@@ -1364,10 +1364,7 @@ function padded_int_str(num, cnt) {
 function create_text_div(oldText) {
     var newText = document.createElement("div");
     newText.classList.add("view-mode-textarea");
-    newText.style.display = get_style(oldText, "display") || "block";
-    newText.style.width = get_style(oldText, "width") || (oldText.offsetWidth + "px");
-    newText.style["font-weight"] = get_style(oldText, "font-weight") || "bold";
-    newText.style["font-family"] = get_style(oldText, "font-family") || "monospace";
+    newText.style.display = get_style(oldText, "display");
     var textNode = document.createTextNode(oldText.value);
     newText.appendChild(textNode);
     newText.innerHTML = newText.innerHTML.replace(/(\r?\n)/g, "<br/>$1");
