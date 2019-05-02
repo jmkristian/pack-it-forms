@@ -74,7 +74,6 @@
         // Change the message header from PACF format to ADDON format:
         newMessage.header = function() {
             return '!' + environment.addon_name + '!'
-                + EOL + '#Subject: ' + new_message_subject()
                 + EOL + '#T: ' + environment.ADDON_MSG_TYPE
                 + EOL + '#V: ' + environment.addon_version + '-' + form_version()
                 + EOL;
@@ -163,6 +162,19 @@
                 }
             }
         });
+        var text = environment.subject;
+        if (text) {
+            // Set the page title = the subject of the message, so that when saving
+            // the page to a file, the default file name will be the subject.
+            // Replace characters that aren't permitted in a file name:
+            text = text.replace(/[<>:"/\\|?*]/g, function(found) {
+                return "~";
+            });
+            var title = document.querySelector("head>title");
+            if (title) {
+                title.innerText = text;
+            }
+        }
         next();
     };
 
