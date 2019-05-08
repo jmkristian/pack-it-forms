@@ -1353,7 +1353,10 @@ function create_text_div(oldText) {
     var newText = document.createElement("div");
     newText.classList.add("view-mode-textarea");
     for (var c = 0; c < oldText.classList.length; ++c) {
-        newText.classList.add(oldText.classList.item(c));
+        var clazz = oldText.classList.item(c);
+        if (clazz != "invalid") {
+            newText.classList.add(clazz);
+        }
     }
     newText.style.display = get_style(oldText, "display");
     var textNode = document.createTextNode(oldText.value);
