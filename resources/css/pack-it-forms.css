@@ -351,7 +351,7 @@ td.border-left {
 /* Form validation */
 
 form :invalid, form .invalid {
-    box-shadow: 0 0 5px 1px #e86060;
+    box-shadow: 0 0 6px 2px #c80000;
     transition: box-shadow 0.5s;
 }
 
