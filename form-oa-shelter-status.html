@@ -38,7 +38,7 @@
       table.shelter-status td input[type="checkbox"] {
           vertical-align: middle;
       }
-      form label.label-sameline input {
+      table.shelter-status label.label-sameline input {
           margin-left: 0px;
       }
     </style>
@@ -355,26 +355,28 @@
             <input type="text" name="62a.repeater-input" tabindex="62"
                    class="real-number" style="width:6em;"
                    onchange="compute_repeater_offset(this)" id="repeater-input"/> MHz
-            <label class="label-sameline">tone:
+            <label class="label-sameline">Tone or Code:
               <input type="text" name="62b.repeater-input-tone" tabindex="63"
-                     class="real-number" style="width:5em;"/> Hz
-            </label>
-            <label class="label-sameline">Offset:
-              <input type="text" name="62c.repeater-offset" tabindex="64"
-                     class="frequency-offset" style="width:4em;"
-                     onchange="compute_repeater_input(this)" id="repeater-offset"/> MHz
+                     style="width:6em;"/>
             </label>
           </td>
         </tr><tr>
           <th>Repeater Output:</th>
           <td>
-            <input type="text" name="63a.repeater-output" tabindex="65"
+            <input type="text" name="63a.repeater-output" tabindex="64"
                    class="real-number" style="width:6em;"
                    onchange="compute_repeater_input(this)" id="repeater-output"/> MHz
-            <label class="label-sameline">tone:
-              <input type="text" name="63b.repeater-output-tone" tabindex="66"
-                     class="real-number" style="width:5em;"/> Hz
+            <label class="label-sameline">Tone or Code:
+              <input type="text" name="63b.repeater-output-tone" tabindex="65"
+                     style="width:6em;"/>
             </label>
+          </td>
+        </tr><tr>
+          <th>Repeater Offset:</th>
+          <td>
+            <input type="text" name="62c.repeater-offset" tabindex="66"
+                   class="frequency-offset" style="width:6em;"
+                   onchange="compute_repeater_input(this)" id="repeater-offset"/> MHz (or "+" or "-" for standard)
           </td>
         </tr><tr>
           <th colspan="2" class="section-head">Comments<hr/></th>
