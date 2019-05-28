@@ -1198,6 +1198,12 @@ function setup_select_colors(next) {
     next();
 }
 
+function shift_click_uncheck(event) {
+    if (event.shiftKey) {
+        event.currentTarget.checked = false;
+    }
+}
+
 function setup_input_from_classes(input) {
     var standardAttributes = {
         "date": {pattern: "(0[1-9]|1[012])/(0[1-9]|1[0-9]|2[0-9]|3[01])/[1-2][0-9][0-9][0-9]",
@@ -1234,6 +1240,12 @@ function setup_input_from_classes(input) {
             }
         } else if (pattern) {
             pattern += "|\\s*"; // all white space
+        }
+    } else if (input.type == "radio") {
+        if (input.required) {
+            input.removeEventListener("click", shift_click_uncheck);
+        } else {
+            input.addEventListener("click", shift_click_uncheck);
         }
     }
     if (pattern != null) {
