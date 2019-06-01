@@ -30,91 +30,122 @@
       </td>
     </tr>
   </table>
-  <table id="form-row-six" class="noborder">
-    <tr>
-      <td colspan="5" class="block-caption">
-        Operator Use Only:<span class="field-number">14</span>
-      </td>
-    </tr><tr class="horizontal">
-      <td colspan="3">
-        <span class="bold">
-          How
-          <label class="intext">
-            Received <input name="Rec-Sent" value="receiver" type="radio" tabindex="506"
-                            class="no-msg-init" onclick="return false;"
-                            data-default-value="{{envelope:viewer}}"/>
+  <div style="page-break-inside:avoid;">
+    <table id="form-row-six">
+      <tr>
+        <td class="block-caption">
+          Operator Use Only:<span class="field-number">14</span>
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td class="block-caption" style="width:1px;">
+          Relay:
+        </td><td class="same-line-label-layout">
+          <table class="same-line-label-layout">
+            <tr>
+              <th>
+                Rcvd:
+              </th><td>
+                <input type="text" name="OpRelayRcvd"/>
+              </td>
+            </tr>
+          </table>
+        </td><td class="same-line-label-layout">
+          <table class="same-line-label-layout">
+            <tr>
+              <th>
+                Sent:
+              </th><td>
+                <input type="text" name="OpRelaySent"/>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <table class="noborder" style="border-top:none;">
+      <tr class="horizontal">
+        <td colspan="3">
+          <span class="bold">
+            How
+            <label class="intext">
+              Received <input name="Rec-Sent" value="receiver" type="radio" tabindex="506"
+                              class="no-msg-init" onclick="return false;"
+                              data-default-value="{{envelope:viewer}}"/>
+            </label>
+            or
+            <label class="intext">
+              Sent <input name="Rec-Sent" value="sender" type="radio" tabindex="506"
+                          class="no-msg-init" onclick="return false;"/>
+            </label>
+          </span>
+        </td><td colspan="2" class="border-left">
+          <label class="label-sameline">Operator Call Sign:
+            <input class="call-sign no-msg-init" name="OpCall" type="text" tabindex="508"
+                   required="required"
+                   value="{{envelope:viewer_operator_call_sign}}"/>
           </label>
-          or
-          <label class="intext">
-            Sent <input name="Rec-Sent" value="sender" type="radio" tabindex="506"
-                        class="no-msg-init" onclick="return false;"/>
+        </td>
+      </tr><tr class="horizontal">
+        <td>
+          <label>
+            <input name="Method" type="radio" value="Telephone" tabindex="-1"/> Telephone
           </label>
-        </span>
-      </td><td colspan="2" class="border-left">
-        <label class="label-sameline">Operator Call Sign:
-          <input class="call-sign no-msg-init" name="OpCall" type="text" tabindex="508"
-                 disabled="disabled" required="required"
-                 value="{{envelope:viewer_operator_call_sign}}"/>
-        </label>
-      </td>
-    </tr><tr class="horizontal">
-      <td>
-        <label>
-          <input name="Method" type="radio" value="Telephone" tabindex="-1"/> Telephone
-        </label>
-      </td>
-      <td colspan="2">
-        <label>
-          <input name="Method" type="radio" value="Dispatch Center" tabindex="-1"/> Dispatch Center
-        </label>
-      </td>
-      <td colspan="2" class="border-left">
-        <label class="label-sameline">Operator Name:
-          <input class="no-msg-init" name="OpName" type="text" tabindex="509"
-                 disabled="disabled" required="required"
-                 value="{{envelope:viewer_operator_name}}"/>
-        </label>
-      </td>
-    </tr><tr class="horizontal">
-      <td>
-        <label>
-          <input name="Method" type="radio" value="EOC Radio" tabindex="-1"/> EOC Radio
-        </label>
-      </td><td>
-        <label>
-          <input name="Method" type="radio" value="FAX" tabindex="-1"/> FAX
-        </label>
-      </td><td>
-        <label>
-          <input name="Method" type="radio" value="Courier" tabindex="-1"/> Courier
-        </label>
-      </td><td colspan="2" class="border-left">
-      </td>
-    </tr><tr class="horizontal">
-      <td>
-        <label>
-          <input name="Method" type="radio" value="Amateur Radio" tabindex="-1"/> Amateur Radio
-        </label>
-      </td><td colspan="2">
-        <label>
-          <input name="Method" type="radio" value="Other" checked="checked" tabindex="-1"/> Other:
-        </label>
-        <label>
-          <input name="Other" type="text" value="Packet" tabindex="-1"/>
-        </label>
-      </td><td class="border-left">
-        <label class="label-sameline">Date:
-          <input name="OpDate" type="text" tabindex="510"
-                 class="date no-msg-init" disabled="disabled"
-                 value="{{expand-while-null:{{envelope:viewer_date}},{{open-tmpl}}date{{close-tmpl}}}}"/>
-        </label>
-      </td><td>
-        <label class="label-sameline">Time:
-          <input name="OpTime" type="text" tabindex="511"
-                 class="time no-msg-init" disabled="disabled"
-                 value="{{expand-while-null:{{envelope:viewer_time}},{{open-tmpl}}time{{close-tmpl}}}}"/>
-        </label>
-      </td>
-    </tr>
-  </table>
+        </td>
+        <td colspan="2">
+          <label>
+            <input name="Method" type="radio" value="Dispatch Center" tabindex="-1"/> Dispatch Center
+          </label>
+        </td>
+        <td colspan="2" class="border-left">
+          <label class="label-sameline">Operator Name:
+            <input class="no-msg-init" name="OpName" type="text" tabindex="509"
+                   value="{{envelope:viewer_operator_name}}"/>
+          </label>
+        </td>
+      </tr><tr class="horizontal">
+        <td>
+          <label>
+            <input name="Method" type="radio" value="EOC Radio" tabindex="-1"/> EOC Radio
+          </label>
+        </td><td>
+          <label>
+            <input name="Method" type="radio" value="FAX" tabindex="-1"/> FAX
+          </label>
+        </td><td>
+          <label>
+            <input name="Method" type="radio" value="Courier" tabindex="-1"/> Courier
+          </label>
+        </td><td colspan="2" class="border-left">
+        </td>
+      </tr><tr class="horizontal">
+        <td>
+          <label>
+            <input name="Method" type="radio" value="Amateur Radio" tabindex="-1"/> Amateur Radio
+          </label>
+        </td><td colspan="2">
+          <label>
+            <input name="Method" type="radio" value="Other" checked="checked" tabindex="-1"/> Other:
+          </label>
+          <label>
+            <input name="Other" type="text" value="Packet" tabindex="-1"/>
+          </label>
+        </td><td class="border-left">
+          <label class="label-sameline">Date:
+            <input name="OpDate" type="text" tabindex="510"
+                   class="date no-msg-init init-on-submit" disabled="disabled"
+                   value="{{expand-while-null:{{envelope:viewer_date}},{{open-tmpl}}date{{close-tmpl}}}}"/>
+          </label>
+        </td><td>
+          <label class="label-sameline">Time:
+            <input name="OpTime" type="text" tabindex="511"
+                   class="time no-msg-init init-on-submit" disabled="disabled"
+                   value="{{expand-while-null:{{envelope:viewer_time}},{{open-tmpl}}time{{close-tmpl}}}}"/>
+          </label>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
