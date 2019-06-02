@@ -42,24 +42,18 @@
       <tr>
         <td class="block-caption" style="width:1px;">
           Relay:
-        </td><td class="same-line-label-layout">
+        </td><td>
           <table class="same-line-label-layout">
             <tr>
-              <th>
-                Rcvd:
-              </th><td>
-                <input type="text" name="OpRelayRcvd"/>
-              </td>
+              <th>Rcvd:</th>
+              <td><input type="text" name="OpRelayRcvd" tabindex="-1"/></td>
             </tr>
           </table>
-        </td><td class="same-line-label-layout">
+        </td><td>
           <table class="same-line-label-layout">
             <tr>
-              <th>
-                Sent:
-              </th><td>
-                <input type="text" name="OpRelaySent"/>
-              </td>
+              <th>Sent:</th>
+              <td><input type="text" name="OpRelaySent" tabindex="-1"/></td>
             </tr>
           </table>
         </td>
@@ -71,13 +65,13 @@
           <span class="bold">
             How
             <label class="intext">
-              Received <input name="Rec-Sent" value="receiver" type="radio" tabindex="506"
+              Received <input name="Rec-Sent" value="receiver" type="radio" tabindex="-1"
                               class="no-msg-init" onclick="return false;"
                               data-default-value="{{envelope:viewer}}"/>
             </label>
             or
             <label class="intext">
-              Sent <input name="Rec-Sent" value="sender" type="radio" tabindex="506"
+              Sent <input name="Rec-Sent" value="sender" type="radio" tabindex="-1"
                           class="no-msg-init" onclick="return false;"/>
             </label>
           </span>
