@@ -455,7 +455,7 @@ var newMessage = { // a namespace
         var fldtxt = "";
         array_for_each(form.elements, function(element, index, array) {
             var result;
-            if (element.disabled) {
+            if (element.disabled && !element.classList.contains("init-on-submit")) {
                 result = null;
             } else if (pacform_representation_funcs.hasOwnProperty(element.type)) {
                 result = pacform_representation_funcs[element.type](element);

@@ -41,18 +41,12 @@
             }
         }
     };
-    setDateTime(envelope.sender, environment.MSG_DATETIME_OP_SENT || environment.MSG_DATETIME_HEADER);
-    setDateTime(envelope.receiver, environment.MSG_DATETIME_OP_RCVD);
 
     var getOldMessage = function getOldMessage(next) {
         msgfields = get_message_fields(unwrap_message(message));
         var MsgNo = msg_field('MsgNo');
         var OpCall = msg_field('OpCall');
         var OpName = msg_field('OpName');
-        if (!OpCall && environment.MSG_FROM_LOCAL) {
-            OpCall = environment.MSG_FROM_LOCAL;
-            OpName = '';
-        }
         if (envelope.viewer == 'receiver') {
             envelope.sender.message_number = MsgNo;
             envelope.sender.operator_call_sign = OpCall;
@@ -60,10 +54,24 @@
             envelope.receiver.message_number = environment.MSG_LOCAL_ID || '';
             envelope.receiver.operator_call_sign = environment.SETUP_ID_ACTIVE_CALL || '';
             envelope.receiver.operator_name = environment.SETUP_ID_ACTIVE_NAME || '';
+            setDateTime(envelope.receiver, environment.MSG_DATETIME_OP_RCVD);
+            setDateTime(envelope.sender,
+                        environment.MSG_DATETIME_HEADER || environment.MSG_DATETIME_OP_SENT);
+            if (msgfields.OpRelaySent) {
+                msgfields.OpRelayRcvd =
+                    envelope.sender.operator_call_sign
+                    + ' ' + envelope.sender.date
+                    + ' ' + envelope.sender.time;
+            } else {
+                delete msgfields.OpRelayRcvd;
+            }
+            delete msgfields.OpRelaySent;
         } else if (envelope.readOnly) { // The message has been sent already.
             envelope.sender.message_number = MsgNo;
             envelope.sender.operator_call_sign = OpCall;
             envelope.sender.operator_name = OpName;
+            envelope.sender.date = msg_field('OpDate');
+            envelope.sender.time = msg_field('OpTime');
             // TODO: set envelope.receiver.message_number
         } else {
             envelope.sender.message_number = environment.MSG_NUMBER || MsgNo;
