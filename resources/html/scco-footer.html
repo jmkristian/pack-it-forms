@@ -3,26 +3,22 @@
   <div style="page-break-inside:avoid;">
     <table class="border" style="border:1px solid #aaaaaa;">
       <tr class="block-caption">
-        <td colspan="2">Radio Operator Only:</td>
+        <td colspan="3">Radio Operator Only:</td>
       </tr><tr>
-        <td>
+        <td class="block-caption" style="width:1px;">
+          Relay:
+        </td><td>
           <table class="same-line-label-layout">
             <tr>
-              <th>Relay From:</th>
-              <td>
-                <input type="text" name="OpRelayFrom" tabindex="-1"
-                       value="{{msg-field:OpRelayFrom|view-by:sender}}"/>
-              </td>
+              <th>Rcvd:</th>
+              <td><input type="text" name="OpRelayRcvd" tabindex="-1"/></td>
             </tr>
           </table>
         </td><td>
           <table class="same-line-label-layout">
             <tr>
-              <th>Relay To:</th>
-              <td>
-                <input type="text" name="OpRelayTo" tabindex="-1"
-                       value="{{msg-field:OpRelayTo|view-by:sender}}"/>
-              </td>
+              <th>Sent:</th>
+              <td><input type="text" name="OpRelaySent" tabindex="-1"/></td>
             </tr>
           </table>
         </td>
@@ -35,7 +31,6 @@
               <th>Name:</th>
               <td>
                 <input type="text" name="OpName" class="no-msg-init" tabindex="502"
-                       disabled="disabled" required="required"
                        style="margin-right:0;"
                        value="{{envelope:viewer_operator_name}}"/>
               </td>
@@ -44,16 +39,16 @@
         </td><td class="same-line-label-layout">
           <b>Call Sign:</b>
           <input type="text" name="OpCall" class="no-msg-init call-sign" tabindex="503"
-                 disabled="disabled" required="required"
+                 required="required"
                  value="{{envelope:viewer_operator_call_sign}}"/>
         </td><td class="same-line-label-layout">
           <b>Date:</b>
-          <input type="text" name="OpDate" class="no-msg-init date" tabindex="504"
+          <input type="text" name="OpDate" class="date no-msg-init init-on-submit" tabindex="504"
                  disabled="disabled"
                  value="{{expand-while-null:{{envelope:viewer_date}},{{open-tmpl}}date{{close-tmpl}}}}"/>
         </td><td class="same-line-label-layout">
           <b>Time:</b>
-          <input type="text" name="OpTime" class="no-msg-init time" tabindex="505"
+          <input type="text" name="OpTime" class="time no-msg-init init-on-submit" tabindex="505"
                  disabled="disabled"
                  value="{{expand-while-null:{{envelope:viewer_time}},{{open-tmpl}}time{{close-tmpl}}}}"/>
         </td>
