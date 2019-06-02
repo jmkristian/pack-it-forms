@@ -354,7 +354,7 @@ td.border-left {
 
 /* Form validation */
 
-form :invalid, form .invalid {
+form :invalid, .invalid {
     box-shadow: 0 0 6px 2px #c80000;
     transition: box-shadow 0.5s;
 }
@@ -363,7 +363,7 @@ form :valid {
     transition: box-shadow 0.5s, background-color 0.5s;
 }
 
-form input:invalid,select:invalid, form textarea:invalid, form textarea.invalid {
+form input:invalid, form textarea:invalid, form select:invalid, .invalid {
     background-color: #f8ecec;
     transition: background-color 0.5s;
 }
@@ -537,7 +537,7 @@ td.rotated:not(.not-rotated) > div > div::after, th.rotated:not(.not-rotated) > 
    form input[type="text"], form textarea, form select {
        background-color: white;
    }
-   form input:invalid, form textarea:invalid, form textarea.invalid, form select:invalid {
+   form input:invalid, form textarea:invalid, form select:invalid, .invalid {
        background-color: white;
    }
    textarea {

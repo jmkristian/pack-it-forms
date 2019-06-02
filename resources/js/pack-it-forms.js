@@ -978,15 +978,18 @@ function check_the_form_validity() {
     var button_header = document.querySelector("#button-header");
     var submit_button = document.querySelector("#opdirect-submit");
     var email_button  = document.querySelector("#email-submit");
+    var invalid_example = document.querySelector("#invalid-example");
     var valid = document.querySelector("#the-form").checkValidity();
     if (valid) {
         button_header.classList.add("valid");
         submit_button.disabled = false;
         email_button.disabled = false;
+        hide_element(invalid_example);
     } else {
         button_header.classList.remove("valid");
         submit_button.disabled = true;
         email_button.disabled = true;
+        show_element(invalid_example);
     }
     return valid;
 }
@@ -1299,6 +1302,7 @@ function setup_view_mode(next) {
         hide_element(document.querySelector("#show-hide-data"));
         hide_element(document.querySelector("#clear-form"));
         hide_element(document.querySelector("#show-PDF-form"));
+        hide_element(document.querySelector("#invalid-example"));
         /* In view mode, we don't want to show the input control chrome.  This
            is difficult to do with textareas which might need scrollbars, etc.
            so replace it with a div that contains the same text. */
