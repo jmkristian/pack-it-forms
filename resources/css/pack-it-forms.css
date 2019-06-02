@@ -242,6 +242,10 @@ table ~ table :first-child:first-child > td {
     border-bottom: 1px solid #888888;
 }
 
+input[type="button"] {
+    border-width: 3px;
+}
+
 .hidden {
     display: none;
 }
