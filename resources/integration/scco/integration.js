@@ -106,6 +106,15 @@
     };
 
     var customizeForm = function customizeForm(next) {
+        var setButtonHeader = function(html) {
+            var element = document.getElementById('button-header');
+            while (element && element.tagName != 'TD') {
+                element = element.children[0];
+            }
+            if (element) {
+                element.innerHTML = html;
+            }
+        };
         if (environment.submitURL) {
             document.querySelector('#form-data-form').action = environment.submitURL;
         }
@@ -135,31 +144,26 @@
                 submitButton.value = 'Create Message';
             }
         }
-        if ((status == 'new' || status == 'draft') && envelope.readOnly) {
-            // This message was just submitted to Outpost. Let the operator know:
-            var element = document.getElementById('button-header');
-            while (element.tagName != "TD") {
-                element = element.children[0];
-            }
-            element.innerHTML =
-                '<img src="icon-check.png" alt="OK" style="width:2em;height:2em;vertical-align:middle;">' +
-                '&nbsp;&nbsp;The message has been submitted to Outpost. You can close this page.';
-        }
-        if (status == 'emailed') {
+        if (environment.emailing) {
             // Submit the message to the operator's email program:
             document.location = "mailto:?to="
                 + "&Content-Type=text/plain"
                 + "&Subject=" + encodeURIComponent(environment.subject)
                 + "&body=" + encodeURIComponent(message);
-            // Discourage the operator from sending it via Outpost:
-            var element = document.getElementById('button-header');
-            while (element.tagName != "TD") {
-                element = element.children[0];
+            if (status != 'new') {
+                // Discourage the operator from sending it via Outpost:
+                setButtonHeader(
+                    '<img src="icon-warning.png" alt="Warning" style="width:2em;height:2em;vertical-align:middle;">'
+                        + '&nbsp;&nbsp;After you send the message via email, be sure to delete it from Outpost'
+                        + ' (to prevent sending it twice).');
             }
-            element.innerHTML =
-                '<img src="icon-warning.png" alt="Warning" style="width:2em;height:2em;vertical-align:middle;">' +
-                '&nbsp;&nbsp;After you send the message via email, be sure to delete it from Outpost' +
-                ' (to prevent sending it twice).';
+            status = 'sent';
+        }
+        if ((status == 'new' || status == 'draft') && envelope.readOnly) {
+            // This message was just submitted to Outpost. Let the operator know:
+            setButtonHeader(
+                '<img src="icon-check.png" alt="OK" style="width:2em;height:2em;vertical-align:middle;">'
+                    + '&nbsp;&nbsp;The message has been submitted to Outpost. You can close this page.');
         }
         array_for_each(document.querySelector("#the-form").elements, function(input) {
             if (input.disabled && input.required && !input.value) {
