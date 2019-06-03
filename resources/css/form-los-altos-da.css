@@ -1,5 +1,6 @@
 /* Copyright 2014 Keith Amidon
    Copyright 2014 Peter Amidon
+   Copyright 2019 John Kristian
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -12,10 +13,6 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License. */
-
-table {
-    width: 95%;
-}
 
 th {
     border: 1px solid #aaaaaa;
