@@ -398,8 +398,13 @@ form input.cardinal-number, form div.view-mode-textarea.cardinal-number {
     text-align: right;
     width: 4em;
 }
-form input.real-number, form input.frequency-offset {
+form input.real-number, form input.frequency, form input.frequency-offset {
     text-align: right;
+    width: 6em;
+}
+form div.view-mode-textarea.frequency,
+form div.view-mode-textarea.frequency-offset {
+    white-space: nowrap;
 }
 form input.phone-number, form div.view-mode-textarea.phone-number {
     width: 11em;

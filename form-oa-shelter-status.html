@@ -346,9 +346,9 @@
           </td>
         </tr><tr>
           <td>Repeater Input:</td>
-          <td class="same-line-label-layout" style="width:1px;padding-right:1em;">
+          <td class="same-line-label-layout" style="padding-right:1em;width:1px;">
             <input type="text" name="62a.repeater-input" tabindex="62"
-                   class="real-number" style="width:6em;"
+                   class="frequency"
                    onchange="compute_repeater_offset(this)" id="repeater-input"/> MHz
           </td><td class="same-line-label-layout">
             Tone or Code:
@@ -357,9 +357,9 @@
           </td>
         </tr><tr>
           <td>Repeater Output:</td>
-          <td class="same-line-label-layout">
+          <td class="same-line-label-layout" style="padding-right:1em;">
             <input type="text" name="63a.repeater-output" tabindex="64"
-                   class="real-number" style="width:6em;"
+                   class="frequency"
                    onchange="compute_repeater_input(this)" id="repeater-output"/> MHz
           </td><td class="same-line-label-layout">
             Tone or Code:
@@ -370,7 +370,7 @@
           <td>Repeater Offset:</td>
           <td colspan="2" class="same-line-label-layout">
             <input type="text" name="62c.repeater-offset" tabindex="66"
-                   class="frequency-offset" style="width:6em;"
+                   class="frequency-offset"
                    onchange="compute_repeater_input(this)" id="repeater-offset"/>
             MHz (or "+" or "-" for standard)
           </td>
