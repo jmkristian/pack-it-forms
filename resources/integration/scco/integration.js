@@ -150,7 +150,7 @@
                 + "&Content-Type=text/plain"
                 + "&Subject=" + encodeURIComponent(environment.subject)
                 + "&body=" + encodeURIComponent(message);
-            if (status != 'new') {
+            if (!(status == 'new' || status == 'manual')) {
                 // Discourage the operator from sending it via Outpost:
                 setButtonHeader(
                     '<img src="icon-warning.png" alt="Warning" style="width:2em;height:2em;vertical-align:middle;">'
