@@ -5,46 +5,19 @@
     <link rel="stylesheet" type="text/css" href="resources/css/loading.css"/>
     <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
     <style>
-      table.shelter-status th {
-          border: none;
+      table.shelter-status td:nth-child(1) {
+          border-right: none;
           white-space: nowrap;
           width: 1px;
-          padding-left: 2em;
-          padding-right: 0.5em;
-          text-align: right;
-          font-weight: normal;
-      }
-      table.shelter-status td {
-          border: none;
-          padding: 0;
-      }
-      table.shelter-status th.section-head {
-          text-align: left;
-          margin-left: 0;
-          padding-left: 0;
-          padding-top: 1em;
-          padding-bottom: 0;
-          font-weight: bold;
-      }
-      table.shelter-status td>label, table.shelter-status th>label {
-          display: inline;
-          margin-left: 1em;
-          margin-right: 0;
-          font-weight: normal;
-      }
-      table.shelter-status td>input {
-          display: inline;
-      }
-      table.shelter-status td input[type="checkbox"] {
           vertical-align: middle;
       }
-      table.shelter-status label.label-sameline input {
-          margin-left: 0px;
+      table.shelter-status td:nth-child(2) {
+          border-left: none;
       }
     </style>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
-    <meta name="pack-it-forms-pdf-URL" content="resources/pdf/XSC_SheltStat_v190407.pdf">
+    <meta name="pack-it-forms-pdf-URL" content="resources/pdf/XSC_SheltStat_v190530_Fillable.pdf">
     <meta name="pack-it-forms-subject-suffix" content="_SheltStat_{{field:32.shelter-name}}">
     <script type="text/javascript">
       function compute_availability() {
@@ -143,7 +116,7 @@
   </head>
 
   <body>
-    <div class="version">1.8</div>
+    <div class="version">2.0</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -159,32 +132,34 @@
             "header-version": "WebEOC: 20130814&lt;br/&gt;PIF: {{version}}"
         }
       </div>
-      <br/>
-      <table class="same-line-label-layout">
+      <table class="shelter-status" style="page-break-inside:avoid;">
         <tr>
-          <th>Report Type:</th>
-          <td class="label-sameline" style="width:1px;">
-            <label class="label-sameline" style="font-weight:normal;">
-              <input name="19.report-type" type="radio" value="Update" required tabindex="19"
-                     onchange="if (this.checked) on_report_type(false)">Update
-            </label>
-            <label class="label-sameline" style="font-weight:normal;margin-left:1em;">
-              <input name="19.report-type" type="radio" value="Complete" required tabindex="19"
-                     onchange="if (this.checked) on_report_type(true)">Complete
-            </label>
+          <td colspan="2">
+            <table class="same-line-label-layout">
+              <tr>
+                <th>Report Type:</th>
+                <td class="label-sameline" style="width:1px;">
+                  <label class="label-sameline" style="font-weight:normal;">
+                    <input name="19.report-type" type="radio" value="Update" required tabindex="19"
+                           onchange="if (this.checked) on_report_type(false)">Update
+                  </label>
+                  <label class="label-sameline" style="font-weight:normal;margin-left:1em;">
+                    <input name="19.report-type" type="radio" value="Complete" required tabindex="19"
+                           onchange="if (this.checked) on_report_type(true)">Complete
+                  </label>
+                </td>
+                <th style="padding-left:2em;">Shelter Name:</th>
+                <td class="label-sameline">
+                  <input name="32.shelter-name" type="text" required tabindex="29"
+                         onchange="document.getElementById('shelter-name-copy').value = this.value"/>
+                </td>
+              </tr>
+            </table>
           </td>
-          <th style="padding-left:2em;">Shelter Name:</th>
-          <td class="label-sameline">
-            <input name="32.shelter-name" type="text" required tabindex="29"
-                   onchange="document.getElementById('shelter-name-copy').value = this.value"/>
-          </td>
-        </tr>
-      </table>
-      <table class="shelter-status" style="margin-left:0;width:99%;">
-        <tr>
-          <th colspan="2" class="section-head">Shelter<hr/></th>
         </tr><tr>
-          <th>Shelter Type:</th>
+          <td colspan="2" class="block-caption">Shelter</td>
+        </tr><tr>
+          <td>Shelter Type:</td>
           <td>
             <select name="30.shelter-type" class="required-for-complete" tabindex="30">
               <option value="" selected></option>
@@ -195,7 +170,7 @@
             </select>
           </td>
         </tr><tr>
-          <th>Status:</th>
+          <td>Status:</td>
           <td>
             <select name="31.shelter-status" class="required-for-complete" tabindex="31">
               <option value="" selected></option>
@@ -204,14 +179,16 @@
               <option value="Full" data-background-color="yellow">Full</option>
             </select>
           </td>
-        </tr><tr>
-          <th>Name:</th>
+        </tr>
+      </table><table class="shelter-status">
+        <tr>
+          <td>Name:</td>
           <td><input id="shelter-name-copy" type="text" disabled tabindex="-1"/></td>
         </tr><tr>
-          <th>Address:</th>
+          <td>Address:</td>
           <td><input type="text" name="33a.shelter-address" class="required-for-complete" tabindex="33"/></td>
         </tr><tr>
-          <th>City:</th>
+          <td>City:</td>
           <td class="label-sameline">
             <select name="33b.shelter-city" class="required-for-complete" tabindex="34">
               <option value="" selected></option>
@@ -232,56 +209,69 @@
               <option value="Sunnyvale">Sunnyvale</option>
               <option value="Unincorporated">Unincorporated Areas</option>
             </select>
-            &nbsp;State: <input name="33c.shelter-state" type="text" style="width:2em;" tabindex="35"
-                                 class="required-for-complete"/>
-            &nbsp; Zip: <input name="33d.shelter-zip" type="text" style="width:8em;" tabindex="36"/>
           </td>
         </tr><tr>
-          <th>Latitude:</th>
+          <td>State:</td>
           <td>
-            <input type="text" name="37a.latitude" style="width:8em;" tabindex="37"/>
-            <label class="label-sameline">Longitude:
-              <input type="text" name="37b.longitude" style="width:8em;" tabindex="38"/>
-            </label>
+            <input name="33c.shelter-state" type="text" style="width:8em;" tabindex="35"
+                   class="required-for-complete"/>
           </td>
         </tr><tr>
-          <th colspan="2" class="section-head">Shelter Information<hr/></th>
+          <td>Zip:</td>
+          <td><input name="33d.shelter-zip" type="text" style="width:8em;" tabindex="36"/></td>
         </tr><tr>
-          <th>Capacity:</th>
+          <td>Latitude:</td>
+          <td class="label-sameline">
+            <input type="text" name="37a.latitude" style="width:8em;" tabindex="37"
+                   placeholder="d.ddd°"/>
+            &nbsp; Longitude:
+            <input type="text" name="37b.longitude" style="width:8em;" tabindex="38"
+                   placeholder="d.ddd°"/>
+          </td>
+        </tr>
+      </table><table class="shelter-status" style="page-break-inside:avoid;">
+        <tr>
+          <td colspan="2" class="block-caption">Shelter Information</td>
+        </tr><tr>
+          <td>Capacity:</td>
           <td>
             <input name="40a.capacity" type="text" class="cardinal-number required-for-complete"
                    id="shelter-capacity" onchange="compute_availability(this)" tabindex="40"/>
         </tr><tr>
-          <th>Occupancy:</th>
-          <td>
+          <td>Occupancy:</td>
+          <td class="same-line-label-layout">
             <input name="40b.occupancy" type="text" class="cardinal-number required-for-complete"
                    id="shelter-occupancy" onchange="compute_availability(this)" tabindex="41"/>
-            <label class="label-sameline">Availability:
-              <input type="text" class="cardinal-number" id="shelter-availability" tabindex="-1"
-                     disabled/>
-            </label>
+            &nbsp; Availability:
+            <input type="text" class="cardinal-number" id="shelter-availability" tabindex="-1"
+                   disabled/>
           </td>
         </tr><tr>
-          <th>Meals Served (last 24 hours):</th>
+          <td>Meals Served (last 24 hours):</td>
           <td><input type="text" class="cardinal-number" name="41.meals" tabindex="42"/></td>
         </tr><tr>
-          <th>NSS Number:</th>
+          <td>NSS Number:</td>
           <td><input type="text" name="42.NSS" tabindex="43"/></td>
         </tr><tr>
-          <th>Pet Friendly:</th>
-          <td class="label-sameline">
+          <td>Pet Friendly:</td>
+          <td>
             <select name="43a.pet-friendly" style="margin-right:1em;" tabindex="44">
               <option value="" selected></option>
               <option value="checked">Yes</option>
               <option value="false">No</option>
             </select>
-            Basic Safety Inspection:
+          </td>
+        </tr><tr>
+          <td>Basic Safety Inspection:</td>
+          <td>
             <select name="43b.basic-safety" style="margin-right:1em;" tabindex="45">
               <option value="" selected></option>
               <option value="checked">Yes</option>
               <option value="false">No</option>
             </select>
-            ATC 20 Inspection:
+        </tr><tr>
+          <td>ATC 20 Inspection:</td>
+          <td>
             <select name="43c.ATC-20" tabindex="46">
               <option value="" selected></option>
               <option value="checked">Yes</option>
@@ -289,20 +279,22 @@
             </select>
           </td>
         </tr><tr>
-          <th>Available Services:</th>
+          <td style="vertical-align:top;">Available Services:</td>
           <td><textarea name="44.available-services" rows="4" tabindex="47"></textarea></td>
         </tr><tr>
-          <th>MOU:</th>
+          <td>MOU:</td>
           <td><input type="text" name="45.MOU" tabindex="48"
-                     placeholder="Identify how submitted"/></td>
+                     placeholder="where/how sent"/></td>
         </tr><tr>
-          <th>Floor Plan:</th>
+          <td>Floor Plan:</td>
           <td><input type="text" name="46.floor-plan" tabindex="49"
-                     placeholder="Identify how submitted"/></td>
+                     placeholder="where/how sent"/></td>
+        </tr>
+      </table><table class="shelter-status" style="page-break-inside:avoid;">
+        <tr>
+          <td colspan="2" class="block-caption">Contact Information</td>
         </tr><tr>
-          <th colspan="2" class="section-head">Contact Information<hr/></th>
-        </tr><tr>
-          <th>Managed By:</th>
+          <td>Managed By:</td>
           <td>
             <select name="50a.managed-by" class="required-for-complete" tabindex="50">
               <option value="" selected></option>
@@ -314,82 +306,85 @@
             </select>
           </td>
         </tr><tr>
-          <th>Managed By Detail:</th>
+          <td>Managed By Detail:</td>
           <td><input type="text" name="50b.managed-by-detail" tabindex="51"/></td>
+        </tr><tr>
+          <td>Primary Contact:</td>
+          <td>
+            <input type="text" name="51a.primary-contact" class="required-for-complete"
+                   tabindex="52"/>
+          </td>
+        </tr><tr>
+          <td>Primary Contact Phone:</td>
+          <td>
+            <input type="text" name="51b.primary-phone" class="phone-number required-for-complete"
+                   tabindex="53"/>
+          </td>
+        </tr><tr>
+          <td>Secondary Contact:</td>
+          <td>
+            <input type="text" name="52a.secondary-contact"
+                   tabindex="54"/>
+          </td>
+        </tr><tr>
+          <td>Secondary Contact Phone:</td>
+          <td>
+            <input type="text" name="52b.secondary-phone" class="phone-number clearable"
+                   tabindex="55"/>
+          </td>
         </tr>
+      </table><table class="shelter-status" style="page-break-inside:avoid;">
         <tr>
-          <th>Primary Contact:</th>
-          <td>
-            <table class="same-line-label-layout">
-              <tr>
-                <td><input type="text" name="51a.primary-contact" class="required-for-complete"
-                           tabindex="52"/></td>
-                <th style="font-weight:normal;">Phone:</th>
-                <td><input type="text" name="51b.primary-phone" class="phone-number required-for-complete"
-                           tabindex="53"/></td>
-              </tr>
-            </table>
+          <td colspan="3" class="block-caption">Amateur Radio Information</td>
+        </tr><tr>
+          <td>Tactical Call Sign:</td>
+          <td colspan="2"><input name="60.tactical-call" type="text" tabindex="60"/></td>
+        </tr><tr>
+          <td>Repeater Call Sign:</td>
+          <td colspan="2">
+            <input name="61.repeater-call" type="text" class="call-sign" tabindex="61"/>
           </td>
         </tr><tr>
-          <th>Secondary Contact:</th>
-          <td>
-            <table class="same-line-label-layout">
-              <tr>
-                <td><input type="text" name="52a.secondary-contact" tabindex="54"/></td>
-                <th style="font-weight:normal;">Phone:</th>
-                <td><input type="text" name="52b.secondary-phone" class="clearable phone-number" tabindex="55"/></td>
-              </tr>
-            </table>
-          </td>
-        </tr><tr>
-          <th colspan="2" class="section-head">Amateur Radio Information<hr/></th>
-        </tr><tr>
-          <th>Tactical Call Sign:</th>
-          <td><input name="60.tactical-call" type="text" tabindex="60"/></td>
-        </tr><tr>
-          <th>Repeater Call Sign:</th>
-          <td><input name="61.repeater-call" type="text" class="call-sign" tabindex="61"/></td>
-        </tr><tr>
-          <th>Repeater Input:</th>
-          <td>
+          <td>Repeater Input:</td>
+          <td class="same-line-label-layout" style="width:1px;padding-right:1em;">
             <input type="text" name="62a.repeater-input" tabindex="62"
                    class="real-number" style="width:6em;"
                    onchange="compute_repeater_offset(this)" id="repeater-input"/> MHz
-            <label class="label-sameline">Tone or Code:
-              <input type="text" name="62b.repeater-input-tone" tabindex="63"
-                     style="width:6em;"/>
-            </label>
+          </td><td class="same-line-label-layout">
+            Tone or Code:
+            <input type="text" name="62b.repeater-input-tone" tabindex="63"
+                   style="width:8em;"/>
           </td>
         </tr><tr>
-          <th>Repeater Output:</th>
-          <td>
+          <td>Repeater Output:</td>
+          <td class="same-line-label-layout">
             <input type="text" name="63a.repeater-output" tabindex="64"
                    class="real-number" style="width:6em;"
                    onchange="compute_repeater_input(this)" id="repeater-output"/> MHz
-            <label class="label-sameline">Tone or Code:
-              <input type="text" name="63b.repeater-output-tone" tabindex="65"
-                     style="width:6em;"/>
-            </label>
+          </td><td class="same-line-label-layout">
+            Tone or Code:
+            <input type="text" name="63b.repeater-output-tone" tabindex="65"
+                   style="width:8em;"/>
           </td>
         </tr><tr>
-          <th>Repeater Offset:</th>
-          <td>
+          <td>Repeater Offset:</td>
+          <td colspan="2" class="same-line-label-layout">
             <input type="text" name="62c.repeater-offset" tabindex="66"
                    class="frequency-offset" style="width:6em;"
-                   onchange="compute_repeater_input(this)" id="repeater-offset"/> MHz (or "+" or "-" for standard)
+                   onchange="compute_repeater_input(this)" id="repeater-offset"/>
+            MHz (or "+" or "-" for standard)
           </td>
+        </tr>
+      </table><table class="shelter-status" style="page-break-inside:avoid;">
+        <tr>
+          <td colspan="2" class="block-caption">Comments</td>
         </tr><tr>
-          <th colspan="2" class="section-head">Comments<hr/></th>
-        </tr><tr>
-          <th style="vertical-align:top;">Comments:</th>
+          <td style="vertical-align:top;">Comments:</td>
           <td><textarea name="70.comments" rows="4" tabindex="70"></textarea></td>
         </tr><tr>
-          <th></th>
-          <td>
-            <label class="label-sameline" style="margin-left:0px;font-weight:bold;">
-              <input type="checkbox" name="71.remove-from-active-list" tabindex="71">
-              Remove from List
-            </label>
+          <td colspan="2" class="same-line-label-layout">
+            Remove from List:
+            <input type="checkbox" name="71.remove-from-active-list" tabindex="71">
           </td>
         </tr>
       </table>
