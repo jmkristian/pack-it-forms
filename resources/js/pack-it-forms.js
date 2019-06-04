@@ -1211,7 +1211,7 @@ function setup_input_from_classes(input) {
     var standardAttributes = {
         "date": {pattern: "(0[1-9]|1[012])/(0[1-9]|1[0-9]|2[0-9]|3[01])/[1-2][0-9][0-9][0-9]",
                  placeholder: "mm/dd/yyyy"},
-        "time": {pattern: "([01][0-9]|2[0-3]):?[0-5][0-9](:[0-5][0-9])?|2400|24:00|24:00:00",
+        "time": {pattern: "([01][0-9]|2[0-3]):?[0-5][0-9]|2400|24:00",
                  placeholder: "hh:mm"},
         "phone-number": {pattern: "[a-zA-Z ]*([+][0-9]+ )?[0-9][0-9 -]*([xX][0-9]+)?",
                          placeholder: "000-000-0000 x00"},
@@ -1310,6 +1310,12 @@ function setup_view_mode(next) {
         var oldTextElements = [];
         var newTextElements = [];
         array_for_each(document.querySelector("#the-form").elements, function (el) {
+            if (el.required) {
+                el.required = false;
+            }
+            if (el.pattern) {
+                el.pattern = null;
+            }
             if (el.placeholder) {
                 el.placeholder = '';
             }
