@@ -455,7 +455,9 @@ var newMessage = { // a namespace
         var fldtxt = "";
         array_for_each(form.elements, function(element, index, array) {
             var result;
-            if (element.disabled && !element.classList.contains("init-on-submit")) {
+            if (element.disabled
+                && !(element.classList.contains("include-in-submit")
+                     || element.classList.contains("init-on-submit"))) {
                 result = null;
             } else if (pacform_representation_funcs.hasOwnProperty(element.type)) {
                 result = pacform_representation_funcs[element.type](element);
@@ -1323,14 +1325,27 @@ function setup_view_mode(next) {
             if (el.type == "radio" || el.type == "checkbox") {
                 el.onclick = function() {return false;}; // not grayed out
             } else if (el.type && el.type.substr(0, 6) == "select") {
-                el.disabled = "true";
+                var textDiv = create_text_div(el, el.options[el.selectedIndex].text);
+                textDiv.style.setProperty("white-space", "nowrap");
+                textDiv.style.width = get_style(el, "width") || (el.offsetWidth + "px");
+                textDiv.style.color = el.style.color;
+                backgroundColor = el.style["background-color"];
+                if (backgroundColor) {
+                    textDiv.style.setProperty("background-color", backgroundColor);
+                }
+                oldTextElements.push(el);
+                newTextElements.push(textDiv);
             } else {
                 el.readOnly = "true";
                 if (el.type && el.type.substr(0, 4) == "text"
                     && (el.value || el.type.substr(0, 8) == "textarea")) {
                     // There's no need to replace an empty text input.
+                    var textDiv = create_text_div(el, el.value);
+                    if (el.style.width && string_ends_with(el.style.width, "em")) {
+                        textDiv.style.width = el.style.width;
+                    }
                     oldTextElements.push(el);
-                    newTextElements.push(create_text_div(el));
+                    newTextElements.push(textDiv);
                 }
             }
         });
@@ -1372,7 +1387,7 @@ function padded_int_str(num, cnt) {
 }
 
 /* Create a DIV element that contains oldText.value and lays out like oldText. */
-function create_text_div(oldText) {
+function create_text_div(oldText, value) {
     var newText = document.createElement("div");
     newText.classList.add("view-mode-textarea");
     for (var c = 0; c < oldText.classList.length; ++c) {
@@ -1382,7 +1397,7 @@ function create_text_div(oldText) {
         }
     }
     newText.style.display = get_style(oldText, "display");
-    var textNode = document.createTextNode(oldText.value);
+    var textNode = document.createTextNode(value);
     newText.appendChild(textNode);
     newText.innerHTML = newText.innerHTML.replace(/(\r?\n)/g, "<br/>$1");
     return newText;
@@ -1476,7 +1491,7 @@ function map_backgroundColor(element, colorMap, property) {
     } else {
         element.style.removeProperty("background-color");
     }
-    element.style.setProperty("color", colors.text || "black");
+    element.style.color = colors.text || "black";
 }
 
 function select_backgroundColors(selectElement, backgroundColors) {
