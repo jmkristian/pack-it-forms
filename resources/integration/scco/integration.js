@@ -52,8 +52,8 @@
             envelope.sender.operator_call_sign = OpCall;
             envelope.sender.operator_name = OpName;
             envelope.receiver.message_number = environment.MSG_LOCAL_ID || '';
-            envelope.receiver.operator_call_sign = environment.SETUP_ID_ACTIVE_CALL || '';
-            envelope.receiver.operator_name = environment.SETUP_ID_ACTIVE_NAME || '';
+            envelope.receiver.operator_call_sign = environment.operator_call_sign || '';
+            envelope.receiver.operator_name = environment.operator_name || '';
             setDateTime(envelope.receiver, environment.MSG_DATETIME_OP_RCVD);
             setDateTime(envelope.sender,
                         environment.MSG_DATETIME_HEADER || environment.MSG_DATETIME_OP_SENT);
@@ -75,8 +75,8 @@
             // TODO: set envelope.receiver.message_number
         } else {
             envelope.sender.message_number = environment.MSG_NUMBER || MsgNo;
-            envelope.sender.operator_call_sign = environment.SETUP_ID_ACTIVE_CALL || OpCall;
-            envelope.sender.operator_name = environment.SETUP_ID_ACTIVE_NAME || OpName;
+            envelope.sender.operator_call_sign = environment.operator_call_sign || OpCall;
+            envelope.sender.operator_name = environment.operator_name || OpName;
         }
 
         // Change the message header from PACF format to ADDON format:
