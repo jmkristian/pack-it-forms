@@ -49,25 +49,39 @@
       function round_frequency(frequency, targetDecimalPlaces) {
           var result = frequency && ((Math.round(frequency * 100000) / 100000) + "");
           var target = decimal_places(targetDecimalPlaces);
-          for (var r = decimal_places(result); r < target; ++r) {
-              if (result.indexOf(".") < 0) {
-                  result += ".";
+          if (result != null) {
+              for (var r = decimal_places(result); r < target; ++r) {
+                  if (result.indexOf(".") < 0) {
+                      result += ".";
+                  }
+                  result += "0";
               }
-              result += "0";
           }
           return result;
       }
       function compute_repeater_input() {
           var output = valid_float_value("repeater-output");
           var offset = document.getElementById("repeater-offset")
-          if (output && offset.validity && offset.validity.valid) {
+          if (output && !offset.value) {
+              compute_repeater_offset();
+          } else if (output && offset.validity && offset.validity.valid) {
               var standard_offset = // MHz
-                  (output < 50)  ? 0.1 :
-                  (output < 144) ? 0.5 :
-                  (output < 220) ? 0.6 :
-                  (output < 222) ? 1.0 :
+                  (output < 29)  ? null: // unspecified
+                  (output < 30)  ? 0.1 :
+                  (output < 50)  ? null:
+                  (output < 54)  ? 0.5 :
+                  (output < 144) ? null:
+                  (output < 148) ? 0.6 :
+                  (output < 220) ? null:
                   (output < 225) ? 1.6 :
-                  (output < 450) ? 5.0 :
+                  (output < 440) ? null:
+                  (output < 470) ? 5.0 :
+                  (output < 902) ? null:
+                  (output < 928) ? 25.0 :
+                  (output < 1240) ? null:
+                  (output < 1300) ? 12.0:
+                  (output < 2400) ? null:
+                  (output < 2450) ? 20.0:
                   null;
               var value = null;
               offset = offset.value;
@@ -179,9 +193,7 @@
               <option value="Full" data-background-color="yellow">Full</option>
             </select>
           </td>
-        </tr>
-      </table><table class="shelter-status">
-        <tr>
+        </tr><tr>
           <td>Name:</td>
           <td><input id="shelter-name-copy" type="text" disabled tabindex="-1"/></td>
         </tr><tr>
@@ -353,7 +365,7 @@
           </td><td class="same-line-label-layout">
             Tone or Code:
             <input type="text" name="62b.repeater-input-tone" tabindex="63"
-                   style="width:8em;"/>
+                   style="width:16em;"/>
           </td>
         </tr><tr>
           <td>Repeater Output:</td>
@@ -364,7 +376,7 @@
           </td><td class="same-line-label-layout">
             Tone or Code:
             <input type="text" name="63b.repeater-output-tone" tabindex="65"
-                   style="width:8em;"/>
+                   style="width:16em;"/>
           </td>
         </tr><tr>
           <td>Repeater Offset:</td>
