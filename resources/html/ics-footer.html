@@ -77,8 +77,8 @@
           </span>
         </td><td colspan="2" class="border-left">
           <label class="label-sameline">Operator Call Sign:
-            <input class="call-sign no-msg-init" name="OpCall" type="text" tabindex="508"
-                   required="required"
+            <input class="call-sign no-msg-init include-in-submit" name="OpCall" type="text" tabindex="508"
+                   disabled="disabled" required="required"
                    value="{{envelope:viewer_operator_call_sign}}"/>
           </label>
         </td>
@@ -95,7 +95,8 @@
         </td>
         <td colspan="2" class="border-left">
           <label class="label-sameline">Operator Name:
-            <input class="no-msg-init" name="OpName" type="text" tabindex="509"
+            <input class="no-msg-init include-in-submit" name="OpName" type="text" tabindex="509"
+                   disabled="disabled"
                    value="{{envelope:viewer_operator_name}}"/>
           </label>
         </td>
