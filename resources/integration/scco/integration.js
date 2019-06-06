@@ -16,11 +16,21 @@
         delete environment.MSG_DATETIME_HEADER;
     }
 
+    var asDate = function asDate(n) {
+        return ((n.length == 1) ? '0' : '') + n;
+    }
+    var asYear = function asYear(n) {
+        return ((n.length == 2) ? (new Date().getFullYear() / 100) : '') + n;
+    }
     var setDateTime = function setDateTime(into, from) {
         var found = from && /(\S+)\s*(.*)/.exec(from);
         if (found) {
             into.date = found[1];
             into.time = found[2];
+            found = /(\d+)\/(\d+)\/(\d+)/.exec(into.date);
+            if (found) {
+                into.date = asDate(found[1]) + '/' + asDate(found[2]) + '/' + asYear(found[3]);
+            }
             found = /(\d+):(\d+)(:\d+)?([^\d]*)/.exec(into.time);
             if (found) {
                 // convert to 24 hour time
