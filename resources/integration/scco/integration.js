@@ -53,7 +53,7 @@
     };
 
     var getOldMessage = function getOldMessage(next) {
-        msgfields = get_message_fields(unwrap_message(message));
+        msgfields = get_message_fields(message);
         var MsgNo = msg_field('MsgNo');
         var OpCall = msg_field('OpCall');
         var OpName = msg_field('OpName');

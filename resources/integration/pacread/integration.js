@@ -207,7 +207,7 @@
         } else {
             var msg_url = "msgs/" + envelope.sender.message_number;
             open_async_request("GET", msg_url, "text", function(message) {
-                msgfields = get_message_fields(unwrap_message(message));
+                msgfields = get_message_fields(message);
                 unwrap_pacform(message);
                 envelope.sender.message_number = msg_field("MsgNo");
                 envelope.sender.operator_call_sign = msg_field("OpCall");

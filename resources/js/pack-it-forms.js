@@ -160,39 +160,35 @@ function add_form_default_values(values) {
     }
 }
 
-/** Given a plain text message, return its body
-    with headers and footers removed.
-*/
-function unwrap_message(message) {
-    var body = "";
-    for_each_line(message, function (linenum, line) {
-        if (line.charAt(0) == "#") {
-            return;  // Ignore "comments"
-        }
-        if (line.match(/^\s*$/)) {
-            return;  // Ignore empty lines
-        }
-        if (line.match(/^!.*!/)) {
-            return;  // Ignore line as we don't need anything from it.
-        }
-        body += line + EOL;
-    });
-    return body;
-}
-
-/** Return the fields from the given message body,
+/** Return the fields from the given message,
     in the form of an object {"fieldName": "fieldValue", ...}.
 */
-function get_message_fields(body) {
+function get_message_fields(message) {
+    // A field value may be split across several lines,
+    // some of which may begin with '#' or '!'.
     var fields = {};
     var field_name = null;
     var field_value = "";
-    for_each_line(body, function (linenum, line) {
+    var done = false;
+    for_each_line(message, function(linenum, line) {
+        if (done || !line) {
+            return; // ignore empty lines
+        }
         var idx = 0;
         if (field_name == null) {
-            idx = index_of_field_name_sep(linenum, line, idx);
-            field_name = line.substring(0, idx);
-            idx = index_of_field_value_start(linenum, line, idx);
+            switch(line.charAt(0)) {
+            case '!':
+                if (line == '!/ADDON!') {
+                    done = true; // ignore subsequent lines
+                }
+                return; // ignore Outpost markers
+            case '#':
+                return; // ignore comments
+            default:
+                idx = index_of_field_name_sep(linenum, line, idx);
+                field_name = line.substring(0, idx);
+                idx = index_of_field_value_start(linenum, line, idx);
+            }
         }
         field_value += line.substring(idx);
         var value = unbracket_data(field_value);
