@@ -196,7 +196,7 @@ function get_message_fields(body) {
         }
         field_value += line.substring(idx);
         var value = unbracket_data(field_value);
-        if (value) {
+        if (value != null) {
             // Field is complete on this line
             fields[field_name] = value;
             field_name = null;
@@ -561,8 +561,14 @@ function escape_pacforms_string(string) {
 
 function bracket_data(data) {
     if (data) {
-        data = data.replace(/`]/g, "``]");
-        data = data.replace(/([^`])]/g, "$1`]");
+        // Escape brackets within the data:
+        data = data.replace(/]/g, "`]");
+        if (data.charAt(data.length - 1) == "`") {
+            // Disambiguate a "`" at the end of the data:
+            data += "]]";
+            // This encoding is not elegant, but it's
+            // mostly compatible with previous versions.
+        }
         return "[" + data + "]";
     } else {
         return null;
@@ -570,14 +576,20 @@ function bracket_data(data) {
 }
 
 function unbracket_data(data) {
-    var match = /[^`]]\s*$/.exec(data);
+    var match = /]\s*$/.exec(data);
     if (match) {
-        // data is complete
-        data = data.substring(1, data.length - match[0].length + 1);
-        return data.replace(/`]/g, "]");
-    } else {
-        return null;
+        // Remove the enclosing brackets and trailing white space:
+        data = data.substring(1, data.length - match[0].length);
+        if (data.length <= 1 || data.charAt(data.length - 1) != "`") {
+            // data is complete
+            if (data.substring(data.length - 2) == "]]") {
+                data = data.substring(0, data.length - 2);
+            }
+            // Un-escape the brackets within data:
+            return data.replace(/`]/g, "]");
+        }
     }
+    return null; // The field value continues on the next line.
 }
 
 function selected_field_values(css_selector) {
