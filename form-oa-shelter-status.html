@@ -37,94 +37,6 @@
               availability.style.removeProperty("background-color");
           }
       }
-      function valid_float_value(id) {
-          var element = document.getElementById(id);
-          return (element.value && element.validity && element.validity.valid)
-              ? parseFloat(element.value) : null;
-      }
-      function decimal_places(value) {
-          var decimal = value ? value.indexOf(".") : -1;
-          return (decimal < 0) ? 0 : (value.length - decimal - 1);
-      }
-      function round_frequency(frequency, targetDecimalPlaces) {
-          var result = frequency && ((Math.round(frequency * 100000) / 100000) + "");
-          var target = decimal_places(targetDecimalPlaces);
-          if (result != null) {
-              for (var r = decimal_places(result); r < target; ++r) {
-                  if (result.indexOf(".") < 0) {
-                      result += ".";
-                  }
-                  result += "0";
-              }
-          }
-          return result;
-      }
-      function compute_repeater_input() {
-          var output = valid_float_value("repeater-output");
-          var offset = document.getElementById("repeater-offset")
-          if (output && !offset.value) {
-              compute_repeater_offset();
-          } else if (output && offset.validity && offset.validity.valid) {
-              var standard_offset = // MHz
-                  (output < 29)  ? null: // unspecified
-                  (output < 30)  ? 0.1 :
-                  (output < 50)  ? null:
-                  (output < 54)  ? 0.5 :
-                  (output < 144) ? null:
-                  (output < 148) ? 0.6 :
-                  (output < 220) ? null:
-                  (output < 225) ? 1.6 :
-                  (output < 440) ? null:
-                  (output < 470) ? 5.0 :
-                  (output < 902) ? null:
-                  (output < 928) ? 25.0 :
-                  (output < 1240) ? null:
-                  (output < 1300) ? 12.0:
-                  (output < 2400) ? null:
-                  (output < 2450) ? 20.0:
-                  null;
-              var value = null;
-              offset = offset.value;
-              if (!offset) {
-                  value = output;
-              } else if (offset == "+") {
-                  if (standard_offset != null) {
-                      value = output + standard_offset;
-                  }
-              } else if (offset == "-") {
-                  if (standard_offset != null) {
-                      value = output - standard_offset;
-                  }
-              } else {
-                  value = output + parseFloat(offset);
-              }
-              value = round_frequency(value, document.getElementById("repeater-output").value);
-              var input = document.getElementById("repeater-input");
-              if (value && value != input.value) {
-                  input.value = value;
-                  fireEvent(input, "input");
-                  check_the_form_validity();
-              }
-          }
-      }
-      function compute_repeater_offset() {
-          var input = valid_float_value("repeater-input");
-          var output = valid_float_value("repeater-output");
-          if (input && output) {
-              var value = null;
-              if (input == output) {
-                  value = "";
-              } else {
-                  value = round_frequency(input - output);
-              }
-              var offset = document.getElementById("repeater-offset");
-              if (value != null && value != offset.value) {
-                  offset.value = value;
-                  fireEvent(offset, "input");
-                  check_the_form_validity();
-              }
-          }
-      }
     </script>
     <title>Shelter Status</title>
   </head>
@@ -360,8 +272,7 @@
           <td>Repeater Input:</td>
           <td class="same-line-label-layout" style="padding-right:1em;width:1px;">
             <input type="text" name="62a.repeater-input" tabindex="62"
-                   class="frequency"
-                   onchange="compute_repeater_offset(this)" id="repeater-input"/> MHz
+                   class="frequency"/> MHz
           </td><td class="same-line-label-layout">
             Tone or Code:
             <input type="text" name="62b.repeater-input-tone" tabindex="63"
@@ -371,8 +282,7 @@
           <td>Repeater Output:</td>
           <td class="same-line-label-layout" style="padding-right:1em;">
             <input type="text" name="63a.repeater-output" tabindex="64"
-                   class="frequency"
-                   onchange="compute_repeater_input(this)" id="repeater-output"/> MHz
+                   class="frequency"/> MHz
           </td><td class="same-line-label-layout">
             Tone or Code:
             <input type="text" name="63b.repeater-output-tone" tabindex="65"
@@ -382,8 +292,7 @@
           <td>Repeater Offset:</td>
           <td colspan="2" class="same-line-label-layout">
             <input type="text" name="62c.repeater-offset" tabindex="66"
-                   class="frequency-offset"
-                   onchange="compute_repeater_input(this)" id="repeater-offset"/>
+                   class="frequency-offset"/>
             MHz (or "+" or "-" for standard)
           </td>
         </tr>
