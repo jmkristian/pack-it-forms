@@ -1288,6 +1288,10 @@ function setup_inputs(next) {
         array_for_each(document.querySelector("#the-form").elements, function (el) {
             setup_input_from_classes(el);
             var tagName = el.tagName.toLowerCase();
+            if (tagName == "input" && el.type == "text" && el.required && !el.value && el.disabled) {
+                // For example, the operator's call sign if Outpost didn't supply one.
+                el.disabled = false;
+            }
             if (tagName == "textarea") {
                 el.addEventListener("input", check_not_blank);
             } else if (MSIE_version &&
