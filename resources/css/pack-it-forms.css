@@ -84,14 +84,6 @@ table.same-line-label-layout>tr>th>input,  table.same-line-label-layout>tbody>tr
 table.same-line-label-layout>tr>th>select, table.same-line-label-layout>tbody>tr>th>select {
     display: inline-block;
 }
-td.same-line-label-layout {
-    padding-right: 0;
-    white-space: nowrap;
-}
-td.same-line-label-layout>input {
-    display: inline-block;
-    margin-right: 0;
-}
 #the-form table.zebra-striped tr:nth-child(even) {
     background-color: #ffffff;
 }
