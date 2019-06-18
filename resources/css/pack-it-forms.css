@@ -82,14 +82,14 @@ table.same-line-label-layout>tr>td, table.same-line-label-layout>tbody>tr>td {
 table.same-line-label-layout>tr>th>label,  table.same-line-label-layout>tbody>tr>th>label,
 table.same-line-label-layout>tr>th>input,  table.same-line-label-layout>tbody>tr>th>input,
 table.same-line-label-layout>tr>th>select, table.same-line-label-layout>tbody>tr>th>select {
-    display: inline;
+    display: inline-block;
 }
 td.same-line-label-layout {
     padding-right: 0;
     white-space: nowrap;
 }
 td.same-line-label-layout>input {
-    display: inline;
+    display: inline-block;
     margin-right: 0;
 }
 #the-form table.zebra-striped tr:nth-child(even) {
@@ -151,7 +151,7 @@ form input:disabled,textarea:disabled {
     border: 1px solid #cccccc;
 }
 form label.label-sameline input, form label.label-sameline select {
-    display: inline;
+    display: inline-block;
     margin-left: 1em;
 }
 form td.label-sameline {
@@ -160,11 +160,11 @@ form td.label-sameline {
 form td.label-sameline>label,
 form td.label-sameline>input,
 form td.label-sameline>select {
-    display: inline;
+    display: inline-block;
 }
 form td.label-sameline>label>input,
 form td.label-sameline>label>select {
-    display: inline;
+    display: inline-block;
 }
 form fieldset label {
     display: block;
@@ -175,7 +175,7 @@ form fieldset {
     padding: 0;
 }
 form fieldset input,select {
-    display: inline;
+    display: inline-block;
 }
 form .horizontal label {
     display: inline;
