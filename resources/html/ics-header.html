@@ -51,12 +51,12 @@
         <fieldset>
           <legend>Situation Severity<span class="field-number">4</span></legend>
           <label title="Life Threat">
-            <input name="4.severity" type="radio" tabindex="4"
+            <input name="4.severity" type="radio" tabindex="6"
                    required="required" value="EMERGENCY"/>
             <span class="bold">Emergency</span><br/>
             <span style="margin-left:3em;">(e.g. life threat)</span>
           </label><label title="Property Threat">
-            <input name="4.severity" type="radio" tabindex="4"
+            <input name="4.severity" type="radio" tabindex="5"
                    required="required" value="URGENT"/>
             <span class="bold">Urgent</span><br/>
             <span style="margin-left:3em;">(e.g. property threat)</span>
@@ -72,17 +72,17 @@
           <legend>Message Handling Order<span class="field-number">5</span>
           </legend>
           <label title="As soon as possible">
-            <input name="5.handling" type="radio" tabindex="5"
+            <input name="5.handling" type="radio" tabindex="9"
                    required="required" value="IMMEDIATE"/>
             <span class="bold">Immediate</span><br/>
             <span style="margin-left:3em;">(as soon as possible)</span>
           </label><label title="Less than one hour">
-            <input name="5.handling" type="radio" tabindex="5"
+            <input name="5.handling" type="radio" tabindex="8"
                    required="required" value="PRIORITY"/>
             <span class="bold">Priority</span><br/>
             <span style="margin-left:3em;">(less than one hour)</span>
           </label><label title="More than one hour">
-            <input name="5.handling" type="radio" tabindex="5"
+            <input name="5.handling" type="radio" tabindex="7"
                    required="required" value="ROUTINE"/>
             <span class="bold">Routine</span><br/>
             <span style="margin-left:3em;">(more than one hour)</span>
@@ -95,27 +95,27 @@
           <fieldset class="horizontal">
             <legend>Take action</legend>
             <label>
-              <input name="6a.take-action" type="radio" value="Yes" tabindex="6"/> Yes
+              <input name="6a.take-action" type="radio" value="Yes" tabindex="11"/> Yes
             </label><label>
-              <input name="6a.take-action" type="radio" value="No" tabindex="6"/> No
+              <input name="6a.take-action" type="radio" value="No" tabindex="10"/> No
             </label>
           </fieldset>
           <fieldset class="horizontal">
             <legend>Reply</legend>
             <label>
-              <input name="6b.reply" type="radio" value="Yes" tabindex="7"
+              <input name="6b.reply" type="radio" value="Yes" tabindex="13"
                      onchange="if (this.checked) set_properties({'6d.reply-by': {disabled: false}});"/>
               Yes, by
             </label>
-            <input name="6d.reply-by" type="text" tabindex="-1"/>
+            <input name="6d.reply-by" type="text" tabindex="14"/>
             <label>
-              <input name="6b.reply" type="radio" value="No" tabindex="7"
+              <input name="6b.reply" type="radio" value="No" tabindex="12"
                      onchange="if (this.checked) set_properties({'6d.reply-by': {disabled: true, value: ''}});"/>
               No
             </label>
           </fieldset>
           <label>
-            <input name="6c.fyi" type="checkbox" tabindex="-1"/>For your info (no action required)
+            <input name="6c.fyi" type="checkbox" tabindex="15"/>For your info (no action required)
           </label>
         </fieldset>
       </td>
@@ -133,43 +133,43 @@
         T<br/>O
       </td><td>
         <label>ICS Position:<span class="field-number">7</span>
-          <input name="7.to-ics-position-other" type="text" required="required" tabindex="10"/>
+          <input name="7.to-ics-position-other" type="text" required="required" tabindex="16"/>
         </label>
       </td><td rowspan="4" class="block-caption" style="width:1px;font-size:125%;">
         F<br/>R<br/>O<br/>M
       </td><td>
         <label>ICS Position:<span class="field-number">8</span>
-          <input name="8.from-ics-position" type="text" required="required" tabindex="15"/>
+          <input name="8.from-ics-position" type="text" required="required" tabindex="21"/>
         </label>
       </td>
     </tr><tr>
       <td>
         <label>Location:<span class="field-number">9a</span>
-          <input name="9a.to-location" type="text" required="required" tabindex="11"/>
+          <input name="9a.to-location" type="text" required="required" tabindex="17"/>
         </label>
       </td><td>
         <label>Location:<span class="field-number">9b</span>
-          <input name="9b.from-location" type="text" required="required" tabindex="16"/>
+          <input name="9b.from-location" type="text" required="required" tabindex="22"/>
         </label>
       </td>
     </tr><tr>
       <td>
         <label>Name:
-          <input name="ToName" type="text" tabindex="12"/>
+          <input name="ToName" type="text" tabindex="18"/>
         </label>
       </td><td>
         <label>Name:
-          <input name="FmName" type="text" tabindex="17"/>
+          <input name="FmName" type="text" tabindex="23"/>
         </label>
       </td>
     </tr><tr>
       <td>
         <label>Telephone #:
-          <input name="ToTel" type="text" tabindex="13"/>
+          <input name="ToTel" type="text" tabindex="19"/>
         </label>
       </td><td>
         <label>Telephone #:
-          <input name="FmTel" type="text" tabindex="18"/>
+          <input name="FmTel" type="text" tabindex="24"/>
         </label>
       </td>
     </tr>
