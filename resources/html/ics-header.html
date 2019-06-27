@@ -104,10 +104,10 @@
             <legend>Reply</legend>
             <label>
               <input name="6b.reply" type="radio" value="Yes" tabindex="13"
-                     onchange="if (this.checked) set_properties({'6d.reply-by': {disabled: false}});"/>
+                     onchange="if (this.checked) set_properties({'6d.reply-by': {disabled: false, tabIndex: '14'}});"/>
               Yes, by
             </label>
-            <input name="6d.reply-by" type="text" tabindex="14"/>
+            <input name="6d.reply-by" type="text" tabindex="-1"/>
             <label>
               <input name="6b.reply" type="radio" value="No" tabindex="12"
                      onchange="if (this.checked) set_properties({'6d.reply-by': {disabled: true, value: ''}});"/>
