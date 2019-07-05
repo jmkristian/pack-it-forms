@@ -52,7 +52,7 @@
           <div class="required-group">
             <legend>Situation Severity<span class="field-number">4</span></legend>
             <label title="Life Threat">
-              <input name="4.severity" type="radio" tabindex="6"
+              <input name="4.severity" type="radio" tabindex="4"
                      required="required" value="EMERGENCY"/>
               <span class="bold">Emergency</span><br/>
               <span style="margin-left:3em;">(e.g. life threat)</span>
@@ -62,7 +62,7 @@
               <span class="bold">Urgent</span><br/>
               <span style="margin-left:3em;">(e.g. property threat)</span>
             </label><label>
-              <input name="4.severity" type="radio" tabindex="4"
+              <input name="4.severity" type="radio" tabindex="6"
                      required="required" value="OTHER"/>
               <span class="bold">Other</span><br/>
               <span style="margin-left:3em;">(all others)</span>
@@ -74,7 +74,7 @@
           <div class="required-group">
             <legend>Message Handling Order<span class="field-number">5</span></legend>
             <label title="As soon as possible">
-              <input name="5.handling" type="radio" tabindex="9"
+              <input name="5.handling" type="radio" tabindex="7"
                      required="required" value="IMMEDIATE"/>
               <span class="bold">Immediate</span><br/>
               <span style="margin-left:3em;">(as soon as possible)</span>
@@ -84,7 +84,7 @@
               <span class="bold">Priority</span><br/>
               <span style="margin-left:3em;">(less than one hour)</span>
             </label><label title="More than one hour">
-              <input name="5.handling" type="radio" tabindex="7"
+              <input name="5.handling" type="radio" tabindex="9"
                      required="required" value="ROUTINE"/>
               <span class="bold">Routine</span><br/>
               <span style="margin-left:3em;">(more than one hour)</span>
@@ -98,21 +98,21 @@
           <fieldset class="horizontal">
             <legend>Take action</legend>
             <label>
-              <input name="6a.take-action" type="radio" value="Yes" tabindex="11"/> Yes
+              <input name="6a.take-action" type="radio" value="Yes" tabindex="10"/> Yes
             </label><label>
-              <input name="6a.take-action" type="radio" value="No" tabindex="10"/> No
+              <input name="6a.take-action" type="radio" value="No" tabindex="11"/> No
             </label>
           </fieldset>
           <fieldset class="horizontal">
             <legend>Reply</legend>
             <label>
-              <input name="6b.reply" type="radio" value="Yes" tabindex="13"
+              <input name="6b.reply" type="radio" value="Yes" tabindex="12"
                      onchange="if (this.checked) set_properties({'6d.reply-by': {disabled: false, tabIndex: '14'}});"/>
               Yes, by
             </label>
             <input name="6d.reply-by" type="text" tabindex="-1"/>
             <label>
-              <input name="6b.reply" type="radio" value="No" tabindex="12"
+              <input name="6b.reply" type="radio" value="No" tabindex="13"
                      onchange="if (this.checked) set_properties({'6d.reply-by': {disabled: true, value: ''}});"/>
               No
             </label>
