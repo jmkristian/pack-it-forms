@@ -365,11 +365,8 @@ form :valid {
 }
 
 form input:invalid, form textarea:invalid, form select:invalid, .invalid {
-    background-color: #f8ecec;
+    background-color: #fff8f8;
     transition: background-color 0.5s;
-}
-form div.required-group.invalid {
-    background-color: #fff6f6; /* A bit lighter, for more contrast with the focus indicator. */
 }
 
 form fieldset:invalid {
