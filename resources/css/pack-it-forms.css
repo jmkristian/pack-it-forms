@@ -96,7 +96,8 @@ table.section>tr:first-child>td, table.section>tbody>tr:first-child>td {
 label {
     font-weight: bold;
 }
-fieldset > legend {
+fieldset > legend,
+fieldset > div.required-group > legend {
     font-weight: bold;
 }
 .bold {
