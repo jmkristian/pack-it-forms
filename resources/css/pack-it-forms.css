@@ -151,11 +151,15 @@ form td.label-sameline {
 }
 form td.label-sameline>label,
 form td.label-sameline>input,
-form td.label-sameline>select {
-    display: inline-block;
-}
+form td.label-sameline>select,
 form td.label-sameline>label>input,
-form td.label-sameline>label>select {
+form td.label-sameline>label>select,
+form td.label-sameline>div.required-group,
+form td.label-sameline>div.required-group>label,
+form td.label-sameline>div.required-group>input,
+form td.label-sameline>div.required-group>select,
+form td.label-sameline>div.required-group>label>input,
+form td.label-sameline>div.required-group>label>select {
     display: inline-block;
 }
 form fieldset label {
@@ -346,9 +350,13 @@ td.border-left {
 
 /* Form validation */
 
-form :invalid, .invalid {
+form input:invalid, form textarea:invalid, form select:invalid, .invalid {
     box-shadow: 0 0 6px 2px #c80000;
     transition: box-shadow 0.5s;
+}
+form div.required-group input[type="checkbox"]:invalid,
+form div.required-group input[type="radio"]:invalid {
+    box-shadow: none;
 }
 
 form :valid {
@@ -359,9 +367,8 @@ form input:invalid, form textarea:invalid, form select:invalid, .invalid {
     background-color: #f8ecec;
     transition: background-color 0.5s;
 }
-
-form :focus:invalid {
-  outline: none;
+form div.required-group.invalid {
+    background-color: #fff6f6; /* A bit lighter, for more contrast with the focus indicator. */
 }
 
 form fieldset:invalid {

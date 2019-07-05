@@ -36,22 +36,24 @@
         <b>Time:</b>
         <input type="text" name="1b.time" class="time" required="required" tabindex="4"/>
       </td><td class="label-sameline" style="vertical-align:middle;">
-        <b>Handling:</b>
-        <label class="label-sameline" style="margin-left:0;">
-          <input type="radio" name="5.handling" tabindex="7"
-                 required="required" value="IMMEDIATE"/>Immediate
-          <span style="font-weight:normal;">(ASAP)</span>
-        </label>
-        <label class="label-sameline" style="margin-left:0;">
-          <input type="radio" name="5.handling" tabindex="6"
-                 required="required" value="PRIORITY"/>Priority
-          <span style="font-weight:normal;">(&lt;1 hr)</span>
-        </label>
-        <label class="label-sameline" style="margin-left:0;">
-          <input type="radio" name="5.handling" tabindex="5"
-                 required="required" value="ROUTINE"/>Routine
-          <span style="font-weight:normal;">(&lt;2 hrs)</span>
-        </label>
+        <div class="required-group" style="padding-left:0.5em;padding-right:0.5em;">
+          <b>Handling:</b>
+          <label class="label-sameline" style="margin-left:0;">
+            <input type="radio" name="5.handling" tabindex="7"
+                   required="required" value="IMMEDIATE"/>Immediate
+            <span style="font-weight:normal;">(ASAP)</span>
+          </label>
+          <label class="label-sameline" style="margin-left:0;">
+            <input type="radio" name="5.handling" tabindex="6"
+                   required="required" value="PRIORITY"/>Priority
+            <span style="font-weight:normal;">(&lt;1 hr)</span>
+          </label>
+          <label class="label-sameline" style="margin-left:0;">
+            <input type="radio" name="5.handling" tabindex="5"
+                   required="required" value="ROUTINE"/>Routine
+            <span style="font-weight:normal;">(&lt;2 hrs)</span>
+          </label>
+        </div>
       </td>
     </tr>
   </table>

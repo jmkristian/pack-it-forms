@@ -89,7 +89,7 @@
   </head>
 
   <body>
-    <div class="version">2.0</div>
+    <div class="version">2.1</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -107,16 +107,25 @@
       </div>
       <table>
         <tr>
-          <td colspan="4">
-            <span class="bold">Report Type:</span>
-            <label class="label-sameline" style="font-weight:normal;">
-              <input name="19.report-type" type="radio" value="Update" required tabindex="19"
-                     onchange="if (this.checked) on_report_type(false)">Update
-            </label>
-            <label class="label-sameline" style="font-weight:normal;">
-              <input name="19.report-type" type="radio" value="Complete" required tabindex="19"
-                     onchange="if (this.checked) on_report_type(true)">Complete
-            </label>
+          <td colspan="4" style="padding-left:0;">
+            <table class="same-line-label-layout">
+              <tr>
+                <th class="label-sameline">
+                  <div class="required-group" style="padding-left:0.5em;padding-right:0.5em;">
+                    Report Type:
+                    <label class="label-sameline" style="font-weight:normal;">
+                      <input name="19.report-type" type="radio" value="Update" required tabindex="19"
+                             onchange="if (this.checked) on_report_type(false)">Update
+                    </label>
+                    <label class="label-sameline" style="font-weight:normal;">
+                      <input name="19.report-type" type="radio" value="Complete" required tabindex="19"
+                             onchange="if (this.checked) on_report_type(true)">Complete
+                    </label>
+                  </div>
+                </th><td>
+                </td>
+              </tr>
+            </table>
           </td>
         </tr><tr>
           <td style="width:45%;">
@@ -171,11 +180,34 @@
           <td colspan="2">Facility Status</td>
           <td colspan="6">Additional Attachments Provided</td>
         </tr><tr>
-          <td>
-            <label for="35.status.1">Green - Fully Functional</label>
+          <td rowspan="3" colspan="2" style="padding-left:0;">
+            <div class="required-group">
+              <table class="same-line-label-layout">
+                <tr>
+                  <td style="padding-top:0.5em;width:50%;">
+                    <label for="35.status.1">Green - Fully Functional</label><br/>
+                  </td><td>
+                    <input name="35.status" id="35.status.1" type="radio" value="Fully Functional"
+                           class="required-for-complete" tabindex="30"/>
+                  </td>
+                </tr><tr>
+                  <td style="padding-top:0.5em;">
+                    <label for="35.status.2">Red - Limited Services</label><br/>
+                  </td><td>
+                    <input name="35.status" id="35.status.2" type="radio" value="Limited Services"
+                           class="required-for-complete" tabindex="30"/>
+                  </td>
+                </tr><tr>
+                  <td style="padding-top:0.5em;padding-bottom:0.25em;">
+                    <label for="35.status.3">Black - Impaired/Closed</label>
+                  </td><td>
+                    <input name="35.status" id="35.status.3" type="radio" value="Impaired/Closed"
+                           class="required-for-complete" tabindex="30"/>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </td>
-          <td><input name="35.status" id="35.status.1" type="radio" value="Fully Functional"
-                     class="required-for-complete" tabindex="30"/></td>
           <td colspan="4">NHICS/ICS Organization Chart</td>
           <td colspan="2" class="label-sameline">
             <label>
@@ -186,26 +218,18 @@
             </label>
           </td>
         </tr><tr>
-          <td>
-            <label for="35.status.2">Red - Limited Services</label>
-          </td>
-          <td><input name="35.status" id="35.status.2" type="radio" value="Limited Services"
-                     class="required-for-complete" tabindex="30"/></td>
           <td colspan="4">DEOC-9A Resource Request Forms</td>
           <td colspan="2" class="label-sameline">
-            <label>
-              <input name="26b.attach-RR" type="radio" value="Yes" class="required-for-complete" tabindex="51"/> Yes
-            </label>
-            <label>
-              <input name="26b.attach-RR" type="radio" value="No" class="required-for-complete" tabindex="51"/> No
-            </label>
+            <div class="required-group" style="padding-right:0.5em;">
+              <label>
+                <input name="26b.attach-RR" type="radio" value="Yes" class="required-for-complete" tabindex="51"/> Yes
+              </label>
+              <label>
+                <input name="26b.attach-RR" type="radio" value="No" class="required-for-complete" tabindex="51"/> No
+              </label>
+            </div>
           </td>
         </tr><tr>
-          <td>
-            <label for="35.status.3">Black - Impaired/Closed</label>
-          </td>
-          <td><input name="35.status" id="35.status.3" type="radio" value="Impaired/Closed"
-                     class="required-for-complete" tabindex="30"/></td>
           <td colspan="4">NHICS/ICS Status Report Form - Standard</td>
           <td colspan="2" class="label-sameline">
             <label>

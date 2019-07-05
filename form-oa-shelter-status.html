@@ -42,7 +42,7 @@
   </head>
 
   <body>
-    <div class="version">2.0</div>
+    <div class="version">2.1</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -65,14 +65,16 @@
               <tr>
                 <th>Report Type:</th>
                 <td class="label-sameline" style="width:1px;">
-                  <label class="label-sameline" style="font-weight:normal;">
-                    <input name="19.report-type" type="radio" value="Update" required tabindex="19"
-                           onchange="if (this.checked) on_report_type(false)">Update
-                  </label>
-                  <label class="label-sameline" style="font-weight:normal;margin-left:1em;">
-                    <input name="19.report-type" type="radio" value="Complete" required tabindex="19"
-                           onchange="if (this.checked) on_report_type(true)">Complete
-                  </label>
+                  <div class="required-group" style="padding-right:0.5em;">
+                    <label class="label-sameline" style="font-weight:normal;">
+                      <input name="19.report-type" type="radio" value="Update" required tabindex="19"
+                             onchange="if (this.checked) on_report_type(false)">Update
+                    </label>
+                    <label class="label-sameline" style="font-weight:normal;margin-left:1em;">
+                      <input name="19.report-type" type="radio" value="Complete" required tabindex="19"
+                             onchange="if (this.checked) on_report_type(true)">Complete
+                    </label>
+                  </div>
                 </td>
                 <th style="padding-left:2em;">Shelter Name:</th>
                 <td class="label-sameline">

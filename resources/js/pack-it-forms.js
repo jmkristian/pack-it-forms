@@ -1071,6 +1071,7 @@ function on_report_type(complete) {
             });
         }
     });
+    setupRequiredGroups();
 }
 
 /* Disable "other" controls when not in use
@@ -1283,8 +1284,55 @@ function check_not_blank(event) {
     }
 }
 
+var required_groups = [];
+
+function setupRequiredGroups(input) {
+    array_for_each(required_groups, function(group) {
+        var checks = group.frame.querySelectorAll('input[type="checkbox"]');
+        var radios = group.frame.querySelectorAll('input[type="radio"]');
+        var someInput = function(f) {
+            return array_some(checks, f) || array_some(radios, f);
+        };
+        var forEachInput = function(f) {
+            array_for_each(checks, f);
+            array_for_each(radios, f);
+        };
+        var isChecked = function(input) {return input.checked;};
+        var isRequired = function(input) {return input.required;};
+        var setValid = function(valid) {
+            if (valid) {
+                group.frame.classList.remove("invalid");
+            } else {
+                group.frame.classList.add("invalid");
+            }
+        };
+        if (someInput(isRequired)) {
+            setValid(someInput(isChecked));
+            forEachInput(function(input) {
+                input.addEventListener("change", group.onChange);
+            });
+        } else {
+            setValid(true);
+            forEachInput(function(input) {
+                input.removeEventListener("change", group.onChange);
+            });
+        }
+    });
+}
+
 function setup_inputs(next) {
     if (!envelope.readOnly) {
+        array_for_each(document.querySelectorAll("div.required-group"), function(frame) {
+            required_groups.push({
+                frame: frame,
+                onChange: function requiredGroupListener() {
+                    if (this.checked) {
+                        frame.classList.remove("invalid");
+                    } else {
+                        frame.classList.add("invalid");
+                    }
+                }});
+        });
         array_for_each(document.querySelector("#the-form").elements, function (el) {
             setup_input_from_classes(el);
             var tagName = el.tagName.toLowerCase();
@@ -1302,6 +1350,7 @@ function setup_inputs(next) {
                 el.addEventListener("change", formChanged);
             }
         });
+        setupRequiredGroups();
     }
     next();
 }
