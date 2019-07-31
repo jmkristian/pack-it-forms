@@ -965,6 +965,7 @@ function find_templated_text(selector, property) {
 function clear_form() {
     var the_form = document.getElementById("the-form");
     the_form.reset();
+    on_report_type(false);
     array_for_each(the_form.elements, function(element) {
         if (element.type) {
             if (element.type.substr(0, 8) == "textarea") {
@@ -974,7 +975,7 @@ function clear_form() {
                 element.value = oldValue;
             } else if (element.type == "checkbox" ||
                        element.type.substr(0, 6) == "select") {
-                // Trigger any side-effects:
+               // Trigger any side-effects:
                 fireEvent(element, "change");
             }
         }
