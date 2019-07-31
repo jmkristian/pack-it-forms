@@ -107,25 +107,18 @@
       </div>
       <table>
         <tr>
-          <td colspan="4" style="padding-left:0;">
-            <table class="same-line-label-layout">
-              <tr>
-                <th class="label-sameline">
-                  <div class="required-group" style="padding-left:0.5em;padding-right:0.5em;">
-                    Report Type:
-                    <label class="label-sameline" style="font-weight:normal;">
-                      <input name="19.report-type" type="radio" value="Update" required tabindex="19"
-                             onchange="if (this.checked) on_report_type(false)">Update
-                    </label>
-                    <label class="label-sameline" style="font-weight:normal;">
-                      <input name="19.report-type" type="radio" value="Complete" required tabindex="19"
-                             onchange="if (this.checked) on_report_type(true)">Complete
-                    </label>
-                  </div>
-                </th><td>
-                </td>
-              </tr>
-            </table>
+          <td colspan="4" class="label-sameline" style="vertical-align:middle;">
+            <b>Report Type:</b>
+            <div class="required-group" style="padding-right:0.5em;">
+              <label class="label-sameline" style="font-weight:normal;">
+                <input name="19.report-type" type="radio" value="Update" required tabindex="19"
+                       onchange="if (this.checked) on_report_type(false)">Update
+              </label>
+              <label class="label-sameline" style="font-weight:normal;">
+                <input name="19.report-type" type="radio" value="Complete" required tabindex="19"
+                       onchange="if (this.checked) on_report_type(true)">Complete
+              </label>
+            </div>
           </td>
         </tr><tr>
           <td style="width:45%;">
