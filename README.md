@@ -90,7 +90,7 @@ Creating New Forms
 To start developing new forms, clone this repository and, in your clone,
 copy pack-it-forms/resources/integration/pacread/integration.js
 up one level into the pack-it-forms/resources/integration folder.
-Then you can open a form-xx.html file in Firefox (but not other browsers).
+Then you can open a form-xx.html file in Internet Explorer (but not other browsers).
 You might be able to use a standard HTML editor on form-xx.html files.
 The code in integration.js inserts boilerplate and initializes data,
 without using a web server.
