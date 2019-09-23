@@ -71,13 +71,10 @@ Viewing Previously Entered Forms
 --------------------------------
 
 Opening a message in OutPost
-should result in a new browser window containing the filled out
-message form.  Since you are viewing the contents of a previously sent
-message the form controls are all read-only so that the data is not
-accidentally modified.  The button bar has a blue color to give
-another visible clue that the form is being viewed rather than being
-created.  The browser tab or window can be closed when viewing of the
-message is complete.
+should result in a new browser window containing the filled out message form.
+If you're viewing a previously sent message, the form fields are all read-only
+and the button bar has a different color.
+The browser tab or window can be closed when viewing of the message is complete.
 
 Note that pack-it-forms is used to replicate the paper forms used in
 the manual process and for ICS-213 derived forms the sender and
@@ -98,7 +95,7 @@ You might be able to use a standard HTML editor on form-xx.html files.
 The code in integration.js inserts boilerplate and initializes data,
 without using a web server.
 
-The simplest way to start creating a new form is to copy an existing form.
+The easiest way to start creating a new form is to copy an existing form.
 Each form is a file named form-xx.html, containing HTML with some
 restrictions to allow the form to work smoothly with the
 code that implements pack-it-forms functionality.
@@ -111,9 +108,10 @@ Assuming you start with all the boilerplate in place, here are the
 steps you should follow in creating your form:
  
    1. Change the title
-   2. Add input elements
+   2. Edit input elements
    3. Setup default and on-submit behavior on fields
    4. Adjust layout and styling
+   5. Clean up Javascript
 
 The next sections cover each of these in detail.
 
@@ -124,13 +122,11 @@ Change the Title
 Change the contents of the `title` element to be the name of your new form.
 Browsers will display this title, and you may refer to it elsewhere in the form.
 
-Add Input Elements
-------------------
+Edit Input Elements
+-------------------
 
-To add fields to your form, you just need to add standard html
-`input`, `select`, and `textarea` elements --- just like any other
-HTML form. However, the input elements must contain a `name` attribute
-formatted like this:
+Fields in your form are HTML `input`, `select`, and `textarea` elements, as usual in HTML.
+However, the input elements must each have a `name` attribute formatted like this:
 
    * If the element maps to a number in the form that you are trying
      to replicate, like `10`, then the value should be that number
@@ -374,9 +370,17 @@ Adjust Layout and Styling
 
 Forms written using the above guidelines should be styled to look like
 paper forms, and to have a fairly responsive layout that will work
-with a large variety of screen sizes.  However, if your form requires
-some specific styling, create the file resources/css/\<form name\>.css
-and put any form-specific styling in it.
+with a large variety of screen sizes.
+
+Delete any styles that you copied from another form, but aren't used in your form.
+If your form requires specific styling, place it in a `style` element within the `head`.
+If several forms need to share styling, place it in a .css file in resources/css.
+
+Clean up Javascript
+-------------------
+Delete any Javascript that you copied from another form, but isn't used in your form.
+If several forms need to share the same Javascript, place it in a .js file in resources/js.
+But don't edit resources/js/pack-it-forms.js, as a rule. That file is used by every form.
 
 Customize
 ---------
