@@ -6,62 +6,37 @@ for creating and displaying message with a compact representation for
 packet radio transmission of the entered data, *pack-it-forms* is a
 respectful re-implementation with a number of advantages:
 
-1. All processing is done in-browser in Javascript: No external
-   program is required for parsing the message data.
-
-2. Message encoding is derived from form markup: The field names used
+*  Message encoding is derived from form markup: The field names used
    in the message text are derived from the `name` attribute of the
    input elements of the HTML form.  There is no code specific to any
    field in a form.
 
-3. Forms are written in a declarative style: validation constraints
+*  Forms are written in a declarative style: validation constraints
    and default contents are specified in the HTML description of the
    form rather than Javascript.  A template substitution system
    enables dynamic generation of default values.
 
-4. Reuseable form behavior: The implementation of form behavior has
+*  Reuseable form behavior: The implementation of form behavior has
    been cleanly separated and made more generic so new forms can be
    easily created.  A file inclusion mechanism allows reuse of
    sub-parts of forms as well.
 
-5. The full implementation is available to all for study and
+*  The full implementation is available to all for study and
    enhancement.
 
+
+To install forms into Outpost, see [OutpostForSCCo](https://github.com/jmkristian/OutpostForSCCo).
 
 Using Forms
 ===========
 
-Installation
-------------
-
-Originally there was only a single method of using pack-it-forms
-involving the Outpost radio messenger application and PacFORMs, but
-there are now several methods, each of which is implemented their own
-repository.
-
-The Outpost+PacFORMS method is still the currently the recommended
-method, though it is hoped it will be obsolete in the near future.
-Installation instructions can be found in the
-
-[pack-it-forms outpost-pacread](https://github.com/pack-it-forms/outpost-pacread)
-
-project. As other methods are released they will be documented here.
-
-Entering Data in a New Form
----------------------------
-
-To enter data in a new form, open the HTML file for the form in your
-web browser.  You can do this through appropriate menu entries in
-OutPost if you setup Outpost.  Otherwise you can use your normal
-operating system file browser or command line to open the file.  It
-may take a moment to load and will display a spinner to show activity
-is occurring if it takes longer than a second.
-
+To enter data in a new form, open the form in your web browser,
+by clicking an item in the Outpost Forms menu.
 Once loaded you will see a typical browser form.  Across the top of
-the page is a header bar with two buttons:
+the page is a header bar with some buttons, including:
 
-   1. Submit to OutPost
-   2. Show Data Message
+* Submit to OutPost
+* Show Data Message
 
 The `Submit to OutPost` button will submit the form data to OutPost to
 transmit as a packet radio message.  It is disabled until the form is
@@ -92,11 +67,10 @@ more words surrounded by curly braces.  For example `"{{date}}"`.  These
 are placeholders that indicate values that will be automatically
 substituted when the message is sent.
 
-
 Viewing Previously Entered Forms
 --------------------------------
 
-If you have setup OutPost integration opening the message in OutPost
+Opening a message in OutPost
 should result in a new browser window containing the filled out
 message form.  Since you are viewing the contents of a previously sent
 message the form controls are all read-only so that the data is not
@@ -104,21 +78,6 @@ accidentally modified.  The button bar has a blue color to give
 another visible clue that the form is being viewed rather than being
 created.  The browser tab or window can be closed when viewing of the
 message is complete.
-
-To manually view a previously entered form you must supply some
-additional data to the form through query parameters in the browser
-URL.  There are two query parameters that matter, `msgno` and `mode`.
-
-The `msgno` query parameter is used to refer to the data that is to be
-viewed.  There must be a file in the `msgs` subdirectory of the
-installation with the name as the `msgno` parameter value.  The form
-will load the data to be viewed from this file.
-
-The `mode` parameter specifies the viewing mode.  Currently, if it is
-not present the form will be editable and if it is present any value
-can be specified.  If the value specified is `readonly` then the
-presentation mode will switch to the read-only view as described for
-the OutPost method of viewing messages above.
 
 Note that pack-it-forms is used to replicate the paper forms used in
 the manual process and for ICS-213 derived forms the sender and
@@ -131,42 +90,42 @@ by this.
 Creating New Forms
 ==================
 
-Forms for *pack-it-forms* are just normal HTML forms with some
-restrictions to allow the form to work smoothly with the Javscript
-code that implements pack-it-forms functionality.  The simplest way to
-get started creating a new form is to copy an existing form and
-replace the content of the `form` element with the id `the-form`.
-With the exception of the `title` element in the document head, the
-rest of the HTML in the form outside this element is boilerplate
-required for the pack-it-forms Javascript and CSS to be able to
-display and process the forms correctly with the features described
-above.
+To start developing new forms, clone this repository and, in your clone,
+copy pack-it-forms/resources/integration/pacread/integration.js
+up one level into the pack-it-forms/resources/integration folder.
+Then you can open a form-xx.html file in Firefox (but not other browsers).
+You might be able to use a standard HTML editor on form-xx.html files.
+The code in integration.js inserts boilerplate and initializes data,
+without using a web server.
 
-In general, it shouldn't be necessary to create new forms completely
-from scratch, but should you wish to try to do so, the _Explanation of
-the Form Boilerplate_ section below describes the purpose of the
-various boilerplate sections.
+The simplest way to start creating a new form is to copy an existing form.
+Each form is a file named form-xx.html, containing HTML with some
+restrictions to allow the form to work smoothly with the
+code that implements pack-it-forms functionality.
+Copy a form-xx.html file,
+find the `<form>` element with `id="the-form"` and edit its contents.
+The rest of the file is mostly boilerplate that you need not change.
+(To learn more about it, see the _Explanation of the Form Boilerplate_ below.)
 
 Assuming you start with all the boilerplate in place, here are the
 steps you should follow in creating your form:
-
-   1. Change the `title` element in the document head
-   2. Add input elements to the form
+ 
+   1. Change the title
+   2. Add input elements
    3. Setup default and on-submit behavior on fields
    4. Adjust layout and styling
 
 The next sections cover each of these in detail.
 
 
-Change the Title Element in the Document Head
----------------------------------------------
+Change the Title
+----------------
 
-You should change the value of the `title` element to be the name of
-your new form; this will automatically be used both for the page title
-and for the form name header in the upper left hand side of the form.
+Change the contents of the `title` element to be the name of your new form.
+Browsers will display this title, and you may refer to it elsewhere in the form.
 
-Add Input Elements to the Form
-------------------------------
+Add Input Elements
+------------------
 
 To add fields to your form, you just need to add standard html
 `input`, `select`, and `textarea` elements --- just like any other
@@ -177,11 +136,10 @@ formatted like this:
      to replicate, like `10`, then the value should be that number
      followed by a period followed by a short description.  Example:
      `10.subject`.  This means that the number will be used as the
-     reference to the information in the PacFORMS output
+     reference to the information in Outpost messages.
    * Otherwise, just use a short, descriptive name like `Method`.
      Since the field name won't start with a number, this means that
-     the whole text of the field name will be used as the reference in
-     the PacFORMS output.
+     the whole field name will be used as the reference in Outpost messages.
 
 You can give an `input` a standard style, validation pattern and placeholder
 by adding one of these classes to its class attribute:
@@ -431,8 +389,8 @@ add a tag like this inside the HTML \<head\>:
 
 By default, the subject of the message submitted to Outpost is
 Santa Clara County's standard for an ICS-213 message; that is
-(message number)\_(severity)/(handling)\_(form name)\_(subject).
-For example, "XND-123P_O/R_ICS 213_Advice to Cities".
+(message number)\_(handling)\_(form name)\_(subject).
+For example, "XND-123P_R_ICS 213_Advice to Cities".
 To customize the part following (severity)/(handling),
 you can add a tag like this inside your form's HTML \<head\>:
 
@@ -443,7 +401,7 @@ This content attribute may be a template.
 Explanation of the Form Boilerplate
 -----------------------------------
 
-If you wish to create a form completely from scratch this section
+If you wish to create a form completely from scratch, this section
 describes the boilerplate in the standard forms and how it interacts
 with the pack-it-forms Javascript and CSS.  With this information you
 can make choices about how much of this functionality you'd like to
