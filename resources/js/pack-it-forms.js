@@ -1364,7 +1364,6 @@ function setup_view_mode(next) {
         document.querySelector("#button-header").classList.add("readonly");
         hide_element(document.querySelector("#opdirect-submit"));
         hide_element(document.querySelector("#email-submit"));
-        hide_element(document.querySelector("#show-hide-data"));
         hide_element(document.querySelector("#clear-form"));
         hide_element(document.querySelector("#show-PDF-form"));
         hide_element(document.querySelector("#invalid-example"));
