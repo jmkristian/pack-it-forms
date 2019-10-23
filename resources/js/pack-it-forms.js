@@ -1168,13 +1168,13 @@ function show_form_data() {
     data_div.style.display = "block";
     data_div.tabIndex = "-1";
     data_div.focus();
-    document.querySelector("#show-hide-data").value = "Hide Data Message";
+    document.querySelector("#show-hide-data").value = "Hide Text Message";
     document.querySelector("#form-data").readOnly = true;
 }
 
 function hide_form_data() {
     document.querySelector("#form-data").style.display = "none";
-    document.querySelector("#show-hide-data").value = "Show Data Message";
+    document.querySelector("#show-hide-data").value = "Show Text Message";
     document.querySelector("#form-data").readOnly = false;
     last_active_form_element.focus();
 }

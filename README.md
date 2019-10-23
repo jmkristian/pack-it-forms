@@ -36,7 +36,7 @@ Once loaded you will see a typical browser form.  Across the top of
 the page is a header bar with some buttons, including:
 
 * Submit to OutPost
-* Show Data Message
+* Show Text Message
 
 The `Submit to OutPost` button will submit the form data to OutPost to
 transmit as a packet radio message.  It is disabled until the form is
@@ -49,8 +49,8 @@ with a reddish glow.  Depending on the browser, hovering the cursor
 over the field may give additional information about why the field is
 considered invalid.
 
-The `Show Data Message` button will open an overlay with the current
-contents of the data message that would be transmitted to OutPost if
+The `Show Text Message` button will open an overlay with the current
+contents of the text message that would be transmitted to OutPost if
 the `Submit to OutPost` button were pressed.  The underlying form is
 still active and the overlay will update in real-time as data is
 entered in form controls.  The overlay is read-only so you can not
