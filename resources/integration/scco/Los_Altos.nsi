@@ -1,6 +1,6 @@
 !define INSTDIR_NAME OutpostForLAARES
 !define REG_SUBKEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${INSTDIR_NAME}"
-!define WINDOW_TITLE "Los Altos ARES"
+!define WINDOW_TITLE "${DisplayName}"
 
 Function ChooseAddonFiles
   File /r /x "*~" /x .git* /x notes /x pacread /x integration.js \

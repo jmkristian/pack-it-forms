@@ -1168,13 +1168,13 @@ function show_form_data() {
     data_div.style.display = "block";
     data_div.tabIndex = "-1";
     data_div.focus();
-    document.querySelector("#show-hide-data").value = "Hide Data Message";
+    document.querySelector("#show-hide-data").value = "Hide Text Message";
     document.querySelector("#form-data").readOnly = true;
 }
 
 function hide_form_data() {
     document.querySelector("#form-data").style.display = "none";
-    document.querySelector("#show-hide-data").value = "Show Data Message";
+    document.querySelector("#show-hide-data").value = "Show Text Message";
     document.querySelector("#form-data").readOnly = false;
     last_active_form_element.focus();
 }
@@ -1364,7 +1364,6 @@ function setup_view_mode(next) {
         document.querySelector("#button-header").classList.add("readonly");
         hide_element(document.querySelector("#opdirect-submit"));
         hide_element(document.querySelector("#email-submit"));
-        hide_element(document.querySelector("#show-hide-data"));
         hide_element(document.querySelector("#clear-form"));
         hide_element(document.querySelector("#show-PDF-form"));
         hide_element(document.querySelector("#invalid-example"));

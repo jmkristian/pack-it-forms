@@ -334,19 +334,15 @@ td.border-left {
 }
 
 #error-indicator {
-    visibility: hidden;
     background-color: #ffaaaa;
     color: #444444;
     font-weight: bold;
-    display: inline;
+    display: none;
     padding: 0.25ex 1em;
-    position: fixed;
-    top: 1ex;
-    right: 1em;
 }
 
 #error-indicator.occured {
-    visibility: visible;
+    display: inline;
 }
 
 /* Form validation */
