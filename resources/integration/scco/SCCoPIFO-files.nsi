@@ -19,5 +19,6 @@ Function ChooseAddonFiles
   File pack-it-forms\pdf\ICS-213_*.pdf
   File pack-it-forms\pdf\XSC_EOC-213RR_*.pdf
   File pack-it-forms\pdf\XSC_MuniStat_*.pdf
+  File pack-it-forms\pdf\XSC_RACES_Routing_Slip_*.pdf
   File pack-it-forms\pdf\XSC_SheltStat_*.pdf
   File pack-it-forms\pdf\Allied_Health_Facility_Status_*.pdf
