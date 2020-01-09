@@ -41,49 +41,50 @@
     <meta name="pack-it-forms-pdf-URL" content="pdf/Allied_Health_Facility_Status_Short_Form_w_Instructions_v1802.pdf">
     <meta name="pack-it-forms-subject-suffix" content="_AHFacStat_{{field:20.facility}}">
     <script type="text/javascript">
-      function all_or_none(rowNumber, nameSuffix) {
-          var required = false;
-          var names = [];
-          array_for_each(['a', 'b', 'c', 'd', 'e'], function(column) {
-              names.push(rowNumber + column + "." + nameSuffix);
-          });
-          var onChange = function() {
-              var anyValue = false;
-              array_for_each(names, function(name) {
-                  array_for_each(document.getElementsByName(name), function(input) {
-                      if (input.value) {
-                          anyValue = true;
-                      }
+      (function customizeAlliedHealthForm() {
+          var allOrNone = function allOrNone(rowNumbers, nameSuffix) {
+              array_for_each(rowNumbers, function(rowNumber) {
+                  var required = false;
+                  var inputNames = [];
+                  array_for_each(['a', 'b', 'c', 'd', 'e'], function(column) {
+                      inputNames.push(rowNumber + column + "." + nameSuffix);
                   });
-              });
-              if (required != anyValue) {
-                  required = anyValue;
-                  array_for_each(names, function(name) {
-                      array_for_each(document.getElementsByName(name), function(input) {
-                          input.required = required;
+                  var onFormInput = function() {
+                      var anyValue = array_some(inputNames, function(name) {
+                          return array_some(document.getElementsByName(name), function(input) {
+                              return !!(input.value);
+                          });
                       });
-                  });
-              }
+                      if (required != anyValue) {
+                          required = anyValue;
+                          array_for_each(inputNames, function(name) {
+                              array_for_each(document.getElementsByName(name), function(input) {
+                                  input.required = required;
+                              });
+                          });
+                      }
+                  };
+                  // It would be more efficient to focus on events from these specific inputs,
+                  // but sadly such events don't occur when the entire form is reset.
+                  // So we check all these inputs whenever any input in the entire form changes,
+                  // including when the entire form is reset.
+                  var oldFormInput = integration.on_form_input;
+                  integration.on_form_input = function(next) {
+                      onFormInput();
+                      oldFormInput(next);
+                  };
+              });
           };
-          array_for_each(names, function(name) {
-              array_for_each(document.getElementsByName(name), function(input) {
-                  input.addEventListener("change", onChange);
+          var standardStartup = integration.early_startup;
+          integration.early_startup = function(next) {
+              standardStartup(function() {
+                  copy_initial_value("1b.time", "22t.time");
+                  allOrNone([40, 41, 42, 43, 44, 45, 46], "beds");
+                  allOrNone([50, 51, 52, 53, 54], "resource");
+                  next();
               });
-          });
-      }
-      var standardStartup = integration.early_startup;
-      integration.early_startup = function(next) {
-          standardStartup(function() {
-              copy_initial_value("1b.time", "22t.time");
-              array_for_each([40, 41, 42, 43, 44, 45, 46], function(rowNumber) {
-                  all_or_none(rowNumber, "beds");
-              });
-              array_for_each([50, 51, 52, 53, 54], function(rowNumber) {
-                  all_or_none(rowNumber, "resource");
-              });
-              next();
-          });
-      };
+          };
+      })();
     </script>
     <title>Allied Health Status Report</title>
   </head>

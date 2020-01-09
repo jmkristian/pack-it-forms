@@ -1795,7 +1795,7 @@ var integration = {
         next();
     },
 
-    /** Called when the operator edits a form field. */
+    /** Called after any form fields may have changed. */
     on_form_input: function(next) {
         next();
     },
