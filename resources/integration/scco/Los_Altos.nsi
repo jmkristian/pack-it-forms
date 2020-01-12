@@ -10,6 +10,8 @@ Function ChooseAddonFiles
   File pack-it-forms\form-los-altos-*.html
   SetOutPath "$INSTDIR\addons"
   File /oname=${addon_name}.launch pack-it-forms\resources\integration\scco\${addon_name}.launch
+  SetOutPath "$INSTDIR\pdf"
+  File pack-it-forms\pdf\LOS-ALTOS-PSA*.pdf
 FunctionEnd
 
 OutFile "${INSTDIR_NAME}_Setup-${VersionMajor}.${VersionMinor}.exe"
