@@ -9,7 +9,19 @@
     <link rel="stylesheet" type="text/css" href="resources/css/form-los-altos-da.css"/>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
-
+    <style>
+      /* Less white space in a crowded table. */
+      .fullsize-textfields td:not(.noft) {
+          padding-left: 0.25em;
+          padding-right: 0.25em;
+      }
+      .fullsize-textfields td:not(.noft) > input[type="checkbox"] {
+          margin-left: 0;
+          margin-right: 0;
+          padding: 0;
+          text-align: center;
+      }
+    </style>
     <title>Los Altos Damage Assessment</title>
   </head>
 
@@ -72,7 +84,8 @@
           </td>
         </tr><tr>
           <th rowspan="2" class="rowspanned-header">BAT</th>
-          <th rowspan="2" class="rowspanned-header">OK</th>
+          <th rowspan="2" class="rowspanned-header"
+              style="padding-left:0.5em;padding-right:0.5em;">OK</th>
           <th colspan="6">
             People
           </th><th colspan="3">
