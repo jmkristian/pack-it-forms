@@ -963,25 +963,7 @@ function find_templated_text(selector, property) {
 
 /* Clear the form to original contents */
 function clear_form() {
-    var the_form = document.getElementById("the-form");
-    the_form.reset();
-    on_report_type(false);
-    array_for_each(the_form.elements, function(element) {
-        if (element.type) {
-            if (element.type.substr(0, 8) == "textarea") {
-                // Make Internet Explorer re-evaluate whether it's valid:
-                var oldValue = element.value;
-                element.value = oldValue + ".";
-                element.value = oldValue;
-            } else if (element.type == "checkbox" ||
-                       element.type.substr(0, 6) == "select") {
-               // Trigger any side-effects:
-                fireEvent(element, "change");
-            }
-        }
-    });
-    set_form_default_values();
-    formChanged();
+    integration.reset_form(formChanged);
 }
 
 /* Check whether the form is valid */
@@ -1800,6 +1782,29 @@ var integration = {
         next();
     },
 
+    /** Set all inputs to their initial value. */
+    reset_form: function(next) {
+        var the_form = document.getElementById("the-form");
+        the_form.reset();
+        on_report_type(false);
+        array_for_each(the_form.elements, function(element) {
+            if (element.type) {
+                if (element.type.substr(0, 8) == "textarea") {
+                    // Make Internet Explorer re-evaluate whether it's valid:
+                    var oldValue = element.value;
+                    element.value = oldValue + ".";
+                    element.value = oldValue;
+                } else if (element.type == "checkbox" ||
+                           element.type.substr(0, 6) == "select") {
+                    // Trigger any side-effects:
+                    fireEvent(element, "change");
+                }
+            }
+        });
+        set_form_default_values();
+        next();
+    },
+
     /** Called shortly before submitting newMessage.text to Outpost. */
     before_submit_new_message: function(next) {
         next();
@@ -1815,5 +1820,25 @@ var integration = {
             + "&Content-Type=text/plain"
             + "&Subject=" + encodeURIComponent(subject)
             + "&body=" + encodeURIComponent(body);
+    },
+
+    /** Arrange to call func() before integration[functionName] is executed. */
+    before: function(functionName, func) {
+        var original = integration[functionName];
+        integration[functionName] = function(next) {
+            func();
+            original(next);
+        };
+    },
+
+    /** Arrange to call func() after integration[functionName] is executed. */
+    after: function(functionName, func) {
+        var original = integration[functionName];
+        integration[functionName] = function(next) {
+            original(function() {
+                func();
+                next();
+            });
+        };
     }
 };

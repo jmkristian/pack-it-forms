@@ -33,13 +33,9 @@
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
     <script type="text/javascript">
-      var standardStartup = integration.late_startup;
-      integration.late_startup = function(next) {
-          standardStartup(function() {
-              copy_initial_value("1b.time", "23.time");
-              next();
-          });
-      };
+      integration.after("late_startup", function() {
+          copy_initial_value("1b.time", "23.time");
+      });
     </script>
     <meta name="pack-it-forms-pdf-URL" content="pdf/XSC_EOC-213RR_v170803_w_guide_Fillable.pdf">
     <meta name="pack-it-forms-subject-suffix" content="_EOC213RR_{{field:21.incident-name}}">

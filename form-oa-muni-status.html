@@ -33,19 +33,15 @@
                    {'99.how-sent': {enable: true, require: true, otherwise: {value: ''}},
                     '98.how-to-send': {onMatch: {display: 'inline'}, otherwise: {display: 'none'}}});
       }
-      var standardEarlyStartup = integration.early_startup;
-      integration.early_startup = function(next) {
-          standardEarlyStartup(function() {
-              array_for_each(document.querySelectorAll('option[value="Problem"]'), function(option) {
-                  select_backgroundColors(option.parentNode, {
-                      Unknown: "gray",
-                      Normal: "green",
-                      Problem: "yellow",
-                      Failure: "red"});
-              });
-              next();
+      integration.after("early_startup", function() {
+          array_for_each(document.querySelectorAll('option[value="Problem"]'), function(option) {
+              select_backgroundColors(option.parentNode, {
+                  Unknown: "gray",
+                  Normal: "green",
+                  Problem: "yellow",
+                  Failure: "red"});
           });
-      };
+      });
     </script>
     <title>Jurisdiction Status</title>
   </head>

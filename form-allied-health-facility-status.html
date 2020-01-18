@@ -65,33 +65,21 @@
                       }
                   };
                   // Initialize required after input values are initialized:
-                  var oldLateStartup = integration.late_startup;
-                  integration.late_startup = function(next) {
-                      oldLateStartup(function() {
-                          onFormInput(); // initialize required
-                          // It would be more efficient to focus on events from these specific inputs,
-                          // but sadly such events don't occur when the entire form is reset.
-                          // So we check all these inputs whenever any input in the entire form changes,
-                          // including when the entire form is reset.
-                          var oldFormInput = integration.on_form_input;
-                          integration.on_form_input = function(next) {
-                              onFormInput();
-                              oldFormInput(next);
-                          };
-                          next();
-                      });
-                  };
+                  integration.after("late_startup", function() {
+                      onFormInput(); // initialize required
+                      // It would be more efficient to focus on events from these specific inputs,
+                      // but sadly such events don't occur when the entire form is reset.
+                      // So we check all these inputs whenever any input in the entire form changes,
+                      // including when the entire form is reset.
+                      integration.before("on_form_input", onFormInput);
+                  });
               });
           };
-          var oldEarlyStartup = integration.early_startup;
-          integration.early_startup = function(next) {
-              oldEarlyStartup(function() {
-                  copy_initial_value("1b.time", "22t.time");
-                  allOrNone([40, 41, 42, 43, 44, 45, 46], "beds");
-                  allOrNone([50, 51, 52, 53, 54], "resource");
-                  next();
-              });
-          };
+          integration.after("early_startup", function() {
+              copy_initial_value("1b.time", "22t.time");
+              allOrNone([40, 41, 42, 43, 44, 45, 46], "beds");
+              allOrNone([50, 51, 52, 53, 54], "resource");
+          });
       })();
     </script>
     <title>Allied Health Status Report</title>
