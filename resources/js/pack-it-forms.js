@@ -973,15 +973,20 @@ function check_the_form_validity() {
     var email_button  = document.querySelector("#email-submit");
     var invalid_example = document.querySelector("#invalid-example");
     var valid = document.querySelector("#the-form").checkValidity();
+    var setDisabled = function setDisabled(element, disabled) {
+        if (element) {
+            element.disabled = disabled;
+        }
+    }
     if (valid) {
         button_header.classList.add("valid");
-        submit_button.disabled = false;
-        email_button.disabled = false;
+        setDisabled(submit_button, false);
+        setDisabled(email_button, false);
         hide_element(invalid_example);
     } else {
         button_header.classList.remove("valid");
-        submit_button.disabled = true;
-        email_button.disabled = true;
+        setDisabled(submit_button, true);
+        setDisabled(email_button, true);
         show_element(invalid_example);
     }
     return valid;
