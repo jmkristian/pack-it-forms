@@ -1,0 +1,22 @@
+table.same-line-label-layout>tr>th,
+table.same-line-label-layout>tbody>tr>th {
+    text-align: left;
+    vertical-align: top;
+}
+div.print-only td.rotated:not(.not-rotated) {
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 2.5em;
+    vertical-align: middle;
+}
+div.print-only td.rotated:not(.not-rotated) > div {
+    width: 3.5em;
+}
+div.print-only td.rotated:not(.not-rotated) > div > div {
+    font-size: 100%;
+    font-weight: bold;
+}
+form table.nowrap-captions>tr>td, form table.nowrap-captions>tbody>tr>td {
+    white-space: nowrap;
+}
