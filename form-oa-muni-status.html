@@ -30,8 +30,9 @@
     <script type="text/javascript">
       function on_state_of_emergency(emergency) {
           on_value(emergency, ['Yes'],
-                   {'99.how-sent': {enable: true, require: true, otherwise: {value: ''}},
-                    '98.how-to-send': {onMatch: {display: 'inline'}, otherwise: {display: 'none'}}});
+                   {'99.how-sent': {enable: true, require: true, otherwise: {value: ''}}});
+          document.getElementById('how-to-send')
+              .style.setProperty('display', (emergency.value == 'Yes') ? 'inline' : 'none');
       }
       integration.after("early_startup", function() {
           array_for_each(document.querySelectorAll('option[value="Problem"]'), function(option) {
@@ -199,7 +200,7 @@
         <table id="declarations" class="zebra-striped">
           <tr>
             <td style="width:1px;white-space:nowrap;"><label>State of Emergency:<label></td>
-            <td style="width:1px;">
+            <td>
               <select name="40.state-of-emergency" class="required-for-complete" tabindex="40"
                       onchange="on_state_of_emergency(this);">
                 <option value="" selected></option>
@@ -207,9 +208,9 @@
                 <option value="Yes" data-background-color="red">Yes</option>
                 <option value="No" data-background-color="green">No</option>
               </select>
-            </td><td>
-              <input name="98.how-to-send" type="text" style="display:none" disabled
-                     value="Send a copy of your proclamation to the county EOC (fax, e-mail, ...)"/>
+              <span id="how-to-send" style="display:none;font-weight:normal;">
+                Send a copy of your proclamation to the county EOC (fax, e-mail, ...)
+              </span>
             </td>
           </tr><tr>
             <td style="width:1px;white-space:nowrap;"><label>Indicate how sent (method/to):</label></td>

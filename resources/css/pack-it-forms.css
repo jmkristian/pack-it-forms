@@ -384,10 +384,10 @@ form input.init-on-submit {
     background-color: transparent;
     border-color: transparent;
 }
-form input.call-sign, form div.view-mode-textarea.call-sign {
+form input.call-sign, form .instead-of-input.call-sign {
     width: 6em;
 }
-form input.cardinal-number, form div.view-mode-textarea.cardinal-number {
+form input.cardinal-number, form .instead-of-input.cardinal-number {
     text-align: right;
     width: 4em;
 }
@@ -395,20 +395,19 @@ form input.real-number, form input.frequency, form input.frequency-offset {
     text-align: right;
     width: 6em;
 }
-form div.view-mode-textarea.frequency,
-form div.view-mode-textarea.frequency-offset {
+form .instead-of-input.frequency, form .instead-of-input.frequency-offset {
     white-space: nowrap;
 }
-form input.phone-number, form div.view-mode-textarea.phone-number {
+form input.phone-number, form .instead-of-input.phone-number {
     width: 11em;
 }
-form input.date, form div.view-mode-textarea.date {
+form input.date, form .instead-of-input.date {
     width: 6em;
 }
-form input.time, form div.view-mode-textarea.time {
+form input.time, form .instead-of-input.time {
     width: 6em;
 }
-form input.message-number, form div.view-mode-textarea.message-number {
+form input.message-number, form .instead-of-input.message-number {
     width: 10em;
 }
 
@@ -448,7 +447,7 @@ form input.message-number, form div.view-mode-textarea.message-number {
     display: none;
 }
 
-div.view-mode-textarea {
+.instead-of-input {
     background-color: white;
     font-weight: bold;
     font-size: 10pt;
@@ -525,6 +524,24 @@ td.rotated:not(.not-rotated) > div > div::after, th.rotated:not(.not-rotated) > 
    }
    .print-only {
        display: block;
+   }
+   span.print-only {
+       display: inline;
+   }
+   .print-none,
+   form input.print-none,
+   form textarea.print-none,
+   form fieldset input.print-none,
+   form .horizontal input.print-none,
+   form label.label-sameline input.print-none,
+   form label.label-sameline select.print-none,
+   form td.label-sameline>input.print-none,
+   form td.label-sameline>label>input.print-none,
+   form td.label-sameline>div.required-group>input.print-none,
+   form td.label-sameline>div.required-group>label>input.print-none,
+   table.same-line-label-layout>tr>th>input.print-none,
+   table.same-line-label-layout>tbody>tr>th>input.print-none {
+       display: none;
    }
    table {
       width: 100%;

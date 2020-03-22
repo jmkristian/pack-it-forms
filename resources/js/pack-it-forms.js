@@ -1043,10 +1043,11 @@ function on_report_type(complete) {
             array_for_each(field.querySelectorAll('option[value=""]'), function(option) {
                 option.disabled = complete;
                 option.hidden = complete;
-                option.style.display = complete ? "none" : null;
                 if (complete) {
+                    option.style.setProperty("display", "none");
                     option.style.removeProperty("background-color");
                 } else {
+                    option.style.removeProperty("display");
                     option.style.setProperty("background-color", "white");
                 }
             });
@@ -1316,16 +1317,21 @@ function setup_inputs(next) {
         });
         array_for_each(document.querySelector("#the-form").elements, function (el) {
             setup_input_from_classes(el);
-            var tagName = el.tagName.toLowerCase();
-            if (tagName == "input" && el.type == "text" && el.required && !el.value && el.disabled) {
+            if (el.type == "text" && el.required && !el.value && el.disabled) {
                 // For example, the operator's call sign if Outpost didn't supply one.
                 el.disabled = false;
             }
-            if (tagName == "textarea") {
-                el.addEventListener("input", check_not_blank);
-            } else if (MSIE_version &&
-                       (tagName == "select" ||
-                        (tagName == "input" && el.type == "radio"))) {
+            if (el.type == "text" || el.type == "textarea") {
+                var instead = create_instead_of_text(el);
+                instead.classList.add("print-only");
+                el.classList.add("print-none");
+                el.parentNode.insertBefore(instead, el);
+                el.addEventListener("input", function textareaInput(event) {
+                    check_not_blank(event);
+                    instead.innerHTML = text_to_HTML(event.target.value);
+                });
+            }
+            if (MSIE_version && (el.type == "radio" || el.tagName.toLowerCase() == "select")) {
                 // Work around a deficiency in IE:
                 el.addEventListener("blur", formChanged);
                 el.addEventListener("change", formChanged);
@@ -1365,8 +1371,8 @@ function setup_view_mode(next) {
             el.tabIndex = "-1"; // Don't tab to this element.
             if (el.type == "radio" || el.type == "checkbox") {
                 el.onclick = function() {return false;}; // not grayed out
-            } else if (el.type && el.type.substr(0, 6) == "select") {
-                var textDiv = create_text_div(el, el.options[el.selectedIndex].text);
+            } else if (el.tagName.toLowerCase() == "select") {
+                var textDiv = create_instead_of(el, el.options[el.selectedIndex].text);
                 textDiv.style.setProperty("white-space", "nowrap");
                 textDiv.style.width = get_style(el, "width") || (el.offsetWidth + "px");
                 textDiv.style.color = el.style.color;
@@ -1378,15 +1384,10 @@ function setup_view_mode(next) {
                 newTextElements.push(textDiv);
             } else {
                 el.readOnly = "true";
-                if (el.type && el.type.substr(0, 4) == "text"
-                    && (el.value || el.type.substr(0, 8) == "textarea")) {
-                    // There's no need to replace an empty text input.
-                    var textDiv = create_text_div(el, el.value);
-                    if (el.style.width && string_ends_with(el.style.width, "em")) {
-                        textDiv.style.width = el.style.width;
-                    }
+                if ((el.type == "text" && el.value) // There's no need to replace an empty text input.
+                    || el.type == "textarea") {
+                    newTextElements.push(create_instead_of_text(el));
                     oldTextElements.push(el);
-                    newTextElements.push(textDiv);
                 }
             }
         });
@@ -1413,8 +1414,7 @@ function find_default_values() {
 
 /* Test whether the end of one string matches another */
 function string_ends_with(str, val) {
-    var end = str.substring(str.length - val.length);
-    return end == val;
+    return str && (str.substring(str.length - val.length) == val);
 }
 
 /* Simple padded number output string */
@@ -1427,21 +1427,35 @@ function padded_int_str(num, cnt) {
     return s;
 }
 
-/* Create a DIV element that contains oldText.value and lays out like oldText. */
-function create_text_div(oldText, value) {
-    var newText = document.createElement("div");
-    newText.classList.add("view-mode-textarea");
-    for (var c = 0; c < oldText.classList.length; ++c) {
-        var clazz = oldText.classList.item(c);
+function create_instead_of_text(input) {
+    var instead = create_instead_of(input, input.value);
+    var width = get_style(input, "width");
+    if (width && string_ends_with(width, "em")) {
+        instead.style.width = width;
+    }
+    return instead;
+}
+
+/* Create an element that contains value and lays out like input. */
+function create_instead_of(input, value) {
+    var instead = document.createElement(get_style(input, "display") == "block" ? "div" : "span");
+    instead.classList.add("instead-of-input");
+    for (var c = 0; c < input.classList.length; ++c) {
+        var clazz = input.classList.item(c);
         if (clazz != "invalid") {
-            newText.classList.add(clazz);
+            instead.classList.add(clazz);
         }
     }
-    newText.style.display = get_style(oldText, "display");
-    var textNode = document.createTextNode(value);
-    newText.appendChild(textNode);
-    newText.innerHTML = newText.innerHTML.replace(/(\r?\n)/g, "<br/>$1");
-    return newText;
+    instead.innerHTML = text_to_HTML(value);
+    return instead;
+}
+
+function text_to_HTML(text) {
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/(\r?\n)/g, "<br/>$1");
 }
 
 var get_style = ((typeof window.getComputedStyle) == "function")
@@ -1793,17 +1807,15 @@ var integration = {
         the_form.reset();
         on_report_type(false);
         array_for_each(the_form.elements, function(element) {
-            if (element.type) {
-                if (element.type.substr(0, 8) == "textarea") {
-                    // Make Internet Explorer re-evaluate whether it's valid:
-                    var oldValue = element.value;
-                    element.value = oldValue + ".";
-                    element.value = oldValue;
-                } else if (element.type == "checkbox" ||
-                           element.type.substr(0, 6) == "select") {
-                    // Trigger any side-effects:
-                    fireEvent(element, "change");
-                }
+            if (element.type == "textarea") {
+                // Make Internet Explorer re-evaluate whether it's valid:
+                var oldValue = element.value;
+                element.value = oldValue + ".";
+                element.value = oldValue;
+            } else if (element.type == "checkbox" ||
+                       element.tagName.toLowerCase() == "select") {
+                // Trigger any side-effects:
+                fireEvent(element, "change");
             }
         });
         set_form_default_values();
