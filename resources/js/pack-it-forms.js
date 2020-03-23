@@ -1229,7 +1229,7 @@ function setup_input_from_classes(input) {
         input.title = input.placeholder;
     }
     if (input.type == "textarea") {
-        check_not_blank({target: input});
+        check_not_blank(input);
     } else if (input.type == "text") {
         if (input.required) {
             if (!pattern) {
@@ -1257,8 +1257,7 @@ function setup_input_from_classes(input) {
     }
 }
 
-function check_not_blank(event) {
-    var input = event.target;
+function check_not_blank(input) {
     if (input.required && !(input.value && input.value.trim())) {
         input.classList.add("invalid");
     } else {
@@ -1324,12 +1323,23 @@ function setup_inputs(next) {
             if (el.type == "text" || el.type == "textarea") {
                 var instead = create_instead_of_text(el);
                 instead.classList.add("print-only");
-                el.classList.add("print-none");
+                var updateInsteadOfText = function updateInsteadOfText() {
+                    if (el.type == "textarea") {
+                        check_not_blank(el);
+                    }
+                    if (el.value) {
+                        instead.innerHTML = text_to_HTML(el.value);
+                        instead.style.removeProperty("display")
+                        el.classList.add("print-none");
+                    } else { // There's no need to replace empty text.
+                        instead.innerHTML = "";
+                        instead.style.setProperty("display", "none")
+                        el.classList.remove("print-none");
+                    }
+                };
+                updateInsteadOfText();
                 el.parentNode.insertBefore(instead, el);
-                el.addEventListener("input", function textareaInput(event) {
-                    check_not_blank(event);
-                    instead.innerHTML = text_to_HTML(event.target.value);
-                });
+                el.addEventListener("input", updateInsteadOfText);
             }
             if (MSIE_version && (el.type == "radio" || el.tagName.toLowerCase() == "select")) {
                 // Work around a deficiency in IE:
