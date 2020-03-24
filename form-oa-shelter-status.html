@@ -37,6 +37,9 @@
               availability.style.removeProperty("background-color");
           }
       }
+      function copyShelterName(input) {
+          document.getElementById('shelter-name-copy').innerHTML = text_to_HTML(input.value);
+      }
     </script>
     <title>Shelter Status</title>
   </head>
@@ -79,7 +82,7 @@
                 <th style="padding-left:2em;">Shelter Name:</th>
                 <td class="label-sameline">
                   <input name="32.shelter-name" type="text" required tabindex="29"
-                         onchange="document.getElementById('shelter-name-copy').value = this.value"/>
+                         onchange="copyShelterName(this)" oninput="copyShelterName(this)"/>
                 </td>
               </tr>
             </table>
@@ -109,7 +112,7 @@
           </td>
         </tr><tr>
           <td>Name:</td>
-          <td><input id="shelter-name-copy" type="text" disabled tabindex="-1"/></td>
+          <td><span id="shelter-name-copy" class="instead-of-input"></span>
         </tr><tr>
           <td>Address:</td>
           <td><input type="text" name="33a.shelter-address" class="required-for-complete" tabindex="33"/></td>
