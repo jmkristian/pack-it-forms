@@ -1382,13 +1382,17 @@ function setup_view_mode(next) {
             if (el.type == "radio" || el.type == "checkbox") {
                 el.onclick = function() {return false;}; // not grayed out
             } else if (el.tagName.toLowerCase() == "select") {
-                var textDiv = create_instead_of(el, el.options[el.selectedIndex].text);
+                var value = el.options[el.selectedIndex].text;
+                var textDiv = create_instead_of(el, value);
                 textDiv.style.setProperty("white-space", "nowrap");
                 textDiv.style.width = get_style(el, "width") || (el.offsetWidth + "px");
                 textDiv.style.color = el.style.color;
                 backgroundColor = el.style["background-color"];
                 if (backgroundColor) {
                     textDiv.style.setProperty("background-color", backgroundColor);
+                }
+                if (!value) {
+                    textDiv.innerHTML = "&nbsp;"
                 }
                 oldTextElements.push(el);
                 newTextElements.push(textDiv);
@@ -1461,7 +1465,7 @@ function create_instead_of(input, value) {
 }
 
 function text_to_HTML(text) {
-    return text
+    return !text ? "" : text
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
