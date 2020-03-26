@@ -28,9 +28,6 @@ h1 {
     vertical-align: top;
     margin-top: 0
 }
-.print-only {
-    display: none;
-}
 footer {
     font-weight: bold;
     text-align: center;
@@ -112,7 +109,15 @@ form input {
     display: inline-block;
 }
 form input[type="text"] {
+    /* A text input whose width is not specified is as wide as its container.
+       If there are other elements in the same line, the line will extend outside the container.
+       To keep things inside the container, we often put the input on a line by itself:
+     */
     display: block;
+    /* To make a wide text input fit in the same line as other elements,
+       put the line inside a <tr> in a <table class="same-line-label-layout">.
+       Put the text input in its own <td>, and the other elements in other <td> or <th>.
+     */
     font-weight: bold;
     font-size: 10pt;
     font-family: consolas,monaco,profont,monospace;
@@ -385,31 +390,43 @@ form input.init-on-submit {
     background-color: transparent;
     border-color: transparent;
 }
-form input.call-sign, form .instead-of-input.call-sign {
+form input[type="text"].call-sign, form .instead-of-input.call-sign {
     width: 6em;
+    display: inline-block;
 }
-form input.cardinal-number, form .instead-of-input.cardinal-number {
+form input[type="text"].cardinal-number {
     text-align: right;
     width: 4em;
+    display: inline-block;
 }
-form input.real-number, form input.frequency, form input.frequency-offset {
+form input[type="text"].real-number,
+form input[type="text"].frequency,
+form input[type="text"].frequency-offset {
     text-align: right;
     width: 6em;
+    display: inline-block;
 }
-form .instead-of-input.frequency, form .instead-of-input.frequency-offset {
+form .instead-of-input.cardinal-number,
+form .instead-of-input.real-number,
+form .instead-of-input.frequency,
+form .instead-of-input.frequency-offset {
     white-space: nowrap;
 }
-form input.phone-number, form .instead-of-input.phone-number {
+form input[type="text"].phone-number, form .instead-of-input.phone-number {
     width: 11em;
+    display: inline-block;
 }
-form input.date, form .instead-of-input.date {
+form input[type="text"].date, form .instead-of-input.date {
     width: 6em;
+    display: inline-block;
 }
-form input.time, form .instead-of-input.time {
+form input[type="text"].time, form .instead-of-input.time {
     width: 6em;
+    display: inline-block;
 }
-form input.message-number, form .instead-of-input.message-number {
+form input[type="text"].message-number, form .instead-of-input.message-number {
     width: 10em;
+    display: inline-block;
 }
 
 /* Prevent things from getting overly wide or narrow */
@@ -448,7 +465,7 @@ form input.message-number, form .instead-of-input.message-number {
     display: none;
 }
 
-.instead-of-input {
+form .instead-of-input {
     background-color: white;
     font-weight: bold;
     font-size: 10pt;
@@ -459,6 +476,13 @@ form input.message-number, form .instead-of-input.message-number {
     overflow-wrap: break-word;
     word-wrap: break-word;/* an archaic synonym for overflow-wrap */
     word-break: break-word;
+}
+.print-only, form .instead-of-input.print-only {
+    /* It's important that this "form .instead-of-input.print-only"
+       comes after the previous "form .instead-of-input.*" selectors.
+       They have equal specificity, and we want this one to win.
+   */
+    display: none;
 }
 
 /* Rotation for headers.  Inspiration: http://kizu.ru/en/fun/rotated-text/ */
@@ -523,14 +547,15 @@ td.rotated:not(.not-rotated) > div > div::after, th.rotated:not(.not-rotated) > 
    #loading,#button-header,#form-data-form {
        display: none;
    }
-   .print-only {
+   .print-only, form .instead-of-input.print-only {
        display: block;
    }
-   span.print-only {
+   span.print-only, form span.instead-of-input.print-only {
        display: inline;
    }
    .print-none,
    form input.print-none,
+   form input[type="text"].print-none,
    form textarea.print-none,
    form fieldset input.print-none,
    form .horizontal input.print-none,

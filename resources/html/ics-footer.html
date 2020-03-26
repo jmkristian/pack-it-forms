@@ -76,7 +76,7 @@
             </label>
           </span>
         </td><td colspan="2" class="border-left">
-          <label class="label-sameline">Operator Call Sign:
+          <label>Operator Call Sign:
             <input class="call-sign no-msg-init include-in-submit" name="OpCall" type="text" tabindex="508"
                    disabled="disabled" required="required"
                    value="{{envelope:viewer_operator_call_sign}}"/>
@@ -128,13 +128,13 @@
             <input name="Other" type="text" value="Packet" tabindex="-1"/>
           </label>
         </td><td class="border-left">
-          <label class="label-sameline">Date:
+          <label>Date:
             <input name="OpDate" type="text" tabindex="510"
                    class="date no-msg-init init-on-submit" disabled="disabled"
                    value="{{expand-while-null:{{envelope:viewer_date}},{{open-tmpl}}date{{close-tmpl}}}}"/>
           </label>
         </td><td>
-          <label class="label-sameline">Time:
+          <label>Time:
             <input name="OpTime" type="text" tabindex="511"
                    class="time no-msg-init init-on-submit" disabled="disabled"
                    value="{{expand-while-null:{{envelope:viewer_time}},{{open-tmpl}}time{{close-tmpl}}}}"/>
