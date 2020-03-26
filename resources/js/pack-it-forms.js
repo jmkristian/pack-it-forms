@@ -131,13 +131,6 @@ function init_form(next) {
     window.setTimeout(function () {
         find_default_values();
         set_form_default_values();
-        var first_field = document.querySelector("#the-form :invalid");
-        if (first_field) {
-            first_field.focus();
-        } else {
-            the_form[0].focus();
-        }
-        check_the_form_validity();
         write_message_to_form_data();
         next();
     }, 10);
@@ -1356,7 +1349,7 @@ function setup_view_mode(next) {
         hide_element(document.querySelector("#invalid-example"));
         /* In view mode, we don't want to show the input control chrome.  This
            is difficult to do with textareas which might need scrollbars, etc.
-           so replace it with a div that contains the same text. */
+           so replace it with a div or span that contains the same text. */
         var oldTextElements = [];
         var newTextElements = [];
         array_for_each(document.querySelector("#the-form").elements, function (el) {
@@ -1609,6 +1602,13 @@ function load_form_version(next) {
 }
 
 function remove_loading_overlay(next) {
+    check_the_form_validity();
+    var first_field =
+        document.querySelector("#the-form :invalid") ||
+        document.getElementById("the-form")[0];
+    if (first_field) {
+        first_field.focus();
+    }
     var el = document.querySelector("#loading");
     if (el) {
         el.classList.add("done");
