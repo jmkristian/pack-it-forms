@@ -13,7 +13,7 @@
           <option value="Email">Email</option>
           <option value="Voice">Voice</option>
         </select>
-        <label class="label-sameline">by</label>
+        <label>by</label>
         <input name="OpCall" type="text" tabindex="508"
                class="call-sign no-msg-init"
                placeholder="call sign"
@@ -24,11 +24,11 @@
                placeholder="operator name"
                disabled="disabled" required="required"
                value="{{envelope:viewer_operator_name}}"/>
-        <label class="label-sameline">on</label>
+        <label>on</label>
         <input name="OpDate" type="text"
                class="date no-msg-init" disabled="disabled"
                value="{{expand-while-null:{{envelope:viewer_date}},{{open-tmpl}}date{{close-tmpl}}}}"/>
-        <label class="label-sameline">at</label>
+        <label>at</label>
         <input name="OpTime" type="text"
                class="time no-msg-init" disabled="disabled"
                value="{{expand-while-null:{{envelope:viewer_time}},{{open-tmpl}}time{{close-tmpl}}}}"/>

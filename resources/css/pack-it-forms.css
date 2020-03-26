@@ -109,9 +109,10 @@ label.intext {
 }
 
 form input {
-    display: block;
+    display: inline-block;
 }
 form input[type="text"] {
+    display: block;
     font-weight: bold;
     font-size: 10pt;
     font-family: consolas,monaco,profont,monospace;
