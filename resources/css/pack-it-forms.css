@@ -61,20 +61,19 @@ table.same-line-label-layout {
 }
 table.same-line-label-layout>tr>th, table.same-line-label-layout>tbody>tr>th {
     border: none;
+    font-weight: bold;
     margin: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
-    font-weight: bold;
+    vertical-align: top;
     white-space: nowrap;
     width: 1px;
-    vertical-align: middle;
 }
 table.same-line-label-layout>tr>td, table.same-line-label-layout>tbody>tr>td {
     border: none;
     margin: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
-    vertical-align: middle;
 }
 table.same-line-label-layout>tr>th>label,  table.same-line-label-layout>tbody>tr>th>label,
 table.same-line-label-layout>tr>th>input,  table.same-line-label-layout>tbody>tr>th>input,

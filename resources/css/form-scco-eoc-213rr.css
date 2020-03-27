@@ -1,7 +1,6 @@
 table.same-line-label-layout>tr>th,
 table.same-line-label-layout>tbody>tr>th {
     text-align: left;
-    vertical-align: top;
 }
 div.print-only td.rotated:not(.not-rotated) {
     padding-top: 0;
