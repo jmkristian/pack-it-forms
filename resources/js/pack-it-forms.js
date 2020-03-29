@@ -102,21 +102,7 @@ function startup() {
 
 window.onload=startup;
 
-/* --- Initialize the form as required by query parameters */
-
-/* Initialize a form
-
-The form field values will either be set from the form data message
-contents found in one of these locations in order of preference:
-
-1. the textContent of the div with ID "form-data"
-2. a file at the location "msgs/<fragment-id>", where <fragment-id>
-   is the fragment identifier from the URL of the document.
-
-If no form data exists in any of these locations a new form will be
-filled with default contents.  The default data filling includes
-reading the Outpost query string parameters, which should allow for
-good Outpost integration. */
+/** Initialize form values. */
 function init_form(next) {
     // Setup focus tracking within the form
     var the_form = document.querySelector("#the-form");
@@ -124,14 +110,9 @@ function init_form(next) {
     the_form.addEventListener("focus", function (ev) {
         last_active_form_element = ev.target;
     }, true);
-    the_form.addEventListener("input", formChanged);
-
-    /* Wait 10ms to force Javascript to yield so that the DOM can be
-     * updated before we do other work. */
-    window.setTimeout(function () {
+    window.setTimeout(function() { // Wait for the DOM to be updated.
         find_default_values();
         set_form_default_values();
-        write_message_to_form_data();
         next();
     }, 10);
 }
@@ -157,6 +138,7 @@ function add_form_default_values(values) {
     in the form of an object {"fieldName": "fieldValue", ...}.
 */
 function get_message_fields(message) {
+    document.querySelector("#form-data").value = message;
     // A field value may be split across several lines,
     // some of which may begin with '#' or '!'.
     var fields = {};
@@ -1314,7 +1296,8 @@ function setup_inputs(next) {
                     }
                 }});
         });
-        array_for_each(document.querySelector("#the-form").elements, function (el) {
+        var the_form = document.querySelector("#the-form");
+        array_for_each(the_form.elements, function (el) {
             setup_input_from_classes(el);
             if (el.type == "text" && el.required && !el.value && el.disabled) {
                 // For example, the operator's call sign if Outpost didn't supply one.
@@ -1348,6 +1331,8 @@ function setup_inputs(next) {
             }
         });
         setupRequiredGroups();
+        the_form.addEventListener("input", formChanged);
+        write_message_to_form_data();
     }
     next();
 }
@@ -1762,9 +1747,8 @@ startup_functions.push(call_integration("load_configuration"));
 startup_functions.push(load_form_configuration);
 startup_functions.push(setup_select_colors);
 startup_functions.push(call_integration("get_old_message"));
-startup_functions.push(init_form);
+startup_functions.push(init_form); // must come after get_old_message
 startup_functions.push(setup_inputs);
-// This must come after get_old_message in the startup functions
 startup_functions.push(setup_view_mode);
 // These must be the last startup functions added
 //startup_functions.push(startup_delay);  // Uncomment to test loading overlay
