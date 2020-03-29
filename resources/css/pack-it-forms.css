@@ -115,7 +115,7 @@ form input[type="text"] {
      */
     display: block;
     /* To make a wide text input fit in the same line as other elements,
-       put the line inside a <tr> in a <table class="same-line-label-layout">.
+       make the line a <tr> in a <table> (perhaps with class="same-line-label-layout").
        Put the text input in its own <td>, and the other elements in other <td> or <th>.
      */
     font-weight: bold;

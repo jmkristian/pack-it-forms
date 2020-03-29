@@ -190,6 +190,10 @@
         });
     };
 
+    /** Initialize envelope and msgfields.
+        msgfields is set from the text message found in the file named
+        "msgs/X", where X is the "msgno" query string parameter value.
+    */
     var get_old_message = function get_old_message(next) {
         var query = query_string_to_object();
         envelope.viewer = query.msgno ? "receiver" : "sender";
