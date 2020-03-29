@@ -1,6 +1,6 @@
 <div>
   <div class="version">0.1.0</div>
-  <table class="noborder" style="width:auto;">
+  <table class="noborder" style="width:100%;">
     <tr class="horizontal">
       <td>
         <select disabled="disabled" tabindex="-1" data-default-value="{{envelope:viewer}}">
@@ -15,22 +15,22 @@
         </select>
         <label>by</label>
         <input name="OpCall" type="text" tabindex="508"
-               class="call-sign no-msg-init"
+               class="call-sign no-msg-init include-in-submit"
                placeholder="call sign"
                disabled="disabled" required="required"
                value="{{envelope:viewer_operator_call_sign}}"/>
         <input name="OpName" type="text" tabindex="509"
-               class="no-msg-init" style="width:12em;"
+               class="no-msg-init include-in-submit" style="width:8em;"
                placeholder="operator name"
                disabled="disabled" required="required"
                value="{{envelope:viewer_operator_name}}"/>
         <label>on</label>
         <input name="OpDate" type="text"
-               class="date no-msg-init" disabled="disabled"
+               class="date no-msg-init include-in-submit" disabled="disabled"
                value="{{expand-while-null:{{envelope:viewer_date}},{{open-tmpl}}date{{close-tmpl}}}}"/>
         <label>at</label>
         <input name="OpTime" type="text"
-               class="time no-msg-init" disabled="disabled"
+               class="time no-msg-init include-in-submit" disabled="disabled"
                value="{{expand-while-null:{{envelope:viewer_time}},{{open-tmpl}}time{{close-tmpl}}}}"/>
       </td>
     </tr>

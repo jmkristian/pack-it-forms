@@ -221,6 +221,18 @@
       <table style="border-top:1px solid #aaaaaa;">
         <tr>
           <td>
+            Written
+            at <span data-default-value="{{msg-field:OpTime}}"></span>
+            on <span data-default-value="{{msg-field:OpDate}}"></span>
+            <br/>
+            by <span data-default-value="{{msg-field:OpName}}"></span>
+            <span data-default-value="{{msg-field:OpCall}}"></span>
+          </td>
+        </tr>
+      </table>
+      <table class="print-none"><!-- Not interesting to the served agency, we suppose. -->
+        <tr>
+          <td>
             Sent
             at <span data-default-value="{{envelope:sender_time}}"></span>
             on <span data-default-value="{{envelope:sender_date}}"></span>

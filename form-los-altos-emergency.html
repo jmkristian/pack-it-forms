@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="resources/css/ics-footer.css"/>
     <style>
       #the-form {
-          max-width: 5.5in;
           max-width: 7.5in;
       }
       table.same-line-label-layout>tr>th, table.same-line-label-layout>tbody>tr>th {
@@ -45,8 +44,8 @@
           <td colspan="2">
             <h2 style="margin-top:0px;">Los Altos Emergency Report</h2>
           </td>
-          <th>Message number:</th>
-          <td style="width:12em;padding-left:0.5em;vertical-align:middle;">
+          <th style="vertical-align:middle;">Message number:</th>
+          <td style="vertical-align:middle;padding-left:0.5em;">
             <input name="MsgNo" type="text" class="message-number" required
                    value="{{envelope:sender_message_number}}"/>
           </td>
@@ -79,7 +78,7 @@
             <th>Name:</th>
             <td><input name="24.rp" type="text"/></td>
           </tr><tr>
-            <th style="vertical-align:top;">Address:</th>
+            <th>Address:</th>
             <td>
               <input name="25b.same-address" type="checkbox"
                      onclick="on_checked(this, {'25.address': {enable: false, onMatch: {value: ''}}});"/>

@@ -12,11 +12,12 @@
       td.label {
           font-weight: bold;
           text-align: right;
-          vertical-align: middle;
+          vertical-align: top;
       }
     </style>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
+    <meta name="pack-it-forms-subject-suffix" content="_Urgent_{{field:10.subject}}">
     <title>Urgent Report</title>
   </head>
 
@@ -73,11 +74,9 @@
             <input name="2.txmsgno" type="text" readOnly="true"
                    value="{{expand-while-null:{{envelope:receiver_message_number|view-by:sender}},{{envelope:sender_message_number|view-by:receiver}}}}"
           </td>
-        </tr>
-      </table>
-      <table>
-        <tr>
-          <td class="label" style="text-align:left;vertical-align:top;">Notes/Actions:
+        </tr><tr>
+          <td colspan="4">
+            <b>Notes/Actions:</b>
             <textarea name="24.notes" rows="6" tabindex="30"></textarea>
           </td>
         </tr>
@@ -121,10 +120,16 @@
           </td>
         </tr>
       </table>
-      <input name="OpCall" type="text" class="call-sign hidden" hidden="hidden" tabindex="-1"
-             value="{{envelope:sender_operator_call_sign}}"/>
-      <input name="OpName" type="text" class="hidden" hidden="hidden" tabindex="-1"
-             value="{{envelope:sender_operator_name}}"/>
+      <span style="display:none;" hidden>
+        <input name="OpName" type="text" tabindex="-1"
+               value="{{envelope:sender_operator_name}}"/>
+        <input name="OpCall" type="text" class="call-sign" tabindex="-1"
+               value="{{envelope:sender_operator_call_sign}}"/>
+        <input name="OpDate" type="text" class="date" tabindex="-1"
+               value="{{envelope:sender_date}}"/>
+        <input name="OpTime" type="text" class="time" tabindex="-1"
+               value="{{envelope:sender_time}}"/>
+      </span>
     </form>
     <div data-include-html="submit-buttons"></div>
   </body>
