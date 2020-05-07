@@ -389,7 +389,7 @@ To link from the form to a PDF version (suitable for printing),
 add the PDF file into the resources/pdf folder and
 add a tag like this inside the HTML \<head\>:
 
-    <meta name="pack-it-forms-pdf-URL" content="resources/pdf/File_Name.pdf"/>
+    <meta name="pack-it-forms-pdf-URL" content="pdf/File_Name.pdf"/>
 
 By default, the subject of the message submitted to Outpost is
 Santa Clara County's standard for an ICS-213 message; that is
