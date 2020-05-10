@@ -93,14 +93,16 @@
       <table>
         <tr>
           <td>
-            Received Date/Time:
-            <input name="sentDate" type="text" class="date" value="{{date}}" required/>
+            Sent Date/Time:
+            <input type="text" name="OpDate" class="date no-msg-init init-on-submit"
+                   disabled value="{{expand-while-null:{{envelope:sender_date}},{{open-tmpl}}date{{close-tmpl}}}}"/>
             &nbsp;
-            <input name="sentTime" type="text" class="time" value="{{time}}" required/>
+            <input type="text" name="OpTime" class="time no-msg-init init-on-submit"
+                   disabled value="{{expand-while-null:{{envelope:sender_time}},{{open-tmpl}}time{{close-tmpl}}}}"/>
           </td><td>
             By FCC Callsign:
             <input type="text" name="OpCall" class="no-msg-init include-in-submit call-sign"
-                   value="{{envelope:sender_operator_call_sign}}" required/>
+                   required value="{{envelope:sender_operator_call_sign}}"/>
           </td><td>
             <table class="same-line-label-layout">
               <tr>

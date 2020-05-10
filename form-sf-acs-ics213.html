@@ -67,13 +67,15 @@
         <tr>
           <td>
             Sent/Rec'd Date/Time:
-            <input name="sentDate" type="text" class="date" value="{{date}}" required/>
+            <input type="text" name="OpDate" class="date no-msg-init init-on-submit"
+                   disabled value="{{expand-while-null:{{envelope:viewer_date}},{{open-tmpl}}date{{close-tmpl}}}}"/>
             &nbsp;
-            <input name="sentTime" type="text" class="time" value="{{time}}" required/>
+            <input type="text" name="OpTime" class="time no-msg-init init-on-submit"
+                   disabled value="{{expand-while-null:{{envelope:viewer_time}},{{open-tmpl}}time{{close-tmpl}}}}"/>
           </td><td>
             FCC callsign:
             <input type="text" name="OpCall" class="no-msg-init include-in-submit call-sign"
-                   value="{{envelope:sender_operator_call_sign}}" required/>
+                   value="{{envelope:viewer_operator_call_sign}}" required/>
           </td><td>
             <table class="same-line-label-layout">
               <tr>
