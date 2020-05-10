@@ -7,6 +7,14 @@
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
     <meta name="pack-it-forms-subject-suffix" content="_ICS213_{{field:10.subject}}">
+    <style>
+      table.same-line-label-layout>tr>td.label, table.same-line-label-layout>tbody>tr>td.label {
+          width: 1px;
+      }
+      label {
+          font-weight: normal;
+      }
+    </style>
     <title>ACS General Message</title>
   </head>
 
@@ -21,35 +29,72 @@
       </div>
     </div>
     <form id="the-form" name="the-form">
-      <div data-include-html="scco-header">
+      <div data-include-html="sf-acs-header">
         {
-            "header-title": "ACS General Message Form",
-            "header-version": "SFOA 04/08&lt;br/&gt;8PIF: {{version}}"
+            "header-title": "ACS General Message Form"
         }
       </div>
-      <table style="page-break-inside:avoid;">
+      <table>
         <tr>
           <td>
+            Message #:
+            <input type="text" name="MsgNo" class="message-number"
+                   value="{{envelope:sender_message_number}}" required/>
+          </td><td>
+            <label><input name="emergency" type="checkbox"/>Emergency</label>
+            <br/>
+            <label><input name="replyRequired" type="checkbox"/>Reply Required</label>
+          </td><td>
+            Date:
+            <input type="text" name="date" class="date" value="{{date}}" required="required"/>
+          </td><td>
+            Time:
+            <input type="text" name="time" class="time" required="required"/>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td class="block-caption">Message:</td>
+        </tr><tr>
+          <td>
+            <textarea name="message" rows="6" cols="80" wrap="hard" required></textarea>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td>
+            Sent/Rec'd Date/Time:
+            <input name="sentDate" type="text" class="date" value="{{date}}" required/>
+            &nbsp;
+            <input name="sentTime" type="text" class="time" value="{{time}}" required/>
+          </td><td>
+            FCC callsign:
+            <input name="fccCallSign" type="text" class="call-sign" required/>
+          </td><td>
             <table class="same-line-label-layout">
               <tr>
-                <th>Subject:<span class="field-number">10</span>
-                </th>
-                <td>
-                  <input name="10.subject" type="text" required tabindex="30"/>
+                <td class="label">Tactical callsign:
+                </td><td>
+                  <input name="tacticalCallSign" type="text"/>
                 </td>
               </tr>
             </table>
           </td>
-        </tr><tr>
-          <td>
-            <label>Message:
-              <textarea name="12.message" rows="6" cols="80" wrap="hard" required tabindex="32"></textarea>
-            </label>
-          </td>
+        </tr>
       </table>
-      <br/>
-      <div data-include-html="scco-footer"></div>
     </form>
+    <br/>
+    <table class="same-line-label-layout">
+      <tr>
+        <td>ICS 213</td>
+        <td style="text-align:center;">
+          <span class="templated">PIF: {{version}}<span>
+        </td>
+        <td style="text-align:right;">SFOA 04/08</td>
+      </tr>
+    </table>
     <div data-include-html="submit-buttons"></div>
   </body>
 </html>

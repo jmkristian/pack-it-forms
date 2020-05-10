@@ -7,7 +7,19 @@
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
     <meta name="pack-it-forms-subject-suffix" content="_ICS213_{{field:10.subject}}">
-    <title>ACS Battalion Message</title>
+    <style>
+      table.same-line-label-layout>tr>td.label, table.same-line-label-layout>tbody>tr>td.label {
+          width: 1px;
+      }
+      td.block-caption {
+          font-size: 125%;
+          text-align: center;
+      }
+      label {
+          font-weight: normal;
+      }
+    </style>
+    <title>ACS General Message</title>
   </head>
 
   <body>
@@ -21,35 +33,94 @@
       </div>
     </div>
     <form id="the-form" name="the-form">
-      <div data-include-html="scco-header">
+      <table class="same-line-label-layout" style="margin-bottom:1em;">
+        <tr>
+          <th colspan="2" style="font-size:150%;text-align:left;">ACS Battalion Message Form</th>
+          <td style="text-align:right;">
+            Message Number:
+            <input name="MsgNo" type="text" class="message-number" required/>
+          </td>
+        </tr><tr>
+          <th style="font-size:150%;text-align:left;">FORM 213A</th>
+          <td colspan="2" style="text-align:right;">Originator's
+            Date: <input name="originDate" type="text" class="date" value="{{date}}" required/>
+            Time: <input name="originTime" type="text" class="time" required/>
+          </td>
+        </tr>
+      </table>
+      <div data-include-html="sf-acs-header">
         {
-            "header-title": "ACS Battalion Message Form&lt;br/&gt;FORM 213A",
-            "header-version": "v5 17Nov2011&lt;br/&gt;PIF: {{version}}"
+            "header-title": "Battalion Message"
         }
       </div>
-      <table style="page-break-inside:avoid;">
+      <table>
+        <tr>
+          <td>Subject:
+            <input name="subject" type="text" required/>
+          </td><td>
+            <div class="required-group">
+              <label title="Original">
+                <input name="originalOrReply" type="radio" value="Original" required/>
+                Original
+              </label><br/><label title="Reply">
+                <input name="originalOrReply" type="radio" value="Reply" required/>
+                Reply
+              </label>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td class="block-caption">Incident Description</td>
+        </tr><tr>
+          <td>
+            <label><input name="fireOrHazmat" type="checkbox"/>FIRE or HAZMAT</label>
+            &nbsp;<label><input name="medical" type="checkbox"/>MEDICAL</label>
+            &nbsp;<label><input name="medical" type="checkbox"/>RESCUE</label>
+          </td>
+        </tr>
+      </table>
+      <table>
         <tr>
           <td>
+            Message: (What, Where, When, How)
+            <textarea name="message" rows="6" cols="80" wrap="hard" required></textarea>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td>
+            Received Date/Time:
+            <input name="sentDate" type="text" class="date" value="{{date}}" required/>
+            &nbsp;
+            <input name="sentTime" type="text" class="time" value="{{time}}" required/>
+          </td><td>
+            By FCC Callsign:
+            <input name="fccCallSign" type="text" class="call-sign" required/>
+          </td><td>
             <table class="same-line-label-layout">
               <tr>
-                <th>Subject:<span class="field-number">10</span>
-                </th>
-                <td>
-                  <input name="10.subject" type="text" required tabindex="30"/>
+                <td class="label">Tactical Callsign:
+                </td><td>
+                  <input name="tacticalCallSign" type="text"/>
                 </td>
               </tr>
             </table>
           </td>
-        </tr><tr>
-          <td>
-            <label>Message:
-              <textarea name="12.message" rows="6" cols="80" wrap="hard" required tabindex="32"></textarea>
-            </label>
-          </td>
+        </tr>
       </table>
-      <br/>
-      <div data-include-html="scco-footer"></div>
     </form>
+    <br/>
+    <table class="same-line-label-layout">
+      <tr>
+        <td style="text-align:left;">
+          <span class="templated">PIF: {{version}}<span>
+        </td>
+        <td style="text-align:right;">v5 17Nov2011</td>
+      </tr>
+    </table>
     <div data-include-html="submit-buttons"></div>
   </body>
 </html>
