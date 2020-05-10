@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="resources/css/loading.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
+    <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
+    <script type="text/javascript" src="resources/integration/integration.js"></script>
+    <meta name="pack-it-forms-subject-suffix" content="_ICS213_{{field:10.subject}}">
+    <title>ACS Battalion Message</title>
+  </head>
+
+  <body>
+    <div class="version">2.1</div>
+    <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
+    <div id="err">
+      <div>
+        <h1>Something went wrong.</h1>
+        The following log information may help resolve the problem.
+        <div id="error-log"></div>
+      </div>
+    </div>
+    <form id="the-form" name="the-form">
+      <div data-include-html="scco-header">
+        {
+            "header-title": "ACS Battalion Message Form&lt;br/&gt;FORM 213A",
+            "header-version": "v5 17Nov2011&lt;br/&gt;PIF: {{version}}"
+        }
+      </div>
+      <table style="page-break-inside:avoid;">
+        <tr>
+          <td>
+            <table class="same-line-label-layout">
+              <tr>
+                <th>Subject:<span class="field-number">10</span>
+                </th>
+                <td>
+                  <input name="10.subject" type="text" required tabindex="30"/>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr><tr>
+          <td>
+            <label>Message:
+              <textarea name="12.message" rows="6" cols="80" wrap="hard" required tabindex="32"></textarea>
+            </label>
+          </td>
+      </table>
+      <br/>
+      <div data-include-html="scco-footer"></div>
+    </form>
+    <div data-include-html="submit-buttons"></div>
+  </body>
+</html>
