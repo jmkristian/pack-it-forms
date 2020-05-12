@@ -3,7 +3,7 @@
 @rmdir /Q /S built\addons
 @mkdir built\addons
 @copy "%~dp0Los_Altos.nsi" built\addon.nsi
-@node bin/Outpost_Forms.js build %VersionMajor%.%VersionMinor% ^
+@node bin/build.js build %VersionMajor%.%VersionMinor% ^
   Los_Altos bin\Outpost_Forms.exe "Outpost for LAARES"
 @if %errorlevel% neq 0 exit /b %errorlevel%
 @"C:\Program Files (x86)\NSIS\makensis.exe" ^
@@ -18,7 +18,7 @@
 @rmdir /Q /S built\addons
 @mkdir built\addons
 @copy "%~dp0SCCoPIFO.nsi" built\addon.nsi
-@node bin/Outpost_Forms.js build %VersionMajor%.%VersionMinor% ^
+@node bin/build.js build %VersionMajor%.%VersionMinor% ^
   SCCoPIFO bin\SCCoPIFO.exe "SCCo Pack-It-Forms for Outpost"
 @if %errorlevel% neq 0 exit /b %errorlevel%
 @"C:/Program Files (x86)/NSIS/makensis.exe" ^
