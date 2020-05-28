@@ -314,19 +314,25 @@ var init_from_msg_funcs = {
         }
     },
     "select-one": function (element, value) {
-        var member = false;
-        element.value = "Other";
-        array_for_each(element.options, function (option) {
+        var member = array_some(element.options, function(option) {
             if (option.value == value) {
                 element.value = value;
-                member = true;
+                return true;
             }
         });
-        /* If it is one of the standard options and has been set, then
-        there is no need for further processing.  However, if it is
-        not a standard option, that we must continue processing and
-        set it as the "other" field's value. */
-        return member;
+        if (member) { // The value matches one of the defined options.
+            return true; // No need for further processing.
+        }
+        member = array_some(element.options, function(option) {
+            if (option.value == "Other") {
+                element.value = "Other";
+                return true;
+            }
+        });
+        if (member) {
+            return false; // Continue processing, to set the "-other" field's value.
+        }
+        throw new Error("The field " + element.name + " can't be '" + value + "'.");
     },
     "checkbox": function (element, value) {
         // A value from a received message will be "checked" (or absent).
@@ -1367,7 +1373,9 @@ function setup_view_mode(next) {
             if (el.type == "radio" || el.type == "checkbox") {
                 el.onclick = function() {return false;}; // not grayed out
             } else if (el.tagName.toLowerCase() == "select") {
-                var value = el.options[el.selectedIndex].text;
+                var option = el.options[el.selectedIndex];
+                if (!option) throw new Error("The field " + el.name + " has no value");
+                var value = option.text;
                 var textDiv = create_instead_of(el, value);
                 textDiv.style.setProperty("white-space", "nowrap");
                 textDiv.style.width = get_style(el, "width") || (el.offsetWidth + "px");
