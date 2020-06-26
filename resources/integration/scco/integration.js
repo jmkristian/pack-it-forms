@@ -4,7 +4,7 @@
     var environment = integrationEnvironment;
     var message = integrationMessage;
     var status = environment.message_status;
-    envelope.viewer = (status == 'read' || status == 'unread') ? 'receiver' : 'sender';
+    envelope.viewer = (status == 'received') ? 'receiver' : 'sender';
     envelope.readOnly = (environment.mode == 'readonly');
     if (environment.MSG_NUMBER == '-1') { // a sentinel value
         delete environment.MSG_NUMBER;
@@ -132,7 +132,7 @@
                 + "&Content-Type=text/plain"
                 + "&Subject=" + encodeURIComponent(environment.subject)
                 + "&body=" + encodeURIComponent(message);
-            if (!(status == 'new' || status == 'manual')) {
+            if (status == 'draft') {
                 // Discourage the operator from sending it via Outpost:
                 setButtonHeader(
                     '<img src="icon-warning.png" alt="Warning" style="width:2em;height:2em;vertical-align:middle;">'
