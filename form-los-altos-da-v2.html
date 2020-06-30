@@ -27,7 +27,14 @@
       }
     </style>
     <script type="text/javascript">
-      integration.after('late_startup', function automateOkCheckboxes() {
+      integration.after('get_old_message', function afterGetOldMessage() {
+          if (envelope.readOnly) {
+              array_for_each(document.getElementsByName('10.subject'), function(subject) {
+                  subject.value = msg_field('10.');
+              });
+          }
+      });
+      integration.after('late_startup', function afterLateStartup() {
           var rowInputs = {};
           // Find all the inputs (except the BAT column) in all the rows:
           array_for_each(
