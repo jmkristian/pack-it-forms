@@ -409,6 +409,7 @@ form .instead-of-input.cardinal-number,
 form .instead-of-input.real-number,
 form .instead-of-input.frequency,
 form .instead-of-input.frequency-offset {
+    text-align: right;
     white-space: nowrap;
 }
 form input[type="text"].phone-number, form .instead-of-input.phone-number {
