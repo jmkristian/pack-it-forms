@@ -1201,7 +1201,7 @@ function setup_input_from_classes(input) {
         "frequency": {pattern: "[0-9]+(\.[0-9]+)?"},
         "frequency-offset": {pattern: "[-+]?[0-9]*\.[0-9]+|[-+]?[0-9]+|[-+]"}
     };
-    var pattern = null;
+    var pattern = input.pattern;
     for (var s in standardAttributes) {
         if (input.classList.contains(s)) {
             var standard = standardAttributes[s];
@@ -1233,7 +1233,7 @@ function setup_input_from_classes(input) {
             input.addEventListener("click", shift_click_uncheck);
         }
     }
-    if (pattern != null) {
+    if (pattern) {
         if (input.classList.contains("clearable")) {
             pattern += "|\\{CLEAR\\}";
         }
