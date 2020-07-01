@@ -38,6 +38,7 @@
           });
       });
       integration.after('late_startup', function afterLateStartup() {
+          if (envelope.readOnly) return;
           var rowInputs = {};
           // Find all the inputs (except the BAT column) in all the rows:
           array_for_each(
@@ -46,18 +47,19 @@
                   var match = /^12\.(\d+)([^.]+)/.exec(input.name);
                   var row = match[1];
                   var column = match[2];
-                  if (column != 'a') { // the BAT column
-                      if (!rowInputs[row]) {
-                          rowInputs[row] = {};
-                      }
-                      rowInputs[row][column] = input;
+                  if (!rowInputs[row]) {
+                      rowInputs[row] = {};
                   }
+                  rowInputs[row][column] = input;
               });
           // Automatically uncheck any OK checkbox that has non-zero values in other columns:
           var rowInputHandlers = {};
           for (row in rowInputs) {
+              var ok = rowInputs[row].b;
               var onInput = function(row) {
                   var columnInputs = rowInputs[row];
+                  var batNumber = columnInputs.a;
+                  delete columnInputs.a;
                   var okCheckbox = columnInputs.b;
                   delete columnInputs.b;
                   // onInput is bound to values in this scope, not the loop var row.
@@ -74,22 +76,29 @@
                           }
                       }
                       if (anyProblem) {
+                          batNumber.required = true;
                           okCheckbox.checked = false;
                           okCheckbox.disabled = true;
                       } else {
                           okCheckbox.disabled = false;
+                          if (okCheckbox.checked) {
+                              batNumber.required = true;
+                          } else {
+                              batNumber.removeAttribute('required');
+                          }
                       }
                   };
               }(row);
+              ok.addEventListener('input', onInput);
               for (column in rowInputs[row]) {
                   rowInputs[row][column].addEventListener('input', onInput);
               }
-              onInput(); // initialize the OK checkbox
+              onInput(); // initialize things
               rowInputHandlers[row] = onInput;
           }
           integration.after('reset_form', function resetOkCheckboxes() {
               for (row in rowInputHandlers) {
-                  rowInputHandlers[row](); // initialize the OK checkbox
+                  rowInputHandlers[row](); // re-initialize things
               }
           });
       });
