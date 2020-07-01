@@ -33,6 +33,9 @@
                   subject.value = msg_field('10.');
               });
           }
+          array_for_each(document.getElementsByName('8b.from-location'), function(location) {
+              location.placeholder = "EIRS xx";
+          });
       });
       integration.after('late_startup', function afterLateStartup() {
           var rowInputs = {};
