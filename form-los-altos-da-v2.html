@@ -55,6 +55,7 @@
           // Automatically uncheck any OK checkbox that has non-zero values in other columns:
           var rowInputHandlers = {};
           for (row in rowInputs) {
+              var bat =  rowInputs[row].a;
               var ok = rowInputs[row].b;
               var onInput = function(row) {
                   var columnInputs = rowInputs[row];
@@ -87,8 +88,20 @@
                               batNumber.removeAttribute('required');
                           }
                       }
+                      if (!batNumber.value || okCheckbox.checked || anyProblem) {
+                          okCheckbox.removeAttribute('required');
+                          for (column in columnInputs) {
+                              columnInputs[column].removeAttribute('required');
+                          }
+                      } else {
+                          okCheckbox.required = true;
+                          for (column in columnInputs) {
+                              columnInputs[column].required = true;
+                          }
+                      }
                   };
               }(row);
+              bat.addEventListener('input', onInput);
               ok.addEventListener('input', onInput);
               for (column in rowInputs[row]) {
                   rowInputs[row][column].addEventListener('input', onInput);
