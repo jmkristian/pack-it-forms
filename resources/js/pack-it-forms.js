@@ -1624,11 +1624,13 @@ function load_form_version(next) {
 
 function remove_loading_overlay(next) {
     check_the_form_validity();
-    var first_field =
-        document.querySelector("#the-form :invalid") ||
-        document.getElementById("the-form")[0];
-    if (first_field) {
-        first_field.focus();
+    if (!envelope.readOnly) {
+        var first_field =
+            document.querySelector("#the-form :invalid") ||
+            document.getElementById("the-form")[0];
+        if (first_field) {
+            first_field.focus();
+        }
     }
     var el = document.querySelector("#loading");
     if (el) {
