@@ -14,6 +14,7 @@ Function ChooseAddonFiles
   File pack-it-forms\form-oa-shelter-status*.html
   File pack-it-forms\form-scco-eoc-213rr*.html
   File pack-it-forms\form-allied-health-facility-status*.html
+  File pack-it-forms\form-oa-mutual-aid-request*.html
 
   SetOutPath "$INSTDIR\pdf"
   File pack-it-forms\pdf\ICS-213_*.pdf
@@ -22,3 +23,4 @@ Function ChooseAddonFiles
   File pack-it-forms\pdf\XSC_RACES_Routing_Slip_*.pdf
   File pack-it-forms\pdf\XSC_SheltStat_*.pdf
   File pack-it-forms\pdf\Allied_Health_Facility_Status_*.pdf
+  File pack-it-forms\pdf\XSC_RACES_MA_Req_*.pdf
