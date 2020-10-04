@@ -353,6 +353,7 @@ var init_from_msg_funcs = {
     }
 };
 init_from_msg_funcs.DIV = init_from_msg_funcs.SPAN;
+init_from_msg_funcs.number = init_from_msg_funcs.text;
 
 var unescape_func = {
     "\\": function () { return "\\"; },
@@ -531,6 +532,7 @@ var pacform_representation_funcs = {
         return element.checked ? "checked" : null;
     }
 };
+pacform_representation_funcs.number = pacform_representation_funcs.text;
 
 function escape_pacforms_string(string) {
     return string.replace(/\\/g, "\\\\").replace(/\n/g,"\\n");
