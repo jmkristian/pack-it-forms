@@ -102,7 +102,7 @@
               }(row);
               var columnInputs = rowInputs[row]; // an alias for onInput.problems
               for (column in columnInputs) {
-                  columnInputs[column].addEventListener('input', onInput);
+                  addInputEventListener(columnInputs[column], onInput);
               }
               // These columns are not considered problems by onInput:
               delete columnInputs.a; // BAT number

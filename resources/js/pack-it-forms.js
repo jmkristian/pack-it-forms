@@ -78,6 +78,11 @@ var MSIE_version = (function() {
     return undefined; // Not truthy. Comparison with any number yields false.
 })();
 
+function addInputEventListener(input, listener) {
+    var event = (MSIE_version && input.type == "checkbox") ? "change" : "input";
+    input.addEventListener(event, listener);
+}
+
 /* --- Registration for code to run after page loads
 
 Registered startup functions are the initial entry points for
