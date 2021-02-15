@@ -79,8 +79,20 @@ var MSIE_version = (function() {
 })();
 
 function addInputEventListener(input, listener) {
-    var event = (MSIE_version && input.type == "checkbox") ? "change" : "input";
-    input.addEventListener(event, listener);
+    var eventName = "input";
+    var eventListener = listener;
+    if (input.type == "checkbox") {
+        if (MSIE_version) {
+            eventName = "change";
+        }
+        eventListener = function andFormChanged(event) {
+            listener(event);
+            // Wait a little while for other event listeners to run.
+            // For example, they might change which inputs are required.
+            window.setTimeout(formChanged, 10);
+        };
+    }
+    input.addEventListener(eventName, eventListener);
 }
 
 /* --- Registration for code to run after page loads
