@@ -58,21 +58,23 @@ var MS_Edge = 12;
 var MSIE_version = (function() {
     var userAgent = navigator.userAgent;
     if (userAgent) {
-        if (navigator.appName == "Netscape" &&
-            navigator.appVersion &&
-            navigator.appVersion.indexOf(" /Trident") < 0) {
-            return MS_Edge;
-        }
-        if (userAgent.indexOf(" Trident/") >= 0) {
-            return 11;
-        }
-        var match = /MSIE (\d*)/.exec(userAgent);
+        var match = / Edge?\/(\d*)/.exec(userAgent);
         if (match) {
             if (match[1]) {
                 return parseInt(match[1]);
             } else {
-                return 9999;
+                return MS_Edge;
             }
+        }
+        match = /MSIE (\d*)/.exec(userAgent);
+        if (match) {
+            if (match[1]) {
+                return parseInt(match[1]);
+            } else {
+                return MS_Edge - 1;
+            }
+        } else if (userAgent.indexOf(" Trident/") >= 0) {
+            return 11;
         }
     }
     return undefined; // Not truthy. Comparison with any number yields false.
