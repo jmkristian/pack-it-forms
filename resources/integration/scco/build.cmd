@@ -2,6 +2,21 @@
 
 @rmdir /Q /S built\addons
 @mkdir built\addons
+@copy "%~dp0Milpitas.nsi" built\addon.nsi
+@node bin/Outpost_Forms.js build %VersionMajor%.%VersionMinor% ^
+  Milpitas bin\Milpitas_Forms.exe "Milpitas Forms"
+@if %errorlevel% neq 0 exit /b %errorlevel%
+@"C:\Program Files (x86)\NSIS\makensis.exe" ^
+  /DVersionMajor=%VersionMajor% ^
+ /DVersionMinor=%VersionMinor% ^
+  /Daddon_name=Milpitas ^
+  /DDisplayName="Milpitas Forms" ^
+  /DPROGRAM_PATH=bin\Milpitas_Forms.exe ^
+  setup.nsi
+@if %errorlevel% neq 0 exit /b %errorlevel%
+
+@rmdir /Q /S built\addons
+@mkdir built\addons
 @copy "%~dp0Los_Altos.nsi" built\addon.nsi
 @node bin/Outpost_Forms.js build %VersionMajor%.%VersionMinor% ^
   Los_Altos bin\Outpost_Forms.exe "Outpost for LAARES"

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="resources/css/loading.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
+    <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
+    <script type="text/javascript" src="resources/integration/integration.js"></script>
+    <meta name="pack-it-forms-pdf-URL" content="pdf/MLP_CERT_Damage_Assessment_v190405.pdf">
+    <meta name="pack-it-forms-subject-suffix" content="_{{field:8s.subject}}">
+    <style>
+      th {
+          border: 1px solid #aaaaaa;
+      }
+      /* Less white space in a crowded table. */
+      tr.fullsize-textfields td:not(.noft) {
+          padding-left: 0.25em;
+          padding-right: 0.25em;
+          text-align: right;
+      }
+      tr.fullsize-textfields td:not(.noft) > input[type="text"] {
+          text-align: right;
+      }
+      tr.fullsize-textfields td:not(.noft) > input[type="checkbox"] {
+          margin-left: 0;
+          margin-right: 0;
+          padding: 0;
+          text-align: center;
+      }
+      .block-color-red {
+    	background-color: #ff0000;
+    	vertical-align: middle;
+    	font-weight: bold;
+      }
+      .block-color-yellow {
+    	background-color: #ffff00;
+    	vertical-align: middle;
+    	font-weight: bold;
+      }
+    </style>
+    <script>
+      function updateSubject() {
+          var location = field_value('8x.survey-loc');
+          if (location == ' ') {
+              location = field_value('8y.other-survey-loc') + '_';
+          }
+          init_form_from_fields({
+              '8s.subject': location + 'Damage Assessment Summary_' + field_value('8p.percent-complete') + '% Complete'
+          });
+      }
+      function copySurveyLocation(input) {
+          on_value(input, [' '], {'8y.other-survey-loc': {enable: true, require: true, otherwise: {value: ""}}});
+          updateSubject();
+      }
+    </script>
+   
+    <title>Milpitas CERT Damage Assessment Summary</title>
+  </head>
+
+  <body>
+    <div class="version">0.4.1</div>
+    <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
+    <div id="err">
+      <div>
+        <h1>Something went wrong.</h1>
+        The following log information may help resolve the problem.
+        <div id="error-log"></div>
+      </div>
+    </div>
+    <form id="the-form" name="the-form">
+         
+      <div data-include-html="scco-header">
+        {
+            "header-title": "Milpitas CERT Damage Assessment Summary",
+            "header-version": "MLP-CERT: 20190405&lt;br/&gt;PIF: {{version}}",
+            "1b.": "{{time}}",
+            "5.": "PRIORITY",
+            "7a.": "Planning",
+	        "7b.": "Milpitas EOC",
+            "8a.": "Operations",
+			"8b.": ""     
+        }
+      </div>
+	      
+		<table class="same-line-label-layout"> 
+		<tr>
+		  <th>Survey Location: </th>
+         <td style="width:1px;">
+	      <select name="8x.survey-loc" required
+		      onchange="copySurveyLocation(this)" oninput="copySurveyLocation(this)" tabindex="20"/>
+	      	  <option value=""></option>
+              	  <option value="CERT ZONE 1_">CERT ZONE 1</option>
+              	  <option value="CERT ZONE 2_">CERT ZONE 2</option>
+              	  <option value="CERT ZONE 3_">CERT ZONE 3</option>
+              	  <option value="CERT ZONE 4_">CERT ZONE 4</option>
+	              <option value="CERT ZONE 5_">CERT ZONE 5</option>
+	              <option value="CERT ZONE 6_">CERT ZONE 6</option>
+	              <option value="CERT ZONE 7_">CERT ZONE 7</option>
+	              <option value="CERT ZONE 8_">CERT ZONE 8</option>
+	              <option value=" ">Other</option>
+           </select>
+          </td>
+          <td style="padding-right:1em;">
+            <input type="text" name="8y.other-survey-loc" disabled oninput="updateSubject()" placeholder="Enter Location" tabindex="21"/>
+          </td>
+          <th>Percent Assessment Complete: </th>
+		  <td>
+                  <input name="8p.percent-complete" type="number" min="1" max="100" style="width:5em;" required
+				     oninput="updateSubject()" tabindex="22"/>
+          </td>
+		</tr>   
+	    </table> 
+	
+      <table id="form-body" class="noborder border"> 
+		<td colspan="18">
+		<table class="same-line-label-layout">
+		
+		<th>Subject:</th>
+		     <td colspan="2">
+               <input type="text" name="8s.subject" class="include-in-submit" disabled/>
+             </td>
+	   </table> 
+	   <tr>        
+          <th class="block-caption" colspan="2" style="border: 2px solid black;">
+            FIRE
+          </th><th class="block-caption" colspan="4" style="border: 2px solid black;">
+            HAZARD
+          </th><th class="block-caption" colspan="3" style="border: 2px solid black;">
+            BUILDING<br>DAMAGE
+          </th><th class="block-caption" colspan="4" style="border: 2px solid black;">
+            PEOPLE
+          </th><th class="block-caption" colspan="2" style="border: 2px solid black;">
+            ROAD
+          </th><th class="block-caption" colspan="1" style="border: 2px solid black;">
+            OTHER
+		  </th>
+        </tr>
+        <tr class="rotated">
+          <td><div><div>1. BURNING</div></div></td>
+          <td><div><div>2. OUT</div></div></td>
+          <td><div><div>3. GAS LEAK</div></div></td>
+          <td><div><div>4. WATER LEAK</div></div></td>
+          <td><div><div>5. ELECTRICAL</div></div></td>
+          <td><div><div>6. CHEMICAL</div></div></td>
+          <td><div><div>7. LIGHT</div></div></td>
+          <td><div><div>8. MODERATE</div></div></td>
+          <td><div><div>9. HEAVY</div></div></td>
+          <td class="block-color-red"><div><div>10. <strong>MAJOR INJURY</strong></div></div></td>
+          <td class="block-color-yellow"><div><div>11. <strong>DELAYED INJURY</strong></div></div></td>
+          <td><div><div>12. TRAPPED</div></div></td>
+          <td><div><div>13. DEAD</div></div></td>
+          <td><div><div>14. ACCESS (Limited)</div></div></td>
+          <td><div><div>15. NO ACCESS</div></div></td>
+	      <td><div><div>16. OTHER<br>See Notes</div></div></td>
+        </tr>
+        <tr class="fullsize-textfields">        
+          <td><input name="12.0c.fire-burning" type="text" pattern="\d+" required tabindex="30"/></td>
+          <td><input name="12.0d.fire-out" type="text" pattern="\d+" required tabindex="31"/></td>
+          <td><input name="12.0e.hazard-gas" type="text" pattern="\d+" required tabindex="32"/></td>
+          <td><input name="12.0f.hazard-water" type="text" pattern="\d+" required tabindex="33"/></td>
+          <td><input name="12.0g.hazard-electric" type="text" pattern="\d+" required tabindex="34"/></td>
+          <td><input name="12.0h.hazaed-chemical" type="text" pattern="\d+" required tabindex="35"/></td>
+          <td><input name="12.0i.damage-light" type="text" pattern="\d+" required tabindex="36"/></td>
+          <td><input name="12.0j.damage-moderate" type="text" pattern="\d+" required tabindex="37"/></td>
+          <td><input name="12.0k.damage-heavy" type="text" pattern="\d+" required tabindex="38"/></td>
+          <td><input name="12.0l.people-major" type="text" pattern="\d+" required tabindex="39"/></td>
+          <td><input name="12.0m.people-delayed" type="text" pattern="\d+" required tabindex="40"/></td>
+          <td><input name="12.0n.people-trapped" type="text" pattern="\d+" required tabindex="41"/></td>
+          <td><input name="12.0o.people-dead" type="text" pattern="\d+" required tabindex="42"/></td>
+          <td><input name="12.0p.road-limited-access" type="text" pattern="\d+" required tabindex="43"/></td>
+          <td><input name="12.0q.roads-no-access" type="text" pattern="\d+" required tabindex="44"/></td>
+	      <td><input name="12.0r.other" type="text" pattern="\d+" required tabindex="45"/></td>
+        </tr>
+        
+        <tr class="fullsize-textfields">
+          <th colspan="17" scope="col" class="block-caption">
+              <div><div>Notes</div></div>
+          </th>
+        </tr><tr>
+          <td colspan="17"><textarea name="12.10.general-notes"
+                                     rows="6" cols="80" tabindex="50"></textarea></td>
+        </tr>
+      </table>
+      <div data-include-html="scco-footer"></div>
+    </form>
+    <div data-include-html="submit-buttons"></div>
+  </body>
+</html>

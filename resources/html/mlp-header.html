@@ -1,0 +1,60 @@
+<div>
+  <div class="version">0.1.0</div>
+  <table id="scco-banner" class="block-caption noborder" style="background-color:#bbeeff;">
+    <tr>
+      <td style="border:none;padding:4pt 4pt;">
+        <span name="header-title" class="templated no-msg-init" style="font-size:150%;"></span>
+        <br/>
+        <span name="header-subtitle" class="templated no-msg-init" style="font-size:62%;"></span>
+      </td>
+      <td style="border:none;padding:2pt 4pt;text-align:right;vertical-align:bottom;">
+        <span name="header-version" class="templated no-msg-init" style="font-weight:normal;"></span>
+      </td>
+    </tr>
+  </table>
+  <table>
+    <tr>
+      <td style="white-space:nowrap;width:1px;">
+        <b>Message Numbers:</b>
+      </td><td>
+        <b>Origin:</b>
+        <input type="text" name="MsgNo" class="message-number no-msg-init" tabindex="-1"
+               value="{{envelope:sender_message_number}}" required="required"/>
+      </td><td>
+        <b>Destination:</b>
+        <input type="text" class="message-number" disabled="disabled" tabindex="-1"
+               value="{{envelope:receiver_message_number}}"/>
+      </td>
+    </tr>
+  </table>
+  <table>
+    <tr>
+      <td>
+        <b>Date:</b>
+        <input type="text" name="0a.date" class="date" value="{{date}}" required="required" tabindex="3"/>
+      </td><td>
+        <b>Time:</b>
+        <input type="text" name="0b.time" class="time" required="required" tabindex="4"/>
+      </td><td class="label-sameline">
+        <b>Handling:</b>
+        <div class="required-group" style="margin-left:0.5em;padding-left:0;padding-right:0.5em;">
+          <label>
+            <input type="radio" name="5.handling" tabindex="5"
+                   required="required" value="IMMEDIATE"/>Immediate
+            <span style="font-weight:normal;">(ASAP)</span>
+          </label>
+          <label style="margin-left:1em;margin-right:1em;">
+            <input type="radio" name="5.handling" tabindex="6"
+                   required="required" value="PRIORITY"/>Priority
+            <span style="font-weight:normal;">(&lt;1 hr)</span>
+          </label>
+          <label>
+            <input type="radio" name="5.handling" tabindex="7"
+                   required="required" value="ROUTINE"/>Routine
+            <span style="font-weight:normal;">(&lt;2 hrs)</span>
+          </label>
+       </div>
+      </td>
+    </tr>
+  </table>
+</div>
