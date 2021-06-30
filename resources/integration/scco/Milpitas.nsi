@@ -1,7 +1,6 @@
 !define INSTDIR_NAME "PackItForms\Outpost\Milpitas"
 !define REG_SUBKEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\MilpitasPIFO"
 !define WINDOW_TITLE "${DisplayName}"
-OutFile "MilpitasForms_Setup-${VersionMajor}.${VersionMinor}.exe"
 
 Function ChooseAddonFiles
   File /r /x "*~" /x .git* /x notes /x pacread /x integration.js \

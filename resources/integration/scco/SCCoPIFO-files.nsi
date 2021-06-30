@@ -1,7 +1,6 @@
 !define INSTDIR_NAME "PackItForms\Outpost\SCCo"
 !define REG_SUBKEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\SCCoPackItForms"
 !define WINDOW_TITLE "${DisplayName}"
-OutFile "SCCoPIFOsetup${VersionMajor}.${VersionMinor}${OutFileSuffix}.exe"
 
 Function ChooseAddonFiles
   File /r /x "*~" /x .git* /x notes /x pacread /x integration.js \

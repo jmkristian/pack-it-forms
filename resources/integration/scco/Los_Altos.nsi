@@ -13,5 +13,3 @@ Function ChooseAddonFiles
   SetOutPath "$INSTDIR\pdf"
   File "pack-it-forms\pdf\LOS ALTOS*.pdf"
 FunctionEnd
-
-OutFile "${INSTDIR_NAME}_Setup-${VersionMajor}.${VersionMinor}.exe"
