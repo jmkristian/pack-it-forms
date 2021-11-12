@@ -247,14 +247,20 @@ function index_of_field_value_start(linenum, line, startAt) {
     return idx;
 }
 
+/** Initialize intoName with the first value the user fills into fromName. */
 function copy_initial_value(fromName, intoName) {
     array_for_each(document.getElementsByName(fromName), function(from) {
         from.addEventListener("change", function() {
+            var changed = false;
             array_for_each(document.getElementsByName(intoName), function(into) {
-                if (!into.value) {
+                if (!into.value && from.value) {
                     into.value = from.value;
+                    changed = true;
                 }
             });
+            if (changed) {
+                check_the_form_validity();
+            }
         });
     });
 }
