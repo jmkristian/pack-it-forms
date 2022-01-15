@@ -26,7 +26,7 @@
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
     <meta name="pack-it-forms-pdf-URL" content="pdf/XSC_MuniStat_v190528b_Fillable.pdf">
-    <meta name="pack-it-forms-subject-suffix" content="_MuniStat_{{field:21.jurisdiction}}">
+    <meta name="pack-it-forms-subject-suffix" content="_MuniStat_{{field:22.jurisdiction}}">
     <script type="text/javascript">
       function on_state_of_emergency(emergency) {
           on_value(emergency, ['Yes'],
@@ -42,13 +42,57 @@
                   Problem: "yellow",
                   Failure: "red"});
           });
+          var jurisdictionNames = [
+              'Campbell',
+              'Cupertino',
+              'Gilroy',
+              'Los Altos',
+              'Los Altos Hills',
+              'Los Gatos',
+              'Milpitas',
+              'Monte Sereno',
+              'Morgan Hill',
+              'Mountain View',
+              'Palo Alto',
+              'San Jose',
+              'Santa Clara',
+              'Saratoga',
+              'Sunnyvale'];
+          ComboBox.addOptions(document.getElementById("to-ics-position-options"),
+                              ['Situation Analysis Unit', 'Planning Section']);
+          ComboBox.addOptions(document.getElementById("jurisdiction-options"),
+                              jurisdictionNames);
+          /* Previous versions of this form had a <select> named 21.jurisdiction,
+           with values for the jurisdictionNames, plus one value "Unincorporated".
+           For backward compatibility, we maintain an invisible field of that name
+           with a compatible value. Happily, the new jurisdictionNames all match
+           one of the old values.
+          */
+          var update21 = function(event) {
+              var value = this.value;
+              if (jurisdictionNames.indexOf(value) < 0) {
+                  // The old <select> can't represent this value.
+                  value = 'Unincorporated'; // It can represent this.
+              }
+              set_properties({"21.": {value: value}});
+          };
+          array_for_each(document.getElementsByName("22.jurisdiction"), function(from) {
+              from.addEventListener('change', update21);
+              from.addEventListener('input', update21);
+          });
+      });
+      integration.before('late_startup', function() {
+          if (!field_value("22.jurisdiction")) {
+              // In case this message came from a previous version of the form:
+              set_properties({"22.jurisdiction": {value: msg_field('21.')}});
+          }
       });
     </script>
     <title>Jurisdiction Status</title>
   </head>
 
   <body>
-    <div class="version">2.1</div>
+    <div class="version">2.2</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -61,7 +105,9 @@
       <div data-include-html="scco-header">
         {
             "header-title": "Santa Clara OA Jurisdiction Status",
-            "header-version": "WebEOC: 20190327&lt;br/&gt;PIF: {{version}}"
+            "header-version": "WebEOC: 20190327&lt;br/&gt;PIF: {{version}}",
+            "5.": "IMMEDIATE",
+            "7a.": "Situation Analysis Unit"
         }
       </div>
       <br/>
@@ -82,30 +128,30 @@
           </td>
           <th style="padding-left:2em;">Jurisdiction Name:</th>
           <td>
-            <select name="21.jurisdiction" required tabindex="21">
-              <option value="" selected disabled hidden style="display:none;">
-                Select one...
-              </option>
-              <option value="Campbell">Campbell</option>
-              <option value="Cupertino">Cupertino</option>
-              <option value="Gilroy">Gilroy</option>
-              <option value="Los Altos">Los Altos</option>
-              <option value="Los Altos Hills">Los Altos Hills</option>
-              <option value="Los Gatos">Los Gatos</option>
-              <option value="Milpitas">Milpitas</option>
-              <option value="Monte Sereno">Monte Sereno</option>
-              <option value="Morgan Hill">Morgan Hill</option>
-              <option value="Mountain View">Mountain View</option>
-              <option value="Palo Alto">Palo Alto</option>
-              <option value="San Jose">San Jose</option>
-              <option value="Santa Clara">Santa Clara</option>
-              <option value="Saratoga">Saratoga</option>
-              <option value="Sunnyvale">Sunnyvale</option>
-              <option value="Unincorporated">*Unincorporated County Areas*</option>
-            </select>
+            <table class="combobox" style="width:20em;">
+              <tr>
+                <td>
+                  <input type="text" name="22.jurisdiction" required tabindex="21"
+                         placeholder="Select one..."/>
+                </td>
+                <td class="dropdown-toggle">
+                  <span>
+                    <img src="icon-chevron-down.png"/>
+                  </span>
+                </td>
+              </tr><tr>
+                <td colspan="2" class="dropdown-list" style="display:none;">
+                  <div>
+                    <div id="jurisdiction-options">
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
           </td>
         </tr>
       </table>
+      <input type="text" name="21." style="display:none;"/>
       <br/>
       <label>Contact Information
         <table id="contact-info-table" class="zebra-striped grid">
