@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Check-In/Out</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="resources/css/loading.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
+    <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
+    <script type="text/javascript" src="resources/integration/integration.js"></script>
+    <script type="text/javascript">
+      integration.get_old_message = function getOldMessage(next) {
+          var environment = integrationEnvironment;
+          if (integrationMessage) {
+              // Parse the message:
+              msgfields.MSG_NUMBER = environment.MSG_NUMBER || '';
+              document.getElementById('form-data').value = integrationMessage;
+              var lines = integrationMessage.split(/\r?\n/);
+              var found = lines[0].match(/^[^-]*-(\S*)*\s+([^,]*),\s+(.*)$/);
+              if (found) {
+                  msgfields.in_out = found[1];
+                  if (lines[1]) {
+                      msgfields.use_tactical = true;
+                      msgfields.tactical_call_sign = found[2] || '';
+                      msgfields.tactical_name = found[3] || '';
+                      found = lines[1].match(/^\S*\s+([^,]*),\s+(.*)$/);
+                      if (found) {
+                          msgfields.operator_call_sign = found[1] || '';
+                          msgfields.operator_name = found[2] || '';
+                      } else {
+                          msgfields.operator_call_sign = environment.operator_call_sign || '';
+                          msgfields.operator_name = environment.operator_name || '';
+                      }
+                  } else {
+                      msgfields.use_tactical = false;
+                      msgfields.operator_call_sign = found[2] || '';
+                      msgfields.operator_name = found[3] || '';
+                      msgfields.tactical_call_sign = environment.tactical_call_sign || '';
+                      msgfields.tactical_name = environment.tactical_name || '';
+                  }
+              }
+          } else {
+              // Use environment variables:
+              msgfields.MSG_NUMBER = environment.MSG_NUMBER || '';
+              msgfields.operator_call_sign = environment.operator_call_sign || '';
+              msgfields.tactical_call_sign = environment.tactical_call_sign || '';
+              msgfields.operator_name = environment.operator_name || '';
+              msgfields.tactical_name = environment.tactical_name || '';
+              msgfields.use_tactical =
+                  (environment.active_call_sign == environment.tactical_call_sign);
+          }
+          next();
+      };
+      function newCaption() {
+          return field_value('use_tactical')
+              ? 'Check-' + field_value('in_out')
+              + ' ' + field_value('tactical_call_sign')
+              + ', ' + field_value('tactical_name')
+              : 'Check-' + field_value('in_out')
+              + ' ' + field_value('operator_call_sign')
+              + ', ' + field_value('operator_name');
+      }
+      var updateSubject = function() {
+          document.getElementById('form-subject').value =
+              (integrationEnvironment.MSG_NUMBER || '') + '_R_' + newCaption();
+      };
+      integration.before('before_submit_new_message', updateSubject);
+      integration.before('email_message', updateSubject);
+      newMessage.text = function() {
+          var text = newCaption();
+          if (field_value('use_tactical')) {
+              text += EOL + 'Operator '
+                  + field_value('operator_call_sign') + ', '
+                  + field_value('operator_name');
+          }
+          return text;
+      };
+      function onTacticalChange(checkbox) {
+          on_checked(checkbox, {
+              tactical_call_sign: {require: true},
+              tactical_name:      {require: true}});
+          document.getElementById('tactical').hidden = !checkbox.checked;
+          // check_the_form_validity();
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="version">0.2</div>
+    <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
+    <div id="err">
+      <div>
+        <h1>Something went wrong.</h1>
+        The following log information may help resolve the problem.
+        <div id="error-log"></div>
+      </div>
+    </div>
+    <form id="the-form" name="the-form">
+      <table class="noborder" style="border:none;page-break-inside:avoid;">
+        <tr>
+          <td class="label">
+            Message number:
+          </td><td>
+            <input name="MSG_NUMBER" type="text" class="message-number" required tabindex="1"/>
+          </td>
+        </tr><tr>
+          <td>
+          </td><td>
+            <table class="same-line-label-layout">
+              <tr>
+                <td class="label-sameline" style="padding-left:0;width:1px;">
+                  <div class="required-group" style="padding-right:0.5em;">
+                    <label style="font-weight:normal;">
+                      <input name="in_out" type="radio" value="In" required tabindex="2">Check In
+                    </label>
+                    <label style="font-weight:normal;margin-left:1em;">
+                      <input name="in_out" type="radio" value="Out" required tabindex="2">Check Out
+                    </label>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr><tr>
+          <td class="label">Your Call Sign:</td>
+          <td>
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="padding-left:0px;width:1px;">
+                  <input name="operator_call_sign" type="text" class="call-sign" required tabindex="3"/>
+                </td>
+                <td class="label-sameline" style="width:1px;">Name:</td>
+                <td>
+                  <input name="operator_name" type="text" required tabindex="4"/>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr><tr>
+          <td class="label">
+            <input name="use_tactical" type="checkbox" value="TACTICAL" tabindex="5"
+                   onchange="onTacticalChange(this);"/>
+            Use Tactical Call:
+          </td>
+          <td>
+            <table id="tactical" class="same-line-label-layout">
+              <tr>
+                <td style="padding-left:0px;width:1px;">
+                  <input name="tactical_call_sign" type="text" class="call-sign" tabindex="6"/>
+                </td>
+                <td class="label-sameline" style="width:1px;">Name:</td>
+                <td>
+                  <input name="tactical_name" type="text" tabindex="7"/>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </form>
+    <div data-include-html="submit-buttons"></div>
+  </body>
+</html>

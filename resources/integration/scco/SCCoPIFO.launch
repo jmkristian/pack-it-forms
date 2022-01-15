@@ -1,4 +1,5 @@
 
+ADDON -fn XSC Check-In/Out Message        -a SCCoPIFO -t form-checkin-out.html
 ADDON -fn XSC ICS-213 Message             -a SCCoPIFO -t form-ics213.html
 ADDON -fn XSC EOC-213RR Resource Request  -a SCCoPIFO -t form-scco-eoc-213rr.html
 ADDON -fn XSC OA Municipal Status         -a SCCoPIFO -t form-oa-muni-status.html

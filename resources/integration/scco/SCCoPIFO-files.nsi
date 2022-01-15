@@ -8,6 +8,7 @@ Function ChooseAddonFiles
     pack-it-forms
 
   SetOutPath "$INSTDIR\pack-it-forms"
+  File pack-it-forms\form-checkin-out.html
   File pack-it-forms\form-ics213*.html
   File pack-it-forms\form-oa-muni-status*.html
   File pack-it-forms\form-oa-shelter-status*.html

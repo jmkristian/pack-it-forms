@@ -1356,6 +1356,9 @@ function setup_inputs(next) {
                 updateInsteadOfText();
                 el.parentNode.insertBefore(instead, el);
                 el.addEventListener("input", updateInsteadOfText);
+                if (el.type == "textarea") {
+                    el.addEventListener("change", updateInsteadOfText);
+                }
             }
             if (MSIE_version && (el.type == "radio" || el.tagName.toLowerCase() == "select")) {
                 // Work around a deficiency in IE:
