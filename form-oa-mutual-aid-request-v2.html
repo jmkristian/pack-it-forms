@@ -29,6 +29,12 @@
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
     <script type="text/javascript">
+      integration.after("early_startup", function() {
+          ComboBox.addOptions(document.getElementById("to-ics-position-options"),
+                              ['RACES Chief Radio Officer',
+                               'RACES Unit',
+                               'Operations Section']);
+      });
       integration.after("late_startup", function() {
           document.getElementById("scco-banner").style.backgroundColor = "#e3efd9";
       });
@@ -39,7 +45,7 @@
   </head>
 
   <body>
-    <div class="version">2.1</div>
+    <div class="version">2.2</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -52,7 +58,8 @@
       <div data-include-html="scco-header">
         {
             "header-title": "Santa Clara County RACES -- Mutual Aid Request",
-            "header-version": "Version: 190614&lt;br/&gt;PIF: {{version}}"
+            "header-version": "Version: 190614&lt;br/&gt;PIF: {{version}}",
+            "7a.": "RACES Chief Radio Officer"
         }
       </div>
       <table class="fullsize-textfields">
