@@ -79,6 +79,12 @@
               copy_initial_value("1b.time", "22t.time");
               allOrNone([40, 41, 42, 43, 44, 45, 46], "beds");
               allOrNone([50, 51, 52, 53, 54], "resource");
+              ComboBox.addOptions(
+                  document.getElementById("to-ics-position-options"),
+                  ["EMS Unit", "Public Health Unit", "Medical Health Branch", "Operations Section"]);
+              ComboBox.addOptions(
+                  document.getElementById("to-location-options"),
+                  ["MHJOC", "County EOC"]);
           });
       })();
     </script>
@@ -86,7 +92,7 @@
   </head>
 
   <body>
-    <div class="version">2.2</div>
+    <div class="version">2.3</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -99,7 +105,9 @@
       <div data-include-html="scco-header">
         {
             "header-title": "Allied Health Status Report Short Form &lt;span style=\"font-size:75%;\">(DEOC-9)&lt;/span>",
-            "header-version": "Version: February 2018&lt;br/&gt;PIF: {{version}}"
+            "header-version": "Version: February 2018&lt;br/&gt;PIF: {{version}}",
+            "7a.": "EMS Unit",
+            "7b.": "MHJOC"
         }
       </div>
       <table>
