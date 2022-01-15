@@ -966,6 +966,328 @@ function find_templated_text(selector, property) {
     });
 }
 
+/** An object that adds combo box behavior to a table.combobox. */
+var ComboBox = function ComboBox(table) {
+
+    this.editBox = table.querySelector('input[type="text"]');
+    this.dropdownToggle = table.querySelector('.dropdown-toggle');
+    this.dropdownList = table.querySelector('.dropdown-list');
+    this.listItems = this.dropdownList.getElementsByTagName('A');
+
+    this.dropdownList.style.display = 'none';
+    if (!this.listItems || this.listItems.length <= 0) {
+        // Don't offer to choose items from an empty list:
+        this.dropdownToggle.querySelector('img').style.visibility = 'hidden';
+        return;
+    }
+
+    this.isOpen = false;
+    this.isToggling = false;
+    this.scrollTimer = 0;
+    this.selectedItem = null;
+    this.selectedItemIndex = -1;
+
+    var that = this;
+    this.selectEditBox = function selectEditBox() {
+        that.editBox.focus();
+        that.editBox.select();
+    };
+    this.endScrolling = function endScrolling() {
+        that.scrollTimer = 0;
+    };
+    this.setNotToggling = function setNotToggling() {
+        that.isToggling = false;
+    }
+    var keyboardEventCode = function keyboardEventCode(event) {
+        event = event || window.event;
+        if (event.code) return event.code; // the modern way
+        // Fall back on the deprecated way:
+        switch(event.keyCode) {
+        case 13: return 'Enter';
+        case 27: return 'Escape';
+        case 38: return 'ArrowUp';
+        case 40: return 'ArrowDown';
+        default: return '' + event.keyCode;
+        }
+    };
+    this.dropdownToggle.querySelector('img').style.removeProperty('visibility');
+    this.dropdownToggle.addEventListener('mouseenter', function(event) {
+        this.style['background-color'] = '#ddd';
+    });
+    this.dropdownToggle.addEventListener('mouseleave', function(event) {
+        this.style.removeProperty('background-color');
+        that.isToggling = false;
+    });
+    this.dropdownToggle.addEventListener('mousedown', function(event) {
+        that.isToggling = true;
+    });
+    this.dropdownToggle.addEventListener('click', function(event) {
+        // console.log('toggle');
+        that.toggleOpen();
+    });
+    this.editBox.addEventListener('focus', function(event) {
+        that.onFocus(event);
+    });
+    this.editBox.addEventListener('blur', function(event) {
+        // console.log('blur');
+        if (!that.isToggling) {
+            that.setOpen(false);
+        }
+    });
+    this.editBox.addEventListener('input', function(event) {
+        that.selectItem(null);
+    });
+    this.editBox.onkeyup = function(event) {
+        return that.onKeyup(keyboardEventCode(event));
+    };
+    this.editBox.onkeydown = function(event) {
+        return that.onKeydown(keyboardEventCode(event));
+    };
+    this.dropdownList.addEventListener('mousedown', function(event) {
+        that.isToggling = true;
+    });
+    this.dropdownList.addEventListener('mouseleave', function(event) {
+        that.isToggling = false;
+    });
+    var onEnterItem = function onEnterItem(event) {
+        // console.log('enter item');
+        if (that.scrollTimer == 0) {
+            that.selectItem(this);
+        }
+    };
+    var onClickItem = function onClickItem(event) {
+        // console.log('click item');
+        that.selectItem(this);
+        that.chooseSelectedItem();
+    };
+    var initialValue = this.editBox.value;
+    for (var i = 0; i < this.listItems.length; i++) {
+        var item = this.listItems[i];
+        item.addEventListener('mouseenter', onEnterItem);
+        item.addEventListener('click', onClickItem);
+        if (item.innerText == initialValue) {
+            this.selectItem(item);
+        }
+    }
+};
+
+ComboBox.addOptions = function addOptions(into, from) {
+    array_for_each(from, function(text) {
+        var a = document.createElement('a');
+        into.appendChild(a);
+        a.innerText = text;
+    });
+};
+
+ComboBox.prototype.startScrolling = function startScrolling() {
+    // console.log('startScrolling');
+    if (this.scrollTimer != 0) {
+        clearTimeout(this.scrollTimer);
+    }
+    this.scrollTimer = setTimeout(this.endScrolling, 1000);
+    // This prevents changing the selectedItem in case the mouse cursor is
+    // positioned over the dropdownList. In this case, scrolling moves a
+    // new listItem under the mouse, so the mouse enters that listItem.
+};
+
+/** Scroll to make the given element visible, unless it's already visible. */
+ComboBox.prototype.scroll_into_view = function scroll_into_view(element) {
+    try {
+        var topOfPage = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        var heightOfPage = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        var topOfElement = 0;
+        var heightOfElement = 0;
+        var buttonHeader = document.getElementById("button-header");
+        var heightOfHeader = 0;
+        if (document.layers) { // NS4
+            heightOfElement = element.height;
+            topOfElement = element.y;
+            if (buttonHeader) {
+                heightOfHeader = buttonHeader.height;
+            }
+        } else {
+            heightOfElement = element.offsetHeight;
+            for (var p = element; p && p.tagName != "BODY"; p = p.offsetParent){
+                topOfElement += p.offsetTop;
+            }
+            if (buttonHeader) {
+                heightOfHeader = buttonHeader.offsetHeight;
+            }
+        }
+        if ((topOfPage + heightOfPage) < (topOfElement + heightOfElement)) {
+            // console.log('scroll down');
+            this.startScrolling();
+            element.scrollIntoView(false);
+        } else if (topOfElement < (topOfPage + heightOfHeader)) {
+            // console.log('scroll up');
+            this.startScrolling();
+            window.scroll(0, topOfElement - heightOfHeader);
+        }
+    } catch(err) {
+        console.log(err); // and carry on.
+    }
+};
+
+/** Make the dropdownList either visible or not visible. */
+ComboBox.prototype.setOpen = function setOpen(open) {
+    if (this.isOpen != open) {
+        // console.log('setOpen ' + open);
+        if (open) {
+            this.dropdownList.style.removeProperty('display');
+            if (this.selectedItem) {
+                this.scroll_into_view(this.selectedItem);
+            }
+        } else {
+            this.dropdownList.style.display = 'none';
+            this.scroll_into_view(this.editBox);
+        }
+        this.isOpen = open;
+    }
+};
+
+ComboBox.prototype.toggleOpen = function toggleOpen() {
+    this.isToggling = true;
+    this.setOpen(!this.isOpen);
+    if (!this.isOpen) {
+        this.deselect(this.editBox);
+    } else if (this.selectedItem == null) {
+        this.editBox.select();
+    }
+    this.editBox.focus();
+    // Wait for possible blur and focus events:
+    setTimeout(this.setNotToggling, 10);
+};
+
+/** Highlight the given element in the dropdownList. */
+ComboBox.prototype.selectItem = function selectItem(element) {
+    if (this.selectedItem != null) {
+        this.selectedItem.style.color = '#000';
+        this.selectedItem.style['background-color'] = '#fff';
+    }
+    this.selectedItem = element;
+    this.selectedItemIndex = -1; // unless changed below
+    if (this.selectedItem != null) {
+        this.selectedItem.style.color = '#fff';
+        this.selectedItem.style['background-color'] = '#3399ff';
+        for (var i = 0; i < this.listItems.length; i++) {
+            if (this.listItems[i] === this.selectedItem) {
+                // console.log('selectItem ' + i);
+                this.selectedItemIndex = i;
+                break;
+            }
+        }
+    }
+};
+
+ComboBox.prototype.onFocus = function onFocus(event) {
+    // console.log('focus');
+    if (!this.isToggling) {
+        if (this.editBox.value) {
+            if (!this.isOpen && this.editBox.value == this.listItems[0].innerText) {
+                this.selectedItemIndex = 0;
+                // Subsequently, moveSelection(1) will advance to index 1.
+            }
+        } else if (this.editBox.required) {
+            // Encourage the user to choose from dropdownList.
+            this.setOpen(true);
+        }
+    }
+    this.isToggling = false;
+};
+
+ComboBox.prototype.onKeydown = function onKeydown(code) {
+    switch(code) {
+    case 'Escape':
+        if (this.isOpen) {
+            return false;
+        }
+        break;
+    case 'ArrowUp':
+        return this.moveSelection(-1);
+    case 'ArrowDown':
+        return this.moveSelection(1);
+    default:
+    }
+    return true;
+};
+
+ComboBox.prototype.onKeyup = function onKeyup(code) {
+    switch(code) {
+    case 'Escape':
+        if (this.isOpen) {
+            this.setOpen(false);
+            return false;
+        }
+        break;
+    case 'Enter':
+        if (!this.isOpen) {
+            this.setOpen(true);
+        } else if (this.selectedItem != null) {
+            this.chooseSelectedItem();
+        } else {
+            this.setOpen(false);
+        }
+        return false;
+    default:
+    }
+    return true;
+};
+
+/** Highlight the next or previous element in the dropdownList. */
+ComboBox.prototype.moveSelection = function moveSelection(change) {
+    if (!this.isOpen && this.selectedItemIndex < 0 && this.editBox.value) {
+        // The user is editing this.editBox.
+        return true; // Don't select or choose an item from the list.
+    }
+    var newIndex = this.selectedItemIndex + change;
+    if (newIndex >= this.listItems.length) {
+        newIndex = this.listItems.length - 1;
+    } else if (newIndex < 0) {
+        newIndex = -1;
+    }
+    if (newIndex != this.selectedItemIndex) {
+        if (newIndex >= 0) {
+            this.selectItem(this.listItems[newIndex]);
+            this.deselect(this.editBox);
+            if (this.isOpen) {
+                this.scroll_into_view(this.selectedItem);
+            } else {
+                this.chooseItem(this.selectedItem);
+            }
+        } else {
+            this.selectItem(null);
+            var editBox = this.editBox;
+            if (this.isOpen) {
+                this.scroll_into_view(this.editBox);
+            } else {
+                this.selectedItemIndex = 0;
+                // Subsequently, moveSelection(1) will advance to index 1.
+            }
+            // Wait for possible blur and focus events:
+            setTimeout(this.selectEditBox, 10);
+        }
+    }
+    return false;
+};
+ComboBox.prototype.deselect = function deselect(editBox) {
+    editBox.selectionEnd = editBox.selectionStart = editBox.value.length;
+};
+
+ComboBox.prototype.chooseSelectedItem = function chooseSelectedItem() {
+    this.chooseItem(this.selectedItem);
+};
+
+/** Set editBox.value = item.innerText. */
+ComboBox.prototype.chooseItem = function chooseItem(item) {
+    // console.log('chooseItem');
+    if (item != null) {
+        this.editBox.value = item.innerText;
+        fireEvent(this.editBox, 'change');
+    }
+    if (this.isOpen) {
+        this.toggleOpen();
+    }
+};
 
 /* --- Form related utility functions */
 
@@ -1377,6 +1699,13 @@ function setup_inputs(next) {
 
 This is indicated by a mode=readonly query parameter. */
 function setup_view_mode(next) {
+    array_for_each(document.querySelectorAll('table.combobox'), function(table) {
+        try {
+            new ComboBox(table);
+        } catch(err) {
+            console.log(err);
+        }
+    });
     if (envelope.readOnly) {
         document.querySelector("#button-header").classList.add("readonly");
         hide_element(document.querySelector("#opdirect-submit"));
@@ -1384,6 +1713,9 @@ function setup_view_mode(next) {
         hide_element(document.querySelector("#clear-form"));
         hide_element(document.querySelector("#show-PDF-form"));
         hide_element(document.querySelector("#invalid-example"));
+        array_for_each(document.querySelectorAll('.dropdown-toggle'), function(toggle) {
+            toggle.hidden = true;
+        });
         /* In view mode, we don't want to show the input control chrome.  This
            is difficult to do with textareas which might need scrollbars, etc.
            so replace it with a div or span that contains the same text. */
@@ -1400,7 +1732,9 @@ function setup_view_mode(next) {
                 el.placeholder = '';
             }
             el.tabIndex = "-1"; // Don't tab to this element.
-            if (el.type == "radio" || el.type == "checkbox") {
+            if (el.style.display == 'none') {
+                // It's already harmless.
+            } else if (el.type == "radio" || el.type == "checkbox") {
                 el.onclick = function() {return false;}; // not grayed out
             } else if (el.tagName.toLowerCase() == "select") {
                 var option = el.options[el.selectedIndex];

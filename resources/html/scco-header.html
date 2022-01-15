@@ -65,7 +65,27 @@
         <table class="same-line-label-layout">
           <tr>
             <th>ICS Position:</th>
-            <td><input type="text" name="7a.to-ics-position" required="required" tabindex="8"/></td>
+            <td style="padding-right:0;">
+              <table class="combobox">
+                <tr>
+                  <td>
+                    <input type="text" name="7a.to-ics-position" required="required" tabindex="8"/>
+                  </td>
+                  <td class="dropdown-toggle">
+                    <span>
+                      <img src="icon-chevron-down.png"/>
+                    </span>
+                  </td>
+                </tr><tr>
+                  <td colspan="2" class="dropdown-list" style="display:none;">
+                    <div>
+                      <div id="to-ics-position-options">
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
           </tr>
         </table>
       </td><td rowspan="4" class="block-caption" style="width:1px;">
@@ -83,7 +103,27 @@
         <table class="same-line-label-layout">
           <tr>
             <th>Location:</th>
-            <td><input type="text" name="7b.to-location" required="required" tabindex="9"/></td>
+            <td style="padding-right:0;">
+              <table class="combobox">
+                <tr>
+                  <td>
+                    <input type="text" name="7b.to-location" required="required" tabindex="9"/>
+                  </td>
+                  <td class="dropdown-toggle">
+                    <span>
+                      <img src="icon-chevron-down.png"/>
+                    </span>
+                  </td>
+                </tr><tr>
+                  <td colspan="2" class="dropdown-list" style="display:none;">
+                    <div>
+                      <div id="to-location-options">
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
           </tr>
         </table>
       </td><td>
@@ -119,7 +159,7 @@
           </tr>
         </table>
       </td><td>
-        <table class="same-line-label-layout"
+        <table class="same-line-label-layout">
           <tr>
             <th>Contact Info:</th>
             <td><input type="text" name="8d.from-contact" tabindex="14"/></td>

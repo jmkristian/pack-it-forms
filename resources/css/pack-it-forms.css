@@ -52,6 +52,68 @@ td.label{
   white-space: nowrap;
 }
 
+table.combobox {
+    border: none;
+    border-collapse:collapse;
+    cellpadding:0;
+    margin:0;
+    padding:0;
+    width:100%;
+}
+table.combobox td, table.combobox th {
+    border: none;
+    margin:0;
+    padding:0;
+    vertical-align:middle;
+}
+table.combobox input[type="text"] {
+    margin-right:2em;
+    overflow:hidden;
+}
+table.combobox .dropdown-toggle {
+    padding:0;
+    vertical-align:middle;
+    width:1.7em; /* just enough to contain the span and img */
+    /* Firefox version 95 can't correctly compute this width. */
+}
+table.combobox .dropdown-toggle>span {
+    border-color:#cccccc; /* match the adjacent text box */
+    border-style:solid;
+    border-width:1px 1px 1px 0;
+    margin:0 0 0 0.3em; /* overlap slightly with the text box */
+    padding:0.08em 0.3em 0.09em 0.4em;
+}
+table.combobox .dropdown-toggle>span>img {
+    /* square, like the source image. */
+    height:0.6em;
+    width:0.6em;
+}
+table.combobox .dropdown-list {
+    padding-right:0.2em;
+}
+table.combobox .dropdown-list>div {
+    position:relative;
+    margin:0;
+    padding:0;
+}
+table.combobox .dropdown-list>div>div {
+    position:absolute;
+    top:-1px;
+    overflow:auto;
+    margin:0;
+    padding:0;
+    width:100%;
+    background-color:#fff;
+    border:1px solid #222;
+}
+table.combobox .dropdown-list>div>div>a {
+    display:block;
+    font-family: consolas,monaco,profont,monospace;
+    font-size: 10pt;
+    font-weight: bold;
+    padding-left:0.2em;
+}
+
 table.same-line-label-layout {
     border: none;
     border-collapse: collapse;
