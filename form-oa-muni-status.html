@@ -62,30 +62,7 @@
                               ['Situation Analysis Unit', 'Planning Section']);
           ComboBox.addOptions(document.getElementById("jurisdiction-options"),
                               jurisdictionNames);
-          /* Previous versions of this form had a <select> named 21.jurisdiction,
-           with values for the jurisdictionNames, plus one value "Unincorporated".
-           For backward compatibility, we maintain an invisible field of that name
-           with a compatible value. Happily, the new jurisdictionNames all match
-           one of the old values.
-          */
-          var update21 = function(event) {
-              var value = this.value;
-              if (jurisdictionNames.indexOf(value) < 0) {
-                  // The old <select> can't represent this value.
-                  value = 'Unincorporated'; // It can represent this.
-              }
-              set_properties({"21.": {value: value}});
-          };
-          array_for_each(document.getElementsByName("22.jurisdiction"), function(from) {
-              from.addEventListener('change', update21);
-              from.addEventListener('input', update21);
-          });
-      });
-      integration.before('late_startup', function() {
-          if (!field_value("22.jurisdiction")) {
-              // In case this message came from a previous version of the form:
-              set_properties({"22.jurisdiction": {value: msg_field('21.')}});
-          }
+          compatible_values("22.jurisdiction", jurisdictionNames, "21.jurisdiction", "Unincorporated");
       });
     </script>
     <title>Jurisdiction Status</title>
@@ -128,6 +105,7 @@
           </td>
           <th style="padding-left:2em;">Jurisdiction Name:</th>
           <td>
+            <input type="text" name="21.jurisdiction" style="display:none;"/>
             <table class="combobox" style="width:20em;">
               <tr>
                 <td>
@@ -151,7 +129,6 @@
           </td>
         </tr>
       </table>
-      <input type="text" name="21." style="display:none;"/>
       <br/>
       <label>Contact Information
         <table id="contact-info-table" class="zebra-striped grid">

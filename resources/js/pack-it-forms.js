@@ -1289,6 +1289,38 @@ ComboBox.prototype.chooseItem = function chooseItem(item) {
     }
 };
 
+/** Maintain a hidden input named oldField, whose value is copied from newField
+    iff the value is in the given compatible. If newField is set to some
+    other value, set oldField to fallbackValue.
+*/
+function compatible_values(newField, compatible, oldField, fallbackValue) {
+    var setField = function setField(name, value) {
+        var properties = {};
+        properties[name] = {value: value};
+        set_properties(properties);
+    };
+    var updateOldField = function updateOldField(event) {
+        var value = this.value;
+        if (compatible.indexOf(value) < 0) {
+            value = fallbackValue;
+        }
+        setField(oldField, value);
+    };
+    array_for_each(document.getElementsByName(newField), function(from) {
+        from.addEventListener('change', updateOldField);
+        from.addEventListener('input', updateOldField);
+    });
+    integration.before('late_startup', function() {
+        if (!field_value(newField)) {
+            // In case this message came from a previous version of the form:
+            var value = msg_field(short_name(oldField));
+            if (value) {
+                setField(newField, value);
+            }
+        }
+    });
+}
+
 /* --- Form related utility functions */
 
 /* Clear the form to original contents */

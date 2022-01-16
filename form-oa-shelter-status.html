@@ -20,6 +20,36 @@
     <meta name="pack-it-forms-pdf-URL" content="pdf/XSC_SheltStat_v190619b_Fillable.pdf">
     <meta name="pack-it-forms-subject-suffix" content="_SheltStat_{{field:32.shelter-name}}">
     <script type="text/javascript">
+      integration.after("early_startup", function() {
+          var cityOptions = [
+              "Campbell",
+              "Cupertino",
+              "Gilroy",
+              "Los Altos",
+              "Los Altos Hills",
+              "Los Gatos",
+              "Milpitas",
+              "Monte Sereno",
+              "Morgan Hill",
+              "Mountain View",
+              "Palo Alto",
+              "San Jose",
+              "Santa Clara",
+              "Saratoga",
+              "Sunnyvale"];
+          var managerOptions = [
+              "American Red Cross",
+              "Private",
+              "Community",
+              "Government"];
+          ComboBox.addOptions(
+              document.getElementById("to-ics-position-options"),
+              ["Mass Care and Shelter Unit", "Care and Shelter Branch", "Operations Section"]);
+          ComboBox.addOptions(document.getElementById("shelter-city-options"), cityOptions);
+          ComboBox.addOptions(document.getElementById("managed-by-options"), managerOptions);
+          compatible_values("34b.shelter-city", cityOptions, "33b.shelter-city", "Unincorporated");
+          compatible_values("49a.managed-by", managerOptions, "50a.managed-by", "Other")
+      });
       function compute_availability() {
           var valid_int_value = function(id) {
               var element = document.getElementById(id);
@@ -45,7 +75,7 @@
   </head>
 
   <body>
-    <div class="version">2.1</div>
+    <div class="version">2.2</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -58,7 +88,9 @@
       <div data-include-html="scco-header">
         {
             "header-title": "Santa Clara OA Shelter Status",
-            "header-version": "WebEOC: 20130814&lt;br/&gt;PIF: {{version}}"
+            "header-version": "WebEOC: 20130814&lt;br/&gt;PIF: {{version}}",
+            "5.": "PRIORITY",
+            "7a.": "Mass Care and Shelter Unit"
         }
       </div>
       <table class="shelter-status" style="page-break-inside:avoid;">
@@ -119,25 +151,27 @@
         </tr><tr>
           <td>City:</td>
           <td>
-            <select name="33b.shelter-city" class="required-for-complete" tabindex="34">
-              <option value="" selected></option>
-              <option value="Campbell">Campbell</option>
-              <option value="Cupertino">Cupertino</option>
-              <option value="Gilroy">Gilroy</option>
-              <option value="Los Altos">Los Altos</option>
-              <option value="Los Altos Hills">Los Altos Hills</option>
-              <option value="Los Gatos">Los Gatos</option>
-              <option value="Milpitas">Milpitas</option>
-              <option value="Monte Sereno">Monte Sereno</option>
-              <option value="Morgan Hill">Morgan Hill</option>
-              <option value="Mountain View">Mountain View</option>
-              <option value="Palo Alto">Palo Alto</option>
-              <option value="San Jose">San Jose</option>
-              <option value="Santa Clara">Santa Clara</option>
-              <option value="Saratoga">Saratoga</option>
-              <option value="Sunnyvale">Sunnyvale</option>
-              <option value="Unincorporated">Unincorporated Areas</option>
-            </select>
+            <input type="text" name="33b.shelter-city" style="display:none;"/>
+            <table class="combobox" style="width:20em;">
+              <tr>
+                <td>
+                  <input type="text" name="34b.shelter-city" class="required-for-complete"
+                         placeholder="Select one..." tabindex="34"/>
+                </td>
+                <td class="dropdown-toggle">
+                  <span>
+                    <img src="icon-chevron-down.png"/>
+                  </span>
+                </td>
+              </tr><tr>
+                <td colspan="2" class="dropdown-list" style="display:none;">
+                  <div>
+                    <div id="shelter-city-options">
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
           </td>
         </tr><tr>
           <td>State:</td>
@@ -226,14 +260,27 @@
         </tr><tr>
           <td>Managed By:</td>
           <td>
-            <select name="50a.managed-by" class="required-for-complete" tabindex="50">
-              <option value="" selected></option>
-              <option value="American Red Cross">American Red Cross</option>
-              <option value="Private">Private</option>
-              <option value="Community">Community</option>
-              <option value="Government">Government</option>
-              <option value="Other">Other</option>
-            </select>
+            <input type="text" name="50a.managed-by" style="display:none;"/>
+            <table class="combobox" style="width:20em;">
+              <tr>
+                <td>
+                  <input type="text" name="49a.managed-by" class="required-for-complete"
+                         placeholder="Select one..." tabindex="50"/>
+                </td>
+                <td class="dropdown-toggle">
+                  <span>
+                    <img src="icon-chevron-down.png"/>
+                  </span>
+                </td>
+              </tr><tr>
+                <td colspan="2" class="dropdown-list" style="display:none;">
+                  <div>
+                    <div id="managed-by-options">
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
           </td>
         </tr><tr>
           <td>Managed By Detail:</td>
