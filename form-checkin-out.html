@@ -61,7 +61,8 @@
       }
       var updateSubject = function() {
           document.getElementById('form-subject').value =
-              (integrationEnvironment.MSG_NUMBER || '') + '_R_' + newCaption();
+              (integrationEnvironment.MSG_NUMBER || field_value('MSG_NUMBER'))
+              + '_R_' + newCaption();
       };
       integration.before('before_submit_new_message', updateSubject);
       integration.before('email_message', updateSubject);
