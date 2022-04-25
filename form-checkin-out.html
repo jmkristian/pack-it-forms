@@ -10,9 +10,9 @@
     <script type="text/javascript">
       integration.get_old_message = function getOldMessage(next) {
           var environment = integrationEnvironment;
+          msgfields.MSG_NUMBER = environment.MSG_NUMBER || '';
           if (integrationMessage) {
               // Parse the message:
-              msgfields.MSG_NUMBER = environment.MSG_NUMBER || '';
               document.getElementById('form-data').value = integrationMessage;
               var lines = integrationMessage.split(/\r?\n/);
               var found = lines[0].match(/^[^-]*-(\S*)*\s+([^,]*),\s+(.*)$/);
@@ -40,7 +40,6 @@
               }
           } else {
               // Use environment variables:
-              msgfields.MSG_NUMBER = environment.MSG_NUMBER || '';
               msgfields.operator_call_sign = environment.operator_call_sign || '';
               msgfields.tactical_call_sign = environment.tactical_call_sign || '';
               msgfields.operator_name = environment.operator_name || '';
@@ -61,7 +60,7 @@
       }
       var updateSubject = function() {
           document.getElementById('form-subject').value =
-              (integrationEnvironment.MSG_NUMBER || field_value('MSG_NUMBER'))
+              (field_value('MSG_NUMBER') || integrationEnvironment.MSG_NUMBER)
               + '_R_' + newCaption();
       };
       integration.before('before_submit_new_message', updateSubject);
