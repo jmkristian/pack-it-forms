@@ -76,13 +76,12 @@
 
         if (environment.pingURL) {
             // Ping the server periodically, to retain the form while this page is open.
-            var ping_sequence = 0;
-            setInterval(function() {
+            setInterval(function ping() {
                 var img = new Image();
                 // To discourage caching, use a new query string for each ping.
-                img.src = environment.pingURL + '?i=' + (ping_sequence++);
+                img.src = environment.pingURL + '?i=' + Math.random();
                 img = undefined;
-            }, 30000); // call ping every 30 seconds
+            }, 30000); // every 30 seconds
         }
         next();
     };
@@ -107,18 +106,20 @@
                 if (shouldSaveMessage) {
                     shouldSaveMessage = false;
                     var request = new XMLHttpRequest();
-                    request.open('POST', environment.saveURL, true);
+                    request.open('PUT', environment.saveURL, true);
                     request.setRequestHeader("Content-Type", "text/plain;charset=utf-8");
-                    request.send(newMessage.text());
+                    var message = newMessage.text();
+                    request.send(message);
                 }
             }
             window.addEventListener('beforeunload', saveMessage);
             setInterval(saveMessage, 10000);
-            var standardOnInput = integration.on_form_input;
-            integration.on_form_input = function onFormInput(next) {
-                shouldSaveMessage = true;
-                standardOnInput(next);
-            };
+            integration.before('on_form_input', function onInput() {
+                shouldSaveMessage = true; // because the message changed
+            });
+            integration.after('before_submit_new_message', function onSubmit() {
+                shouldSaveMessage = false; // because submit will save it
+            });
         }
         if (status == 'manual') {
             var submitButton = document.getElementById('opdirect-submit');
