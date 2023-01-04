@@ -4,18 +4,18 @@
     <tr>
       <td>
         <label>Sender's Msg #
-          <input name="2.txmsgno" class="message-number no-msg-init" type="text" tabindex="-1"
+          <input name="2.txmsgno" class="message-number no-msg-init" type="text" tabindex="1"
                  value="{{envelope:sender_message_number|view-by:receiver}}"/>
         </label>
       </td><td>
         <label>My Msg #
-          <input name="MsgNo" class="message-number no-msg-init" type="text" tabindex="1"
+          <input name="MsgNo" class="message-number no-msg-init" type="text" tabindex="2"
                  value="{{envelope:viewer_message_number}}"
                  required="required"/>
         </label>
       </td><td>
         <label>Receiver's Msg #
-          <input name="3.rxmsgno" class="message-number no-msg-init" type="text" tabindex="-1"
+          <input name="3.rxmsgno" class="message-number no-msg-init" type="text" tabindex="3"
                  value="{{envelope:receiver_message_number|view-by:sender}}"/>
         </label>
       </td>
@@ -24,13 +24,13 @@
     <tr>
       <td>
         <label>Date:
-          <input name="1a.date" type="text" tabindex="2"
+          <input name="1a.date" type="text" tabindex="4"
                  required="required" class="date" value="{{date}}"/>
         </label>
       </td><td rowspan="2">
         <fieldset>
           <legend>Situation Severity:</legend>
-          <select name="4.severity" tabindex="4"
+          <select name="4.severity" tabindex="6"
                   onchange="on_value(this, ['EMERGENCY'], {'5.handling': {onMatch: {value: 'IMMEDIATE'}}})">
             <option value="EMERGENCY">Emergency</option>
             <option value="URGENT">Urgent</option>
@@ -40,7 +40,7 @@
       </td><td rowspan="2">
         <fieldset>
           <legend>Msg Handling Order:</legend>
-          <select name="5.handling" tabindex="5">
+          <select name="5.handling" tabindex="7">
             <option value="IMMEDIATE">Immediate</option>
             <option value="PRIORTY">Priority</option>
             <option value="ROUTINE">Routine</option>
@@ -52,7 +52,7 @@
     </tr><tr>
       <td>
         <label>Time:
-          <input name="1b.time" type="text" tabindex="3"
+          <input name="1b.time" type="text" tabindex="5"
                  required="required" class="time" value="{{time}}"/>
         </label>
       </td>
