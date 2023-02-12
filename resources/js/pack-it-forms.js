@@ -1858,6 +1858,7 @@ function text_to_HTML(text) {
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
+        .replace(/ /g, "&nbsp;")
         .replace(/(\r?\n)/g, "<br/>$1");
 }
 
