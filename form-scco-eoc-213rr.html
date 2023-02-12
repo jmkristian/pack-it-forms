@@ -24,7 +24,7 @@
   </head>
 
   <body>
-    <div class="version">2.3</div>
+    <div class="version">2.4</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -65,7 +65,7 @@
             <b>5. Requested by</b>
             <i>(name, agency, position, email, phone)</i>
             <textarea name="25.requested-by" required="required" tabindex="25"
-                      rows="9" title="name, agency, position, email, phone"></textarea>
+                      rows="11" title="name, agency, position, email, phone"></textarea>
           </td><td colspan="3">
             <b>6. Prepared by</b>
             <i>(name, position, email, phone)</i>
@@ -78,6 +78,11 @@
             <i>(name, position, email, phone)</i>
             <textarea name="27.approved-by" tabindex="27"
                       rows="4" title="name, position, email, phone"></textarea>
+            <label class="label-sameline" style="font-weight:normal;">
+              Signature:
+              <input type="checkbox" name="27s.with-signature"/>
+              with signature
+            </label>
           </td>
         </tr>
       </table>
