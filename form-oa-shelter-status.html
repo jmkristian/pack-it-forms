@@ -14,12 +14,26 @@
       table.shelter-status td:nth-child(2) {
           border-left: none;
       }
+      .annotation {
+          font-size: 80%;
+      }
+      table.shelter-status label {
+          font-weight: normal;
+      }
     </style>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
     <meta name="pack-it-forms-pdf-URL" content="pdf/XSC_SheltStat_v190619b_Fillable.pdf">
     <meta name="pack-it-forms-subject-suffix" content="_SheltStat_{{field:32.shelter-name}}">
     <script type="text/javascript">
+      var managerText = null;
+      var managerOther = null;
+      var managerOptions = [
+          "",  // nothing selected
+          "American Red Cross",
+          "Private",
+          "Community",
+          "Government"];
       integration.after("early_startup", function() {
           var cityOptions = [
               "Campbell",
@@ -37,18 +51,42 @@
               "Santa Clara",
               "Saratoga",
               "Sunnyvale"];
-          var managerOptions = [
-              "American Red Cross",
-              "Private",
-              "Community",
-              "Government"];
           ComboBox.addOptions(
               document.getElementById("to-ics-position-options"),
               ["Mass Care and Shelter Unit", "Care and Shelter Branch", "Operations Section"]);
           ComboBox.addOptions(document.getElementById("shelter-city-options"), cityOptions);
-          ComboBox.addOptions(document.getElementById("managed-by-options"), managerOptions);
           compatible_values("34b.shelter-city", cityOptions, "33b.shelter-city", "Unincorporated");
           compatible_values("49a.managed-by", managerOptions, "50a.managed-by", "Other")
+          managerText = document.querySelector('input[name="49a.managed-by"][type="text"]');
+          managerOther = document.querySelector('input[name="49a.managed-by"][type="radio"][value=""]');
+          function onManagerRadio(event) {
+              if (this.value) {
+                  managerText.value = "";
+                  managerText.disabled = true;
+              } else {
+                  managerText.disabled = false;
+                  managerText.focus();
+              }
+          }
+          array_for_each(
+              document.querySelectorAll('input[name="49a.managed-by"][type="radio"]'),
+              function(radioButton) {
+                  radioButton.addEventListener('change', onManagerRadio);
+                  radioButton.addEventListener('input', onManagerRadio);
+              });
+      });
+      integration.after("late_startup", function() {
+          if (managerText.value) {
+              if (managerOptions.indexOf(managerText.value) < 0) {
+                  // There's no radio button to represent this value.
+                  // Select the 'Other' button.
+                  managerOther.checked = true;
+              } else {
+                  // The radio button for this value is checked.
+                  // Don't show the same value in the text field:
+                  managerText.value = "";
+              }
+          }
       });
       function compute_availability() {
           var valid_int_value = function(id) {
@@ -75,7 +113,7 @@
   </head>
 
   <body>
-    <div class="version">2.2</div>
+    <div class="version">2.3</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -95,17 +133,17 @@
       </div>
       <table class="shelter-status" style="page-break-inside:avoid;">
         <tr>
-          <td colspan="2">
+          <td colspan="2" style="border-right:1px solid #aaaaaa;">
             <table class="same-line-label-layout">
               <tr>
                 <th>Report Type:</th>
                 <td class="label-sameline" style="width:1px;">
                   <div class="required-group" style="padding-right:0.5em;">
-                    <label style="font-weight:normal;">
+                    <label>
                       <input name="19.report-type" type="radio" value="Update" required tabindex="19"
                              onchange="if (this.checked) on_report_type(false)">Update
                     </label>
-                    <label style="font-weight:normal;margin-left:1em;">
+                    <label style="margin-left:1em;">
                       <input name="19.report-type" type="radio" value="Complete" required tabindex="19"
                              onchange="if (this.checked) on_report_type(true)">Complete
                     </label>
@@ -123,24 +161,43 @@
           <td colspan="2" class="block-caption">Shelter</td>
         </tr><tr>
           <td>Shelter Type:</td>
-          <td>
-            <select name="30.shelter-type" class="required-for-complete" tabindex="30">
-              <option value="" selected></option>
-              <option value="Type 1">Type 1</option>
-              <option value="Type 2">Type 2</option>
-              <option value="Type 3">Type 3</option>
-              <option value="Type 4">Type 4</option>
-            </select>
+          <td class="label-sameline">
+            <span class="annotation">(Pick One)</span>
+            <div class="required-group">
+              <label style="width:8em;">
+                <input class="required-for-complete"
+                       name="30.shelter-type" type="radio" value="Type 1" tabindex="30"/>Type 1
+              </label>
+              <label style="width:8em;">
+                <input name="30.shelter-type" type="radio" value="Type 2" tabindex="30"/>Type 2
+              </label>
+              <label style="width:8em;">
+                <input name="30.shelter-type" type="radio" value="Type 3" tabindex="30"/>Type 3
+              </label>
+              <label style="width:8em;">
+                <input name="30.shelter-type" type="radio" value="Type 4" tabindex="30"/>Type 4
+              </label>
+            </div>
           </td>
         </tr><tr>
           <td>Status:</td>
-          <td>
-            <select name="31.shelter-status" class="required-for-complete" tabindex="31">
-              <option value="" selected></option>
-              <option value="Open" data-background-color="green">Open</option>
-              <option value="Closed" data-background-color="red">Closed</option>
-              <option value="Full" data-background-color="yellow">Full</option>
-            </select>
+          <td class="label-sameline">
+            <span class="annotation">(Pick One)</span>
+            <div class="required-group">
+              <label style="width:8em;">
+                <input class="required-for-complete"
+                       name="31.shelter-status" type="radio" value="Open" tabindex="31"/>Open
+                <span class="annotation">(Green)</span>
+              </label>
+              <label style="width:8em;">
+                <input name="31.shelter-status" type="radio" value="Closed" tabindex="31"/>Closed
+                <span class="annotation">(Red)</span>
+              </label>
+              <label style="width:8em;">
+                <input name="31.shelter-status" type="radio" value="Full" tabindex="31"/>Full
+                <span class="annotation">(Yellow)</span>
+              </label>
+            </div>
           </td>
         </tr><tr>
           <td>Name:</td>
@@ -218,29 +275,21 @@
           <td><input type="text" name="42.NSS" tabindex="43"/></td>
         </tr><tr>
           <td>Pet Friendly:</td>
-          <td>
-            <select name="43a.pet-friendly" style="margin-right:1em;" tabindex="44">
-              <option value="" selected></option>
-              <option value="checked">Yes</option>
-              <option value="false">No</option>
-            </select>
+          <td class="label-sameline">
+            <label><input name="43a.pet-friendly" type="radio" value="checked" tabindex="44"/>Yes</label>
+            <label><input name="43a.pet-friendly" type="radio" value="false" tabindex="44"/>No</label>
           </td>
         </tr><tr>
           <td>Basic Safety Inspection:</td>
-          <td>
-            <select name="43b.basic-safety" style="margin-right:1em;" tabindex="45">
-              <option value="" selected></option>
-              <option value="checked">Yes</option>
-              <option value="false">No</option>
-            </select>
+          <td class="label-sameline">
+            <label><input name="43b.basic-safety" type="radio" value="checked" tabindex="45"/>Yes</label>
+            <label><input name="43b.basic-safety" type="radio" value="false" tabindex="45"/>No</label>
+          </td>
         </tr><tr>
           <td>ATC 20 Inspection:</td>
           <td>
-            <select name="43c.ATC-20" tabindex="46">
-              <option value="" selected></option>
-              <option value="checked">Yes</option>
-              <option value="false">No</option>
-            </select>
+            <label><input name="43c.ATC-20" type="radio" value="checked" tabindex="46"/>Yes</label>
+            <label><input name="43c.ATC-20" type="radio" value="false" tabindex="46"/>No</label>
           </td>
         </tr><tr>
           <td style="vertical-align:top;">Available Services:</td>
@@ -258,29 +307,44 @@
         <tr>
           <td colspan="2" class="block-caption">Contact Information</td>
         </tr><tr>
-          <td>Managed By:</td>
+          <td style="padding-top:0.5em;vertical-align:top;">
+            Managed By: <span class="annotation">(Pick One)</span>
+          </td>
           <td>
             <input type="text" name="50a.managed-by" style="display:none;"/>
-            <table class="combobox" style="width:20em;">
-              <tr>
-                <td>
-                  <input type="text" name="49a.managed-by" class="required-for-complete"
-                         placeholder="Select one..." tabindex="50"/>
-                </td>
-                <td class="dropdown-toggle">
-                  <span>
-                    <img src="icon-chevron-down.png"/>
-                  </span>
-                </td>
-              </tr><tr>
-                <td colspan="2" class="dropdown-list" style="display:none;">
-                  <div>
-                    <div id="managed-by-options">
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </table>
+            <div class="required-group">
+              <table class="same-line-label-layout">
+                <tr>
+                  <td class="label-sameline" style="padding-bottom:0.5em;">
+                    <label>
+                      <input class="required-for-complete"
+                             name="49a.managed-by" type="radio"
+                             value="American Red Cross" tabindex="50"/>American Red Cross
+                    </label>
+                  </td><td class="label-sameline" style="padding-bottom:0.5em;width:1px;padding-right:0.5em;">
+                    <label>
+                      <input name="49a.managed-by" type="radio" value="Private" tabindex="50"/>Private
+                    </label>
+                  </td><td class="label-sameline" style="padding-bottom:0.5em;padding-left:1em;">
+                    <label>
+                      <input name="49a.managed-by" type="radio" value="Community" tabindex="50"/>Community
+                    </label>
+                  </td>
+                </tr><tr>
+                  <td class="label-sameline">
+                    <label>
+                      <input name="49a.managed-by" type="radio" value="Government" tabindex="50"/>Government
+                    </label>
+                  </td><td class="label-sameline" style="width:1px;padding-right:0px;">
+                    <label>
+                      <input name="49a.managed-by" type="radio" value="" tabindex="50"/>Other:
+                    </label>
+                  </td><td class="label-sameline" style="padding-left:0px;vertical-align:bottom;">
+                    <input name="49a.managed-by" type="text" disabled tabindex="50"/>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </td>
         </tr><tr>
           <td>Managed By Detail:</td>
@@ -356,9 +420,10 @@
           <td style="vertical-align:top;">Comments:</td>
           <td><textarea name="70.comments" rows="4" tabindex="70"></textarea></td>
         </tr><tr>
-          <td colspan="2">
+          <td colspan="2" style="border-right:1px solid #aaaaaa;">
             Remove from List:
-            <input type="checkbox" name="71.remove-from-active-list" tabindex="71">
+            <label><input name="71.remove-from-active-list" type="radio" value="checked" tabindex="71"/>Yes</label>
+            <label><input name="71.remove-from-active-list" type="radio" value="false" tabindex="71"/>No</label>
           </td>
         </tr>
       </table>

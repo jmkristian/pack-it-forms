@@ -360,7 +360,7 @@ var init_from_msg_funcs = {
         throw new Error("The field " + element.name + " can't be '" + value + "'.");
     },
     "checkbox": function (element, value) {
-        // A value from a received message will be "checked" (or absent).
+        // A value from a received message will be "checked", "false" or absent.
         // A value from a data-default-value template may also be boolean.
         element.checked = (value != "false") && !!value;
         return true;
