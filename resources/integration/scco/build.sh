@@ -5,14 +5,6 @@ VERSION="$2"
 # The current working directory isn't the one that contains this script;
 # it's a clone of git@github.com:jmkristian/OutpostForSCCo.git (or a fork thereof).
 
-$DECLARE Milpitas "Milpitas Forms"\
- Milpitas_Forms.exe MilpitasForms_Setup-"$VERSION".exe\
- || exit $?
-
-$DECLARE Los_Altos "Outpost for LAARES"\
- Outpost_Forms.exe OutpostForLAARES_Setup-"$VERSION".exe\
- || exit $?
-
-$DECLARE SCCoPIFO "SCCo Pack-It-Forms for Outpost (Public Edition)"\
- SCCoPIFO.exe SCCoPIFOsetup"$VERSION"pub.exe\
+$DECLARE Report_911 "Incident Reporting Form (911)"\
+ Outpost_Forms.exe Report911_Setup-"$VERSION".exe\
  || exit $?
