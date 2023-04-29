@@ -18,34 +18,9 @@
           vertical-align: middle;
       }
     </style>
+    <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
+    <script type="text/javascript" src="resources/integration/integration.js"></script>
     <script type="text/javascript">
-      var serviceValues = ['Law', 'Fire', 'Med', 'City'];
-      var serviceRequested = {};
-      function requestService(checkbox) {
-          var serviceValue = checkbox.value;
-          var requested = !!checkbox.checked;
-          if (!!serviceRequested[serviceValue] != requested) {
-              serviceRequested[serviceValue] = requested;
-              var requestedNames = "";
-              for (var s = 0; s < serviceValues.length; ++s) {
-                  if (serviceRequested[serviceValues[s]]) {
-                      if (requestedNames) {
-                          requestedNames += ' / ';
-                      }
-                      requestedNames += serviceValues[s];
-                  }
-              }
-              var serviceValuesRequested = document.querySelector('input[name="1x.serviceValuesRequested"]');
-              serviceValuesRequested.value = requestedNames || null;
-              check_the_form_validity();
-              var servicesRequested = document.querySelector('div#servicesRequested');
-              if (requestedNames) {
-                  servicesRequested.classList.remove("invalid");
-              } else {
-                  servicesRequested.classList.add("invalid");
-              }
-          }
-      }
       function showItems(type, count) {
           var i;
           var item;
@@ -73,26 +48,26 @@
 		  formChanged();
           return false;
       }
-    </script>
-    <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
-    <script type="text/javascript" src="resources/integration/integration.js"></script>
-    <script type="text/javascript">
-	  add_form_default_values({
+      add_form_default_values({
           '4x.suspect': '1',
           '5x.vehicles': '1',
           '6x.victims': '1',
-		  '7x.fire': '1'
+	  '7x.fire': '1'
+      });
+      integration.after("early_startup", function() {
+          ComboBox.addOptions(document.getElementById("reportingLocation-options"),
+                              <%& recentReportingLocations %>);
       });
       // Don't show the 'Add an Item' buttons in a read-only form:
       integration.after('late_startup', function() {
           if (envelope.readOnly) {
               array_for_each(document.querySelectorAll('.print-none'), function(item) {
                   item.style.display = 'none';
-             });
+              });
           }
       });
     </script>
-    <meta name="pack-it-forms-subject-suffix" content="_Incident Report_{{field:1x.serviceValuesRequested}}_{{field:2a.incident-address}}">
+    <meta name="pack-it-forms-subject-suffix" content="_Incident Report_{{field:2a.incident-address}}">
     <title>Incident Reporting Form (911)</title>
   </head>
 
@@ -859,8 +834,7 @@
             <td class="block-caption">Additional Details & City Service Requests<span class="field-number">8</span></td>
           </tr><tr>
             <td><textarea name="8.details" rows="5" tabindex="170"
-                          placeholder="Additional Details and Other 911 Hazard Reporting
-                                       Examples: electrical wires down, natural gas leak, road blocked, flooding/debris flow, hazardous materials release"
+                          placeholder="Additional Details and Other 911 Hazard Reporting&#10;Examples: electrical wires down, natural gas leak, road blocked, flooding/debris flow, hazardous materials release"
                           ></textarea></td>
           </tr><tr>
             <td>
@@ -869,10 +843,22 @@
                   <th>Reporting Location:</th>
                   <td style="width:1px;"><span class="field-number">1B</span></td>
 	          <td>
-                    <input name="1b.report-loc" type="text" tabindex="14"
-                           placeholder="Fire Station 1, Town Center, Redwood Park, etc."/>
+                    <table class="combobox" style="width:30em;">
+                      <tr>
+                        <td>
+                          <input name="1b.reportingLocation" type="text" tabindex="14"
+                                 placeholder="Fire Station 1, Town Center, Redwood Park, etc."/>
+                        </td>
+                        <td class="dropdown-toggle">
+                          <span><img src="icon-chevron-down.png"/></span>
+                        </td>
+                      </tr><tr>
+                        <td colspan="2" class="dropdown-list" style="display:none;">
+                          <div><div id="reportingLocation-options"></div></div>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
-                </tr><tr>
                 </tr>
               </table>
             </td>
@@ -883,7 +869,7 @@
 	          <th>Person Taking Report:</th>
                   <td style="width:1px;"><span class="field-number">1C</span></td>
                   <td>
-                    <input name="1c.report-loc" type="text" tabindex="15"
+                    <input name="1c.reporter" type="text" tabindex="15"
                            placeholder="Name, Call Sign or CERT Team #"/>
                   </td>
                 </tr>
