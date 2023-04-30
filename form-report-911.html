@@ -142,7 +142,7 @@
           </td>
         </tr>
       </table>
-      <input type="text" name="5.handling" style="display:none;" value="IMMEDIATE"/>
+      <span style="display:none;"><input type="text" name="5.handling" value="IMMEDIATE"/></span>
       <table class="section" style="margin-top:1ex;">
         <tr>
           <td class="block-caption">Incident Information: <span class="field-number">2</span></td>
@@ -189,9 +189,12 @@
           </td>
         </tr>
         </table>
+
         <!-- START SUSPECT -->
-        <input type="text" name="4x.suspect" style="display:none"
-               id="suspect-count" onchange="showItems('suspect', parseInt(this.value))" tabindex="21"/>
+        <span style="display:none;">
+          <input type="text" name="4x.suspect"
+                 id="suspect-count" onchange="showItems('suspect', parseInt(this.value))" tabindex="21"/>
+        </span>
         <table class="section">
           <tr>
             <td class="block-caption">Suspect / Subject <span class="field-number">4</span></td>
@@ -452,9 +455,12 @@
             </td>
           </tr>
         </table>
+
         <!-- START VEHICLE -->
-        <input type="text" name="5x.vehicles" style="display:none"
-               id="vehicle-count" onchange="showItems('vehicle', parseInt(this.value))"/>
+        <span style="display:none;">
+          <input type="text" name="5x.vehicles"
+                 id="vehicle-count" onchange="showItems('vehicle', parseInt(this.value))"/>
+        </span>
         <table class="section">
           <tr>
             <td class="block-caption">Vehicle <span class="field-number">5</span></td>
@@ -552,8 +558,10 @@
         </table>
 
         <!-- START VICTIM -->
-        <input type="text" name="6x.victims" style="display:none"
-               id="victim-count" onchange="showItems('victim', parseInt(this.value))" tabindex="110"/>
+        <span style="display:none;">
+          <input type="text" name="6x.victims"
+                 id="victim-count" onchange="showItems('victim', parseInt(this.value))" tabindex="110"/>
+        </span>
         <table class="section">
           <tr>
             <td class="block-caption">Victim / Patient <span class="field-number">6</span></td>
@@ -720,8 +728,10 @@
         </table>
 	
 	<!-- START FIRE -->
-        <input type="text" name="7x.fire" style="display:none"
-               id="fire-count" onchange="showItems('fire', parseInt(this.value))"/>
+        <span style="display:none;">
+          <input type="text" name="7x.fire"
+                 id="fire-count" onchange="showItems('fire', parseInt(this.value))"/>
+        </span>
         <table class="section">
           <tr>
             <td class="block-caption">Fire <span class="field-number">7</span></td>
