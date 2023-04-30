@@ -9,9 +9,32 @@
       #the-form {
           max-width: 7.5in;
       }
-      table.same-line-label-layout>tr>th, table.same-line-label-layout>tbody>tr>th {
+      span.field-number {
+          padding-left: 0px;
+      }
+      table.same-line-label-layout>tr>th,
+      table.same-line-label-layout>tbody>tr>th {
           font-weight: normal;
+          padding-left: 1em;
           text-align: right;
+          width: 1px;
+          vertical-align: middle;
+      }
+      table.same-line-label-layout>tr>td,
+      table.same-line-label-layout>tbody>tr>td {
+          vertical-align: middle;
+      }
+      th.label-sameline>label,
+      td.label-sameline>label {
+          font-weight: normal;
+          vertical-align: middle;
+      }
+      table.same-line-label-layout>tr>td>input[type="text"],
+      table.same-line-label-layout>tbody>tr>td>input[type="text"],
+      table.same-line-label-layout>tr>td>textarea,
+      table.same-line-label-layout>tbody>tr>td>textarea {
+          margin-top: 0.2em;
+          margin-bottom: 0.2em;
       }
       input[type="checkbox"] {
           display: inline;
@@ -119,9 +142,7 @@
           </td>
         </tr>
       </table>
-      <span style="display:none;">
-        <input type="text" name="5.handling" value="IMMEDIATE"/>
-      </span>
+      <input type="text" name="5.handling" style="display:none;" value="IMMEDIATE"/>
       <table class="section" style="margin-top:1ex;">
         <tr>
           <td class="block-caption">Incident Information: <span class="field-number">2</span></td>
@@ -129,19 +150,21 @@
           <td>
             <table class="same-line-label-layout">
 	      <tr>
-                <th style="padding-top:0.5em;"><b>Incident Address:</b> <span class="field-number">2A</span></th>
-                <td colspan="3" style="padding-top:0.5em;padding-left:0.5em;">
+                <th>Incident Address:<span class="field-number">2A</span></th>
+                <td>
                   <input name="2a.incident-address" type="text" required tabindex="16"/>
                 </td>
               </tr><tr>
-                <th style="padding-top:0.5em;">Common Place Name:<span class="field-number">2B</span></th>
-                <td colspan="3" style="padding-top:0.5em;padding-left:0.5em;">
-                  <input name="2b.common-name" type="text" placeholder="Senior Center, Home Depot, Cardoza Park, Randall School, etc," tabindex="17"/>
+                <th>Common Place Name:<span class="field-number">2B</span></th>
+                <td>
+                  <input name="2b.common-name" type="text"
+                         placeholder="Senior Center, Home Depot, Cardoza Park, Randall School, etc," tabindex="17"/>
                 </td>
               </tr><tr>
-                <th style="padding-top:0.5em;"><b>Brief Description:</b> <span class="field-number">2C</span></th>
-                <td colspan="3" style="padding-top:0.5em;padding-left:0.5em;">
-                  <input name="2c.description" type="text" placeholder="What happended, why is help needed." required tabindex="18"/>
+                <th>Brief Description:<span class="field-number">2C</span></th>
+                <td>
+                  <input name="2c.description" type="text" required tabindex="18"
+                         placeholder="What happended, why is help needed."/>
                 </td>
               </tr>
             </table>
@@ -150,7 +173,7 @@
       </table>
       <table class="section">
         <tr>
-          <td class="block-caption">Reporting Person (RP)<span class="field-number">3</span></td>
+          <td class="block-caption">Reporting Person (RP) <span class="field-number">3</span></td>
         </tr><tr>
           <td>
             <table class="same-line-label-layout">
@@ -167,10 +190,8 @@
         </tr>
         </table>
         <!-- START SUSPECT -->
-	<span style="display:none">
-          <input type="text" name="4x.suspect"
-                 id="suspect-count" onchange="showItems('suspect', parseInt(this.value))" tabindex="21"/>
-        </span>
+        <input type="text" name="4x.suspect" style="display:none"
+               id="suspect-count" onchange="showItems('suspect', parseInt(this.value))" tabindex="21"/>
         <table class="section">
           <tr>
             <td class="block-caption">Suspect / Subject <span class="field-number">4</span></td>
@@ -179,7 +200,7 @@
 	      <div id="suspect-1" style="display:none;">
                 <table class="same-line-label-layout">
                   <tr>
-                    <th style="width:1px;">Race: <span class="field-number">4A</span></th>
+                    <th>Race:<span class="field-number">4A</span></th>
                     <td style="width:1px;">
                       <select name="41a.race" tabindex="22">
                         <option value=""></option>
@@ -190,7 +211,7 @@
 		      </select>
 	            </td>
 	            <th>Sex:<span class="field-number">4B</span></th>
-                    <td>
+                    <td style="width:1px;">
                       <select name="41b.sex" tabindex="23">
                         <option value=""></option>
                         <option value="M">Male</option>
@@ -199,22 +220,21 @@
                     </td>   
 	            <th>Age:<span class="field-number">4C</span></th>
                     <td>
-                      <input name="41c.age" type="text"
-                             placeholder="years" pattern="\d*" tabindex="24"/>
+                      <input name="41c.age" type="text" class="cardinal-number"
+                             style="width:3em;" placeholder="years" tabindex="24"/>
                     </td>
-	          </tr>
-	          <tr>
-                    <th style="width:1px;">Height:<span class="field-number">4D</span></th>
-                    <td style="width:1px;">
-                      <input name="41d.height" type="text"
+	          </tr><tr>
+                    <th>Height:<span class="field-number">4D</span></th>
+                    <td>
+                      <input name="41d.height" type="text" style="width:5em;"
                              placeholder="ft'in&quot;" pattern="\d*'\d*&quot;" tabindex="25"/>
                     </td>
 	            <th>Weight:<span class="field-number">4E</span></th>
                     <td>
-                      <input name="41e.weight" type="text"
-                             placeholder="pounds" pattern="\d*" tabindex="26"/>
+                      <input name="41e.weight" type="text" class="cardinal-number"
+                             style="width:4em;" placeholder="pounds" tabindex="26"/>
                     </td>
-                    <th style="width:1px;">Hair:<span class="field-number">4F</span></th>
+                    <th>Hair:<span class="field-number">4F</span></th>
                     <td>
                       <select name="41f.hair" tabindex="27">
                         <option value=""></option>
@@ -246,13 +266,14 @@
 	          <tr>
                     <th>Last Known Location:<span class="field-number">4J</span></th>
                     <td>
-                      <input name="41j.last-loc" class="same-line-label-layout" type="text" placeholder="Include direction of travel if known." tabindex="30"/>
+                      <input name="41j.last-loc" type="text" tabindex="30"
+                             placeholder="Include direction of travel if known."/>
                     </td>
                   </tr>
 	          <tr>
                     <th>Weapon Seen:<span class="field-number">4K</span></th>
                     <td>
-                      <input name="41K.weapon" type="text" placeholder="Gun, Knife, Club, etc." tabindex="31"/>
+                      <input name="41k.weapon" type="text" placeholder="Gun, Knife, Club, etc." tabindex="31"/>
                     </td>
                   </tr>
                 </table>
@@ -261,9 +282,9 @@
 	        <hr/>
                 <table class="same-line-label-layout">
                   <tr>
-                    <th style="width:1px;">Race: <span class="field-number">4A</span></th>
+                    <th>Race:<span class="field-number">4A</span></th>
                     <td style="width:1px;">
-                      <select name="42a.race"tabindex="40">
+                      <select name="42a.race" tabindex="42">
                         <option value=""></option>
                         <option value="wht">White</option>
                         <option value="blk">Black</option>
@@ -272,8 +293,8 @@
 		      </select>
 	            </td>
 	            <th>Sex:<span class="field-number">4B</span></th>
-                    <td>
-                      <select name="42b.sex"tabindex="41">
+                    <td style="width:1px;">
+                      <select name="42b.sex" tabindex="43">
                         <option value=""></option>
                         <option value="M">Male</option>
                         <option value="F">Female</option>
@@ -281,24 +302,23 @@
                     </td>   
 	            <th>Age:<span class="field-number">4C</span></th>
                     <td>
-                      <input name="42c.age" type="text"
-                             placeholder="years" pattern="\d*" tabindex="42"/>
+                      <input name="42c.age" type="text" class="cardinal-number"
+                             style="width:3em;" placeholder="years" tabindex="44"/>
                     </td>
-	          </tr>
-	          <tr>
-                    <th style="width:1px;">Height:<span class="field-number">4D</span></th>
-                    <td style="width:1px;">
-                      <input name="42d.height" type="text"
-                             placeholder="ft'in&quot;" pattern="\d*'\d*&quot;" tabindex="43"/>
+	          </tr><tr>
+                    <th>Height:<span class="field-number">4D</span></th>
+                    <td>
+                      <input name="42d.height" type="text" style="width:5em;"
+                             placeholder="ft'in&quot;" pattern="\d*'\d*&quot;" tabindex="45"/>
                     </td>
 	            <th>Weight:<span class="field-number">4E</span></th>
                     <td>
-                      <input name="42e.weight" type="text"
-                             placeholder="pounds" pattern="\d*" tabindex="44"/>
+                      <input name="42e.weight" type="text" class="cardinal-number"
+                             style="width:4em;" placeholder="pounds" tabindex="46"/>
                     </td>
-                    <th style="width:1px;">Hair:<span class="field-number">4F</span></th>
+                    <th>Hair:<span class="field-number">4F</span></th>
                     <td>
-                      <select name="42f.hair" tabindex="45">
+                      <select name="42f.hair" tabindex="47">
                         <option value=""></option>
                         <option value="blk">Black</option>
                         <option value="brn">Brown</option>
@@ -311,7 +331,7 @@
                   </tr><tr>            
                     <th>Build:<span class="field-number">4G</span></th>
                     <td>
-                      <select name="42g.build" tabindex="46">
+                      <select name="42g.build" tabindex="48">
                         <option value=""></option>
                         <option value="lt">Light</option>
                         <option value="med">Medium</option>
@@ -320,7 +340,7 @@
                     </td>
                     <th>Clothing:<span class="field-number">4H</span></th>
                     <td colspan="3">
-                      <input name="42h.clothing" type="text" tabindex="47"/>
+                      <input name="42h.clothing" type="text" tabindex="49"/>
                     </td>
                   </tr>
                 </table>
@@ -328,14 +348,14 @@
 	          <tr>
                     <th>Last Known Location:<span class="field-number">4J</span></th>
                     <td>
-                      <input name="42j.last-loc" class="same-line-label-layout" type="text" 
-			     placeholder="Include direction of tavel if known." tabindex="48"/>
+                      <input name="42j.last-loc" type="text" tabindex="50"
+                             placeholder="Include direction of travel if known."/>
                     </td>
                   </tr>
 	          <tr>
                     <th>Weapon Seen:<span class="field-number">4K</span></th>
                     <td>
-                      <input name="42k.weapon" type="text" placeholder="Gun, Knife, Club, etc." tabindex="49"/>
+                      <input name="42k.weapon" type="text" placeholder="Gun, Knife, Club, etc." tabindex="51"/>
                     </td>
                   </tr>
                 </table>
@@ -344,9 +364,9 @@
 	        <hr/>
                 <table class="same-line-label-layout">
                   <tr>
-                    <th style="width:1px;">Race: <span class="field-number">4A</span></th>
+                    <th>Race:<span class="field-number">4A</span></th>
                     <td style="width:1px;">
-                      <select name="43a.race" tabindex="60">
+                      <select name="43a.race" tabindex="62">
                         <option value=""></option>
                         <option value="wht">White</option>
                         <option value="blk">Black</option>
@@ -355,8 +375,8 @@
 		      </select>
 	            </td>
 	            <th>Sex:<span class="field-number">4B</span></th>
-                    <td>
-                      <select name="43b.sex" tabindex="61">
+                    <td style="width:1px;">
+                      <select name="43b.sex" tabindex="63">
                         <option value=""></option>
                         <option value="M">Male</option>
                         <option value="F">Female</option>
@@ -364,24 +384,23 @@
                     </td>   
 	            <th>Age:<span class="field-number">4C</span></th>
                     <td>
-                      <input name="43c.age" type="text"
-                             placeholder="years" pattern="\d*" tabindex="62"/>
+                      <input name="43c.age" type="text" class="cardinal-number"
+                             style="width:3em;" placeholder="years" tabindex="64"/>
                     </td>
-	          </tr>
-	          <tr>
-                    <th style="width:1px;">Height:<span class="field-number">4D</span></th>
-                    <td style="width:1px;">
-                      <input name="43d.height" type="text"
-                             placeholder="ft'in&quot;" pattern="\d*'\d*&quot;" tabindex="63"/>
+	          </tr><tr>
+                    <th>Height:<span class="field-number">4D</span></th>
+                    <td>
+                      <input name="43d.height" type="text" style="width:5em;"
+                             placeholder="ft'in&quot;" pattern="\d*'\d*&quot;" tabindex="65"/>
                     </td>
 	            <th>Weight:<span class="field-number">4E</span></th>
                     <td>
-                      <input name="43e.weight" type="text"
-                             placeholder="pounds" pattern="\d*" tabindex="64"/>
+                      <input name="43e.weight" type="text" class="cardinal-number"
+                             style="width:4em;" placeholder="pounds" tabindex="66"/>
                     </td>
-                    <th style="width:1px;">Hair:<span class="field-number">4F</span></th>
+                    <th>Hair:<span class="field-number">4F</span></th>
                     <td>
-                      <select name="43f.hair" tabindex="65">
+                      <select name="43f.hair" tabindex="67">
                         <option value=""></option>
                         <option value="blk">Black</option>
                         <option value="brn">Brown</option>
@@ -394,7 +413,7 @@
                   </tr><tr>            
                     <th>Build:<span class="field-number">4G</span></th>
                     <td>
-                      <select name="43g.build" tabindex="66">
+                      <select name="43g.build" tabindex="68">
                         <option value=""></option>
                         <option value="lt">Light</option>
                         <option value="med">Medium</option>
@@ -403,7 +422,7 @@
                     </td>
                     <th>Clothing:<span class="field-number">4H</span></th>
                     <td colspan="3">
-                      <input name="43h.clothing" type="text" tabindex="67"/>
+                      <input name="43h.clothing" type="text" tabindex="69"/>
                     </td>
                   </tr>
                 </table>
@@ -411,14 +430,14 @@
 	          <tr>
                     <th>Last Known Location:<span class="field-number">4J</span></th>
                     <td>
-                      <input name="43j.last-loc" class="same-line-label-layout" type="text" 
-			     placeholder="Include direction of travel if known." tabindex="68"/>
+                      <input name="43j.last-loc" type="text" tabindex="70"
+                             placeholder="Include direction of travel if known."/>
                     </td>
                   </tr>
 	          <tr>
                     <th>Weapon Seen:<span class="field-number">4K</span></th>
                     <td>
-                      <input name="43k.weapon" type="text" placeholder="Gun, Knife, Club, etc." tabindex="69"/>
+                      <input name="43k.weapon" type="text" placeholder="Gun, Knife, Club, etc." tabindex="71"/>
                     </td>
                   </tr>
                 </table>
@@ -434,25 +453,22 @@
           </tr>
         </table>
         <!-- START VEHICLE -->
-        <span style="display:none">
-          <input type="text" name="5x.vehicles"
-                 id="vehicle-count" onchange="showItems('vehicle', parseInt(this.value))"/>
-        </span>
+        <input type="text" name="5x.vehicles" style="display:none"
+               id="vehicle-count" onchange="showItems('vehicle', parseInt(this.value))"/>
         <table class="section">
           <tr>
-            <td class="block-caption">Vehicle<span class="field-number">5</span></td>
+            <td class="block-caption">Vehicle <span class="field-number">5</span></td>
           </tr><tr>
             <td>
               <div id="vehicle-1" style="display:none;">
                 <table class="same-line-label-layout">
                   <tr>
                     <th>Color:<span class="field-number">5A</span></th>
-                    <td style="width:8em;">
-                      <input name="51a.color" type="text" tabindex="80"/>
-                    </td>
+                    <td style="width:8em;"><input name="51a.color" type="text" tabindex="80"/></td>
                     <th>Year:<span class="field-number">5B</span></th>
-                    <td style="width:7em;">
-                      <input name="51b.year" type="text" placeholder="yyyy" pattern="\d\d\d\d" tabindex="81"/>
+                    <td style="width:8em;">
+                      <input name="51b.year" type="text"
+                             placeholder="yyyy" pattern="\d\d\d\d" tabindex="81"/>
                     </td>
                   </tr><tr>
                     <th>Make:<span class="field-number">5C</span></th>
@@ -460,10 +476,13 @@
                     <th>License:<span class="field-number">5D</span></th>
                     <td><input name="51d.license" type="text" tabindex="83"/></td>
 	            <th>State:<span class="field-number">5E</span></th>
-                    <td style="width:8em;"><input name="51e.state" type="text" tabindex="84"/></td>
+                    <td><input name="51e.state" type="text" tabindex="84"/></td>
                   </tr><tr>
                     <th>Model/Type:<span class="field-number">5F</span></th>
-                    <td colspan="5"><input name="51f.model" type="text" tabindex="85" placeholder="Chevy Volt, Ford Ranger, SUV, Truck, Motorcycle, Bicycle, etc."/></td>
+                    <td colspan="5">
+                      <input name="51f.model" type="text" tabindex="85"
+                             placeholder="Corolla, Ranger, SUV, Truck, Motorcycle, Bicycle, etc."/>
+                    </td>
                   </tr>
                 </table>
               </div>
@@ -472,12 +491,11 @@
                 <table class="same-line-label-layout">
                   <tr>
                     <th>Color:<span class="field-number">5A</span></th>
-                    <td style="width:8em;">
-                      <input name="52a.color" type="text" tabindex="90"/>
-                    </td>
+                    <td style="width:8em;"><input name="52a.color" type="text" tabindex="90"/></td>
                     <th>Year:<span class="field-number">5B</span></th>
-                    <td style="width:7em;">
-                      <input name="52b.year" type="text" placeholder="yyyy" pattern="\d\d\d\d" tabindex="91"/>
+                    <td style="width:8em;">
+                      <input name="52b.year" type="text"
+                             placeholder="yyyy" pattern="\d\d\d\d" tabindex="91"/>
                     </td>
                   </tr><tr>
                     <th>Make:<span class="field-number">5C</span></th>
@@ -485,10 +503,13 @@
                     <th>License:<span class="field-number">5D</span></th>
                     <td><input name="52d.license" type="text" tabindex="93"/></td>
 	            <th>State:<span class="field-number">5E</span></th>
-                    <td style="width:8em;"><input name="52e.state" type="text" tabindex="94"/></td>
+                    <td><input name="52e.state" type="text" tabindex="94"/></td>
                   </tr><tr>
                     <th>Model/Type:<span class="field-number">5F</span></th>
-                    <td colspan="5"><input name="52f.model" type="text" tabindex="95" placeholder="Chevy Volt, Ford Ranger, SUV, Truck, Motorcycle, Bicycle, etc."/></td>
+                    <td colspan="5">
+                      <input name="52f.model" type="text" tabindex="95"
+                             placeholder="Corolla, Ranger, SUV, Truck, Motorcycle, Bicycle, etc."/>
+                    </td>
                   </tr>
                 </table>
               </div>
@@ -497,23 +518,25 @@
                 <table class="same-line-label-layout">
                   <tr>
                     <th>Color:<span class="field-number">5A</span></th>
-                    <td style="width:8em;">
-                      <input name="53a.color" type="text" tabindex="100"/>
-                    </td>
+                    <td style="width:8em;"><input name=53a.color" type="text" tabindex="100"/></td>
                     <th>Year:<span class="field-number">5B</span></th>
-                    <td style="width:7em;">
-                      <input name="53b.year" type="text" placeholder="yyyy" pattern="\d\d\d\d" tabindex="101"/>
+                    <td style="width:8em;">
+                      <input name=53b.year" type="text"
+                             placeholder="yyyy" pattern="\d\d\d\d" tabindex="101"/>
                     </td>
                   </tr><tr>
                     <th>Make:<span class="field-number">5C</span></th>
-                    <td><input name="53c.make" type="text" tabindex="102"/></td>
+                    <td><input name=53c.make" type="text" tabindex="102"/></td>
                     <th>License:<span class="field-number">5D</span></th>
-                    <td><input name="53d.license" type="text" tabindex="103"/></td>
+                    <td><input name=53d.license" type="text" tabindex="103"/></td>
 	            <th>State:<span class="field-number">5E</span></th>
-                    <td style="width:8em;"><input name="53e.state" type="text" tabindex="103"/></td>
+                    <td><input name=53e.state" type="text" tabindex="104"/></td>
                   </tr><tr>
                     <th>Model/Type:<span class="field-number">5F</span></th>
-                    <td colspan="5"><input name="53f.model" type="text" tabindex="104" placeholder="Chevy Volt, Ford Ranger, SUV, Truck, Motorcycle, Bicycle, etc."/></td>
+                    <td colspan="5">
+                      <input name=53f.model" type="text" tabindex="105"
+                             placeholder="Corolla, Ranger, SUV, Truck, Motorcycle, Bicycle, etc."/>
+                    </td>
                   </tr>
                 </table>
               </div>
@@ -529,53 +552,57 @@
         </table>
 
         <!-- START VICTIM -->
-	<span style="display:none">
-          <input type="text" name="6x.victims"
-                 id="victim-count" onchange="showItems('victim', parseInt(this.value))" tabindex="110"/>
-        </span>
+        <input type="text" name="6x.victims" style="display:none"
+               id="victim-count" onchange="showItems('victim', parseInt(this.value))" tabindex="110"/>
         <table class="section">
           <tr>
-            <td class="block-caption">Victim / Patient<span class="field-number">6</span></td>
+            <td class="block-caption">Victim / Patient <span class="field-number">6</span></td>
           </tr><tr>
             <td>
 	      <div id="victim-1" style="display:none;">
                 <table class="same-line-label-layout">
-                  <th>Victims Sex:<span class="field-number">6A</span></th>
-                  <td>
-                    <select name="61a.victims-sex" tabindex="111">
-                      <option value=""></option>
-                      <option value="M">Male</option>
-                      <option value="F">Female</option>
-                    </select>
-                  </td>  
-                  <th>Adult/Child:<span class="field-number">6B</span></th>
-                  <td>
-                    <select name="61b.adultchild" tabindex="112">
-                      <option value=""></option>
-                      <option value="Adult">Adult</option>
-                      <option value="Child">Child</option>
-                    </select>
-                  </td>   
-                  <th>Age:<span class="field-number">6C</span></th>
-                  <td>
-                    <input name="61c.victims-age" type="text"
-                           placeholder="years" pattern="\d*" tabindex="113"/>
-                  </td>  
                   <tr>
-                    <td class="label-sameline" colspan="1"> Is Patient Conscious:<span class="field-number">6D</span></td>
-                    <td class="label-sameline" colspan="2">
-                      <label> <input name="61d.conscious" type="radio" value="Yes" tabindex="114"/> Yes </label>
-                      <label> <input name="61d.conscious" type="radio" value="No" tabindex="115"/> No </label>
+                    <th>Victim's Sex:<span class="field-number">6A</span></th>
+                    <td class="label-sameline" style="width:1px;">
+                      <select name="61a.victims-sex" tabindex="111">
+                        <option value=""></option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                      </select>
                     </td>
-	            <td class="label-sameline" colspan="1"> Is Patient Breathing:<span class="field-number">6E</span></td>
-                    <td class="label-sameline" colspan="1">
-                      <label><input name="61e.breathing" type="radio" value="Yes" tabindex="116"/> Yes </label>
-                      <label><input name="61e.breathing" type="radio" value="No" tabindex="117"/> No  </label>
+                    <th>Adult/Child:<span class="field-number">6B</span></th>
+                    <td style="width:1px;">
+                      <select name="61b.adultchild" tabindex="112">
+                        <option value=""></option>
+                        <option value="Adult">Adult</option>
+                        <option value="Child">Child</option>
+                      </select>
                     </td>
-  	          </tr>
-                  <tr>
-                    <th style="padding-top:0.5em;">Injury / Medical Condition:<span class="field-number">6F</span></th>
-                    <td colspan="5" style="padding-top:0.5em;padding-left:0.5em;">
+                    <th>Age:<span class="field-number">6C</span></th>
+                    <td>
+                      <input name="61c.victims-age" type="text" class="cardinal-number"
+                             placeholder="years" pattern="\d*" tabindex="113"/>
+                    </td>
+                  </tr><tr>
+                    <th>Is Patient Conscious:<span class="field-number">6D</span></th>
+                    <td colspan="4" style="padding-left:0px;">
+                      <table class="same-line-label-layout">
+                        <tr>
+                          <td class="label-sameline" style="padding-left:0.25em;">
+                            <label><input name="61d.conscious" type="radio" value="Yes" tabindex="114"/>Yes </label>
+                            <label><input name="61d.conscious" type="radio" value="No" tabindex="114"/>No</label>
+                          </td>
+                          <th>Is Patient Breathing:<span class="field-number">6E</span></th>
+                          <td class="label-sameline" style="padding-left:0.25em;">
+                            <label><input name="61e.breathing" type="radio" value="Yes" tabindex="116"/>Yes </label>
+                            <label><input name="61e.breathing" type="radio" value="No" tabindex="116"/>No</label>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr><tr>
+                    <th>Injury / Medical Condition:<span class="field-number">6F</span></th>
+                    <td colspan="5">
                       <textarea name="61f.injury-condition" rows="1" tabindex="118"></textarea>
                     </td>
                   </tr>
@@ -584,43 +611,49 @@
 	      <div id="victim-2" style="display:none;">
 	        <hr/>
                 <table class="same-line-label-layout">
-                  <th>Victims Sex:<span class="field-number">6A</span></th>
-                  <td>
-                    <select name="62a.victims-sex" tabindex="120">
-                      <option value=""></option>
-                      <option value="M">Male</option>
-                      <option value="F">Female</option>
-                    </select>
-                  </td>  
-                  <th>Adult/Child:<span class="field-number">6B</span></th>
-                  <td>
-                    <select name="62b.adultchild" tabindex="121">
-                      <option value=""></option>
-                      <option value="Adult">Adult</option>
-                      <option value="Child">Child</option>
-                    </select>
-                  </td>   
-                  <th>Age:<span class="field-number">6C</span></th>
-                  <td>
-                    <input name="62c.victims-age" type="text"
-                           placeholder="years" pattern="\d*" tabindex="122"/>
-                  </td>  
                   <tr>
-                    <td class="label-sameline" colspan="1"> Is Patient Conscious:<span class="field-number">6D</span></td>
-                    <td class="label-sameline" colspan="2">
-                      <label> <input name="62d.conscious" type="radio" value="Yes" tabindex="123"/> Yes </label>
-                      <label> <input name="62d.conscious" type="radio" value="No" tabindex="124"/> No </label>
+                    <th>Victim's Sex:<span class="field-number">6A</span></th>
+                    <td class="label-sameline" style="width:1px;">
+                      <select name="62a.victims-sex" tabindex="121">
+                        <option value=""></option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                      </select>
                     </td>
-	            <td class="label-sameline" colspan="1"> Is Patient Breathing:<span class="field-number">6E</span></td>
-                    <td class="label-sameline" colspan="1">
-                      <label><input name="62e.breathing" type="radio" value="Yes" tabindex="125"/> Yes </label>
-                      <label><input name="62e.breathing" type="radio" value="No" tabindex="126"/> No  </label>
+                    <th>Adult/Child:<span class="field-number">6B</span></th>
+                    <td style="width:1px;">
+                      <select name="62b.adultchild" tabindex="122">
+                        <option value=""></option>
+                        <option value="Adult">Adult</option>
+                        <option value="Child">Child</option>
+                      </select>
                     </td>
-  	          </tr>
-                  <tr>
-                    <th style="padding-top:0.5em;">Injury / Medical Condition:<span class="field-number">6F</span></th>
-                    <td colspan="5" style="padding-top:0.5em;padding-left:0.5em;">
-                      <textarea name="62f.injury-condition" rows="1" tabindex="127"></textarea>
+                    <th>Age:<span class="field-number">6C</span></th>
+                    <td>
+                      <input name="62c.victims-age" type="text" class="cardinal-number"
+                             placeholder="years" pattern="\d*" tabindex="123"/>
+                    </td>
+                  </tr><tr>
+                    <th>Is Patient Conscious:<span class="field-number">6D</span></th>
+                    <td colspan="4" style="padding-left:0px;">
+                      <table class="same-line-label-layout">
+                        <tr>
+                          <td class="label-sameline" style="padding-left:0.25em;">
+                            <label><input name="62d.conscious" type="radio" value="Yes" tabindex="124"/>Yes </label>
+                            <label><input name="62d.conscious" type="radio" value="No" tabindex="124"/>No</label>
+                          </td>
+                          <th>Is Patient Breathing:<span class="field-number">6E</span></th>
+                          <td class="label-sameline" style="padding-left:0.25em;">
+                            <label><input name="62e.breathing" type="radio" value="Yes" tabindex="126"/>Yes </label>
+                            <label><input name="62e.breathing" type="radio" value="No" tabindex="126"/>No</label>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr><tr>
+                    <th>Injury / Medical Condition:<span class="field-number">6F</span></th>
+                    <td colspan="5">
+                      <textarea name="62f.injury-condition" rows="1" tabindex="128"></textarea>
                     </td>
                   </tr>
                 </table>
@@ -628,43 +661,49 @@
 	      <div id="victim-3" style="display:none;">
 	        <hr/>
                 <table class="same-line-label-layout">
-                  <th>Victims Sex:<span class="field-number">6A</span></th>
-                  <td>
-                    <select name="63a.victims-sex" tabindex="130">
-                      <option value=""></option>
-                      <option value="M">Male</option>
-                      <option value="F">Female</option>
-                    </select>
-                  </td>  
-                  <th>Adult/Child:<span class="field-number">6B</span></th>
-                  <td>
-                    <select name="63b.adultchild" tabindex="131">
-                      <option value=""></option>
-                      <option value="Adult">Adult</option>
-                      <option value="Child">Child</option>
-                    </select>
-                  </td>   
-                  <th>Age:<span class="field-number">6C</span></th>
-                  <td>
-                    <input name="63c.victims-age" type="text"
-                           placeholder="years" pattern="\d*" tabindex="132"/>
-                  </td>  
                   <tr>
-                    <td class="label-sameline" colspan="1"> Is Patient Conscious:<span class="field-number">6D</span></td>
-                    <td class="label-sameline" colspan="2">
-                      <label> <input name="63d.conscious" type="radio" value="Yes" tabindex="133"/> Yes </label>
-                      <label> <input name="63d.conscious" type="radio" value="No" tabindex="134"/> No </label>
+                    <th>Victim's Sex:<span class="field-number">6A</span></th>
+                    <td class="label-sameline" style="width:1px;">
+                      <select name="63a.victims-sex" tabindex="131">
+                        <option value=""></option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                      </select>
                     </td>
-	            <td class="label-sameline" colspan="1"> Is Patient Breathing:<span class="field-number">6E</span></td>
-                    <td class="label-sameline" colspan="1">
-                      <label><input name="63e.breathing" type="radio" value="Yes" tabindex="135"/> Yes </label>
-                      <label><input name="63e.breathing" type="radio" value="No" tabindex="136"/> No  </label>
+                    <th>Adult/Child:<span class="field-number">6B</span></th>
+                    <td style="width:1px;">
+                      <select name="63b.adultchild" tabindex="132">
+                        <option value=""></option>
+                        <option value="Adult">Adult</option>
+                        <option value="Child">Child</option>
+                      </select>
                     </td>
-  	          </tr>
-                  <tr>
-                    <th style="padding-top:0.5em;">Injury / Medical Condition:<span class="field-number">6F</span></th>
-                    <td colspan="5" style="padding-top:0.5em;padding-left:0.5em;">
-                      <textarea name="63f.injury-condition" rows="1" tabindex="137"></textarea>
+                    <th>Age:<span class="field-number">6C</span></th>
+                    <td>
+                      <input name="63c.victims-age" type="text" class="cardinal-number"
+                             placeholder="years" pattern="\d*" tabindex="133"/>
+                    </td>
+                  </tr><tr>
+                    <th>Is Patient Conscious:<span class="field-number">6D</span></th>
+                    <td colspan="4" style="padding-left:0px;">
+                      <table class="same-line-label-layout">
+                        <tr>
+                          <td class="label-sameline" style="padding-left:0.25em;">
+                            <label><input name="63d.conscious" type="radio" value="Yes" tabindex="134"/>Yes </label>
+                            <label><input name="63d.conscious" type="radio" value="No" tabindex="134"/>No</label>
+                          </td>
+                          <th>Is Patient Breathing:<span class="field-number">6E</span></th>
+                          <td class="label-sameline" style="padding-left:0.25em;">
+                            <label><input name="63e.breathing" type="radio" value="Yes" tabindex="136"/>Yes </label>
+                            <label><input name="63e.breathing" type="radio" value="No" tabindex="136"/>No</label>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr><tr>
+                    <th>Injury / Medical Condition:<span class="field-number">6F</span></th>
+                    <td colspan="5">
+                      <textarea name="63f.injury-condition" rows="1" tabindex="138"></textarea>
                     </td>
                   </tr>
                 </table>
@@ -681,21 +720,19 @@
         </table>
 	
 	<!-- START FIRE -->
-        <span style="display:none">
-          <input type="text" name="7x.fire"
-                 id="fire-count" onchange="showItems('fire', parseInt(this.value))"/>
-        </span>
+        <input type="text" name="7x.fire" style="display:none"
+               id="fire-count" onchange="showItems('fire', parseInt(this.value))"/>
         <table class="section">
           <tr>
-            <td class="block-caption">Fire<span class="field-number">7</span></td>
+            <td class="block-caption">Fire <span class="field-number">7</span></td>
           </tr><tr>
             <td>
               <div id="fire-1" style="display:none;">
                 <table class="same-line-label-layout">
                   <tr>
-                    <th colspan="1">Structure Type:<span class="field-number">7A</span></th>
-                    <td>
-                      <select name="71a.structure" tabindex="140">
+                    <th>Structure Type:<span class="field-number">7A</span></th>
+                    <td class="label-sameline">
+                      <select name="71a.structure" style="margin-right:1em;" tabindex="140">
                         <option value=""></option>
                         <option value="sf">Single Family</option>
                         <option value="condo">Condo</option>
@@ -705,14 +742,11 @@
 			<option value="ind">Vehicle</option>
 			<option value="ind">Vegetation</option>
 		      </select>
-                    </td>
-		    <th colspan="1"># of Stories:<span class="field-number">7B</span></th>
-                    <td style="width:7em;">
-                      <input name="71b.stories" type="text" pattern="\d*" tabindex="141"/>
-                    </td>
-		    <th>People Inside:<span class="field-number">7C</span></th>
-                    <td>
-                      <select name="71c.people" tabindex="142">
+                      # of Stories:<span class="field-number">7B</span>
+                      <input name="71b.stories" type="text" class="cardinal-number"
+                             style="margin-right:1em;" tabindex="141"/>
+		      People Inside:<span class="field-number">7C</span>
+                      <select name="71c.people" style="margin-right:1em;" tabindex="142">
                         <option value=""></option>
                         <option value="Y">YES</option>
                         <option value="N">NO</option>
@@ -736,9 +770,9 @@
 		<hr/>
                 <table class="same-line-label-layout">
                   <tr>
-                    <th colspan="1">Structure Type:<span class="field-number">7A</span></th>
-                    <td>
-                      <select name="72a.structure" tabindex="144">
+                    <th>Structure Type:<span class="field-number">7A</span></th>
+                    <td class="label-sameline">
+                      <select name="72a.structure" style="margin-right:1em;" tabindex="150">
                         <option value=""></option>
                         <option value="sf">Single Family</option>
                         <option value="condo">Condo</option>
@@ -747,15 +781,12 @@
 			<option value="ind">Industrial</option>
 			<option value="ind">Vehicle</option>
 			<option value="ind">Vegetation</option>
-                      </select>
-                    </td>
-		    <th colspan="1"># of Stories:<span class="field-number">7B</span></th>
-                    <td style="width:7em;">
-                      <input name="72b.stories" type="text" pattern="\d*" tabindex="145"/>
-                    </td>
-		    <th>People Inside:<span class="field-number">7C</span></th>
-                    <td>
-                      <select name="72c.people" tabindex="146">
+		      </select>
+                      # of Stories:<span class="field-number">7B</span>
+                      <input name="72b.stories" type="text" class="cardinal-number"
+                             style="margin-right:1em;" tabindex="151"/>
+		      People Inside:<span class="field-number">7C</span>
+                      <select name="72c.people" style="margin-right:1em;" tabindex="152">
                         <option value=""></option>
                         <option value="Y">YES</option>
                         <option value="N">NO</option>
@@ -765,7 +796,7 @@
                   </tr><tr>
 		    <th>Visible:<span class="field-number">7D</span></th>
                     <td>
-                      <select name="72d.visible" tabindex="147">
+                      <select name="72d.visible" tabindex="153">
                         <option value=""></option>
                         <option value="flm">Flames</option>
                         <option value="smk">Smoke</option>
@@ -779,9 +810,9 @@
 		<hr/>
                 <table class="same-line-label-layout">
                   <tr>
-                    <th colspan="1">Structure Type:<span class="field-number">7A</span></th>
-                    <td>
-                      <select name="73a.structure" tabindex="150">
+                    <th>Structure Type:<span class="field-number">7A</span></th>
+                    <td class="label-sameline">
+                      <select name="73a.structure" style="margin-right:1em;" tabindex="160">
                         <option value=""></option>
                         <option value="sf">Single Family</option>
                         <option value="condo">Condo</option>
@@ -790,15 +821,12 @@
 			<option value="ind">Industrial</option>
 			<option value="ind">Vehicle</option>
 			<option value="ind">Vegetation</option>
-                      </select>
-                    </td>
-		    <th colspan="1"># of Stories:<span class="field-number">7B</span></th>
-                    <td style="width:7em;">
-                      <input name="73b.stories" type="text" pattern="\d*" tabindex="151"/>
-                    </td>
-		    <th>People Inside:<span class="field-number">7C</span></th>
-                    <td>
-                      <select name="73c.people" tabindex="152">
+		      </select>
+                      # of Stories:<span class="field-number">7B</span>
+                      <input name="73b.stories" type="text" class="cardinal-number"
+                             style="margin-right:1em;" tabindex="161"/>
+		      People Inside:<span class="field-number">7C</span>
+                      <select name="73c.people" style="margin-right:1em;" tabindex="162">
                         <option value=""></option>
                         <option value="Y">YES</option>
                         <option value="N">NO</option>
@@ -808,7 +836,7 @@
                   </tr><tr>
 		    <th>Visible:<span class="field-number">7D</span></th>
                     <td>
-                      <select name="73d.visible" tabindex="153">
+                      <select name="73d.visible" tabindex="163">
                         <option value=""></option>
                         <option value="flm">Flames</option>
                         <option value="smk">Smoke</option>
@@ -831,17 +859,20 @@
 	
         <table class="section">
           <tr>
-            <td class="block-caption">Additional Details & City Service Requests<span class="field-number">8</span></td>
-          </tr><tr>
-            <td><textarea name="8.details" rows="5" tabindex="170"
-                          placeholder="Additional Details and Other 911 Hazard Reporting&#10;Examples: electrical wires down, natural gas leak, road blocked, flooding/debris flow, hazardous materials release"
-                          ></textarea></td>
+            <td class="block-caption">Additional Details & City Service Requests
+              <span class="field-number">8</span>
+            </td>
           </tr><tr>
             <td>
               <table class="same-line-label-layout">
                 <tr>
-                  <th>Reporting Location:</th>
-                  <td style="width:1px;"><span class="field-number">1B</span></td>
+                  <td colspan="2">
+                    <textarea name="8.details" rows="5" tabindex="170"
+                              placeholder="Additional Details and Other 911 Hazard Reporting&#10;Examples: electrical wires down, natural gas leak, road blocked, flooding/debris flow, hazardous materials release"
+                              ></textarea>
+                  </td>
+                </tr><tr>
+                  <th>Reporting Location:<span class="field-number">1B</span></th>
 	          <td>
                     <table class="combobox" style="width:30em;">
                       <tr>
@@ -859,15 +890,8 @@
                       </tr>
                     </table>
                   </td>
-                </tr>
-              </table>
-            </td>
-          </tr><tr>
-            <td>
-              <table class="same-line-label-layout">
-                <tr>
-	          <th>Person Taking Report:</th>
-                  <td style="width:1px;"><span class="field-number">1C</span></td>
+                </tr><tr>
+	          <th>Person Taking Report:<span class="field-number">1C</span></th>
                   <td>
                     <input name="1c.reporter" type="text" tabindex="172"
                            placeholder="Name, Call Sign or CERT Team #"/>
