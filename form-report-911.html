@@ -80,6 +80,11 @@
       integration.after("early_startup", function() {
           ComboBox.addOptions(document.getElementById("reportingLocation-options"),
                               <%& recentReportingLocations %>);
+          array_for_each(document.querySelectorAll('[id$="f.hair-options"]'), function(item) {
+              ComboBox.addOptions(item, [
+                  "", "Black", "Brown", "Blonde", "Red", "White/Grey", "Bald"
+              ]);
+          });
       });
       // Don't show the 'Add an Item' buttons in a read-only form:
       integration.after('late_startup', function() {
@@ -239,15 +244,18 @@
                     </td>
                     <th>Hair:<span class="field-number">11</span></th>
                     <td>
-                      <select name="41f.hair" tabindex="27">
-                        <option value=""></option>
-                        <option value="blk">Black</option>
-                        <option value="brn">Brown</option>
-                        <option value="yel">Blonde</option>
-                        <option value="red">Red</option>
-                        <option value="wht">White/Grey</option>
-			<option value="red">Bald</option>
-                      </select>
+                      <table class="combobox" style="width:15em;">
+                        <tr>
+                          <td><input name="41f.hair" type="text" tabindex="27"/></td>
+                          <td class="dropdown-toggle">
+                            <span><img src="icon-chevron-down.png"/></span>
+                          </td>
+                        </tr><tr>
+                          <td colspan="2" class="dropdown-list" style="display:none;">
+                            <div><div id="41f.hair-options"></div></div>
+                          </td>
+                        </tr>
+                      </table>
                     </td>
                   </tr><tr>            
                     <th>Build:<span class="field-number">12</span></th>
@@ -321,15 +329,18 @@
                     </td>
                     <th>Hair:</th>
                     <td>
-                      <select name="42f.hair" tabindex="47">
-                        <option value=""></option>
-                        <option value="blk">Black</option>
-                        <option value="brn">Brown</option>
-                        <option value="yel">Blonde</option>
-                        <option value="red">Red</option>
-                        <option value="wht">White/Grey</option>
-			<option value="red">Bald</option>
-                      </select>
+                      <table class="combobox" style="width:15em;">
+                        <tr>
+                          <td><input name="42f.hair" type="text" tabindex="47"/></td>
+                          <td class="dropdown-toggle">
+                            <span><img src="icon-chevron-down.png"/></span>
+                          </td>
+                        </tr><tr>
+                          <td colspan="2" class="dropdown-list" style="display:none;">
+                            <div><div id="42f.hair-options"></div></div>
+                          </td>
+                        </tr>
+                      </table>
                     </td>
                   </tr><tr>            
                     <th>Build:</th>
@@ -403,15 +414,18 @@
                     </td>
                     <th>Hair:</th>
                     <td>
-                      <select name="43f.hair" tabindex="67">
-                        <option value=""></option>
-                        <option value="blk">Black</option>
-                        <option value="brn">Brown</option>
-                        <option value="yel">Blonde</option>
-                        <option value="red">Red</option>
-                        <option value="wht">White/Grey</option>
-			<option value="red">Bald</option>
-                      </select>
+                      <table class="combobox" style="width:15em;">
+                        <tr>
+                          <td><input name="43f.hair" type="text" tabindex="67"/></td>
+                          <td class="dropdown-toggle">
+                            <span><img src="icon-chevron-down.png"/></span>
+                          </td>
+                        </tr><tr>
+                          <td colspan="2" class="dropdown-list" style="display:none;">
+                            <div><div id="43f.hair-options"></div></div>
+                          </td>
+                        </tr>
+                      </table>
                     </td>
                   </tr><tr>            
                     <th>Build:</th>
