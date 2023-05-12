@@ -85,6 +85,11 @@
                   "", "Black", "Brown", "Blonde", "Red", "White/Grey", "Bald"
               ]);
           });
+          array_for_each(document.querySelectorAll('[id$="a.structure-options"]'), function(item) {
+              ComboBox.addOptions(item, [
+                  "", "Single Family", "Condo", "Apartment", "Retail", "Industrial", "Vehicle", "Vegetation"
+              ]);
+          });
       });
       // Don't show the 'Add an Item' buttons in a read-only form:
       integration.after('late_startup', function() {
@@ -759,17 +764,20 @@
                 <table class="same-line-label-layout">
                   <tr>
                     <th>Structure Type:<span class="field-number">28</span></th>
-                    <td class="label-sameline">
-                      <select name="71a.structure" style="margin-right:1em;" tabindex="140">
-                        <option value=""></option>
-                        <option value="sf">Single Family</option>
-                        <option value="condo">Condo</option>
-                        <option value="apt">Apartment</option>
-			<option value="ret">Retail</option>
-			<option value="ind">Industrial</option>
-			<option value="veh">Vehicle</option>
-			<option value="veg">Vegetation</option>
-		      </select>
+                    <td>
+                      <table class="combobox" style="width:10em;">
+                        <tr>
+                          <td><input name="71a.structure" type="text" tabindex="140"/></td>
+                          <td class="dropdown-toggle">
+                            <span><img src="icon-chevron-down.png"/></span>
+                          </td>
+                        </tr><tr>
+                          <td colspan="2" class="dropdown-list" style="display:none;">
+                            <div><div id="71a.structure-options"></div></div>
+                          </td>
+                        </tr>
+                      </table>
+                    </td><td class="label-sameline">
                       Number of Stories:<span class="field-number">29</span>
                       <input name="71b.stories" type="text" class="cardinal-number"
                              style="margin-right:1em;" tabindex="141"/>
@@ -783,7 +791,7 @@
                     </td>
                   </tr><tr>
 		    <th>Visible:<span class="field-number">31</span></th>
-                    <td>
+                    <td colspan="2">
                       <select name="71d.visible" tabindex="143">
                         <option value=""></option>
                         <option value="flm">Flames</option>
@@ -798,17 +806,20 @@
                 <table class="same-line-label-layout">
                   <tr>
                     <th>Structure Type:</th>
-                    <td class="label-sameline">
-                      <select name="72a.structure" style="margin-right:1em;" tabindex="150">
-                        <option value=""></option>
-                        <option value="sf">Single Family</option>
-                        <option value="condo">Condo</option>
-                        <option value="apt">Apartment</option>
-			<option value="ret">Retail</option>
-			<option value="ind">Industrial</option>
-			<option value="veh">Vehicle</option>
-			<option value="veg">Vegetation</option>
-		      </select>
+                    <td>
+                      <table class="combobox" style="width:10em;">
+                        <tr>
+                          <td><input name="72a.structure" type="text" tabindex="150"/></td>
+                          <td class="dropdown-toggle">
+                            <span><img src="icon-chevron-down.png"/></span>
+                          </td>
+                        </tr><tr>
+                          <td colspan="2" class="dropdown-list" style="display:none;">
+                            <div><div id="72a.structure-options"></div></div>
+                          </td>
+                        </tr>
+                      </table>
+                    </td><td class="label-sameline">
                       Number of Stories:
                       <input name="72b.stories" type="text" class="cardinal-number"
                              style="margin-right:1em;" tabindex="151"/>
@@ -837,17 +848,20 @@
                 <table class="same-line-label-layout">
                   <tr>
                     <th>Structure Type:</th>
-                    <td class="label-sameline">
-                      <select name="73a.structure" style="margin-right:1em;" tabindex="160">
-                        <option value=""></option>
-                        <option value="sf">Single Family</option>
-                        <option value="condo">Condo</option>
-                        <option value="apt">Apartment</option>
-			<option value="ret">Retail</option>
-			<option value="ind">Industrial</option>
-			<option value="veh">Vehicle</option>
-			<option value="veg">Vegetation</option>
-		      </select>
+                    <td>
+                      <table class="combobox" style="width:10em;">
+                        <tr>
+                          <td><input name="73a.structure" type="text" tabindex="160"/></td>
+                          <td class="dropdown-toggle">
+                            <span><img src="icon-chevron-down.png"/></span>
+                          </td>
+                        </tr><tr>
+                          <td colspan="2" class="dropdown-list" style="display:none;">
+                            <div><div id="73a.structure-options"></div></div>
+                          </td>
+                        </tr>
+                      </table>
+                    </td><td class="label-sameline">
                       Number of Stories:
                       <input name="73b.stories" type="text" class="cardinal-number"
                              style="margin-right:1em;" tabindex="161"/>
