@@ -102,14 +102,14 @@
       });
       var updateSubject = function() {
           document.getElementById("form-subject").value = expand_template(
-              "{{field:MsgNo}}_{{field:5.handling|truncate:1}}"
-                  + "_Incident Report_{{field:2c.description|truncate:30}}"
+              '{{field:MsgNo}}_{{field:5.handling|truncate:1}}'
+                  + '_Incident Report_{{field:2c.description|truncate:30}}'
           );
       };
       integration.before('before_submit_new_message', updateSubject);
       integration.before('email_message', updateSubject);
     </script>
-    <title>Incident Reporting Form (911)</title>
+    <title>Incident Report (911)</title>
   </head>
 
   <body>
@@ -126,7 +126,7 @@
       <table id="scco-banner" class="block-caption noborder" style="background-color:#bbeeff;">
         <tr>
           <td style="border:none;padding:4pt 4pt;">
-            <span style="font-size:150%;">Incident Reporting Form (911)</span>
+            <span style="font-size:150%;">Incident Report (911)</span>
             <br/>
             <span style="font-size:62%;">Field Numbers Correspond to Instructions on Back of Printed Form</span>
           </td>
