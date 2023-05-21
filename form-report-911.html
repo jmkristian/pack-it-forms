@@ -100,8 +100,15 @@
               });
           }
       });
+      var updateSubject = function() {
+          document.getElementById("form-subject").value = expand_template(
+              "{{field:MsgNo}}_{{field:5.handling|truncate:1}}"
+                  + "_Incident Report_{{field:2c.description|truncate:30}}"
+          );
+      };
+      integration.before('before_submit_new_message', updateSubject);
+      integration.before('email_message', updateSubject);
     </script>
-    <meta name="pack-it-forms-subject-suffix" content="_Incident Report_{{field:2a.incident-address}}">
     <title>Incident Reporting Form (911)</title>
   </head>
 
