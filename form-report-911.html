@@ -81,6 +81,8 @@
       integration.after("early_startup", function() {
           ComboBox.addOptions(document.getElementById("reportingLocation-options"),
                               <%& recentReportingLocations %>);
+          ComboBox.addOptions(document.getElementById("reportTaker-options"),
+                              <%& recentReportTakers %>);
           array_for_each(document.querySelectorAll('[id$="f.hair-options"]'), function(item) {
               ComboBox.addOptions(item, [
                   "", "Black", "Brown", "Blonde", "Red", "White/Grey", "Bald"
@@ -199,7 +201,7 @@
                 <table class="same-line-label-layout">
                   <tr>
                     <th>Name:<span class="field-number">4</span></th>
-                    <td><input name="3a.rp" type="text" tabindex="19"/></td>
+                    <td><input name="3a.reporter" type="text" tabindex="19"/></td>
 	            <th>Phone:<span class="field-number">5</span></th>
                     <td><input name="3b.phone" type="text" class="phone-number" tabindex="20"/></td>
                   </tr>
@@ -922,7 +924,7 @@
                     <table class="combobox" style="width:30em;">
                       <tr>
                         <td>
-                          <input name="1b.reportingLocation" type="text" tabindex="171"
+                          <input name="33.reportingLocation" type="text" tabindex="171"
                                  placeholder="Fire Station 1, Town Center, Redwood Park, etc."/>
                         </td>
                         <td class="dropdown-toggle">
@@ -938,8 +940,22 @@
                 </tr><tr>
 	          <th>Person Taking Report:<span class="field-number">34</span></th>
                   <td>
-                    <input name="1c.reporter" type="text" tabindex="172"
-                           placeholder="Name, Call Sign or CERT Team #"/>
+                    <table class="combobox" style="width:30em;">
+                      <tr>
+                        <td>
+                          <input name="34.reportTaker" type="text" tabindex="172"
+                                 placeholder="Name, Call Sign or CERT Team #"/>
+                        </td>
+                        <td class="dropdown-toggle">
+                          <span><img src="icon-chevron-down.png"/></span>
+                        </td>
+                      </tr><tr>
+                        <td colspan="2" class="dropdown-list" style="display:none;">
+                          <div><div id="reportTaker-options"></div></div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
                   </td>
                 </tr>
               </table>
