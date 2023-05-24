@@ -9,8 +9,8 @@ $DECLARE Milpitas "Milpitas Forms"\
  Milpitas_Forms.exe MilpitasForms_Setup-"$VERSION".exe\
  || exit $?
 
-$DECLARE Los_Altos "Outpost for LAARES"\
- Outpost_Forms.exe OutpostForLAARES_Setup-"$VERSION".exe\
+$DECLARE Los_Altos "Los Altos Forms"\
+ Outpost_Forms.exe LosAltosForms_Setup-"$VERSION".exe\
  || exit $?
 
 $DECLARE SCCoPIFO "SCCo Pack-It-Forms for Outpost (Public Edition)"\
