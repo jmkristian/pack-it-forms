@@ -15,14 +15,14 @@
               // Parse the message:
               document.getElementById('form-data').value = integrationMessage;
               var lines = integrationMessage.split(/\r?\n/);
-              var found = lines[0].match(/^[^-]*-(\S*)*\s+([^,]*),\s+(.*)$/);
+              var found = lines[0].match(/^[^-]*-(\S*)*\s+([^,]*),\s*(.*)$/);
               if (found) {
                   msgfields.in_out = found[1];
                   if (lines[1]) {
                       msgfields.use_tactical = true;
                       msgfields.tactical_call_sign = found[2] || '';
                       msgfields.tactical_name = found[3] || '';
-                      found = lines[1].match(/^\S*\s+([^,]*),\s+(.*)$/);
+                      found = lines[1].match(/^\s*([^,]+),\s*(.*)$/);
                       if (found) {
                           msgfields.operator_call_sign = found[1] || '';
                           msgfields.operator_name = found[2] || '';
