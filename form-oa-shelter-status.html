@@ -59,6 +59,10 @@
           compatible_values("49a.managed-by", managerOptions, "50a.managed-by", "Other")
           managerText = document.querySelector('input[name="49a.managed-by"][type="text"]');
           managerOther = document.querySelector('input[name="49a.managed-by"][type="radio"][value=""]');
+          function addChangeListener(input, onChange) {
+              input.addEventListener('change', onChange);
+              input.addEventListener('input', onChange);
+          }
           function onManagerRadio(event) {
               if (this.value) {
                   managerText.value = "";
@@ -71,9 +75,15 @@
           array_for_each(
               document.querySelectorAll('input[name="49a.managed-by"][type="radio"]'),
               function(radioButton) {
-                  radioButton.addEventListener('change', onManagerRadio);
-                  radioButton.addEventListener('input', onManagerRadio);
+                  addChangeListener(radioButton, onManagerRadio);
               });
+          function onManagerOther(event) {
+              if (managerOther.checked && !managerText.value) {
+                  set_properties({"50a.managed-by": {value: "Other"}});
+              }
+          }
+          addChangeListener(managerOther, onManagerOther);
+          addChangeListener(managerText, onManagerOther);
       });
       integration.after("late_startup", function() {
           if (managerText.value) {
@@ -81,6 +91,9 @@
                   // There's no radio button to represent this value.
                   // Select the 'Other' button.
                   managerOther.checked = true;
+                  if (managerText.value == "Other") {
+                      managerText.value = "";
+                  }
               } else {
                   // The radio button for this value is checked.
                   // Don't show the same value in the text field:
