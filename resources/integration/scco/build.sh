@@ -5,6 +5,6 @@ VERSION="$2"
 # The current working directory isn't the one that contains this script;
 # it's a clone of git@github.com:jmkristian/OutpostForSCCo.git (or a fork thereof).
 
-$DECLARE Report_911 "SCCo Incident Reporting Form (911)"\
+$DECLARE Report_911 "SCCo Incident Report Form (911)"\
  Outpost_Forms.exe Report911_Setup-"$VERSION".exe\
  || exit $?

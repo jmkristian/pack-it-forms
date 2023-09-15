@@ -11,5 +11,5 @@ Function ChooseAddonFiles
   SetOutPath "$INSTDIR\addons"
   File /oname=${addon_name}.launch pack-it-forms\resources\integration\scco\${addon_name}.launch
   SetOutPath "$INSTDIR\pdf"
-  File "pack-it-forms\pdf\IncidentReportingFormWithInstructions.pdf"
+  File "pack-it-forms\pdf\IncidentReportingForm*.pdf"
 FunctionEnd
