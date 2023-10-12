@@ -310,6 +310,11 @@ input[type="button"] {
     border-width: 3px;
 }
 
+input[type="button"]:focus {
+    outline: 2px solid #0261df;
+    border-radius: 2px;
+}
+
 .hidden {
     display: none;
 }
