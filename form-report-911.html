@@ -972,7 +972,7 @@
             <td style="padding-right:0;">
               <table class="same-line-label-layout">
                 <tr>
-                  <th>Name:</th>
+                  <td style="text-align:right;vertical-align:middle;width:0px;">Name:</td>
                   <td>
                     <input type="text" name="OpName" class="no-msg-init include-in-submit" tabindex="502"
                            disabled="disabled" style="margin-right:0;"
@@ -981,17 +981,17 @@
                 </tr>
               </table>
             </td><td>
-              <b>Call Sign:</b>
+              Call Sign:
               <input type="text" name="OpCall" class="no-msg-init include-in-submit call-sign" tabindex="503"
                      disabled="disabled" required="required"
                      value="{{envelope:viewer_operator_call_sign}}"/>
             </td><td>
-              <b>Date:</b>
+              Date:
               <input type="text" name="OpDate" class="date no-msg-init init-on-submit" tabindex="504"
                      disabled="disabled"
                      value="{{expand-while-null:{{envelope:viewer_date}},{{open-tmpl}}date{{close-tmpl}}}}"/>
             </td><td>
-              <b>Time:</b>
+              Time:
               <input type="text" name="OpTime" class="time no-msg-init init-on-submit" tabindex="505"
                      disabled="disabled"
                      value="{{expand-while-null:{{envelope:viewer_time}},{{open-tmpl}}time{{close-tmpl}}}}"/>
