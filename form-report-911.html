@@ -190,42 +190,28 @@
               <table class="same-line-label-layout">
                 <tr>
                   <th>Gender:<span class="field-number">8</span></th>
-                  <td colspan="3" style="padding-left:0px;">
-                    <table class="same-line-label-layout">
-                      <tr>
-                        <td class="label-sameline" style="padding-left:0.25em;width:1px;">
-                          <label><input name="61a.victims-sex" type="radio" value="M" tabindex="20"/>Male</label>
-                          <label><input name="61a.victims-sex" type="radio" value="F" tabindex="20"/>Female</label>
-                        </td>
-                        <th class="label-sameline">
-                          Age:<span class="field-number">9</span>
-                          <input name="61b.victims-age" type="text" style="width:3em;"
-                                 class="cardinal-number" placeholder="years" tabindex="21"/>
-                        </th>
-                        <th><span class="field-number">10</span></th>
-                        <td class="label-sameline" style="padding-left:0px;">
-                          <label><input name="61c.adultchild" type="radio" value="Adult" tabindex="22"/>Adult</label>
-                          <label><input name="61c.adultchild" type="radio" value="Child" tabindex="22"/>Child</label>
-                        </td>
-                      </tr>
-                    </table>
+                  <td class="label-sameline" style="padding-left:0.25em;width:1px;">
+                    <label><input name="61a.victims-sex" type="radio" value="M" tabindex="20"/>Male</label>
+                    <label><input name="61a.victims-sex" type="radio" value="F" tabindex="20"/>Female</label>
+                  </td>
+                  <th>Age:<span class="field-number">9</span></th>
+                  <td class="label-sameline">
+                    <input name="61b.victims-age" type="text" style="width:3em;margin-right:1em;"
+                           class="cardinal-number" placeholder="years" tabindex="21"/>
+                    <span class="field-number">10</span>
+                    <label><input name="61c.adultchild" type="radio" value="Adult" tabindex="22" style="margin-left:0px;"/>Adult</label>
+                    <label><input name="61c.adultchild" type="radio" value="Child" tabindex="22"/>Child</label>
                   </td>
                 </tr><tr>
                   <th>Is Patient Conscious:<span class="field-number">11</span></th>
-                  <td colspan="3" style="padding-left:0px;">
-                    <table class="same-line-label-layout">
-                      <tr>
-                        <td class="label-sameline" style="padding-left:0.25em;width:1px;">
-                          <label><input name="61d.conscious" type="radio" value="Yes" tabindex="23"/>Yes </label>
-                          <label><input name="61d.conscious" type="radio" value="No"  tabindex="23"/>No</label>
-                        </td>
-                        <th>Is Patient Breathing:<span class="field-number">12</span></th>
-                        <td class="label-sameline" style="padding-left:0px;">
-                          <label><input name="61e.breathing" type="radio" value="Yes" tabindex="24"/>Yes </label>
-                          <label><input name="61e.breathing" type="radio" value="No"  tabindex="24"/>No</label>
-                        </td>
-                      </tr>
-                    </table>
+                  <td class="label-sameline" style="padding-left:0.25em;">
+                    <label><input name="61d.conscious" type="radio" value="Yes" tabindex="23"/>Yes </label>
+                    <label><input name="61d.conscious" type="radio" value="No"  tabindex="23"/>No</label>
+                  </td>
+                  <th style="width:1px;">Is Patient Breathing:<span class="field-number">12</span></th>
+                  <td class="label-sameline" style="padding-left:0.25em;">
+                    <label><input name="61e.breathing" type="radio" value="Yes" tabindex="24"/>Yes </label>
+                    <label><input name="61e.breathing" type="radio" value="No"  tabindex="24"/>No</label>
                   </td>
                 </tr><tr>
                   <th style="padding-top:0.3em;vertical-align:top;">
@@ -236,9 +222,11 @@
                   </td>
                 </tr><tr>
                   <th>Name:<span class="field-number">14</span></th>
-                  <td><input name="61g.name" type="text" tabindex="26"/></td>
-	          <th>Phone:<span class="field-number">15</span></th>
-                  <td><input name="61h.phone" type="text" class="phone-number" tabindex="27"/></td>
+                  <td colspan="2"><input name="61g.name" type="text" tabindex="26"/></td>
+                  <td class="label-sameline">
+                    Phone:<span class="field-number">15</span>
+                    <input name="61h.phone" type="text" class="phone-number" tabindex="27"/></td>
+                  </td>
                 </tr>
               </table>
 	    </div>
@@ -247,44 +235,30 @@
               <table class="same-line-label-layout">
                 <tr>
                   <th>Gender:</th>
-                  <td colspan="3" style="padding-left:0px;">
-                    <table class="same-line-label-layout">
-                      <tr>
-                        <td class="label-sameline" style="padding-left:0.25em;width:1px;">
-                          <label><input name="62a.victims-sex" type="radio" value="M" tabindex="30"/>Male</label>
-                          <label><input name="62a.victims-sex" type="radio" value="F" tabindex="30"/>Female</label>
-                        </td>
-                        <th class="label-sameline">
-                          Age:
-                          <input name="62b.victims-age" type="text" style="width:3em;"
-                                 class="cardinal-number" placeholder="years" tabindex="31"/>
-                        </th>
-                        <td class="label-sameline" style="padding-left:0px;">
-                          <label><input name="62c.adultchild" type="radio" value="Adult" tabindex="32"/>Adult</label>
-                          <label><input name="62c.adultchild" type="radio" value="Child" tabindex="32"/>Child</label>
-                        </td>
-                      </tr>
-                    </table>
+                  <td class="label-sameline" style="padding-left:0.25em;width:1px;">
+                    <label><input name="62a.victims-sex" type="radio" value="M" tabindex="30"/>Male</label>
+                    <label><input name="62a.victims-sex" type="radio" value="F" tabindex="30"/>Female</label>
+                  </td>
+                  <th>Age:</th>
+                  <td class="label-sameline">
+                    <input name="62b.victims-age" type="text" style="width:3em;margin-right:1em;"
+                           class="cardinal-number" placeholder="years" tabindex="31"/>
+                    <label><input name="62c.adultchild" type="radio" value="Adult" tabindex="32" style="margin-left:0px;"/>Adult</label>
+                    <label><input name="62c.adultchild" type="radio" value="Child" tabindex="32"/>Child</label>
                   </td>
                 </tr><tr>
                   <th>Is Patient Conscious:</th>
-                  <td colspan="3" style="padding-left:0px;">
-                    <table class="same-line-label-layout">
-                      <tr>
-                        <td class="label-sameline" style="padding-left:0.25em;width:1px;">
-                          <label><input name="62d.conscious" type="radio" value="Yes" tabindex="33"/>Yes </label>
-                          <label><input name="62d.conscious" type="radio" value="No"  tabindex="33"/>No</label>
-                        </td>
-                        <th>Is Patient Breathing:</th>
-                        <td class="label-sameline" style="padding-left:0px;">
-                          <label><input name="62e.breathing" type="radio" value="Yes" tabindex="34"/>Yes </label>
-                          <label><input name="62e.breathing" type="radio" value="No"  tabindex="34"/>No</label>
-                        </td>
-                      </tr>
-                    </table>
+                  <td class="label-sameline" style="padding-left:0.25em;">
+                    <label><input name="62d.conscious" type="radio" value="Yes" tabindex="33"/>Yes </label>
+                    <label><input name="62d.conscious" type="radio" value="No"  tabindex="33"/>No</label>
+                  </td>
+                  <th style="width:1px;">Is Patient Breathing:</th>
+                  <td class="label-sameline" style="padding-left:0.25em;">
+                    <label><input name="62e.breathing" type="radio" value="Yes" tabindex="34"/>Yes </label>
+                    <label><input name="62e.breathing" type="radio" value="No"  tabindex="34"/>No</label>
                   </td>
                 </tr><tr>
-                  <th style="padding-top:0.5em;vertical-align:top;">
+                  <th style="padding-top:0.3em;vertical-align:top;">
                     Injury / Medical Condition:
                   </th>
                   <td colspan="3">
@@ -292,10 +266,10 @@
                   </td>
                 </tr><tr>
                   <th>Name:</th>
-                  <td><input name="62g.name" type="text" tabindex="36"/></td>
-	          <th>Phone:</th>
-                  <td style="width:1px;">
-                    <input name="62h.phone" type="text" class="phone-number" tabindex="37"/>
+                  <td colspan="2"><input name="62g.name" type="text" tabindex="36"/></td>
+                  <td class="label-sameline">
+                    Phone:
+                    <input name="62h.phone" type="text" class="phone-number" tabindex="37"/></td>
                   </td>
                 </tr>
               </table>
@@ -305,44 +279,30 @@
               <table class="same-line-label-layout">
                 <tr>
                   <th>Gender:</th>
-                  <td colspan="3" style="padding-left:0px;">
-                    <table class="same-line-label-layout">
-                      <tr>
-                        <td class="label-sameline" style="padding-left:0.25em;width:1px;">
-                          <label><input name="63a.victims-sex" type="radio" value="M" tabindex="40"/>Male</label>
-                          <label><input name="63a.victims-sex" type="radio" value="F" tabindex="40"/>Female</label>
-                        </td>
-                        <th class="label-sameline">
-                          Age:
-                          <input name="63b.victims-age" type="text" style="width:3em;"
-                                 class="cardinal-number" placeholder="years" tabindex="41"/>
-                        </th>
-                        <td class="label-sameline" style="padding-left:0px;">
-                          <label><input name="63c.adultchild" type="radio" value="Adult" tabindex="42"/>Adult</label>
-                          <label><input name="63c.adultchild" type="radio" value="Child" tabindex="42"/>Child</label>
-                        </td>
-                      </tr>
-                    </table>
+                  <td class="label-sameline" style="padding-left:0.25em;width:1px;">
+                    <label><input name="63a.victims-sex" type="radio" value="M" tabindex="40"/>Male</label>
+                    <label><input name="63a.victims-sex" type="radio" value="F" tabindex="40"/>Female</label>
+                  </td>
+                  <th>Age:</th>
+                  <td class="label-sameline">
+                    <input name="63b.victims-age" type="text" style="width:3em;margin-right:1em;"
+                           class="cardinal-number" placeholder="years" tabindex="41"/>
+                    <label><input name="63c.adultchild" type="radio" value="Adult" tabindex="42" style="margin-left:0px;"/>Adult</label>
+                    <label><input name="63c.adultchild" type="radio" value="Child" tabindex="42"/>Child</label>
                   </td>
                 </tr><tr>
                   <th>Is Patient Conscious:</th>
-                  <td colspan="3" style="padding-left:0px;">
-                    <table class="same-line-label-layout">
-                      <tr>
-                        <td class="label-sameline" style="padding-left:0.25em;width:1px;">
-                          <label><input name="63d.conscious" type="radio" value="Yes" tabindex="43"/>Yes </label>
-                          <label><input name="63d.conscious" type="radio" value="No"  tabindex="43"/>No</label>
-                        </td>
-                        <th>Is Patient Breathing:</th>
-                        <td class="label-sameline" style="padding-left:0px;">
-                          <label><input name="63e.breathing" type="radio" value="Yes" tabindex="44"/>Yes </label>
-                          <label><input name="63e.breathing" type="radio" value="No"  tabindex="44"/>No</label>
-                        </td>
-                      </tr>
-                    </table>
+                  <td class="label-sameline" style="padding-left:0.25em;">
+                    <label><input name="63d.conscious" type="radio" value="Yes" tabindex="43"/>Yes </label>
+                    <label><input name="63d.conscious" type="radio" value="No"  tabindex="43"/>No</label>
+                  </td>
+                  <th style="width:1px;">Is Patient Breathing:</th>
+                  <td class="label-sameline" style="padding-left:0.25em;">
+                    <label><input name="63e.breathing" type="radio" value="Yes" tabindex="44"/>Yes </label>
+                    <label><input name="63e.breathing" type="radio" value="No"  tabindex="44"/>No</label>
                   </td>
                 </tr><tr>
-                  <th style="padding-top:0.5em;vertical-align:top;">
+                  <th style="padding-top:0.3em;vertical-align:top;">
                     Injury / Medical Condition:
                   </th>
                   <td colspan="3">
@@ -350,10 +310,10 @@
                   </td>
                 </tr><tr>
                   <th>Name:</th>
-                  <td><input name="63g.name" type="text" tabindex="46"/></td>
-	          <th>Phone:</th>
-                  <td style="width:1px;">
-                    <input name="63h.phone" type="text" class="phone-number" tabindex="47"/>
+                  <td colspan="2"><input name="63g.name" type="text" tabindex="46"/></td>
+                  <td class="label-sameline">
+                    Phone:
+                    <input name="63h.phone" type="text" class="phone-number" tabindex="47"/></td>
                   </td>
                 </tr>
               </table>
