@@ -13,6 +13,6 @@ $DECLARE Los_Altos "Los Altos Forms"\
  Outpost_Forms.exe LosAltosForms_Setup-"$VERSION".exe\
  || exit $?
 
-$DECLARE SCCoPIFO "SCCo Pack-It-Forms for Outpost (Public Edition)"\
+$DECLARE SCCoPIFO "SCCo PackItForms for Outpost (Public Edition)"\
  SCCoPIFO.exe SCCoPIFOsetup"$VERSION"pub.exe\
  || exit $?
