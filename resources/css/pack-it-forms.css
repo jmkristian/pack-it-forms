@@ -539,7 +539,7 @@ form .instead-of-input {
     font-family: consolas,monaco,profont,monospace;
     min-height: 3ex;
     unicode-bidi: embed;
-    white-space: normal;
+    white-space: pre-wrap;
     overflow-wrap: break-word;
     word-wrap: break-word;/* an archaic synonym for overflow-wrap */
     word-break: break-word;
