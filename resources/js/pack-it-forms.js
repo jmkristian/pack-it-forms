@@ -1179,6 +1179,21 @@ ComboBox.prototype.selectItem = function selectItem(element) {
     }
 };
 
+ComboBox.prototype.setValue = function setValue(value) {
+    if (this.editBox.value != value) {
+        this.editBox.value = value;
+        for (var i = 0; i < this.listItems.length; i++) {
+            var item = this.listItems[i];
+            if (item.innerText == value) {
+                this.selectItem(item);
+                return;
+            }
+        }
+        // The new value isn't in the list.
+        this.selectItem(null);
+    }
+};
+
 ComboBox.prototype.onFocus = function onFocus(event) {
     // console.log('focus');
     if (!this.isToggling) {
@@ -1733,7 +1748,7 @@ This is indicated by a mode=readonly query parameter. */
 function setup_view_mode(next) {
     array_for_each(document.querySelectorAll('table.combobox'), function(table) {
         try {
-            new ComboBox(table);
+            table['PIFO-ComboBox'] = new ComboBox(table);
         } catch(err) {
             console.log(err);
         }

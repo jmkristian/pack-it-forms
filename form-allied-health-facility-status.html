@@ -75,16 +75,50 @@
                   });
               });
           };
+          var positionOptions = [
+              "Health Care Liaison",
+              "EMS Unit",
+              "Public Health Unit",
+              "Medical Health Branch",
+              "Operations Section"];
           integration.after("early_startup", function() {
               copy_initial_value("1b.time", "22t.time");
               allOrNone([40, 41, 42, 43, 44, 45, 46], "beds");
               allOrNone([50, 51, 52, 53, 54], "resource");
-              ComboBox.addOptions(
-                  document.getElementById("to-ics-position-options"),
-                  ["EMS Unit", "Public Health Unit", "Medical Health Branch", "Operations Section"]);
-              ComboBox.addOptions(
-                  document.getElementById("to-location-options"),
-                  ["PHDOC", "County EOC"]);
+              ComboBox.addOptions(document.getElementById("to-ics-position-options"), positionOptions);
+              ComboBox.addOptions(document.getElementById("to-location-options"), ["PHDOC", "County EOC"]);
+          });
+          integration.after("late_startup", function() {
+              // Make it easy to route the message as recommended.
+              // But don't automatically change anything the user has changed.
+              var position = document.getElementById("to-ics-position-box")["PIFO-ComboBox"];
+              var location = document.getElementById("to-location-box")["PIFO-ComboBox"];
+              var positionChanged = function positionChanged() {
+                  position.wasChanged = true;
+                  var value = position.editBox.value;
+                  if (!location.wasChanged && positionOptions.indexOf(value) >= 0) {
+                      location.setValue((value == "Health Care Liaison") ? "PHDOC" : "County EOC");
+                  }
+              };
+              var locationChanged = function locationChanged() {
+                  location.wasChanged = true;
+                  if (!position.wasChanged) {
+                      switch(location.editBox.value) {
+                      case "PHDOC":
+                          position.setValue("Health Care Liaison");
+                          break;
+                      case "County EOC":
+                          position.setValue("EMS Unit");
+                          break;
+                      default:
+                          // do nothing
+                      }
+                  }
+              };
+              position.editBox.addEventListener('change', positionChanged);
+              location.editBox.addEventListener('change', locationChanged);
+              position.editBox.addEventListener('input', positionChanged);
+              location.editBox.addEventListener('input', locationChanged);
           });
       })();
     </script>
@@ -107,7 +141,7 @@
             "header-title": "Allied Health Status Report Short Form &lt;span style=\"font-size:75%;\">(DEOC-9)&lt;/span>",
             "header-version": "Version: February 2018&lt;br/&gt;PIF: {{version}}",
             "5.": "ROUTINE",
-            "7a.": "EMS Unit",
+            "7a.": "Health Care Liaison",
             "7b.": "PHDOC"
         }
       </div>
