@@ -44,7 +44,8 @@ var formDefaultValues;     // Initial values for form inputs. May contain templa
 var templatedElements = [];// Initial values for templated elements with no name. All templates.
 var errorLog = [];         // Errors that occurred before there was a place to show them.
 var EOL = "\r\n";
-var optionColors = {       // Pale backgrounds for color-coded options in a <select>.
+var optionColors = {       // Backgrounds for color-coded options in a <select> or ComboBox.
+    selected: "#3399ff",
     black: "black",
     gray: "#eeeeee",
     green: "#aaffaa",
@@ -1012,7 +1013,7 @@ var ComboBox = function ComboBox(table) {
     };
     this.dropdownToggle.querySelector('img').style.removeProperty('visibility');
     this.dropdownToggle.addEventListener('mouseenter', function(event) {
-        this.style['background-color'] = '#ddd';
+        this.style.setProperty('background-color', '#ddd');
     });
     this.dropdownToggle.addEventListener('mouseleave', function(event) {
         this.style.removeProperty('background-color');
@@ -1161,14 +1162,14 @@ ComboBox.prototype.toggleOpen = function toggleOpen() {
 /** Highlight the given element in the dropdownList. */
 ComboBox.prototype.selectItem = function selectItem(element) {
     if (this.selectedItem != null) {
-        this.selectedItem.style.color = '#000';
-        this.selectedItem.style['background-color'] = '#fff';
+        this.selectedItem.style.removeProperty('color');
+        this.selectedItem.style.removeProperty('background-color');
     }
     this.selectedItem = element;
     this.selectedItemIndex = -1; // unless changed below
     if (this.selectedItem != null) {
-        this.selectedItem.style.color = '#fff';
-        this.selectedItem.style['background-color'] = '#3399ff';
+        this.selectedItem.style.color = optionColors.white;
+        this.selectedItem.style.setProperty('background-color', optionColors.selected);
         for (var i = 0; i < this.listItems.length; i++) {
             if (this.listItems[i] === this.selectedItem) {
                 // console.log('selectItem ' + i);
@@ -1432,7 +1433,7 @@ function on_report_type(complete) {
                     option.style.removeProperty("background-color");
                 } else {
                     option.style.removeProperty("display");
-                    option.style.setProperty("background-color", "white");
+                    option.style.setProperty("background-color", optionColors.white);
                 }
             });
         }
