@@ -29,18 +29,10 @@
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
     <script type="text/javascript">
-      integration.after("early_startup", function() {
-          ComboBox.addOptions(document.getElementById("to-ics-position-options"),
-                              ['RACES Chief Radio Officer',
-                               'RACES Unit',
-                               'Operations Section']);
-      });
       integration.after("late_startup", function() {
           document.getElementById("scco-banner").style.backgroundColor = "#e3efd9";
       });
     </script>
-    <meta name="pack-it-forms-pdf-URL" content="pdf/XSC_RACES_MA_Req_v20220129_fillable.pdf">
-    <meta name="pack-it-forms-subject-suffix" content="_RACES-MAR_{{field:15.agency}}">
     <title>RACES Mutual Aid Request</title>
   </head>
 

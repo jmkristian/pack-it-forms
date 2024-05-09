@@ -88,15 +88,15 @@ table.combobox .dropdown-toggle>span>img {
     height:0.6em;
     width:0.6em;
 }
-table.combobox .dropdown-list {
+table.combobox .dropdown-menu {
     padding-right:0.2em;
 }
-table.combobox .dropdown-list>div {
+table.combobox .dropdown-menu>div {
     position:relative;
     margin:0;
     padding:0;
 }
-table.combobox .dropdown-list>div>div {
+table.combobox .dropdown-menu>div>div {
     position:absolute;
     top:-1px;
     overflow:auto;
@@ -106,7 +106,7 @@ table.combobox .dropdown-list>div>div {
     background-color:#fff;
     border:1px solid #222;
 }
-table.combobox .dropdown-list>div>div>a {
+table.combobox .dropdown-menu>div>div>a {
     display:block;
     font-family: consolas,monaco,profont,monospace;
     font-size: 10pt;

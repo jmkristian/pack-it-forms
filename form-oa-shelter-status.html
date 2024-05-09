@@ -34,7 +34,7 @@
           "Private",
           "Community",
           "Government"];
-      integration.after("early_startup", function() {
+      integration.after("load_configuration", function() {
           var cityOptions = [
               "Campbell",
               "Cupertino",
@@ -51,10 +51,9 @@
               "Santa Clara",
               "Saratoga",
               "Sunnyvale"];
-          ComboBox.addOptions(
-              document.getElementById("to-ics-position-options"),
+          document.getElementById("to-ics-position-box")["PIFO-ComboBox"].setOptions(
               ["Mass Care and Shelter Unit", "Care and Shelter Branch", "Operations Section"]);
-          ComboBox.addOptions(document.getElementById("shelter-city-options"), cityOptions);
+          document.getElementById("shelter-city-box")["PIFO-ComboBox"].setOptions(cityOptions);
           compatible_values("34b.shelter-city", cityOptions, "33b.shelter-city", "Unincorporated");
           compatible_values("49a.managed-by", managerOptions, "50a.managed-by", "Other")
           managerText = document.querySelector('input[name="49a.managed-by"][type="text"]');
@@ -222,7 +221,7 @@
           <td>City:</td>
           <td>
             <input type="text" name="33b.shelter-city" style="display:none;"/>
-            <table class="combobox" style="width:20em;">
+            <table class="combobox" id="shelter-city-box" style="width:20em;">
               <tr>
                 <td>
                   <input type="text" name="34b.shelter-city" class="required-for-complete"
@@ -234,9 +233,9 @@
                   </span>
                 </td>
               </tr><tr>
-                <td colspan="2" class="dropdown-list" style="display:none;">
+                <td colspan="2" class="dropdown-menu">
                   <div>
-                    <div id="shelter-city-options">
+                    <div>
                     </div>
                   </div>
                 </td>

@@ -968,26 +968,21 @@ function find_templated_text(selector, property) {
 }
 
 /** An object that adds combo box behavior to a table.combobox. */
-var ComboBox = function ComboBox(table) {
+var ComboBox = function ComboBox(box) {
 
-    this.editBox = table.querySelector('input[type="text"]');
-    this.dropdownToggle = table.querySelector('.dropdown-toggle');
-    this.dropdownList = table.querySelector('.dropdown-list');
-    this.listItems = this.dropdownList.getElementsByTagName('A');
-
-    this.dropdownList.style.display = 'none';
-    if (!this.listItems || this.listItems.length <= 0) {
-        // Don't offer to choose items from an empty list:
-        this.dropdownToggle.querySelector('img').style.visibility = 'hidden';
-        return;
-    }
-
+    this.editBox = box.querySelector('input[type="text"]');
+    this.dropdownToggle = box.querySelector('.dropdown-toggle');
+    this.dropdownMenu = box.querySelector('.dropdown-menu');
+    this.options = this.dropdownMenu.getElementsByTagName('A');
     this.isOpen = false;
     this.isToggling = false;
     this.scrollTimer = 0;
     this.selectedItem = null;
     this.selectedItemIndex = -1;
 
+    // At this point, there are no options. Disable the dropdownMenu:
+    this.dropdownMenu.style.display = 'none';
+    this.dropdownToggle.querySelector('img').style.visibility = 'hidden';
     var that = this;
     this.selectEditBox = function selectEditBox() {
         that.editBox.focus();
@@ -1011,20 +1006,27 @@ var ComboBox = function ComboBox(table) {
         default: return '' + event.keyCode;
         }
     };
-    this.dropdownToggle.querySelector('img').style.removeProperty('visibility');
     this.dropdownToggle.addEventListener('mouseenter', function(event) {
-        this.style.setProperty('background-color', '#ddd');
+        if (that.options.length) {
+            this.style.setProperty('background-color', '#ddd');
+        }
     });
     this.dropdownToggle.addEventListener('mouseleave', function(event) {
-        this.style.removeProperty('background-color');
-        that.isToggling = false;
+        if (that.options.length) {
+            this.style.removeProperty('background-color');
+            that.isToggling = false;
+        }
     });
     this.dropdownToggle.addEventListener('mousedown', function(event) {
-        that.isToggling = true;
+        if (that.options.length) {
+            that.isToggling = true;
+        }
     });
     this.dropdownToggle.addEventListener('click', function(event) {
-        // console.log('toggle');
-        that.toggleOpen();
+        if (that.options.length) {
+            // console.log('toggle');
+            that.toggleOpen();
+        }
     });
     this.editBox.addEventListener('focus', function(event) {
         that.onFocus(event);
@@ -1044,41 +1046,48 @@ var ComboBox = function ComboBox(table) {
     this.editBox.onkeydown = function(event) {
         return that.onKeydown(keyboardEventCode(event));
     };
-    this.dropdownList.addEventListener('mousedown', function(event) {
+    this.dropdownMenu.addEventListener('mousedown', function(event) {
         that.isToggling = true;
     });
-    this.dropdownList.addEventListener('mouseleave', function(event) {
+    this.dropdownMenu.addEventListener('mouseleave', function(event) {
         that.isToggling = false;
     });
-    var onEnterItem = function onEnterItem(event) {
+    this.onEnterItem = function onEnterItem(event) {
         // console.log('enter item');
         if (that.scrollTimer == 0) {
             that.selectItem(this);
         }
     };
-    var onClickItem = function onClickItem(event) {
+    this.onClickItem = function onClickItem(event) {
         // console.log('click item');
         that.selectItem(this);
         that.chooseSelectedItem();
     };
-    var initialValue = this.editBox.value;
-    for (var i = 0; i < this.listItems.length; i++) {
-        var item = this.listItems[i];
-        item.addEventListener('mouseenter', onEnterItem);
-        item.addEventListener('click', onClickItem);
-        if (item.innerText == initialValue) {
-            this.selectItem(item);
-        }
-    }
 };
 
-ComboBox.addOptions = function addOptions(into, from) {
-    array_for_each(from, function(text) {
-        var a = document.createElement('a');
-        into.appendChild(a);
-        a.innerText = text;
-    });
-};
+ComboBox.prototype.setOptions = function setOptions(options) {
+    var dropdownOptions = this.dropdownMenu.querySelector('div>div')
+    dropdownOptions.textContent = ''; // clear the previous list
+    this.selectedItem = null;
+    this.selectedItemIndex = -1;
+    if (options && options.length) {
+        var that = this;
+        array_for_each(options, function(text) {
+            var a = document.createElement('a');
+            dropdownOptions.appendChild(a);
+            a.innerText = text;
+            a.addEventListener('mouseenter', that.onEnterItem);
+            a.addEventListener('click', that.onClickItem);
+            if (text == that.editBox.value) {
+                that.selectItem(a);
+            }
+        });
+        this.dropdownToggle.querySelector('img').style.visibility = 'visible';
+    } else {
+        // Don't offer to choose options from an empty list:
+        this.dropdownToggle.querySelector('img').style.visibility = 'hidden';
+    }
+}
 
 ComboBox.prototype.startScrolling = function startScrolling() {
     // console.log('startScrolling');
@@ -1087,7 +1096,7 @@ ComboBox.prototype.startScrolling = function startScrolling() {
     }
     this.scrollTimer = setTimeout(this.endScrolling, 1000);
     // This prevents changing the selectedItem in case the mouse cursor is
-    // positioned over the dropdownList. In this case, scrolling moves a
+    // positioned over the dropdownMenu. In this case, scrolling moves a
     // new listItem under the mouse, so the mouse enters that listItem.
 };
 
@@ -1129,17 +1138,17 @@ ComboBox.prototype.scroll_into_view = function scroll_into_view(element) {
     }
 };
 
-/** Make the dropdownList either visible or not visible. */
+/** Make the dropdownMenu either visible or not visible. */
 ComboBox.prototype.setOpen = function setOpen(open) {
     if (this.isOpen != open) {
         // console.log('setOpen ' + open);
         if (open) {
-            this.dropdownList.style.removeProperty('display');
+            this.dropdownMenu.style.removeProperty('display');
             if (this.selectedItem) {
                 this.scroll_into_view(this.selectedItem);
             }
         } else {
-            this.dropdownList.style.display = 'none';
+            this.dropdownMenu.style.display = 'none';
             this.scroll_into_view(this.editBox);
         }
         this.isOpen = open;
@@ -1159,7 +1168,7 @@ ComboBox.prototype.toggleOpen = function toggleOpen() {
     setTimeout(this.setNotToggling, 10);
 };
 
-/** Highlight the given element in the dropdownList. */
+/** Highlight the given element in the dropdownMenu. */
 ComboBox.prototype.selectItem = function selectItem(element) {
     if (this.selectedItem != null) {
         this.selectedItem.style.removeProperty('color');
@@ -1170,8 +1179,8 @@ ComboBox.prototype.selectItem = function selectItem(element) {
     if (this.selectedItem != null) {
         this.selectedItem.style.color = optionColors.white;
         this.selectedItem.style.setProperty('background-color', optionColors.selected);
-        for (var i = 0; i < this.listItems.length; i++) {
-            if (this.listItems[i] === this.selectedItem) {
+        for (var i = 0; i < this.options.length; i++) {
+            if (this.options[i] === this.selectedItem) {
                 // console.log('selectItem ' + i);
                 this.selectedItemIndex = i;
                 break;
@@ -1183,10 +1192,10 @@ ComboBox.prototype.selectItem = function selectItem(element) {
 ComboBox.prototype.setValue = function setValue(value) {
     if (this.editBox.value != value) {
         this.editBox.value = value;
-        for (var i = 0; i < this.listItems.length; i++) {
-            var item = this.listItems[i];
-            if (item.innerText == value) {
-                this.selectItem(item);
+        for (var i = 0; i < this.options.length; i++) {
+            var option = this.options[i];
+            if (option.innerText == value) {
+                this.selectItem(option);
                 return;
             }
         }
@@ -1199,12 +1208,12 @@ ComboBox.prototype.onFocus = function onFocus(event) {
     // console.log('focus');
     if (!this.isToggling) {
         if (this.editBox.value) {
-            if (!this.isOpen && this.editBox.value == this.listItems[0].innerText) {
+            if (!this.isOpen && this.options[0] && this.editBox.value == this.options[0].innerText) {
                 this.selectedItemIndex = 0;
                 // Subsequently, moveSelection(1) will advance to index 1.
             }
         } else if (this.editBox.required) {
-            // Encourage the user to choose from dropdownList.
+            // Encourage the user to choose from dropdownMenu.
             this.setOpen(true);
         }
     }
@@ -1249,21 +1258,21 @@ ComboBox.prototype.onKeyup = function onKeyup(code) {
     return true;
 };
 
-/** Highlight the next or previous element in the dropdownList. */
+/** Highlight the next or previous element in the dropdownMenu. */
 ComboBox.prototype.moveSelection = function moveSelection(change) {
     if (!this.isOpen && this.selectedItemIndex < 0 && this.editBox.value) {
         // The user is editing this.editBox.
         return true; // Don't select or choose an item from the list.
     }
     var newIndex = this.selectedItemIndex + change;
-    if (newIndex >= this.listItems.length) {
-        newIndex = this.listItems.length - 1;
+    if (newIndex >= this.options.length) {
+        newIndex = this.options.length - 1;
     } else if (newIndex < 0) {
         newIndex = -1;
     }
     if (newIndex != this.selectedItemIndex) {
         if (newIndex >= 0) {
-            this.selectItem(this.listItems[newIndex]);
+            this.selectItem(this.options[newIndex]);
             this.deselect(this.editBox);
             if (this.isOpen) {
                 this.scroll_into_view(this.selectedItem);
@@ -1747,13 +1756,6 @@ function setup_inputs(next) {
 
 This is indicated by a mode=readonly query parameter. */
 function setup_view_mode(next) {
-    array_for_each(document.querySelectorAll('table.combobox'), function(table) {
-        try {
-            table['PIFO-ComboBox'] = new ComboBox(table);
-        } catch(err) {
-            console.log(err);
-        }
-    });
     if (envelope.readOnly) {
         document.querySelector("#button-header").classList.add("readonly");
         hide_element(document.querySelector("#opdirect-submit"));
@@ -2026,6 +2028,9 @@ function check_boiler_plate(next) {
     if (!document.getElementById("form-data")) {
         logError("This form doesn't have a form-data.");
     }
+    array_for_each(document.querySelectorAll('table.combobox'), function(box) {
+        box['PIFO-ComboBox'] = new ComboBox(box);
+    });
     next();
 }
 

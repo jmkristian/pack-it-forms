@@ -34,7 +34,7 @@
           document.getElementById('how-to-send')
               .style.setProperty('display', (emergency.value == 'Yes') ? 'inline' : 'none');
       }
-      integration.after("early_startup", function() {
+      integration.after("load_configuration", function() {
           array_for_each(document.querySelectorAll('option[value="Problem"]'), function(option) {
               select_backgroundColors(option.parentNode, {
                   Unknown: "gray",
@@ -58,10 +58,10 @@
               'Santa Clara',
               'Saratoga',
               'Sunnyvale'];
-          ComboBox.addOptions(document.getElementById("to-ics-position-options"),
-                              ['Situation Analysis Unit', 'Planning Section']);
-          ComboBox.addOptions(document.getElementById("jurisdiction-options"),
-                              jurisdictionNames);
+          document.getElementById("to-ics-position-box")["PIFO-ComboBox"].setOptions(
+              ['Situation Analysis Unit', 'Planning Section']);
+          document.getElementById("jurisdiction-box")["PIFO-ComboBox"].setOptions(
+              jurisdictionNames);
           compatible_values("22.jurisdiction", jurisdictionNames, "21.jurisdiction", "Unincorporated");
       });
     </script>
@@ -107,7 +107,7 @@
           <th style="padding-left:2em;">Jurisdiction Name:</th>
           <td>
             <input type="text" name="21.jurisdiction" style="display:none;"/>
-            <table class="combobox" style="width:25em;">
+            <table class="combobox" id="jurisdiction-box" style="width:25em;">
               <tr>
                 <td>
                   <input type="text" name="22.jurisdiction" required tabindex="21"
@@ -119,9 +119,9 @@
                   </span>
                 </td>
               </tr><tr>
-                <td colspan="2" class="dropdown-list" style="display:none;">
+                <td colspan="2" class="dropdown-menu">
                   <div>
-                    <div id="jurisdiction-options">
+                    <div>
                     </div>
                   </div>
                 </td>
