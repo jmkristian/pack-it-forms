@@ -96,7 +96,7 @@
           });
       }
       integration.after("load_configuration", function() {
-          ComboBox.getByName("to-ics-position").setOptions(
+          ComboBox.getByName("7a.to-ics-position").setOptions(
               ['RACES Chief Radio Officer', 'RACES Unit', 'Operations Section']);
           forEachSelected('[data-copy-from]', function(target) {
               forEachSelected('[name^="' + target.getAttribute('data-copy-from') + '"]', function(source) {
@@ -159,8 +159,7 @@
         <tr>
           <td style="font-size:150%;font-weight:bold;">
             Santa Clara County RACES -- Mutual Aid Request
-          </td>
-          <td id="header-version" style="text-align:right;vertical-align:bottom;">
+          </td><td id="header-version" style="text-align:right;vertical-align:bottom;">
           </td>
         </tr>
       </table>
@@ -222,26 +221,11 @@
               <tr>
                 <th>ICS Position:</th>
                 <td style="padding-right:0;">
-                  <table class="combobox" id="to-ics-position-box">
-                    <tr>
-                      <td>
-                        <input type="text" name="7a.to-ics-position" required="required" tabindex="8"
-                               value="RACES Chief Radio Officer"/>
-                      </td>
-                      <td class="dropdown-toggle">
-                        <span>
-                          <img src="icon-chevron-down.png"/>
-                        </span>
-                      </td>
-                    </tr><tr>
-                      <td colspan="2" class="dropdown-menu">
-                        <div>
-                          <div>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </table>
+                  <%#include%>{
+                  resource: 'html/combobox.html',
+                  name: "7a.to-ics-position",
+                  attributes: ' value="RACES Chief Radio Officer" required tabindex="8"'
+                  }<%/include%>
                 </td>
               </tr>
             </table>
@@ -261,26 +245,11 @@
               <tr>
                 <th>Location:</th>
                 <td style="padding-right:0;">
-                  <table class="combobox" id="to-location-box">
-                    <tr>
-                      <td>
-                        <input type="text" name="7b.to-location" required="required" tabindex="9"
-                               value="County EOC">
-                      </td>
-                      <td class="dropdown-toggle">
-                        <span>
-                          <img src="icon-chevron-down.png"/>
-                        </span>
-                      </td>
-                    </tr><tr>
-                      <td colspan="2" class="dropdown-menu">
-                        <div>
-                          <div>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </table>
+                  <%#include%>{
+                  resource: 'html/combobox.html',
+                  name: "7b.to-location",
+                  attributes: ' value="County EOC" required tabindex="9"'
+                  }<%/include%>
                 </td>
               </tr>
             </table>
@@ -335,7 +304,9 @@
                 <td style="width:1px;">Name:</td>
                 <td><input type="text" name="15.agency" tabindex="20" required/></td>
                 <td style="width:1px;">If Reauthorization,<br/>original msg #:</td>
-                <td><input type="text" name="15b.original-msg-number" class="message-number" tabindex="21"/></td>
+                <td style="width:1px;">
+                  <input type="text" name="15b.original-msg-number" class="message-number" tabindex="21"/>
+                </td>
               </tr>
             </table>
           </td>
@@ -348,8 +319,8 @@
                 <td style="width:1px;">Name:</td>
                 <td><input type="text" name="16a.event-name" tabindex="22" required/></td>
                 <td style="width:1px;">Agency Act. #:</td>
-                <td style="width:10em;">
-                  <input type="text" name="16b.event-number" tabindex="23"/>
+                <td style="width:1px;">
+                  <input type="text" name="16b.event-number" style="width:10em;" tabindex="23" required/>
                 </td>
               </tr>
             </table>
@@ -546,7 +517,7 @@
           </td>
         </tr>
       </table>
-      <div data-include-html="scco-footer"></div>
+      <%#include%>{resource: 'html/scco-footer.html'}<%/include%>
     </form>
     <div class="any-form print-only" style="page-break-inside:avoid;">
       <table class="same-line-label-layout">
@@ -699,6 +670,6 @@
         </tr>
       </table>
     </div>
-    <div data-include-html="submit-buttons"></div>
+    <%#include%>{resource: 'html/submit-buttons.html'}<%/include%>
   </body>
 </html>

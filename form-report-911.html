@@ -122,7 +122,7 @@
       </div>
     </div>
     <form id="the-form" name="the-form">
-      <table id="scco-banner" class="block-caption noborder" style="background-color:#bbeeff;">
+      <table id="scco-banner" class="block-caption noborder">
         <tr>
           <td style="border:none;padding:4pt 4pt;">
             <span style="font-size:150%;">Incident Report (911)</span>
@@ -850,7 +850,7 @@
                   Reporting Location:<span class="field-number">37</span>
 	        </th><td>
                   <%#include%>{
-                  resource: 'html/combo-box.html',
+                  resource: 'html/combobox.html',
                   name: "33.reportingLocation",
                   attributes: ' tabindex="171" placeholder="Fire Station 1, Town Center, Redwood Park, etc."'
                   }<%/include%>
@@ -860,7 +860,7 @@
                   Person Taking Report:<span class="field-number">38</span>
                 </th><td>
                   <%#include%>{
-                  resource: 'html/combo-box.html',
+                  resource: 'html/combobox.html',
                   name: "34.reportTaker",
                   attributes: ' tabindex="172" placeholder="Name, Call Sign or CERT Team #"'
                   }<%/include%>
@@ -940,6 +940,6 @@
         </table>
       </div>
     </form>
-    <div data-include-html="submit-buttons"></div>
+    <%#include%>{resource: 'html/submit-buttons.html'}<%/include%>
   </body>
 </html>
