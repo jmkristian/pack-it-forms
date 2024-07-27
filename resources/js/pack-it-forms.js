@@ -1212,9 +1212,6 @@ ComboBox.prototype.onFocus = function onFocus(event) {
                 this.selectedItemIndex = 0;
                 // Subsequently, moveSelection(1) will advance to index 1.
             }
-        } else if (this.editBox.required) {
-            // Encourage the user to choose from dropdownMenu.
-            this.setOpen(true);
         }
     }
     this.isToggling = false;
