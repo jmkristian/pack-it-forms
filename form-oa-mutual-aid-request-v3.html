@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="resources/css/loading.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/ics-header.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/ics-footer.css"/>
+    <style>
+      table.block-border {
+          border-left:4px solid #000000;
+          border-right:4px solid #000000;
+      }
+      table.resource-table td {
+          padding-bottom: 1px;
+          padding-top: 1px;
+      }
+      table.resource-table table.same-line-label-layout td {
+          padding-left:0px;
+          padding-right:0px;
+      }
+      td {
+          white-space: nowrap;
+      }
+      tr.assignments-header>td {
+          background-color:#ccffcc;
+          text-align: center;
+          vertical-align: middle;
+      }
+      [data-copy-from], .data-copy-from {
+          font-family: consolas,monaco,profont,monospace;
+          font-weight: bold;
+          margin-left: 0px;
+      }
+      table.same-line-label-layout td[data-copy-from] {
+          padding-left: 0px;
+      }
+    </style>
+    <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
+    <script type="text/javascript" src="resources/integration/integration.js"></script>
+    <script type="text/javascript">
+      function forEachSelected(selector, callback) {
+          array_for_each(document.querySelectorAll(selector), callback);
+      }
+      function setOptions(selector, labels) {
+          var options = selector.children;
+          for (var o = 0; o < labels.length; ++o) {
+              options[o].innerText = labels[o];
+          }
+      }
+      var roles = ['',
+                   'Field Communicator',
+                   'Net Control Operator',
+                   'Packet Operator',
+                   'Shadow Communicator'];
+      function onChangeRole(row, role) {
+          if (!role.required) {
+              forEachSelected('input[name^="18.' + row + 'a."]', function(qty) {
+                  if (role.value) {
+                      qty.required = true;
+                  } else {
+                      qty.removeAttribute('required');
+                  }
+              });
+          }
+          var types = [];
+          if (roles.indexOf(role.value) > 0) {
+              var prefix = role.value.substring(0, 1);
+              types = [
+                  '',
+                  prefix + '1',
+                  prefix + '2',
+                  prefix + '3',
+              ];
+          }
+          ['c', 'd'].forEach(function(column) {
+              forEachSelected('select[name^="18.' + row + column + '."]', function(type) {
+                  type.value = '';
+                  if (types.length <= 0) {
+                      type.required = false;
+                      type.disabled = true;
+                  } else {
+                      setOptions(type, types);
+                      type.disabled = false;
+                      type.required = true;
+                  }
+              });
+          });
+      }
+      function initializeRow(row) {
+          forEachSelected('input[name^="18.' + row + 'b."]', function(role) {
+              ComboBox.getByName(role.name).setOptions(roles);
+              role.addEventListener('change', function(event) {
+                  onChangeRole(row, role);
+              });
+          });
+      }
+      integration.after("load_configuration", function() {
+          ComboBox.getByName("to-ics-position").setOptions(
+              ['RACES Chief Radio Officer', 'RACES Unit', 'Operations Section']);
+          forEachSelected('[data-copy-from]', function(target) {
+              forEachSelected('[name^="' + target.getAttribute('data-copy-from') + '"]', function(source) {
+                  source.addEventListener('change', function(event) {
+                      switch(source.type) {
+                      case 'checkbox':
+                          target.checked = source.checked;
+                          break;
+                      case 'select-one':
+                          target.innerText = source.options[source.selectedIndex].innerText;
+                          break;
+                      default:
+                          target.innerText = source.value;
+                      }
+                  });
+              });
+          });
+          var fromDate = document.querySelector('input[name^="20a."]');
+          var fromTime = document.querySelector('input[name^="20b."]');
+          var toDate = document.querySelector('input[name^="20c."]');
+          var toTime = document.querySelector('input[name^="20d."]');
+          var copyFrom = function(event) {
+              document.getElementById("data-copy-from-from").innerHTML =
+                  fromDate.value + '&nbsp;&nbsp;' + fromTime.value;
+          }
+          var copyTo = function(event) {
+              document.getElementById("data-copy-from-to").innerHTML =
+                  toDate.value + '&nbsp;&nbsp;' + toTime.value;
+          }
+          fromDate.addEventListener('change', copyFrom);
+          fromTime.addEventListener('change', copyFrom);
+          toDate.addEventListener('change', copyTo);
+          toTime.addEventListener('change', copyTo);
+      });
+      integration.after("late_startup", function() {
+          document.getElementById("header-version").innerHTML =
+              'Version: 20240711<br/>PIF: ' + form_version();
+          for (var row = 1; row <= 5; ++row) {
+              initializeRow(row);
+          }
+      });
+    </script>
+    <meta name="pack-it-forms-pdf-URL" content="pdf/XSC_RACES_MA_Req_v20220129_fillable.pdf">
+    <meta name="pack-it-forms-subject-suffix" content="_RACES-MAR_{{field:15.agency}}">
+    <title>RACES Mutual Aid Request</title>
+  </head>
+
+  <body>
+    <div class="version">3.0</div>
+    <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
+    <div id="err">
+      <div>
+        <h1>Something went wrong.</h1>
+        The following log information may help resolve the problem.
+        <div id="error-log"></div>
+      </div>
+    </div>
+    <form id="the-form" name="the-form">
+      <table id="scco-banner" class="noborder">
+        <tr>
+          <td style="font-size:150%;font-weight:bold;">
+            Santa Clara County RACES -- Mutual Aid Request
+          </td>
+          <td id="header-version" style="text-align:right;vertical-align:bottom;">
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td style="width:1px;" class="block-caption">
+            Radio Operator Only:
+          </td><td>
+            <b>Origin Msg #:</b>
+            <input type="text" name="MsgNo" class="message-number no-msg-init" tabindex="1"
+                   value="{{envelope:sender_message_number}}" required="required"/>
+          </td><td>
+            <b>Destination Msg #:</b>
+            <input type="text" class="message-number" disabled="disabled" tabindex="2"
+                   value="{{envelope:receiver_message_number}}"/>
+          </td>
+        </tr>
+      </table>
+      <table class="block-border" style="border-top:4px solid #000;">
+        <tr>
+          <td colspan="3" class="block-caption" style="background-color:#ffff66;text-align:left;">
+            This Section to be Completed by Requesting Agency:
+          </td>
+        </tr><tr>
+          <td>
+            <b>Date:</b>
+            <input type="text" name="1a.date" class="date" value="{{date}}" required="required" tabindex="3"/>
+          </td><td>
+            <b>Time:</b>
+           <input type="text" name="1b.time" class="time" required="required" tabindex="4"/>
+          </td><td class="label-sameline">
+            <b>Handling:</b>
+            <div class="required-group" style="margin-left:0.5em;padding-left:0;padding-right:0.5em;">
+              <label>
+                <input type="radio" name="5.handling" tabindex="5"
+                       required="required" value="IMMEDIATE"/>Immediate
+                <span style="font-weight:normal;">(ASAP)</span>
+              </label>
+              <label style="margin-left:1em;margin-right:1em;">
+                <input type="radio" name="5.handling" tabindex="6"
+                       required="required" value="PRIORITY"/>Priority
+                <span style="font-weight:normal;">(&lt;1 hr)</span>
+              </label>
+              <label>
+                <input type="radio" name="5.handling" tabindex="7" checked
+                       required="required" value="ROUTINE"/>Routine
+                <span style="font-weight:normal;">(&lt;2 hrs)</span>
+              </label>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <table class="block-border" id="form-row-3">
+        <tr>
+          <td rowspan="4" class="block-caption" style="width:1px;">
+            T<br/>O
+          </td><td>
+            <table class="same-line-label-layout">
+              <tr>
+                <th>ICS Position:</th>
+                <td style="padding-right:0;">
+                  <table class="combobox" id="to-ics-position-box">
+                    <tr>
+                      <td>
+                        <input type="text" name="7a.to-ics-position" required="required" tabindex="8"
+                               value="RACES Chief Radio Officer"/>
+                      </td>
+                      <td class="dropdown-toggle">
+                        <span>
+                          <img src="icon-chevron-down.png"/>
+                        </span>
+                      </td>
+                    </tr><tr>
+                      <td colspan="2" class="dropdown-menu">
+                        <div>
+                          <div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td><td rowspan="4" class="block-caption" style="width:1px;">
+            F<br/>R<br/>O<br/>M
+          </td><td>
+            <table class="same-line-label-layout">
+              <tr>
+                <th>ICS Position:</th>
+                <td><input type="text" name="8a.from-ics-position" required="required" tabindex="12"/></td>
+              </tr>
+            </table>
+          </td>
+        </tr><tr>
+          <td>
+            <table class="same-line-label-layout">
+              <tr>
+                <th>Location:</th>
+                <td style="padding-right:0;">
+                  <table class="combobox" id="to-location-box">
+                    <tr>
+                      <td>
+                        <input type="text" name="7b.to-location" required="required" tabindex="9"
+                               value="County EOC">
+                      </td>
+                      <td class="dropdown-toggle">
+                        <span>
+                          <img src="icon-chevron-down.png"/>
+                        </span>
+                      </td>
+                    </tr><tr>
+                      <td colspan="2" class="dropdown-menu">
+                        <div>
+                          <div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td><td>
+            <table class="same-line-label-layout">
+              <tr>
+                <th>Location:</th>
+                <td><input type="text" name="8b.from-location" required="required" tabindex="13"/></td>
+              </tr>
+            </table>
+          </td>
+        </tr><tr>
+          <td>
+            <table class="same-line-label-layout">
+              <tr>
+                <th>Name:</th>
+                <td><input type="text" name="7c.to-name" tabindex="10"/></td>
+              </tr>
+            </table>
+          </td><td>
+            <table class="same-line-label-layout">
+              <tr>
+                <th>Name:</th>
+                <td><input type="text" name="8c.from-name" tabindex="14" required/></td>
+              </tr>
+            </table>
+          </td>
+        </tr><tr>
+          <td>
+            <table class="same-line-label-layout">
+              <tr>
+                <th>Contact Info:</th>
+                <td><input type="text" name="7d.to-contact" tabindex="11"/></td>
+              </tr>
+            </table>
+          </td><td>
+            <table class="same-line-label-layout">
+              <tr>
+                <th>Contact Info:</th>
+                <td><input type="text" name="8d.from-contact" tabindex="15" required/></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table class="block-border fullsize-textfields" style="border-bottom:4px solid #000;">
+        <tr>
+          <td style="white-space:normal;"><label>Agency</label></td>
+          <td colspan="4">
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="width:1px;">Name:</td>
+                <td><input type="text" name="15.agency" tabindex="20" required/></td>
+                <td style="width:1px;">If Reauthorization,<br/>original msg #:</td>
+                <td><input type="text" name="15b.original-msg-number" class="message-number" tabindex="21"/></td>
+              </tr>
+            </table>
+          </td>
+        </tr><tr>
+          <td style="white-space:normal;">
+            <label>Event/Incident</label>
+          </td><td colspan="4">
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="width:1px;">Name:</td>
+                <td><input type="text" name="16a.event-name" tabindex="22" required/></td>
+                <td style="width:1px;">Agency Act. #:</td>
+                <td style="width:10em;">
+                  <input type="text" name="16b.event-number" tabindex="23"/>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr><tr>
+          <td style="width:1px;">
+            <label>Assignment</label>
+          </td><td colspan="4" style="padding-right:1em;">
+            <textarea name="17.assignment" tabindex="24" required
+                      rows="4" placeholder="(General duties, conditions, equipment needed, etc.)"></textarea>
+          </td>
+        </tr><tr>
+          <td style="white-space:normal;">
+            <label>Amateur Radio Resources Requested, in order of priority needed.</label>
+            <span style="font-size:85%;">(A new request form is needed for each Location and Operational Period)</span>
+          </td>
+          <td colspan="4" style="padding:0px;">
+            <table class="resource-table">
+              <tr>
+                <td class="block-caption" style="width:1px;text-align:right;">Qty</td>
+                <td class="block-caption">Role</td>
+                <td class="block-caption" colspan="2">Position</td>
+                <td class="block-caption" style="width:1px;">Preferred Type</td>
+                <td class="block-caption" style="width:1px;">Minimum Type</td>
+              </tr>
+              <%#include%>{row: "1", resource: "html/resource-requested.html", nextTabIndex: 25,
+              required: ' required', placeholder: ' placeholder="for example, Checkpoint"'}<%/include%>
+              <%#include%>{row: "2", resource: "html/resource-requested.html"}<%/include%>
+              <%#include%>{row: "3", resource: "html/resource-requested.html"}<%/include%>
+              <%#include%>{row: "4", resource: "html/resource-requested.html"}<%/include%>
+              <%#include%>{row: "5", resource: "html/resource-requested.html"}<%/include%>
+            </table>
+          </td>
+        </tr><tr>
+          <td style="width:1px;">
+            <label>Partial Assignment</label>
+          </td><td colspan="4" style="font-size:90%;white-space:normal;">
+            Requests will be filled as resources become available.
+            If this is not acceptable, check the boxes in “Position” above
+            to indicate which resources must be assigned together.
+            This could limit the resources assigned.
+          </td>
+        </tr><tr>
+          <td style="width:1px;">
+            <label>Requested Arrival</label>
+          </td><td colspan="2">
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="width:1px;">Date:</td>
+                <td><input type="text" name="19a.arrival-date" class="date" tabindex="50" required/></td>
+              </tr>
+            </table>
+          </td><td colspan="2"> 
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="width:1px;">Time (24hr):</td>
+                <td><input type="text" name="19b.arrival-time" class="time" tabindex="51" required/></td>
+              </tr>
+            </table>
+          </td>
+        </tr><tr>
+          <td style="white-space:normal;">
+            <label>Oper. Period</label>
+          </td><td colspan="4">
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="width:1px;">From Date:</td>
+                <td style="padding:0px;"><input type="text" name="20a.from-date" class="date" tabindex="52" required/></td>
+                <td style="width:1px;">From Time:</td>
+                <td style="padding:0px;"><input type="text" name="20b.from-time" class="time" tabindex="53" required/></td>
+                <td style="width:1px;">To Date:</td>
+                <td style="padding:0px;"><input type="text" name="20c.from-date" class="date" tabindex="54" required/></td>
+                <td style="width:1px;">To Time:</td>
+                <td style="padding:0px;"><input type="text" name="20d.from-time" class="time" tabindex="55" required/></td>
+              </tr>
+            </table>
+          </td>
+        </tr><tr>
+          <td style="width:1px;">
+            <label>Reporting<br/>Location</label>
+          </td><td colspan="4" style="padding-right:1em;">
+            <textarea name="21.reporting-location" tabindex="60" required
+                      rows="2" placeholder="Street Address, Parking, Entry Instructions"></textarea>
+          </td>
+        </tr><tr>
+          <td style="width:1px;">
+            <label>Contact on Arrival</label>
+          </td><td colspan="4" style="padding-right:1em;">
+            <textarea name="22.contact-on-arrival" tabindex="61" required
+                      rows="2" placeholder="Name/Position and contact info"></textarea>
+          </td>
+        </tr><tr>
+          <td style="white-space:normal;">
+            <label>Travel Info</label>
+          </td><td colspan="4" style="padding-right:1em;">
+            <textarea name="23.travel-info" required tabindex="62"
+                      rows="2" placeholder="Routes, Hazards, Lodging"></textarea>
+          </td>
+        </tr><tr>
+          <td style="white-space:normal;" rowspan="2">
+            <label>Requested By</label>
+          </td><td colspan="2">
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="width:1px;">Name:</td>
+                <td><input type="text" name="24a.requester-name" tabindex="63" required/></td>
+              </tr>
+            </table>
+          </td><td colspan="2">
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="width:1px;">Title:</td>
+                <td><input type="text" name="24b.requester-title" tabindex="64" required/></td>
+              </tr>
+            </table>
+          </td>
+        </tr><tr>
+          <td colspan="4">
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="width:1px;">Contact:</td>
+                <td>
+                  <input type="text" name="24c.requester-contact" tabindex="65" required
+                         placeholder="E-mail, phone, frequency"/>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr><tr>
+          <td style="white-space:normal;" rowspan="3">
+            <label>Approved By</label><br/>
+            (Authorized agency official)
+          </td>
+          <td colspan="2">
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="width:1px;">Name:</td>
+                <td><input type="text" name="25a.agency-approver-name" tabindex="70" required/></td>
+              </tr>
+            </table>
+          </td><td colspan="2">
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="width:1px;">Title:</td>
+                <td><input type="text" name="25b.agency-approver-title" tabindex="71" required/></td>
+              </tr>
+            </table>
+          </td>
+        </tr><tr>
+          <td colspan="4">
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="width:1px;">Contact:</td>
+                <td>
+                  <input type="text" name="25c.agency-approver-contact" tabindex="72" required
+                         placeholder="E-mail, phone, frequency"/>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr><tr>
+          <td colspan="2" style="padding-left:1em;">
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="width:1px;padding-left:0px;">
+                  <label for="25s" style="font-weight:normal;">Signature:</label>
+                </td>
+                <td style="width:1px;">
+                  <input type="checkbox" id="25s" name="25s.with-signature"/>
+                </td>
+                <td style="padding-left:0px;text-align:left;">
+                  <label for="25s" style="font-weight:normal;">
+                    with signature
+                  </label>
+                </td>
+              </tr>
+            </table>
+          </td><td style="width:11em;">
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="width:1px;">Date:</td>
+                <td><input type="text" name="26a.agency-approved-date" tabindex="73" required
+                           class="date" value="{{date}}"/></td>
+              </tr>
+            </table>
+          </td><td style="width:10em;">
+            <table class="same-line-label-layout">
+              <tr>
+                <td style="width:1px;">Time:</td>
+                <td><input type="text" name="26b.agency-approved-time" tabindex="74" required
+                           class="time"/></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <div data-include-html="scco-footer"></div>
+    </form>
+    <div class="any-form print-only" style="page-break-inside:avoid;">
+      <table class="same-line-label-layout">
+        <tr>
+          <td>Santa Clara Count RACES -- Mutual Aid Request</td>
+          <td style="text-align:right;">Radio Origin Msg #:</td>
+          <td data-copy-from="MsgNo" style="padding-left:0px;width:1px;"></td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td colspan="5" class="block-caption" style="background-color:#aaffaa;">
+            This Section to be completed by Santa Clara County Op Area:
+          </td>
+        </tr><tr>
+          <td style="width:1px;height:2em;"><b>Reviewed By</b> (CRO)</td>
+          <td colspan="2" style="height:0.25in;">Name:</td>
+          <td style="width:9em;">Date:</td>
+          <td style="width:9em;">Time (24hr):</td>
+        </tr><tr>
+          <td style="height:2em;"><b>Agency</b></td>
+          <td colspan="2">Name: <span data-copy-from="15."></span></td>
+          <td colspan="2">If Reauthorization, original msg #:
+            <br/><span data-copy-from="15b."></span>
+          </td>
+        </tr><tr>
+          <td rowspan="2"><b>Approved By</b><br/>(SCCo OEM official)</td>
+          <td colspan="2" style="height:2em;">Name:</td>
+          <td colspan="2">Title:</td>
+        </tr><tr>
+          <td colspan="2" style="height:2em;">Signature:</td>
+          <td>Date:</td>
+          <td>Time (24hr):</td>
+        </tr><tr>
+          <td style="height:2em;"><b>Completed</b></td>
+          <td colspan="2">Name:</td>
+          <td>Date:</td>
+          <td>Time (24hr):</td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td colspan="5" class="block-caption" style="background-color:#aaffaa;">
+            This Section to be Used for Resource Assignment by SCC EOC RACES Radio Room:
+          </td>
+        </tr><tr>
+          <td><b>SCCo OP AREA ACTIVATION #:</b></td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td style="width:1px;">
+            <label>Assignment</label>
+            <br/>(General duties, conditions,
+            <br/>equipment needed, etc.)
+          </td>
+          <td data-copy-from="17."></td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td style="width:1px;">
+            <label>Requested Arrival</label>
+          </td><td colspan="2">
+            Date(s): <span data-copy-from="19a."></span>
+          </td><td>
+            Time(s): <span data-copy-from="19b."></span>
+          </td>
+        </tr><tr>
+          <td>
+            <label>Oper. Period</label>
+          </td><td>
+            From (Date/Time 24hr): <span id="data-copy-from-from" class="data-copy-from">
+          </td><td colspan="2">
+            To (Date/Time 24hr): <span id="data-copy-from-to" class="data-copy-from"></span>
+          </td>
+        </tr><tr>
+          <td>
+            <label>Reporting Location</label>
+          </td><td colspan="3" data-copy-from="21.">
+          </td>
+        </tr><tr>
+          <td>
+            <label>Contact on Arrival</label>
+          </td><td colspan="3" data-copy-from="22.">
+          </td>
+        </tr><tr>
+          <td>
+            <label>Travel Info</label>
+          </td><td colspan="3" data-copy-from="23.">
+          </td>
+        </tr><tr>
+          <td style="white-space:normal;">
+            <label>Amateur Radio Resources Requested, in order of priority needed</label>
+          </td><td colspan="3" style="padding:0px;">
+            <table class="resource-table">
+              <tr style="font-weight:bold;">
+                <td style="text-align:right;width:1px;">Qty</td>
+                <td>Role</td>
+                <td>
+                  Position <span style="float:right;">PA</span>
+                </td>
+                <td style="width:1px;">Preferred</td>
+                <td style="width:1px;">Minimum</td>
+              </tr>
+              <%#include%>{row: "1", resource: "html/resource-requested-copy.html"}<%/include%>
+              <%#include%>{row: "2", resource: "html/resource-requested-copy.html"}<%/include%>
+              <%#include%>{row: "3", resource: "html/resource-requested-copy.html"}<%/include%>
+              <%#include%>{row: "4", resource: "html/resource-requested-copy.html"}<%/include%>
+              <%#include%>{row: "5", resource: "html/resource-requested-copy.html"}<%/include%>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr class="assignments-header">
+          <td colspan="7">
+            <b>Assignments </b>--
+            use extra lines for additional notes
+            (attach additional sheets if needed)
+          </td>
+        </tr><tr class="assignments-header">
+          <td style="width:5em;"><b>Date</b></td>
+          <td style="width:5em;"><b>Time</b></td>
+          <td><b>Name</b></td>
+          <td style="width:5em;"><b>Call Sign</b></td>
+          <td><b>Role</b></td>
+          <td><b>Notes</b></td>
+          <td style="width:11em;"><b>Assigned<br/>Date/Time</b></td>
+        </tr><tr>
+          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr><tr>
+          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr><tr>
+          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr><tr>
+          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr><tr>
+          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr><tr>
+          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr><tr>
+          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr><tr>
+          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr><tr>
+          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr><tr>
+          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+      </table>
+    </div>
+    <div data-include-html="submit-buttons"></div>
+  </body>
+</html>

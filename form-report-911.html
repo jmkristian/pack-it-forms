@@ -76,10 +76,10 @@
 	  '7x.fire': '1'
       });
       integration.after("load_configuration", function() {
-          document.getElementById("reportingLocation-box")["PIFO-ComboBox"].setOptions(
-                              <%& recentReportingLocations %>);
-          document.getElementById("reportTaker-box")["PIFO-ComboBox"].setOptions(
-                              <%& recentReportTakers %>);
+          ComboBox.getByName("33.reportingLocation").setOptions(
+                  <%#recall%>recentReportingLocations<%/recall%>);
+          ComboBox.getByName("34.reportTaker").setOptions(
+                  <%#recall%>recentReportTakers<%/recall%>);
           array_for_each(document.querySelectorAll('.hair.combobox'), function(item) {
               item["PIFO-ComboBox"].setOptions([
                   "", "Black", "Brown", "Blonde", "Red", "White/Grey", "Bald"
@@ -849,41 +849,21 @@
                 <th>
                   Reporting Location:<span class="field-number">37</span>
 	        </th><td>
-                  <table class="combobox" id="reportingLocation-box">
-                    <tr>
-                      <td>
-                        <input name="33.reportingLocation" type="text" tabindex="171"
-                               placeholder="Fire Station 1, Town Center, Redwood Park, etc."/>
-                      </td>
-                      <td class="dropdown-toggle">
-                        <span><img src="icon-chevron-down.png"/></span>
-                      </td>
-                    </tr><tr>
-                      <td colspan="2" class="dropdown-menu" style="display:none;">
-                        <div><div></div></div>
-                      </td>
-                    </tr>
-                  </table>
+                  <%#include%>{
+                  resource: 'html/combo-box.html',
+                  name: "33.reportingLocation",
+                  attributes: ' tabindex="171" placeholder="Fire Station 1, Town Center, Redwood Park, etc."'
+                  }<%/include%>
                 </td>
               </tr><tr>
 	        <th>
                   Person Taking Report:<span class="field-number">38</span>
                 </th><td>
-                  <table class="combobox" id="reportTaker-box">
-                    <tr>
-                      <td>
-                        <input name="34.reportTaker" type="text" tabindex="172"
-                               placeholder="Name, Call Sign or CERT Team #"/>
-                      </td>
-                      <td class="dropdown-toggle">
-                        <span><img src="icon-chevron-down.png"/></span>
-                      </td>
-                    </tr><tr>
-                      <td colspan="2" class="dropdown-menu" style="display:none;">
-                        <div><div></div></div>
-                      </td>
-                    </tr>
-                  </table>
+                  <%#include%>{
+                  resource: 'html/combo-box.html',
+                  name: "34.reportTaker",
+                  attributes: ' tabindex="172" placeholder="Name, Call Sign or CERT Team #"'
+                  }<%/include%>
                 </td>
               </tr>
             </table>

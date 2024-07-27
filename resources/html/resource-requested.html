@@ -1,0 +1,25 @@
+<tr>
+  <td style="text-align:right;">
+    <input type="text" name="18.<%&row%>a.resources-qty" class="cardinal-number"
+           tabindex="<%nextTabIndex%>"<%&required%>/>
+  </td><td style="padding-right:1px;width:14em;">
+    <%#include%>{
+    resource: 'html/combo-box.html',
+    name: "18.<%&row%>b.role",
+    attributes: ' tabindex="<%nextTabIndex%>"<%&required%>'
+    }<%/include%>
+  </td><td style="border-right:none;padding-right:0px;">
+    <input type="text" name="18.<%&row%>f.position" tabindex="<%nextTabIndex%>"<%&placeholder%>/>
+  </td><td style="border-left:none;width:1px;">
+    <input type="checkbox" name="18.<%&row%>g.together" tabindex="-1"/>
+  </td>
+    <%#include%>{
+    resource: "html/resource-type-select.html",
+    name: "18.<%&row%>c.preferred",
+    }<%/include%>
+    <%#include%>{
+    resource: "html/resource-type-select.html",
+    name: "18.<%&row%>d.minimum",
+    }<%/include%>
+  </td>
+</tr>

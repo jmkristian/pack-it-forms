@@ -1065,6 +1065,10 @@ var ComboBox = function ComboBox(box) {
     };
 };
 
+ComboBox.getByName = function getByName(name) {
+    return document.getElementById(name + '-box')["PIFO-ComboBox"];
+};
+
 ComboBox.prototype.setOptions = function setOptions(options) {
     var dropdownOptions = this.dropdownMenu.querySelector('div>div')
     dropdownOptions.textContent = ''; // clear the previous list

@@ -15,6 +15,10 @@
 
 /* General alignment, emphasis, and display */
 
+#scco-banner {
+    background-color: #bbeeff;
+}
+
 #form tr td:first-child { text-align: right; }
 body {
     margin-top: 0;
@@ -497,25 +501,28 @@ form input[type="text"].message-number, form .instead-of-input.message-number {
 }
 
 /* Prevent things from getting overly wide or narrow */
-#the-form {
+#the-form, .any-form {
     max-width: 9in;
     min-width: 6in;
 }
 
 /* Readonly (display) form styling */
 
-#the-form :placeholder-shown[readonly] {
+#the-form :placeholder-shown[readonly],
+.any-form :placeholder-shown[readonly] {
     visibility: hidden;
 }
 
 
-#the-form [readonly] {
+#the-form [readonly],
+.any-form [readonly] {
     background-color: white;
     border-color: transparent;
     color: black;
 }
 
-#the-form select[disabled] {
+#the-form select[disabled],
+.any-form select[disabled] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -528,7 +535,8 @@ form input[type="text"].message-number, form .instead-of-input.message-number {
     padding: 0px;
 }
 
-#the-form select[disabled]::-ms-expand {
+#the-form select[disabled]::-ms-expand,
+.any-form select[disabled]::-ms-expand {
     display: none;
 }
 
@@ -639,7 +647,7 @@ td.rotated:not(.not-rotated) > div > div::after, th.rotated:not(.not-rotated) > 
    table {
       width: 100%;
    }
-   #the-form {
+   #the-form, .any-form {
        max-width: 11in; /* landscape mode */
    }
    form input[type="text"], form textarea, form select {
