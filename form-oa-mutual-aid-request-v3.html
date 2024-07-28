@@ -22,6 +22,9 @@
       td {
           white-space: nowrap;
       }
+      td[data-copy-from] {
+          white-space: normal;
+      }
       tr.assignments-header>td {
           background-color:#ccffcc;
           text-align: center;
@@ -87,7 +90,7 @@
               });
           });
       }
-      function initializeRow(row) {
+      function initializeResourceRow(row) {
           forEachSelected('input[name^="18.' + row + 'b."]', function(role) {
               ComboBox.getByName(role.name).setOptions(roles);
               role.addEventListener('change', function(event) {
@@ -98,6 +101,9 @@
       integration.after("load_configuration", function() {
           ComboBox.getByName("7a.to-ics-position").setOptions(
               ['RACES Chief Radio Officer', 'RACES Unit', 'Operations Section']);
+          for (var row = 1; row <= 5; ++row) {
+              initializeResourceRow(row); // creates a closure around this row
+          }
           forEachSelected('[data-copy-from]', function(target) {
               forEachSelected('[name^="' + target.getAttribute('data-copy-from') + '"]', function(source) {
                   source.addEventListener('change', function(event) {
@@ -134,9 +140,6 @@
       integration.after("late_startup", function() {
           document.getElementById("header-version").innerHTML =
               'Version: 20240711<br/>PIF: ' + form_version();
-          for (var row = 1; row <= 5; ++row) {
-              initializeRow(row);
-          }
       });
     </script>
     <meta name="pack-it-forms-pdf-URL" content="pdf/XSC_RACES_MA_Req_v20220129_fillable.pdf">
@@ -145,7 +148,7 @@
   </head>
 
   <body>
-    <div class="version">3.0</div>
+    <div class="version">3.1</div>
     <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
     <div id="err">
       <div>
@@ -297,29 +300,28 @@
       </table>
       <table class="block-border fullsize-textfields" style="border-bottom:4px solid #000;">
         <tr>
-          <td style="white-space:normal;"><label>Agency</label></td>
+          <td><label>Agency</label></td>
           <td colspan="4">
             <table class="same-line-label-layout">
               <tr>
                 <td style="width:1px;">Name:</td>
                 <td><input type="text" name="15.agency" tabindex="20" required/></td>
-                <td style="width:1px;">If Reauthorization,<br/>original msg #:</td>
-                <td style="width:1px;">
+                <td style="width:1px;border-left:1px solid #aaaaaa;">If Reauthorization,<br/>original msg #:</td>
+                <td style="width:10em;">
                   <input type="text" name="15b.original-msg-number" class="message-number" tabindex="21"/>
                 </td>
               </tr>
             </table>
           </td>
         </tr><tr>
-          <td style="white-space:normal;">
-            <label>Event/Incident</label>
-          </td><td colspan="4">
+          <td><label>Event/Incident</label></td>
+          <td colspan="4">
             <table class="same-line-label-layout">
               <tr>
                 <td style="width:1px;">Name:</td>
                 <td><input type="text" name="16a.event-name" tabindex="22" required/></td>
-                <td style="width:1px;">Agency Act. #:</td>
-                <td style="width:1px;">
+                <td style="width:1px;border-left:1px solid #aaaaaa;">Agency Act. #:</td>
+                <td style="width:10em;">
                   <input type="text" name="16b.event-number" style="width:10em;" tabindex="23" required/>
                 </td>
               </tr>
@@ -357,7 +359,7 @@
         </tr><tr>
           <td style="width:1px;">
             <label>Partial Assignment</label>
-          </td><td colspan="4" style="font-size:90%;white-space:normal;">
+          </td><td colspan="4" style="font-size:95%;white-space:normal;">
             Requests will be filled as resources become available.
             If this is not acceptable, check the boxes in “Position” above
             to indicate which resources must be assigned together.
@@ -382,7 +384,7 @@
             </table>
           </td>
         </tr><tr>
-          <td style="white-space:normal;">
+          <td>
             <label>Oper. Period</label>
           </td><td colspan="4">
             <table class="same-line-label-layout">
@@ -399,8 +401,8 @@
             </table>
           </td>
         </tr><tr>
-          <td style="width:1px;">
-            <label>Reporting<br/>Location</label>
+          <td style="white-space:normal;width:1px;">
+            <label>Reporting Location</label>
           </td><td colspan="4" style="padding-right:1em;">
             <textarea name="21.reporting-location" tabindex="60" required
                       rows="2" placeholder="Street Address, Parking, Entry Instructions"></textarea>
@@ -413,14 +415,14 @@
                       rows="2" placeholder="Name/Position and contact info"></textarea>
           </td>
         </tr><tr>
-          <td style="white-space:normal;">
+          <td>
             <label>Travel Info</label>
           </td><td colspan="4" style="padding-right:1em;">
             <textarea name="23.travel-info" required tabindex="62"
                       rows="2" placeholder="Routes, Hazards, Lodging"></textarea>
           </td>
         </tr><tr>
-          <td style="white-space:normal;" rowspan="2">
+          <td rowspan="2">
             <label>Requested By</label>
           </td><td colspan="2">
             <table class="same-line-label-layout">
@@ -450,9 +452,9 @@
             </table>
           </td>
         </tr><tr>
-          <td style="white-space:normal;" rowspan="3">
-            <label>Approved By</label><br/>
-            (Authorized agency official)
+          <td rowspan="3">
+            <label>Approved By</label>
+            <br/><span style="white-space:normal;">(Authorized agency official)</span>
           </td>
           <td colspan="2">
             <table class="same-line-label-layout">
@@ -539,8 +541,10 @@
           <td style="width:9em;">Time (24hr):</td>
         </tr><tr>
           <td style="height:2em;"><b>Agency</b></td>
-          <td colspan="2">Name: <span data-copy-from="15."></span></td>
-          <td colspan="2">If Reauthorization, original msg #:
+          <td colspan="2" style="white-space:normal;">
+            Name: <span data-copy-from="15."></span>
+          </td><td colspan="2" style="white-space:normal;">
+            If Reauthorization, original msg #:
             <br/><span data-copy-from="15b."></span>
           </td>
         </tr><tr>
