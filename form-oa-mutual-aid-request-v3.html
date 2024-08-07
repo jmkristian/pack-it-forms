@@ -51,7 +51,34 @@
               options[o].innerText = labels[o];
           }
       }
-      var roles = ['',
+      function showStandardTypes(row, show, types) {
+          ['c', 'd'].forEach(function(column) {
+              forEachSelected('select[name^="18.' + row + column + '."]', function(type) {
+                  if (type.value) type.value = '';
+                  if (show) {
+                      setOptions(type, types);
+                      type.style.removeProperty('display');
+                      type.required = true;
+                  } else {
+                      type.required = false;
+                      type.style.display = 'none';
+                  }
+              });
+          });
+      }
+      function showTextTypes(row, show) {
+          ['h', 'i'].forEach(function(column) {
+              forEachSelected('input[name^="18.' + row + column + '."]', function(type) {
+                  if (type.value) type.value = '';
+                  if (show) {
+                      type.style.display = 'inline';
+                  } else {
+                      type.style.display = 'none';
+                  }
+              });
+          });
+      }
+      var standardRoles = ['',
                    'Field Communicator',
                    'Net Control Operator',
                    'Packet Operator',
@@ -66,33 +93,24 @@
                   }
               });
           }
-          var types = [];
-          if (roles.indexOf(role.value) > 0) {
+          if (standardRoles.indexOf(role.value) > 0) {
               var prefix = role.value.substring(0, 1);
-              types = [
+              var types = [
                   '',
                   prefix + '1',
                   prefix + '2',
                   prefix + '3',
               ];
+              showStandardTypes(row, true, types);
+              showTextTypes(row, false);
+          } else {
+              showStandardTypes(row, false);
+              showTextTypes(row, !!role.value);
           }
-          ['c', 'd'].forEach(function(column) {
-              forEachSelected('select[name^="18.' + row + column + '."]', function(type) {
-                  type.value = '';
-                  if (types.length <= 0) {
-                      type.required = false;
-                      type.disabled = true;
-                  } else {
-                      setOptions(type, types);
-                      type.disabled = false;
-                      type.required = true;
-                  }
-              });
-          });
       }
       function initializeResourceRow(row) {
           forEachSelected('input[name^="18.' + row + 'b."]', function(role) {
-              ComboBox.getByName(role.name).setOptions(roles);
+              ComboBox.getByName(role.name).setOptions(standardRoles);
               role.addEventListener('change', function(event) {
                   onChangeRole(row, role);
               });
@@ -105,18 +123,20 @@
               initializeResourceRow(row); // creates a closure around this row
           }
           forEachSelected('[data-copy-from]', function(target) {
-              forEachSelected('[name^="' + target.getAttribute('data-copy-from') + '"]', function(source) {
-                  source.addEventListener('change', function(event) {
-                      switch(source.type) {
-                      case 'checkbox':
-                          target.checked = source.checked;
-                          break;
-                      case 'select-one':
-                          target.innerText = source.options[source.selectedIndex].innerText;
-                          break;
-                      default:
-                          target.innerText = source.value;
-                      }
+              target.getAttribute('data-copy-from').split(',').forEach(function(sourceName) {
+                  forEachSelected('[name^="' + sourceName + '"]', function(source) {
+                      source.addEventListener('change', function(event) {
+                          switch(source.type) {
+                          case 'checkbox':
+                              target.checked = source.checked;
+                              break;
+                          case 'select-one':
+                              target.innerText = source.options[source.selectedIndex].innerText;
+                              break;
+                          default:
+                              target.innerText = source.value;
+                          }
+                      });
                   });
               });
           });
@@ -526,7 +546,7 @@
         <tr>
           <td>Santa Clara Count RACES -- Mutual Aid Request</td>
           <td style="text-align:right;">Radio Origin Msg #:</td>
-          <td data-copy-from="MsgNo" style="padding-left:0px;width:1px;"></td>
+          <td data-copy-from="MsgNo" style="padding-left:0px;width:6em;"></td>
         </tr>
       </table>
       <table>

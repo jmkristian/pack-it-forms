@@ -12,14 +12,27 @@
     <input type="text" name="18.<%row%>f.position" tabindex="<%nextTabIndex%>"<%&placeholder%>/>
   </td><td style="border-left:none;width:1px;">
     <input type="checkbox" name="18.<%row%>g.together" tabindex="-1"/>
-  </td>
-    <%#include%>{
-    resource: "html/resource-type-select.html",
-    name: "18.<%&row%>c.preferred",
-    }<%/include%>
-    <%#include%>{
-    resource: "html/resource-type-select.html",
-    name: "18.<%&row%>d.minimum",
-    }<%/include%>
+  </td><td style="text-align:center;">
+    <select name="18.<%row%>c.preferred" style="display:none;" tabindex="<%nextTabIndex%>">
+      <option value=""></option>
+      <option value="1">Type I</option>
+      <option value="2">Type II</option>
+      <option value="3">Type III</option>
+      <option value="4">Type IV</option>
+      <option value="5">Type V</option>
+    </select>
+    <input type="text" name="18.<%row%>h.preferred" style="display:none;width:6em;" tabindex="<%sameTabIndex%>"
+           title="Enter details (if needed) in the Assignment field."/>
+  </td><td style="text-align:center;">
+    <select name="18.<%row%>d.minimum" style="display:none;" tabindex="<%nextTabIndex%>">
+      <option value=""></option>
+      <option value="1">Type I</option>
+      <option value="2">Type II</option>
+      <option value="3">Type III</option>
+      <option value="4">Type IV</option>
+      <option value="5">Type V</option>
+    </select>
+    <input type="text" name="18.<%row%>i.minimum" style="display:none;width:6em;" tabindex="<%sameTabIndex%>"
+           title="Enter details (if needed) in the Assignment field."/>
   </td>
 </tr>
