@@ -8,10 +8,13 @@
     name: "18.<%&row%>b.role",
     attributes: ' tabindex="<%nextTabIndex%>"<%&required%>'
     }<%/include%>
-  </td><td style="border-right:none;padding-right:0px;">
-    <input type="text" name="18.<%row%>f.position" tabindex="<%nextTabIndex%>"<%&placeholder%>/>
-  </td><td style="border-left:none;width:1px;">
-    <input type="checkbox" name="18.<%row%>g.together" tabindex="-1"/>
+  </td><td>
+    <table class="same-line-label-layout">
+      <tr>
+        <td><input type="text" name="18.<%row%>f.position" tabindex="<%nextTabIndex%>"<%&placeholder%>/></td>
+        <td style="width:1em;"><input type="checkbox" name="18.<%row%>g.together" tabindex="-1"/></td>
+      </tr>
+    </table>
   </td><td style="text-align:center;">
     <select name="18.<%row%>c.preferred" style="display:none;" tabindex="<%nextTabIndex%>">
       <option value=""></option>
