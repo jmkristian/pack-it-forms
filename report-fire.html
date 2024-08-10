@@ -1,0 +1,36 @@
+            <div id="fire-<%row%>" style="display:none;">
+              <%#run%>(<%&row%> > 1) ? '<hr/>': ''<%/run%>
+              <table class="same-line-label-layout">
+                <tr>
+                  <th>Structure Type:<%&nextFieldNumber%></th>
+                  <td style="width:1px;">
+                    <table class="structure combobox" style="width:10em;">
+                      <tr>
+                        <td><input name="7<%row%>a.structure" type="text" tabindex="<%nextTabIndex%>"/></td>
+                        <td class="dropdown-toggle">
+                          <span><img src="icon-chevron-down.png"/></span>
+                        </td>
+                      </tr><tr>
+                        <td colspan="2" class="dropdown-menu" style="display:none;">
+                          <div><div></div></div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td><td class="label-sameline">
+                    Number of Stories:<%&nextFieldNumber%>
+                    <input name="7<%row%>b.stories" type="text" class="cardinal-number"
+                           style="margin-right:1em;" tabindex="<%nextTabIndex%>"/>
+                  </td>
+                </tr><tr>
+                  <th>Visible:<%&nextFieldNumber%></th>
+                  <td class="label-sameline" style="width:1px;">
+                    <label><input name="7<%row%>d.visible-smoke"  type="checkbox" value="Y" tabindex="<%nextTabIndex%>"/>Smoke</label>
+                    <label><input name="7<%row%>e.visible-flames" type="checkbox" value="Y" tabindex="<%sameTabIndex%>"/>Flames</label>
+                  </td><td class="label-sameline">
+                    People Inside:<%&nextFieldNumber%>
+                    <label><input name="7<%row%>c.people" type="radio" value="Y" tabindex="<%nextTabIndex%>"/>Yes</label>
+                    <label><input name="7<%row%>c.people" type="radio" value="N" tabindex="<%sameTabIndex%>"/>No</label>
+                  </td>
+                </tr>
+              </table>
+            </div>

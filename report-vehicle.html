@@ -1,0 +1,27 @@
+            <div id="vehicle-<%row%>" style="display:none;">
+              <%#run%>(<%&row%> > 1) ? '<hr/>': ''<%/run%>
+              <table class="same-line-label-layout">
+                <tr>
+                  <th>Color:<%&nextFieldNumber%></th>
+                  <td style="width:8em;"><input name="5<%row%>a.color" type="text" tabindex="<%nextTabIndex%>"/></td>
+                  <th>Year:<%&nextFieldNumber%></th>
+                  <td style="width:8em;">
+                    <input name="5<%row%>b.year" type="text"
+                           placeholder="yyyy" pattern="\d\d\d\d" tabindex="<%nextTabIndex%>"/>
+                  </td>
+                </tr><tr>
+                  <th>Make:<%&nextFieldNumber%></th>
+                  <td><input name="5<%row%>c.make" type="text" tabindex="<%nextTabIndex%>"/></td>
+                  <th>License:<%&nextFieldNumber%></th>
+                  <td><input name="5<%row%>d.license" type="text" tabindex="<%nextTabIndex%>"/></td>
+                  <th>State:<%&nextFieldNumber%></th>
+                  <td><input name="5<%row%>e.state" type="text" tabindex="<%nextTabIndex%>"/></td>
+                </tr><tr>
+                  <th>Model/Type:<%&nextFieldNumber%></th>
+                  <td colspan="5">
+                    <input name="5<%row%>f.model" type="text" tabindex="<%nextTabIndex%>"
+                           placeholder="Corolla, Ranger, SUV, Truck, Motorcycle, Bicycle, etc."/>
+                  </td>
+                </tr>
+              </table>
+            </div>

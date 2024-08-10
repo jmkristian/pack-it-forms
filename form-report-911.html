@@ -66,14 +66,14 @@
           var newValue = parseInt(count.value || '0') + 1;
           count.value = '' + newValue;
           showItems(type, newValue);
-	  formChanged();
+          formChanged();
           return false;
       }
       add_form_default_values({
           '4x.suspect': '1',
           '5x.vehicles': '1',
           '6x.victims': '1',
-	  '7x.fire': '1'
+          '7x.fire': '1'
       });
       integration.after("load_configuration", function() {
           ComboBox.getByName("33.reportingLocation").setOptions(
@@ -93,6 +93,7 @@
       });
       // Don't show the 'Add an Item' buttons in a read-only form:
       integration.after('late_startup', function() {
+          document.getElementById("header-version").innerHTML = 'PIF: ' + form_version();
           if (envelope.readOnly) {
               array_for_each(document.querySelectorAll('.print-none'), function(item) {
                   item.style.display = 'none';
@@ -129,9 +130,7 @@
             <br/>
             <span style="font-size:75%;">Field Numbers Correspond to Instructions on Back of Printed Form</span>
           </td>
-          <td style="border:none;padding:2pt 4pt;text-align:right;vertical-align:bottom;">
-            <span style="font-weight:normal;">PIF 0.5</span>
-          </td>
+          <td id="header-version" style="border:none;font-weight:normal;padding:2pt 4pt;text-align:right;vertical-align:bottom;"></td>
         </tr>
       </table>
       <span style="display:none;">
@@ -141,7 +140,7 @@
         <tr>
           <td>
             <table class="same-line-label-layout">
-	      <tr>
+              <tr>
                 <th>Date:<span class="field-number">1</span></th>
                 <td colspan="3">
                   <input type="text" name="1a.date" class="date" value="{{date}}" required="required" tabindex="3"/>
@@ -168,7 +167,7 @@
               </tr><tr>
                 <th>Reporting Person Name:<span class="field-number">6</span></th>
                 <td><input name="3a.reporter" type="text" tabindex="13"/></td>
-	        <th>Phone:<span class="field-number">7</span></th>
+                <th>Phone:<span class="field-number">7</span></th>
                 <td><input name="3b.phone" type="text" class="phone-number" tabindex="14"/></td>
               </tr>
             </table>
@@ -186,139 +185,10 @@
           <td class="block-caption">Victim / Patient</td>
         </tr><tr>
           <td>
-	    <div id="victim-1" style="display:none;">
-              <table class="same-line-label-layout">
-                <tr>
-                  <th>Gender:<span class="field-number">8</span></th>
-                  <td class="label-sameline" style="padding-left:0.25em;width:1px;">
-                    <label><input name="61a.victims-sex" type="radio" value="M" tabindex="20"/>Male</label>
-                    <label><input name="61a.victims-sex" type="radio" value="F" tabindex="20"/>Female</label>
-                  </td>
-                  <th>Age:<span class="field-number">9</span></th>
-                  <td class="label-sameline">
-                    <input name="61b.victims-age" type="text" style="width:3em;margin-right:1em;"
-                           class="cardinal-number" placeholder="years" tabindex="21"/>
-                    <span class="field-number">10</span>
-                    <label><input name="61c.adultchild" type="radio" value="Adult" tabindex="22" style="margin-left:0px;"/>Adult</label>
-                    <label><input name="61c.adultchild" type="radio" value="Child" tabindex="22"/>Child</label>
-                  </td>
-                </tr><tr>
-                  <th>Is Patient Conscious:<span class="field-number">11</span></th>
-                  <td class="label-sameline" style="padding-left:0.25em;">
-                    <label><input name="61d.conscious" type="radio" value="Yes" tabindex="23"/>Yes </label>
-                    <label><input name="61d.conscious" type="radio" value="No"  tabindex="23"/>No</label>
-                  </td>
-                  <th style="width:1px;">Is Patient Breathing:<span class="field-number">12</span></th>
-                  <td class="label-sameline" style="padding-left:0.25em;">
-                    <label><input name="61e.breathing" type="radio" value="Yes" tabindex="24"/>Yes </label>
-                    <label><input name="61e.breathing" type="radio" value="No"  tabindex="24"/>No</label>
-                  </td>
-                </tr><tr>
-                  <th style="padding-top:0.3em;vertical-align:top;">
-                    Injury / Medical Condition:<span class="field-number">13</span>
-                  </th>
-                  <td colspan="3">
-                    <textarea name="61f.injury-condition" rows="2" tabindex="25"></textarea>
-                  </td>
-                </tr><tr>
-                  <th>Name:<span class="field-number">14</span></th>
-                  <td colspan="2"><input name="61g.name" type="text" tabindex="26"/></td>
-                  <td class="label-sameline">
-                    Phone:<span class="field-number">15</span>
-                    <input name="61h.phone" type="text" class="phone-number" tabindex="27"/></td>
-                  </td>
-                </tr>
-              </table>
-	    </div>
-	    <div id="victim-2" style="display:none;">
-              <hr/>
-              <table class="same-line-label-layout">
-                <tr>
-                  <th>Gender:</th>
-                  <td class="label-sameline" style="padding-left:0.25em;width:1px;">
-                    <label><input name="62a.victims-sex" type="radio" value="M" tabindex="30"/>Male</label>
-                    <label><input name="62a.victims-sex" type="radio" value="F" tabindex="30"/>Female</label>
-                  </td>
-                  <th>Age:</th>
-                  <td class="label-sameline">
-                    <input name="62b.victims-age" type="text" style="width:3em;margin-right:1em;"
-                           class="cardinal-number" placeholder="years" tabindex="31"/>
-                    <label><input name="62c.adultchild" type="radio" value="Adult" tabindex="32" style="margin-left:0px;"/>Adult</label>
-                    <label><input name="62c.adultchild" type="radio" value="Child" tabindex="32"/>Child</label>
-                  </td>
-                </tr><tr>
-                  <th>Is Patient Conscious:</th>
-                  <td class="label-sameline" style="padding-left:0.25em;">
-                    <label><input name="62d.conscious" type="radio" value="Yes" tabindex="33"/>Yes </label>
-                    <label><input name="62d.conscious" type="radio" value="No"  tabindex="33"/>No</label>
-                  </td>
-                  <th style="width:1px;">Is Patient Breathing:</th>
-                  <td class="label-sameline" style="padding-left:0.25em;">
-                    <label><input name="62e.breathing" type="radio" value="Yes" tabindex="34"/>Yes </label>
-                    <label><input name="62e.breathing" type="radio" value="No"  tabindex="34"/>No</label>
-                  </td>
-                </tr><tr>
-                  <th style="padding-top:0.3em;vertical-align:top;">
-                    Injury / Medical Condition:
-                  </th>
-                  <td colspan="3">
-                    <textarea name="62f.injury-condition" rows="2" tabindex="35"></textarea>
-                  </td>
-                </tr><tr>
-                  <th>Name:</th>
-                  <td colspan="2"><input name="62g.name" type="text" tabindex="36"/></td>
-                  <td class="label-sameline">
-                    Phone:
-                    <input name="62h.phone" type="text" class="phone-number" tabindex="37"/></td>
-                  </td>
-                </tr>
-              </table>
-            </div>
-	    <div id="victim-3" style="display:none;">
-              <hr/>
-              <table class="same-line-label-layout">
-                <tr>
-                  <th>Gender:</th>
-                  <td class="label-sameline" style="padding-left:0.25em;width:1px;">
-                    <label><input name="63a.victims-sex" type="radio" value="M" tabindex="40"/>Male</label>
-                    <label><input name="63a.victims-sex" type="radio" value="F" tabindex="40"/>Female</label>
-                  </td>
-                  <th>Age:</th>
-                  <td class="label-sameline">
-                    <input name="63b.victims-age" type="text" style="width:3em;margin-right:1em;"
-                           class="cardinal-number" placeholder="years" tabindex="41"/>
-                    <label><input name="63c.adultchild" type="radio" value="Adult" tabindex="42" style="margin-left:0px;"/>Adult</label>
-                    <label><input name="63c.adultchild" type="radio" value="Child" tabindex="42"/>Child</label>
-                  </td>
-                </tr><tr>
-                  <th>Is Patient Conscious:</th>
-                  <td class="label-sameline" style="padding-left:0.25em;">
-                    <label><input name="63d.conscious" type="radio" value="Yes" tabindex="43"/>Yes </label>
-                    <label><input name="63d.conscious" type="radio" value="No"  tabindex="43"/>No</label>
-                  </td>
-                  <th style="width:1px;">Is Patient Breathing:</th>
-                  <td class="label-sameline" style="padding-left:0.25em;">
-                    <label><input name="63e.breathing" type="radio" value="Yes" tabindex="44"/>Yes </label>
-                    <label><input name="63e.breathing" type="radio" value="No"  tabindex="44"/>No</label>
-                  </td>
-                </tr><tr>
-                  <th style="padding-top:0.3em;vertical-align:top;">
-                    Injury / Medical Condition:
-                  </th>
-                  <td colspan="3">
-                    <textarea name="63f.injury-condition" rows="2" tabindex="45"></textarea>
-                  </td>
-                </tr><tr>
-                  <th>Name:</th>
-                  <td colspan="2"><input name="63g.name" type="text" tabindex="46"/></td>
-                  <td class="label-sameline">
-                    Phone:
-                    <input name="63h.phone" type="text" class="phone-number" tabindex="47"/></td>
-                  </td>
-                </tr>
-              </table>
-            </div>
-	    <div id="add-victim" class="print-none" style="padding:1ex 1.5em;">
+<%#run%>fieldNumber =  7; tabIndex = 19; include('report-victim.html', {row: "1"});<%/run%>
+<%#run%>fieldNumber = -1; include('report-victim.html', {row: "2"});<%/run%>
+<%#run%>fieldNumber = -1; include('report-victim.html', {row: "3"});<%/run%>
+            <div id="add-victim" class="print-none" style="padding:1ex 1.5em;">
               <button onclick="return addItem('victim');">
                 <img src="add_circle_outline_black_18dp.png"
                      style="vertical-align:-0.33em;width:1.5em;height:1.5em;"/>
@@ -337,254 +207,12 @@
       <table class="section">
         <tr>
           <td class="block-caption">Suspect / Subject</td>
-	</tr><tr>
+        </tr><tr>
           <td>
-	    <div id="suspect-1" style="display:none;">
-              <table class="same-line-label-layout">
-                <tr>
-                  <th>Race:<span class="field-number">16</span></th>
-                  <td style="width:1px;">
-                    <select name="41a.race" tabindex="50">
-                      <option value=""></option>
-                      <option value="wht">White</option>
-                      <option value="blk">Black</option>
-                      <option value="lat">Latino</option>
-                      <option value="asn">Asian</option>
-		    </select>
-	          </td>
-	          <th>Gender:<span class="field-number">17</span></th>
-                  <td class="label-sameline" style="padding-left:0.25em;width:1px;">
-                    <label><input name="41b.sex" type="radio" value="M" tabindex="51"/>Male</label>
-                    <label><input name="41b.sex" type="radio" value="F" tabindex="51"/>Female</label>
-                  </td>
-	          <th>Age:<span class="field-number">18</span></th>
-                  <td>
-                    <input name="41c.age" type="text" class="cardinal-number"
-                           style="width:3em;" placeholder="years" tabindex="52"/>
-                  </td>
-	        </tr><tr>
-                  <th>Height:<span class="field-number">19</span></th>
-                  <td>
-                    <input name="41d.height" type="text" style="width:5em;"
-                           placeholder="ft'in&quot;" pattern="\d+'( *\d+&quot;)?|\d+-\d+" tabindex="53"/>
-                  </td>
-	          <th>Weight:<span class="field-number">20</span></th>
-                  <td>
-                    <input name="41e.weight" type="text" class="cardinal-number"
-                           style="width:4em;" placeholder="pounds" tabindex="54"/>
-                  </td>
-                  <th>Hair:<span class="field-number">21</span></th>
-                  <td>
-                    <table class="hair combobox" style="width:15em;">
-                      <tr>
-                        <td><input name="41f.hair" type="text" tabindex="55"/></td>
-                        <td class="dropdown-toggle">
-                          <span><img src="icon-chevron-down.png"/></span>
-                        </td>
-                      </tr><tr>
-                        <td colspan="2" class="dropdown-menu" style="display:none;">
-                          <div><div></div></div>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr><tr>
-                  <th>Build:<span class="field-number">22</span></th>
-                  <td>
-                    <select name="41g.build" tabindex="56">
-                      <option value=""></option>
-                      <option value="lt">Light</option>
-                      <option value="med">Medium</option>
-                      <option value="hvy">Heavy</option>
-                    </select>
-                  </td>
-                  <th>Clothing:<span class="field-number">23</span></th>
-                  <td colspan="3">
-                    <input name="41h.clothing" type="text" tabindex="57"/>
-                  </td>
-                </tr>
-              </table>
-              <table class="same-line-label-layout">
-	        <tr>
-                  <th>Last Known Location:<span class="field-number">24</span></th>
-                  <td>
-                    <input name="41j.last-loc" type="text" tabindex="58"
-                           placeholder="Include direction of travel if known."/>
-                  </td>
-                </tr>
-	        <tr>
-                  <th>Weapon Seen:<span class="field-number">25</span></th>
-                  <td>
-                    <input name="41k.weapon" type="text" placeholder="Gun, Knife, Club, etc." tabindex="59"/>
-                  </td>
-                </tr>
-              </table>
-	    </div>
-	    <div id="suspect-2" style="display:none;">
-              <hr/>
-              <table class="same-line-label-layout">
-                <tr>
-                  <th>Race:</th>
-                  <td style="width:1px;">
-                    <select name="42a.race" tabindex="60">
-                      <option value=""></option>
-                      <option value="wht">White</option>
-                      <option value="blk">Black</option>
-                      <option value="lat">Latino</option>
-                      <option value="asn">Asian</option>
-		    </select>
-	          </td>
-	          <th>Gender:</th>
-                  <td class="label-sameline" style="padding-left:0.25em;width:1px;">
-                    <label><input name="42b.sex" type="radio" value="M" tabindex="61"/>Male</label>
-                    <label><input name="42b.sex" type="radio" value="F" tabindex="61"/>Female</label>
-                  </td>
-	          <th>Age:</th>
-                  <td>
-                    <input name="42c.age" type="text" class="cardinal-number"
-                           style="width:3em;" placeholder="years" tabindex="62"/>
-                  </td>
-	        </tr><tr>
-                  <th>Height:</th>
-                  <td>
-                    <input name="42d.height" type="text" style="width:5em;"
-                           placeholder="ft'in&quot;" pattern="\d+'( *\d+&quot;)?|\d+-\d+" tabindex="63"/>
-                  </td>
-	          <th>Weight:</th>
-                  <td>
-                    <input name="42e.weight" type="text" class="cardinal-number"
-                           style="width:4em;" placeholder="pounds" tabindex="64"/>
-                  </td>
-                  <th>Hair:</th>
-                  <td>
-                    <table class="hair combobox" style="width:15em;">
-                      <tr>
-                        <td><input name="42f.hair" type="text" tabindex="65"/></td>
-                        <td class="dropdown-toggle">
-                          <span><img src="icon-chevron-down.png"/></span>
-                        </td>
-                      </tr><tr>
-                        <td colspan="2" class="dropdown-menu" style="display:none;">
-                          <div><div></div></div>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr><tr>
-                  <th>Build:</th>
-                  <td>
-                    <select name="42g.build" tabindex="66">
-                      <option value=""></option>
-                      <option value="lt">Light</option>
-                      <option value="med">Medium</option>
-                      <option value="hvy">Heavy</option>
-                    </select>
-                  </td>
-                  <th>Clothing:</th>
-                  <td colspan="3">
-                    <input name="42h.clothing" type="text" tabindex="67"/>
-                  </td>
-                </tr>
-              </table>
-              <table class="same-line-label-layout">
-	        <tr>
-                  <th>Last Known Location:</th>
-                  <td>
-                    <input name="42j.last-loc" type="text" tabindex="68"
-                           placeholder="Include direction of travel if known."/>
-                  </td>
-                </tr>
-	        <tr>
-                  <th>Weapon Seen:</th>
-                  <td>
-                    <input name="42k.weapon" type="text" placeholder="Gun, Knife, Club, etc." tabindex="69"/>
-                  </td>
-                </tr>
-              </table>
-            </div>
-	    <div id="suspect-3" style="display:none;">
-              <hr/>
-              <table class="same-line-label-layout">
-                <tr>
-                  <th>Race:</th>
-                  <td style="width:1px;">
-                    <select name="43a.race" tabindex="70">
-                      <option value=""></option>
-                      <option value="wht">White</option>
-                      <option value="blk">Black</option>
-                      <option value="lat">Latino</option>
-                      <option value="asn">Asian</option>
-		    </select>
-	          </td>
-	          <th>Gender:</th>
-                  <td class="label-sameline" style="padding-left:0.25em;width:1px;">
-                    <label><input name="43b.sex" type="radio" value="M" tabindex="71"/>Male</label>
-                    <label><input name="43b.sex" type="radio" value="F" tabindex="71"/>Female</label>
-                  </td>
-	          <th>Age:</th>
-                  <td>
-                    <input name="43c.age" type="text" class="cardinal-number"
-                           style="width:3em;" placeholder="years" tabindex="72"/>
-                  </td>
-	        </tr><tr>
-                  <th>Height:</th>
-                  <td>
-                    <input name="43d.height" type="text" style="width:5em;"
-                           placeholder="ft'in&quot;" pattern="\d+'( *\d+&quot;)?|\d+-\d+" tabindex="73"/>
-                  </td>
-	          <th>Weight:</th>
-                  <td>
-                    <input name="43e.weight" type="text" class="cardinal-number"
-                           style="width:4em;" placeholder="pounds" tabindex="74"/>
-                  </td>
-                  <th>Hair:</th>
-                  <td>
-                    <table class="hair combobox" style="width:15em;">
-                      <tr>
-                        <td><input name="43f.hair" type="text" tabindex="75"/></td>
-                        <td class="dropdown-toggle">
-                          <span><img src="icon-chevron-down.png"/></span>
-                        </td>
-                      </tr><tr>
-                        <td colspan="2" class="dropdown-menu" style="display:none;">
-                          <div><div></div></div>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr><tr>
-                  <th>Build:</th>
-                  <td>
-                    <select name="43g.build" tabindex="76">
-                      <option value=""></option>
-                      <option value="lt">Light</option>
-                      <option value="med">Medium</option>
-                      <option value="hvy">Heavy</option>
-                    </select>
-                  </td>
-                  <th>Clothing:</th>
-                  <td colspan="3">
-                    <input name="43h.clothing" type="text" tabindex="77"/>
-                  </td>
-                </tr>
-              </table>
-              <table class="same-line-label-layout">
-	        <tr>
-                  <th>Last Known Location:</th>
-                  <td>
-                    <input name="43j.last-loc" type="text" tabindex="78"
-                           placeholder="Include direction of travel if known."/>
-                  </td>
-                </tr>
-	        <tr>
-                  <th>Weapon Seen:</th>
-                  <td>
-                    <input name="43k.weapon" type="text" placeholder="Gun, Knife, Club, etc." tabindex="79"/>
-                  </td>
-                </tr>
-              </table>
-            </div>
-	    <div id="add-suspect" class="print-none" style="padding:1ex 1.5em;">
+<%#run%>fieldNumber = 15; include('report-suspect.html', {row: "1"});<%/run%>
+<%#run%>fieldNumber = -1; include('report-suspect.html', {row: "2"});<%/run%>
+<%#run%>fieldNumber = -1; include('report-suspect.html', {row: "3"});<%/run%>
+            <div id="add-suspect" class="print-none" style="padding:1ex 1.5em;">
               <button onclick="return addItem('suspect');">
                 <img src="add_circle_outline_black_18dp.png"
                      style="vertical-align:-0.33em;width:1.5em;height:1.5em;"/>
@@ -609,86 +237,9 @@
           </td>
         </tr><tr>
           <td>
-            <div id="vehicle-1" style="display:none;">
-              <table class="same-line-label-layout">
-                <tr>
-                  <th>Color:<span class="field-number">26</span></th>
-                  <td style="width:8em;"><input name="51a.color" type="text" tabindex="100"/></td>
-                  <th>Year:<span class="field-number">27</span></th>
-                  <td style="width:8em;">
-                    <input name="51b.year" type="text"
-                           placeholder="yyyy" pattern="\d\d\d\d" tabindex="101"/>
-                  </td>
-                </tr><tr>
-                  <th>Make:<span class="field-number">28</span></th>
-                  <td><input name="51c.make" type="text" tabindex="102"/></td>
-                  <th>License:<span class="field-number">29</span></th>
-                  <td><input name="51d.license" type="text" tabindex="103"/></td>
-	          <th>State:<span class="field-number">30</span></th>
-                  <td><input name="51e.state" type="text" tabindex="104"/></td>
-                </tr><tr>
-                  <th>Model/Type:<span class="field-number">31</span></th>
-                  <td colspan="5">
-                    <input name="51f.model" type="text" tabindex="105"
-                           placeholder="Corolla, Ranger, SUV, Truck, Motorcycle, Bicycle, etc."/>
-                  </td>
-                </tr>
-              </table>
-            </div>
-	    <div id="vehicle-2" style="display:none;">
-              <hr/>
-              <table class="same-line-label-layout">
-                <tr>
-                  <th>Color:</th>
-                  <td style="width:8em;"><input name="52a.color" type="text" tabindex="110"/></td>
-                  <th>Year:</th>
-                  <td style="width:8em;">
-                    <input name="52b.year" type="text"
-                           placeholder="yyyy" pattern="\d\d\d\d" tabindex="111"/>
-                  </td>
-                </tr><tr>
-                  <th>Make:</th>
-                  <td><input name="52c.make" type="text" tabindex="112"/></td>
-                  <th>License:</th>
-                  <td><input name="52d.license" type="text" tabindex="113"/></td>
-	          <th>State:</th>
-                  <td><input name="52e.state" type="text" tabindex="114"/></td>
-                </tr><tr>
-                  <th>Model/Type:</th>
-                  <td colspan="5">
-                    <input name="52f.model" type="text" tabindex="115"
-                           placeholder="Corolla, Ranger, SUV, Truck, Motorcycle, Bicycle, etc."/>
-                  </td>
-                </tr>
-              </table>
-            </div>
-	    <div id="vehicle-3" style="display:none;">
-              <hr/>
-              <table class="same-line-label-layout">
-                <tr>
-                  <th>Color:</th>
-                  <td style="width:8em;"><input name="53a.color" type="text" tabindex="120"/></td>
-                  <th>Year:</th>
-                  <td style="width:8em;">
-                    <input name="53b.year" type="text"
-                           placeholder="yyyy" pattern="\d\d\d\d" tabindex="121"/>
-                  </td>
-                </tr><tr>
-                  <th>Make:</th>
-                  <td><input name="53c.make" type="text" tabindex="122"/></td>
-                  <th>License:</th>
-                  <td><input name="53d.license" type="text" tabindex="123"/></td>
-	          <th>State:</th>
-                  <td><input name="53e.state" type="text" tabindex="124"/></td>
-                </tr><tr>
-                  <th>Model/Type:</th>
-                  <td colspan="5">
-                    <input name="53f.model" type="text" tabindex="125"
-                           placeholder="Corolla, Ranger, SUV, Truck, Motorcycle, Bicycle, etc."/>
-                  </td>
-                </tr>
-              </table>
-            </div>
+<%#run%>fieldNumber = 25; include('report-vehicle.html', {row: "1"});<%/run%>
+<%#run%>fieldNumber = -1; include('report-vehicle.html', {row: "2"});<%/run%>
+<%#run%>fieldNumber = -1; include('report-vehicle.html', {row: "3"});<%/run%>
             <div id="add-vehicle" class="print-none" style="padding:1ex 1.5em;">
               <button onclick="return addItem('vehicle');">
                 <img src="add_circle_outline_black_18dp.png"
@@ -710,113 +261,9 @@
           <td class="block-caption">Fire</td>
         </tr><tr>
           <td>
-            <div id="fire-1" style="display:none;">
-              <table class="same-line-label-layout">
-                <tr>
-                  <th>Structure Type:<span class="field-number">32</span></th>
-                  <td style="width:1px;">
-                    <table class="structure combobox" style="width:10em;">
-                      <tr>
-                        <td><input name="71a.structure" type="text" tabindex="140"/></td>
-                        <td class="dropdown-toggle">
-                          <span><img src="icon-chevron-down.png"/></span>
-                        </td>
-                      </tr><tr>
-                        <td colspan="2" class="dropdown-menu" style="display:none;">
-                          <div><div></div></div>
-                        </td>
-                      </tr>
-                    </table>
-                  </td><td class="label-sameline">
-                    Number of Stories:<span class="field-number">33</span>
-                    <input name="71b.stories" type="text" class="cardinal-number"
-                           style="margin-right:1em;" tabindex="141"/>
-                  </td>
-                </tr><tr>
-		  <th>Visible:<span class="field-number">34</span></th>
-                  <td class="label-sameline" style="width:1px;">
-                    <label><input name="71d.visible-smoke"  type="checkbox" value="Y" tabindex="143"/>Smoke</label>
-                    <label><input name="71e.visible-flames" type="checkbox" value="Y" tabindex="143"/>Flames</label>
-                  </td><td class="label-sameline">
-		    People Inside:<span class="field-number">35</span>
-                    <label><input name="71c.people" type="radio" value="Y" tabindex="144"/>Yes</label>
-                    <label><input name="71c.people" type="radio" value="N" tabindex="144"/>No</label>
-                  </td>
-		</tr>
-              </table>
-            </div>
-	    <div id="fire-2" style="display:none;">
-              <hr/>
-              <table class="same-line-label-layout">
-                <tr>
-                  <th>Structure Type:</th>
-                  <td style="width:1px;">
-                    <table class="structure combobox" style="width:10em;">
-                      <tr>
-                        <td><input name="72a.structure" type="text" tabindex="150"/></td>
-                        <td class="dropdown-toggle">
-                          <span><img src="icon-chevron-down.png"/></span>
-                        </td>
-                      </tr><tr>
-                        <td colspan="2" class="dropdown-menu" style="display:none;">
-                          <div><div></div></div>
-                        </td>
-                      </tr>
-                    </table>
-                  </td><td class="label-sameline">
-                    Number of Stories:
-                    <input name="72b.stories" type="text" class="cardinal-number"
-                           style="margin-right:1em;" tabindex="151"/>
-                  </td>
-                </tr><tr>
-		  <th>Visible:</th>
-                  <td class="label-sameline" style="width:1px;">
-                    <label><input name="72d.visible-smoke"  type="checkbox" value="Y" tabindex="152"/>Smoke</label>
-                    <label><input name="72e.visible-flames" type="checkbox" value="Y" tabindex="152"/>Flames</label>
-                  </td><td class="label-sameline">
-		    People Inside:
-                    <label><input name="72c.people" type="radio" value="Y" tabindex="153"/>Yes</label>
-                    <label><input name="72c.people" type="radio" value="N" tabindex="153"/>No</label>
-                  </td>
-		</tr>
-              </table>
-            </div>
-	    <div id="fire-3" style="display:none;">
-              <hr/>
-              <table class="same-line-label-layout">
-                <tr>
-                  <th>Structure Type:</th>
-                  <td style="width:1px;">
-                    <table class="structure combobox" style="width:10em;">
-                      <tr>
-                        <td><input name="73a.structure" type="text" tabindex="160"/></td>
-                        <td class="dropdown-toggle">
-                          <span><img src="icon-chevron-down.png"/></span>
-                        </td>
-                      </tr><tr>
-                        <td colspan="2" class="dropdown-menu" style="display:none;">
-                          <div><div></div></div>
-                        </td>
-                      </tr>
-                    </table>
-                  </td><td class="label-sameline">
-                    Number of Stories:
-                    <input name="73b.stories" type="text" class="cardinal-number"
-                           style="margin-right:1em;" tabindex="161"/>
-                  </td>
-                </tr><tr>
-		  <th>Visible:</th>
-                  <td class="label-sameline" style="width:1px;">
-                    <label><input name="73d.visible-smoke"  type="checkbox" value="Y" tabindex="162"/>Smoke</label>
-                    <label><input name="73e.visible-flames" type="checkbox" value="Y" tabindex="162"/>Flames</label>
-                  </td><td class="label-sameline">
-		    People Inside:
-                    <label><input name="73c.people" type="radio" value="Y" tabindex="163"/>Yes</label>
-                    <label><input name="73c.people" type="radio" value="N" tabindex="163"/>No</label>
-                  </td>
-		</tr>
-              </table>
-            </div>
+<%#run%>fieldNumber = 31; include('report-fire.html', {row: "1"});<%/run%>
+<%#run%>fieldNumber = -1; include('report-fire.html', {row: "2"});<%/run%>
+<%#run%>fieldNumber = -1; include('report-fire.html', {row: "3"});<%/run%>
             <div id="add-fire" class="print-none" style="padding:1ex 1.5em;">
               <button onclick="return addItem('fire');">
                 <img src="add_circle_outline_black_18dp.png"
@@ -838,7 +285,7 @@
                 <th style="vertical-align:top;padding-top:0.5em;">
                   <span class="field-number">36</span>
                 </th><td style="padding-bottom:0.25em;">
-                  <textarea name="8.details" rows="4" tabindex="170"
+                  <textarea name="8.details" rows="4" tabindex="<%nextTabIndex%>"
                             placeholder="Additional Details and Other 911 Hazard Reporting&#10;Examples: electrical wires down, natural gas leak, road blocked, flooding/debris flow, hazardous materials release"
                             ></textarea>
                 </td>
@@ -848,19 +295,19 @@
               <tr>
                 <th>
                   Reporting Location:<span class="field-number">37</span>
-	        </th><td>
+                </th><td>
                   <%#run%>include('resources/html/combobox.html', {
                   name: "33.reportingLocation",
-                  attributes: ' tabindex="171" placeholder="Fire Station 1, Town Center, Redwood Park, etc."'
+                  attributes: ' tabindex="<%nextTabIndex%>" placeholder="Fire Station 1, Town Center, Redwood Park, etc."'
                   })<%/run%>
                 </td>
               </tr><tr>
-	        <th>
+                <th>
                   Person Taking Report:<span class="field-number">38</span>
                 </th><td>
                   <%#run%>include('resources/html/combobox.html', {
                   name: "34.reportTaker",
-                  attributes: ' tabindex="172" placeholder="Name, Call Sign or CERT Team #"'
+                  attributes: ' tabindex="<%nextTabIndex%>" placeholder="Name, Call Sign or CERT Team #"'
                   })<%/run%>
                 </td>
               </tr>

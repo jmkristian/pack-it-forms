@@ -1,0 +1,82 @@
+            <div id="suspect-<%row%>" style="display:none;">
+              <%#run%>(<%&row%> > 1) ? '<hr/>': ''<%/run%>
+              <table class="same-line-label-layout">
+                <tr>
+                  <th>Race:<%&nextFieldNumber%></th>
+                  <td style="width:1px;">
+                    <select name="4<%row%>a.race" tabindex="<%nextTabIndex%>">
+                      <option value=""></option>
+                      <option value="wht">White</option>
+                      <option value="blk">Black</option>
+                      <option value="lat">Latino</option>
+                      <option value="asn">Asian</option>
+                    </select>
+                  </td>
+                  <th>Gender:<%&nextFieldNumber%></th>
+                  <td class="label-sameline" style="padding-left:0.25em;width:1px;">
+                    <label><input name="4<%row%>b.sex" type="radio" value="M" tabindex="<%nextTabIndex%>"/>Male</label>
+                    <label><input name="4<%row%>b.sex" type="radio" value="F" tabindex="<%sameTabIndex%>"/>Female</label>
+                  </td>
+                  <th>Age:<%&nextFieldNumber%></th>
+                  <td>
+                    <input name="4<%row%>c.age" type="text" class="cardinal-number"
+                           style="width:3em;" placeholder="years" tabindex="<%nextTabIndex%>"/>
+                  </td>
+                </tr><tr>
+                  <th>Height:<%&nextFieldNumber%></th>
+                  <td>
+                    <input name="4<%row%>d.height" type="text" style="width:5em;"
+                           placeholder="ft'in&quot;" pattern="\d+'( *\d+&quot;)?|\d+-\d+" tabindex="<%nextTabIndex%>"/>
+                  </td>
+                  <th>Weight:<%&nextFieldNumber%></th>
+                  <td>
+                    <input name="41e.weight" type="text" class="cardinal-number"
+                           style="width:4em;" placeholder="pounds" tabindex="<%nextTabIndex%>"/>
+                  </td>
+                  <th>Hair:<%&nextFieldNumber%></th>
+                  <td>
+                    <table class="hair combobox" style="width:15em;">
+                      <tr>
+                        <td><input name="4<%row%>f.hair" type="text" tabindex="<%nextTabIndex%>"/></td>
+                        <td class="dropdown-toggle">
+                          <span><img src="icon-chevron-down.png"/></span>
+                        </td>
+                      </tr><tr>
+                        <td colspan="2" class="dropdown-menu" style="display:none;">
+                          <div><div></div></div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr><tr>
+                  <th>Build:<%&nextFieldNumber%></th>
+                  <td>
+                    <select name="4<%row%>g.build" tabindex="<%nextTabIndex%>">
+                      <option value=""></option>
+                      <option value="lt">Light</option>
+                      <option value="med">Medium</option>
+                      <option value="hvy">Heavy</option>
+                    </select>
+                  </td>
+                  <th>Clothing:<%&nextFieldNumber%></th>
+                  <td colspan="3">
+                    <input name="4<%row%>h.clothing" type="text" tabindex="<%nextTabIndex%>"/>
+                  </td>
+                </tr>
+              </table>
+              <table class="same-line-label-layout">
+                <tr>
+                  <th>Last Known Location:<%&nextFieldNumber%></th>
+                  <td>
+                    <input name="4<%row%>j.last-loc" type="text" tabindex="<%nextTabIndex%>"
+                           placeholder="Include direction of travel if known."/>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Weapon Seen:<%&nextFieldNumber%></th>
+                  <td>
+                    <input name="4<%row%>k.weapon" type="text" placeholder="Gun, Knife, Club, etc." tabindex="<%nextTabIndex%>"/>
+                  </td>
+                </tr>
+              </table>
+            </div>

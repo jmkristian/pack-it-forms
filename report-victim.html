@@ -1,0 +1,45 @@
+            <div id="victim-<%row%>" style="display:none;">
+              <%#run%>(<%&row%> > 1) ? '<hr/>': ''<%/run%>
+              <table class="same-line-label-layout">
+                <tr>
+                  <th>Gender:<%&nextFieldNumber%></th>
+                  <td class="label-sameline" style="padding-left:0.25em;width:1px;">
+                    <label><input name="6<%row%>a.victims-sex" type="radio" value="M" tabindex="<%nextTabIndex%>"/>Male</label>
+                    <label><input name="6<%row%>a.victims-sex" type="radio" value="F" tabindex="<%sameTabIndex%>"/>Female</label>
+                  </td>
+                  <th>Age:<%&nextFieldNumber%></th>
+                  <td class="label-sameline">
+                    <input name="6<%row%>b.victims-age" type="text" style="width:3em;margin-right:1em;"
+                           class="cardinal-number" placeholder="years" tabindex="<%nextTabIndex%>"/>
+                    <%&nextFieldNumber%>
+                    <label><input name="6<%row%>c.adultchild" type="radio" value="Adult" tabindex="<%nextTabIndex%>" style="margin-left:0px;"/>Adult</label>
+                    <label><input name="6<%row%>c.adultchild" type="radio" value="Child" tabindex="<%sameTabIndex%>"/>Child</label>
+                  </td>
+                </tr><tr>
+                  <th>Is Patient Conscious:<%&nextFieldNumber%></th>
+                  <td class="label-sameline" style="padding-left:0.25em;">
+                    <label><input name="6<%row%>d.conscious" type="radio" value="Yes" tabindex="<%nextTabIndex%>"/>Yes </label>
+                    <label><input name="6<%row%>d.conscious" type="radio" value="No"  tabindex="<%sameTabIndex%>"/>No</label>
+                  </td>
+                  <th style="width:1px;">Is Patient Breathing:<%&nextFieldNumber%></th>
+                  <td class="label-sameline" style="padding-left:0.25em;">
+                    <label><input name="6<%row%>e.breathing" type="radio" value="Yes" tabindex="<%nextTabIndex%>"/>Yes </label>
+                    <label><input name="6<%row%>e.breathing" type="radio" value="No"  tabindex="<%sameTabIndex%>"/>No</label>
+                  </td>
+                </tr><tr>
+                  <th style="padding-top:0.3em;vertical-align:top;">
+                    Injury / Medical Condition:<%&nextFieldNumber%>
+                  </th>
+                  <td colspan="3">
+                    <textarea name="6<%row%>f.injury-condition" rows="2" tabindex="<%nextTabIndex%>"></textarea>
+                  </td>
+                </tr><tr>
+                  <th>Name:<%&nextFieldNumber%></th>
+                  <td colspan="2"><input name="6<%row%>g.name" type="text" tabindex="<%nextTabIndex%>"/></td>
+                  <td class="label-sameline">
+                    Phone:<%&nextFieldNumber%>
+                    <input name="6<%row%>h.phone" type="text" class="phone-number" tabindex="<%nextTabIndex%>"/></td>
+                  </td>
+                </tr>
+              </table>
+            </div>
