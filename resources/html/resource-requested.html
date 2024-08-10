@@ -3,11 +3,10 @@
     <input type="text" name="18.<%row%>a.resources-qty" class="cardinal-number"
            tabindex="<%nextTabIndex%>"<%&required%>/>
   </td><td style="padding-right:1px;width:14em;">
-    <%#include%>{
-    resource: 'html/combobox.html',
+    <%#run%>include('resources/html/combobox.html', {
     name: "18.<%&row%>b.role",
     attributes: ' tabindex="<%nextTabIndex%>"<%&required%>'
-    }<%/include%>
+    })<%/run%>
   </td><td>
     <table class="same-line-label-layout">
       <tr>

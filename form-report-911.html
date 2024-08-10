@@ -77,9 +77,9 @@
       });
       integration.after("load_configuration", function() {
           ComboBox.getByName("33.reportingLocation").setOptions(
-                  <%#recall%>recentReportingLocations<%/recall%>);
+                  <%#run%>recall('recentReportingLocations')<%/run%>);
           ComboBox.getByName("34.reportTaker").setOptions(
-                  <%#recall%>recentReportTakers<%/recall%>);
+                  <%#run%>recall('recentReportTakers')<%/run%>);
           array_for_each(document.querySelectorAll('.hair.combobox'), function(item) {
               item["PIFO-ComboBox"].setOptions([
                   "", "Black", "Brown", "Blonde", "Red", "White/Grey", "Bald"
@@ -849,21 +849,19 @@
                 <th>
                   Reporting Location:<span class="field-number">37</span>
 	        </th><td>
-                  <%#include%>{
-                  resource: 'html/combobox.html',
+                  <%#run%>include('resources/html/combobox.html', {
                   name: "33.reportingLocation",
                   attributes: ' tabindex="171" placeholder="Fire Station 1, Town Center, Redwood Park, etc."'
-                  }<%/include%>
+                  })<%/run%>
                 </td>
               </tr><tr>
 	        <th>
                   Person Taking Report:<span class="field-number">38</span>
                 </th><td>
-                  <%#include%>{
-                  resource: 'html/combobox.html',
+                  <%#run%>include('resources/html/combobox.html', {
                   name: "34.reportTaker",
                   attributes: ' tabindex="172" placeholder="Name, Call Sign or CERT Team #"'
-                  }<%/include%>
+                  })<%/run%>
                 </td>
               </tr>
             </table>
@@ -940,6 +938,6 @@
         </table>
       </div>
     </form>
-    <%#include%>{resource: 'html/submit-buttons.html'}<%/include%>
+    <%#run%>include('resources/html/submit-buttons.html')<%/run%>
   </body>
 </html>

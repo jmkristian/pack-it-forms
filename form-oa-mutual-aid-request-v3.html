@@ -22,22 +22,11 @@
       td {
           white-space: nowrap;
       }
-      td[data-copy-from] {
-          white-space: normal;
-      }
-      tr.assignments-header>td {
-          background-color:#ccffcc;
-          text-align: center;
-          vertical-align: middle;
-      }
-      [data-copy-from], .data-copy-from {
-          font-family: consolas,monaco,profont,monospace;
-          font-weight: bold;
-          margin-left: 0px;
-      }
-      table.same-line-label-layout td[data-copy-from] {
-          padding-left: 0px;
-      }
+<%#run%>
+      if (environment.message_status == 'received')
+          include('mutual-aid-request.received.css');
+      else '';
+<%/run%>
     </style>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
@@ -45,45 +34,44 @@
       function forEachSelected(selector, callback) {
           array_for_each(document.querySelectorAll(selector), callback);
       }
-      function setOptions(selector, labels) {
-          var options = selector.children;
-          for (var o = 0; o < labels.length; ++o) {
-              options[o].innerText = labels[o];
-          }
-      }
-      function showStandardTypes(row, show, types) {
+      var standardRoles = ['',
+                           'Field Communicator',
+                           'Net Control Operator',
+                           'Packet Operator',
+                           'Shadow Communicator'];
+      function showStandardTypes(row, show, role) {
+          var prefix = role ? role.substring(0, 1) : 'Type ';
+          var types = ['', prefix + '1', prefix + '2', prefix + '3'];
           ['c', 'd'].forEach(function(column) {
               forEachSelected('select[name^="18.' + row + column + '."]', function(type) {
-                  if (type.value) type.value = '';
                   if (show) {
-                      setOptions(type, types);
-                      type.style.removeProperty('display');
+                      var options = type.children;
+                      for (var t = 0; t < types.length; ++t) {
+                          options[t].innerText = types[t];
+                      }
                       type.required = true;
+                      type.style.removeProperty('display');
                   } else {
-                      type.required = false;
                       type.style.display = 'none';
+                      type.required = false;
+                      if (type.value) type.value = '';
                   }
               });
           });
       }
-      function showTextTypes(row, show) {
+      function showFreeFormTypes(row, show) {
           ['h', 'i'].forEach(function(column) {
               forEachSelected('input[name^="18.' + row + column + '."]', function(type) {
-                  if (type.value) type.value = '';
                   if (show) {
                       type.style.display = 'inline';
                   } else {
                       type.style.display = 'none';
+                      if (type.value) type.value = '';
                   }
               });
           });
       }
-      var standardRoles = ['',
-                   'Field Communicator',
-                   'Net Control Operator',
-                   'Packet Operator',
-                   'Shadow Communicator'];
-      function onChangeRole(row, role) {
+      function showTypes(row, role) {
           if (!role.required) {
               forEachSelected('input[name^="18.' + row + 'a."]', function(qty) {
                   if (role.value) {
@@ -93,73 +81,42 @@
                   }
               });
           }
-          if (standardRoles.indexOf(role.value) > 0) {
-              var prefix = role.value.substring(0, 1);
-              var types = [
-                  '',
-                  prefix + '1',
-                  prefix + '2',
-                  prefix + '3',
-              ];
-              showStandardTypes(row, true, types);
-              showTextTypes(row, false);
+          const standard = standardRoles.indexOf(role.value) > 0;
+          if (standard) {
+              showFreeFormTypes(row, false);
+              showStandardTypes(row, true, role.value);
           } else {
               showStandardTypes(row, false);
-              showTextTypes(row, !!role.value);
+              showFreeFormTypes(row, !!role.value);
           }
+          return standard;
       }
-      function initializeResourceRow(row) {
+      function setupResourceRow(row) {
           forEachSelected('input[name^="18.' + row + 'b."]', function(role) {
-              ComboBox.getByName(role.name).setOptions(standardRoles);
+              showTypes(row, role);
               role.addEventListener('change', function(event) {
-                  onChangeRole(row, role);
+                  showTypes(row, role);
               });
           });
       }
-      integration.after("load_configuration", function() {
+      integration.after("load_configuration", function setComboBoxOptions() {
           ComboBox.getByName("7a.to-ics-position").setOptions(
               ['RACES Chief Radio Officer', 'RACES Unit', 'Operations Section']);
           for (var row = 1; row <= 5; ++row) {
-              initializeResourceRow(row); // creates a closure around this row
+              ComboBox.getByName("18." + row + "b.role").setOptions(standardRoles);
           }
-          forEachSelected('[data-copy-from]', function(target) {
-              target.getAttribute('data-copy-from').split(',').forEach(function(sourceName) {
-                  forEachSelected('[name^="' + sourceName + '"]', function(source) {
-                      source.addEventListener('change', function(event) {
-                          switch(source.type) {
-                          case 'checkbox':
-                              target.checked = source.checked;
-                              break;
-                          case 'select-one':
-                              target.innerText = source.options[source.selectedIndex].innerText;
-                              break;
-                          default:
-                              target.innerText = source.value;
-                          }
-                      });
-                  });
-              });
-          });
-          var fromDate = document.querySelector('input[name^="20a."]');
-          var fromTime = document.querySelector('input[name^="20b."]');
-          var toDate = document.querySelector('input[name^="20c."]');
-          var toTime = document.querySelector('input[name^="20d."]');
-          var copyFrom = function(event) {
-              document.getElementById("data-copy-from-from").innerHTML =
-                  fromDate.value + '&nbsp;&nbsp;' + fromTime.value;
-          }
-          var copyTo = function(event) {
-              document.getElementById("data-copy-from-to").innerHTML =
-                  toDate.value + '&nbsp;&nbsp;' + toTime.value;
-          }
-          fromDate.addEventListener('change', copyFrom);
-          fromTime.addEventListener('change', copyFrom);
-          toDate.addEventListener('change', copyTo);
-          toTime.addEventListener('change', copyTo);
       });
-      integration.after("late_startup", function() {
+      integration.after("setup_inputs", function() {
           document.getElementById("header-version").innerHTML =
               'Version: 20240711<br/>PIF: ' + form_version();
+          for (var row = 1; row <= 5; ++row) {
+              setupResourceRow(row); // creates a closure around this row
+          }
+<%#run%>
+          if (environment.message_status == 'received')
+              include('mutual-aid-request.received.js');
+          else '';
+<%/run%>
       });
     </script>
     <meta name="pack-it-forms-pdf-URL" content="pdf/XSC_RACES_MA_Req_v20220129_fillable.pdf">
@@ -244,11 +201,10 @@
               <tr>
                 <th>ICS Position:</th>
                 <td style="padding-right:0;">
-                  <%#include%>{
-                  resource: 'html/combobox.html',
+                  <%#run%>include('resources/html/combobox.html', {
                   name: "7a.to-ics-position",
                   attributes: ' value="RACES Chief Radio Officer" required tabindex="8"'
-                  }<%/include%>
+                  })<%/run%>
                 </td>
               </tr>
             </table>
@@ -268,11 +224,10 @@
               <tr>
                 <th>Location:</th>
                 <td style="padding-right:0;">
-                  <%#include%>{
-                  resource: 'html/combobox.html',
+                  <%#run%>include('resources/html/combobox.html', {
                   name: "7b.to-location",
                   attributes: ' value="County EOC" required tabindex="9"'
-                  }<%/include%>
+                  })<%/run%>
                 </td>
               </tr>
             </table>
@@ -368,12 +323,13 @@
                 <td class="block-caption" style="width:1px;">Preferred Type</td>
                 <td class="block-caption" style="width:1px;">Minimum Type</td>
               </tr>
-              <%#include%>{row: "1", resource: "html/resource-requested.html", nextTabIndex: 25,
-              required: ' required', placeholder: ' placeholder="for example, Checkpoint"'}<%/include%>
-              <%#include%>{row: "2", resource: "html/resource-requested.html"}<%/include%>
-              <%#include%>{row: "3", resource: "html/resource-requested.html"}<%/include%>
-              <%#include%>{row: "4", resource: "html/resource-requested.html"}<%/include%>
-              <%#include%>{row: "5", resource: "html/resource-requested.html"}<%/include%>
+              <%#run%>tabIndex = 24;
+              include('resources/html/resource-requested.html', {row: "1", required: ' required',
+              placeholder: ' placeholder="for example, Checkpoint"'})<%/run%>
+              <%#run%>include('resources/html/resource-requested.html', {row: "2"})<%/run%>
+              <%#run%>include('resources/html/resource-requested.html', {row: "3"})<%/run%>
+              <%#run%>include('resources/html/resource-requested.html', {row: "4"})<%/run%>
+              <%#run%>include('resources/html/resource-requested.html', {row: "5"})<%/run%>
             </table>
           </td>
         </tr><tr>
@@ -539,161 +495,13 @@
           </td>
         </tr>
       </table>
-      <%#include%>{resource: 'html/scco-footer.html'}<%/include%>
+      <%#run%>include('resources/html/scco-footer.html')<%/run%>
     </form>
-    <div class="any-form print-only" style="page-break-inside:avoid;">
-      <table class="same-line-label-layout">
-        <tr>
-          <td>Santa Clara County RACES -- Mutual Aid Request</td>
-          <td style="text-align:right;">Radio Origin Msg #:</td>
-          <td data-copy-from="MsgNo" style="padding-left:0px;width:6em;"></td>
-        </tr>
-      </table>
-      <table>
-        <tr>
-          <td colspan="5" class="block-caption" style="background-color:#aaffaa;border-top:1px solid #aaaaaa;">
-            This Section to be completed by Santa Clara County Op Area:
-          </td>
-        </tr><tr>
-          <td style="width:1px;height:2em;"><b>Reviewed By</b> (CRO)</td>
-          <td colspan="2" style="height:0.25in;">Name:</td>
-          <td style="width:9em;">Date:</td>
-          <td style="width:9em;">Time (24hr):</td>
-        </tr><tr>
-          <td style="height:2em;"><b>Agency</b></td>
-          <td colspan="2" style="white-space:normal;">
-            Name: <span data-copy-from="15."></span>
-          </td><td colspan="2" style="white-space:normal;">
-            If Reauthorization, original msg #:
-            <br/><span data-copy-from="15b."></span>
-          </td>
-        </tr><tr>
-          <td rowspan="2"><b>Approved By</b><br/>(SCCo OEM official)</td>
-          <td colspan="2" style="height:2em;">Name:</td>
-          <td colspan="2">Title:</td>
-        </tr><tr>
-          <td colspan="2" style="height:2em;">Signature:</td>
-          <td>Date:</td>
-          <td>Time (24hr):</td>
-        </tr><tr>
-          <td style="height:2em;"><b>Completed</b></td>
-          <td colspan="2">Name:</td>
-          <td>Date:</td>
-          <td>Time (24hr):</td>
-        </tr>
-      </table>
-      <table>
-        <tr>
-          <td colspan="5" class="block-caption" style="background-color:#aaffaa;">
-            This Section to be Used for Resource Assignment by SCC EOC RACES Radio Room:
-          </td>
-        </tr><tr>
-          <td><b>SCCo OP AREA ACTIVATION #:</b></td>
-        </tr>
-      </table>
-      <table>
-        <tr>
-          <td style="width:1px;">
-            <label>Assignment</label>
-            <br/>(General duties, conditions,
-            <br/>equipment needed, etc.)
-          </td>
-          <td data-copy-from="17."></td>
-        </tr>
-      </table>
-      <table>
-        <tr>
-          <td style="width:1px;">
-            <label>Requested Arrival</label>
-          </td><td colspan="2">
-            Date(s): <span data-copy-from="19a."></span>
-          </td><td>
-            Time(s): <span data-copy-from="19b."></span>
-          </td>
-        </tr><tr>
-          <td>
-            <label>Oper. Period</label>
-          </td><td>
-            From (Date/Time 24hr): <span id="data-copy-from-from" class="data-copy-from">
-          </td><td colspan="2">
-            To (Date/Time 24hr): <span id="data-copy-from-to" class="data-copy-from"></span>
-          </td>
-        </tr><tr>
-          <td>
-            <label>Reporting Location</label>
-          </td><td colspan="3" data-copy-from="21.">
-          </td>
-        </tr><tr>
-          <td>
-            <label>Contact on Arrival</label>
-          </td><td colspan="3" data-copy-from="22.">
-          </td>
-        </tr><tr>
-          <td>
-            <label>Travel Info</label>
-          </td><td colspan="3" data-copy-from="23.">
-          </td>
-        </tr><tr>
-          <td style="white-space:normal;">
-            <label>Amateur Radio Resources Requested, in order of priority needed</label>
-          </td><td colspan="3" style="padding:0px;">
-            <table class="resource-table">
-              <tr style="font-weight:bold;">
-                <td style="text-align:right;width:1px;">Qty</td>
-                <td>Role</td>
-                <td>
-                  Position <span style="float:right;">PA</span>
-                </td>
-                <td style="width:1px;">Preferred</td>
-                <td style="width:1px;">Minimum</td>
-              </tr>
-              <%#include%>{row: "1", resource: "html/resource-requested-copy.html"}<%/include%>
-              <%#include%>{row: "2", resource: "html/resource-requested-copy.html"}<%/include%>
-              <%#include%>{row: "3", resource: "html/resource-requested-copy.html"}<%/include%>
-              <%#include%>{row: "4", resource: "html/resource-requested-copy.html"}<%/include%>
-              <%#include%>{row: "5", resource: "html/resource-requested-copy.html"}<%/include%>
-            </table>
-          </td>
-        </tr>
-      </table>
-      <table>
-        <tr class="assignments-header">
-          <td colspan="7">
-            <b>Assignments </b>--
-            use extra lines for additional notes
-            (attach additional sheets if needed)
-          </td>
-        </tr><tr class="assignments-header">
-          <td style="width:5em;"><b>Date</b></td>
-          <td style="width:5em;"><b>Time</b></td>
-          <td><b>Name</b></td>
-          <td style="width:5em;"><b>Call Sign</b></td>
-          <td><b>Role</b></td>
-          <td><b>Notes</b></td>
-          <td style="width:11em;"><b>Assigned<br/>Date/Time</b></td>
-        </tr><tr>
-          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr><tr>
-          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr><tr>
-          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr><tr>
-          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr><tr>
-          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr><tr>
-          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr><tr>
-          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr><tr>
-          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr><tr>
-          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr><tr>
-          <td style="height:2.5ex;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr>
-      </table>
-    </div>
-    <%#include%>{resource: 'html/submit-buttons.html'}<%/include%>
+    <%#run%>
+    if (environment.message_status == 'received')
+        include('mutual-aid-request.received.html');
+    else '';
+    <%/run%>
+    <%#run%>include('resources/html/submit-buttons.html')<%/run%>
   </body>
 </html>

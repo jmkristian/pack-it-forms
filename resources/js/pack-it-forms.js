@@ -2176,7 +2176,7 @@ startup_functions.push(load_form_configuration);
 startup_functions.push(setup_select_colors);
 startup_functions.push(call_integration("get_old_message"));
 startup_functions.push(init_form); // must come after get_old_message
-startup_functions.push(setup_inputs);
+startup_functions.push(call_integration("setup_inputs"));
 startup_functions.push(setup_view_mode);
 // These must be the last startup functions added
 //startup_functions.push(startup_delay);  // Uncomment to test loading overlay
@@ -2214,6 +2214,9 @@ var integration = {
     get_old_message: function(next) {
         next();
     },
+
+    /** Initialize fields in the form. */
+    setup_inputs: setup_inputs,
 
     /** Called shortly before the form is revealed to the operator
         (by taking away the "loading" spinner).
