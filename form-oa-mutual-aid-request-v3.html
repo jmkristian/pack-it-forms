@@ -24,7 +24,7 @@
       }
 <%#run%>
       if (environment.message_status == 'received')
-          include('mutual-aid-request.received.css');
+          include('parts/mutual-aid-request.received.css');
       else '';
 <%/run%>
     </style>
@@ -114,7 +114,7 @@
           }
 <%#run%>
           if (environment.message_status == 'received')
-              include('mutual-aid-request.received.js');
+              include('parts/mutual-aid-request.received.js');
           else '';
 <%/run%>
       });
@@ -324,12 +324,12 @@
                 <td class="block-caption" style="width:1px;">Minimum Type</td>
               </tr>
               <%#run%>tabIndex = 24;
-              include('resources/html/resource-requested.html', {row: "1", required: ' required',
+              include('parts/resource-requested.html', {row: "1", required: ' required',
               placeholder: ' placeholder="for example, Checkpoint"'})<%/run%>
-              <%#run%>include('resources/html/resource-requested.html', {row: "2"})<%/run%>
-              <%#run%>include('resources/html/resource-requested.html', {row: "3"})<%/run%>
-              <%#run%>include('resources/html/resource-requested.html', {row: "4"})<%/run%>
-              <%#run%>include('resources/html/resource-requested.html', {row: "5"})<%/run%>
+              <%#run%>include('parts/resource-requested.html', {row: "2"})<%/run%>
+              <%#run%>include('parts/resource-requested.html', {row: "3"})<%/run%>
+              <%#run%>include('parts/resource-requested.html', {row: "4"})<%/run%>
+              <%#run%>include('parts/resource-requested.html', {row: "5"})<%/run%>
             </table>
           </td>
         </tr><tr>
@@ -499,7 +499,7 @@
     </form>
     <%#run%>
     if (environment.message_status == 'received')
-        include('mutual-aid-request.received.html');
+        include('parts/mutual-aid-request.received.html');
     else '';
     <%/run%>
     <%#run%>include('resources/html/submit-buttons.html')<%/run%>

@@ -4,7 +4,7 @@
 
 Function ChooseAddonFiles
   File /r /x "*~" /x .git* /x notes /x pacread /x integration.js \
-    /x form-*.html /x pdf /x http-request.html /x build.cmd /x *.nsi /x *.launch \
+    /x form-*.html /x parts /x pdf /x build.cmd /x *.nsi /x *.launch \
     pack-it-forms
 
   SetOutPath "$INSTDIR\pack-it-forms"
@@ -15,6 +15,11 @@ Function ChooseAddonFiles
   File pack-it-forms\form-scco-eoc-213rr*.html
   File pack-it-forms\form-allied-health-facility-status*.html
   File pack-it-forms\form-oa-mutual-aid-request*.html
+
+  SetOutPath "$INSTDIR\pack-it-forms\parts"
+  File pack-it-forms\parts\form-scco-*.css
+  File pack-it-forms\parts\mutual-aid-request.received.*
+  File pack-it-forms\parts\resource-requested*.html
 
   SetOutPath "$INSTDIR\pdf"
   File pack-it-forms\pdf\ICS-213_*.pdf
