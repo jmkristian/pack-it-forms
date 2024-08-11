@@ -402,6 +402,29 @@ you can add a tag like this inside your form's HTML \<head\>:
 
 This content attribute may be a template.
 
+Mustache
+--------
+Each form-xx.html file is rendered by [Mustache.js](https://github.com/janl/mustache.js),
+before input field values are expanded from `{{ }}` tags.
+The Mustache tag delimiters are `<%` and `%>`.
+Several Mustache keys are predefined:
+- `<%nextTabIndex%>` the next integer in a sequence starting with 1.
+- `<%sameTabIndex%>` the same integer as the last nextTabIndex.
+- `<%&nextFieldNumber%>` either an empty string, or `<span class="field-number">N</span>`
+  where N is the next integer in a sequence.
+- `<%#run%> script <%/run%>` the [completion value](https://www.mattzeunert.com/2017/01/10/whats-a-statement-completion-value-in-javascript.html)
+  of the given JavaScript script.
+  Several global objects are available to the script:
+  - `envelope.readOnly` (boolean) the form is not editable by the operator.
+  - `envelope.viewer` either "sender" or "receiver".
+  - `nextTabIndex` the integer that will be rendered by <%nextTabIndex%>. The default value is 1.
+  - `nextFieldNumber` the integer that will be rendered by <%nextFieldNumber%>.
+    The default value is -1, meaning <%nextFieldNumber> will render an empty string.
+    Setting this variable to a non-negative value starts a sequence of consecutive field numbers.
+  - `include(fileName, context)` a function that renders a template read from the named file,
+    with keys defined by the optional given context.
+    The fileName is relative to the folder pack-it-forms (which contains the form-xx.html files).
+
 Explanation of the Form Boilerplate
 -----------------------------------
 
@@ -467,7 +490,7 @@ execution so that they can be presented to the user appropriately.
            ...
         </form>
 
-The actual from itself replaces the ellipses here.  The Javascript
+The actual form itself replaces the ellipses here.  The Javascript
 requires that the id of the form have the value "the-form".
 
         <div data-include-html="submit-buttons"></div>

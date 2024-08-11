@@ -23,7 +23,7 @@
           white-space: nowrap;
       }
 <%#run%>
-      if (environment.message_status == 'received')
+      if (envelope.viewer == 'receiver')
           include('parts/mutual-aid-request.received.css');
       else '';
 <%/run%>
@@ -113,7 +113,7 @@
               setupResourceRow(row); // creates a closure around this row
           }
 <%#run%>
-          if (environment.message_status == 'received')
+          if (envelope.viewer == 'receiver')
               include('parts/mutual-aid-request.received.js');
           else '';
 <%/run%>
@@ -323,7 +323,7 @@
                 <td class="block-caption" style="width:1px;">Preferred Type</td>
                 <td class="block-caption" style="width:1px;">Minimum Type</td>
               </tr>
-              <%#run%>tabIndex = 24;
+              <%#run%>nextTabIndex = 25;
               include('parts/resource-requested.html', {row: "1", required: ' required',
               placeholder: ' placeholder="for example, Checkpoint"'})<%/run%>
               <%#run%>include('parts/resource-requested.html', {row: "2"})<%/run%>
@@ -498,7 +498,7 @@
       <%#run%>include('resources/html/scco-footer.html')<%/run%>
     </form>
     <%#run%>
-    if (environment.message_status == 'received')
+    if (envelope.viewer == 'receiver')
         include('parts/mutual-aid-request.received.html');
     else '';
     <%/run%>
