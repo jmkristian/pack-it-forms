@@ -135,14 +135,13 @@
       </div>
     </div>
     <form id="the-form" name="the-form">
-      <div data-include-html="scco-header">
-        {
-            "header-title": "Santa Clara OA Shelter Status",
-            "header-version": "WebEOC: 20130814&lt;br/&gt;PIF: {{version}}",
-            "5.": "PRIORITY",
-            "7a.": "Mass Care and Shelter Unit"
-        }
-      </div>
+      <%#run%>include("resources/html/scco-header.html", {
+            "title": "Santa Clara OA Shelter Status",
+            "version": "WebEOC: 20130814<br/>PIF: {{version}}",
+            "handling": "PRIORITY",
+            "to-ics-position": "Mass Care and Shelter Unit"
+        })
+      <%/run%>
       <table class="shelter-status" style="page-break-inside:avoid;">
         <tr>
           <td colspan="2" style="border-right:1px solid #aaaaaa;">
@@ -440,8 +439,8 @@
         </tr>
       </table>
       <br/>
-      <div data-include-html="scco-footer"></div>
+      <%#include%>resources/html/scco-footer.html<%/include%>
     </form>
-    <div data-include-html="submit-buttons"></div>
+    <%#include%>resources/html/submit-buttons.html<%/include%>
   </body>
 </html>

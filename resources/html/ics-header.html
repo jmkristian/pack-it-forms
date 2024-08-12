@@ -1,24 +1,21 @@
-<div>
-  <div class="version">0.2</div>
   <table id="form-row-1">
     <tr>
       <td>
         <table class="same-line-label-layout">
           <tr>
             <td colspan="2">
-              <span name="header-title" class="templated no-msg-init"
-                    style="font-size:175%;font-weight:bold;">{{title}}</span>
+              <span class="templated" style="font-size:175%;font-weight:bold;"><%&title%></span>
             </td>
           </tr><tr>
-            <td><span name="header-subtitle" class="templated no-msg-init"></span></td>
+            <td><span class="templated"><%&subtitle%></span></td>
             <td style="text-align:right;">
-              <span name="header-version" class="templated no-msg-init"></span>
+              <span class="templated"><%&version%></span>
             </td>
           </tr>
         </table>
       </td><td style="vertical-align:middle;">
         <label>Origin Msg #:<span class="field-number">2</span>
-          <input name="MsgNo" class="message-number" type="text" required="required" tabindex="1"
+          <input name="MsgNo" class="message-number" type="text" required tabindex="1"
                  value="{{envelope:sender_message_number}}"/>
         </label>
       </td><td style="vertical-align:middle;">
@@ -36,7 +33,7 @@
           <br/>
           <br/>
           <input name="1a.date" class="date" type="text" tabindex="3"
-                 required="required"
+                 required
                  value="{{date}}"/>
         </label>
       </td><td rowspan="2">
@@ -45,24 +42,25 @@
           <br/>
           <br/>
           <input name="1b.time" class="time" type="text" tabindex="4"
-                 required="required"/>
+                 value="<%time%>" required/>
         </label>
       </td><td class="label-sameline">
         <b>Handling</b><span class="field-number">5</span> :
         <div class="required-group">
           <label title="As soon as possible">
             <input name="5.handling" type="radio" tabindex="8"
-                   required="required" value="IMMEDIATE"/>
+                   data-default-value="<%handling%>"
+                   required value="IMMEDIATE"/>
             <span class="bold">Immediate</span>
             <span style="font-size:75%;font-weight:normal;">(ASAP)</span>
           </label><label title="Less than one hour">
             <input name="5.handling" type="radio" tabindex="9"
-                   required="required" value="PRIORITY"/>
+                   required value="PRIORITY"/>
             <span class="bold">Priority</span>
             <span style="font-size:75%;font-weight:normal;">(&lt;1 hr)</span>
           </label><label title="Less than two hours">
             <input name="5.handling" type="radio" tabindex="10"
-                   required="required" value="ROUTINE"/>
+                   required value="ROUTINE"/>
             <span class="bold">Routine</span>
             <span style="font-size:75%;font-weight:normal;">(&lt;2 hr)</span>
           </label>
@@ -80,7 +78,8 @@
             <th align="right">Take Action:
             </th><td class="horizontal">
               <label>
-                <input name="6a.take-action" type="radio" value="Yes" tabindex="11"/> Yes
+                <input name="6a.take-action" type="radio" value="Yes" tabindex="11"
+                       data-default-value="<%take-action%>"/> Yes
               </label>
             </td><td>
               <label>
@@ -92,6 +91,7 @@
             </th><td class="horizontal" style="width:16em;padding-right:0px;">
               <label>
                 <input name="6b.reply" type="radio" value="Yes" tabindex="13"
+                       data-default-value="<%reply%>"
                        onchange="if (this.checked) set_properties({'6d.reply-by': {disabled: false, tabIndex: '15'}});"/>
                 Yes, by
               </label>
@@ -116,7 +116,7 @@
         <table class="same-line-label-layout">
           <tr>
             <th>ICS Position:<span class="field-number">7</span></th>
-            <td><input name="7.to-ics-position-other" type="text" required="required" tabindex="17"/></td>
+            <td><input name="7.to-ics-position" type="text" value="<%to-ics-position%>" required tabindex="17"/></td>
           </tr>
         </table>
       </td><td rowspan="4" class="block-caption" style="width:1px;">
@@ -125,7 +125,7 @@
         <table class="same-line-label-layout">
           <tr>
             <th>ICS Position:<span class="field-number">8</span></th>
-            <td><input name="8.from-ics-position" type="text" required="required" tabindex="22"/></td>
+            <td><input name="8.from-ics-position" type="text" value="<%from-ics-position%>" required tabindex="22"/></td>
           </tr>
         </table>
       </td>
@@ -134,14 +134,14 @@
         <table class="same-line-label-layout">
           <tr>
             <th>Location:<span class="field-number">9</span></th>
-            <td><input name="9a.to-location" type="text" required="required" tabindex="18"/></td>
+            <td><input name="9a.to-location" type="text" value="<%to-location%>" required tabindex="18"/></td>
           </tr>
         </table>
       </td><td>
         <table class="same-line-label-layout">
           <tr>
             <th>Location:<span class="field-number">9</span></th>
-            <td><input name="9b.from-location" type="text" required="required" tabindex="23"/></td>
+            <td><input name="9b.from-location" type="text" value="<%from-location%>" required tabindex="23"/></td>
           </tr>
         </table>
       </td>
@@ -179,4 +179,3 @@
       </td>
     </tr>
   </table>
-</div>

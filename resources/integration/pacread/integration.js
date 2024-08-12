@@ -122,7 +122,13 @@
                 // accumulated and initialized at the end.
                 process_html_includes(function() {
                     if (defaults) {
-                        add_form_default_values(JSON.parse(defaults));
+                        if (!formDefaultValues) {
+                            formDefaultValues = {};
+                        }
+                        var values = JSON.parse(defaults);
+                        for (fieldName in values) {
+                            formDefaultValues[short_name(fieldName)] = values[fieldName];
+                        }
                     }
                     next();
                 });

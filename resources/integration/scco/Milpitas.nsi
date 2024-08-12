@@ -8,7 +8,7 @@ Function ChooseAddonFiles
     pack-it-forms
   SetOutPath "$INSTDIR\pack-it-forms"
   File pack-it-forms\form-milpitas-*.html
-  SetOutPath "$INSTDIR\pack-it-forms\resources\html"
+  SetOutPath "$INSTDIR\pack-it-forms\parts"
   File pack-it-forms\parts\mlp-*.html
   SetOutPath "$INSTDIR\addons"
   File /oname=${addon_name}.launch pack-it-forms\resources\integration\scco\${addon_name}.launch

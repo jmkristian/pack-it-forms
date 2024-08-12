@@ -139,15 +139,14 @@
       </div>
     </div>
     <form id="the-form" name="the-form">
-      <div data-include-html="scco-header">
-        {
-            "header-title": "Allied Health Status Report Short Form &lt;span style=\"font-size:75%;\">(DEOC-9)&lt;/span>",
-            "header-version": "Version: February 2018&lt;br/&gt;PIF: {{version}}",
-            "5.": "ROUTINE",
-            "7a.": "Health Care Liaison",
-            "7b.": "PHDOC"
-        }
-      </div>
+      <%#run%>include("resources/html/scco-header.html", {
+            "title": 'Allied Health Status Report Short Form <span style="font-size:75%;">(DEOC-9)</span>',
+            "version": "Version: February 2018<br/>PIF: {{version}}",
+            "handling": "ROUTINE",
+            "to-ics-position": "Health Care Liaison",
+            "to-location": "PHDOC"
+        })
+      <%/run%>
       <table>
         <tr>
           <td colspan="4" class="label-sameline" style="vertical-align:middle;">
@@ -451,8 +450,8 @@
         </tr>
       </table>
       <br/>
-      <div data-include-html="scco-footer"></div>
+      <%#include%>resources/html/scco-footer.html<%/include%>
     </form>
-    <div data-include-html="submit-buttons"></div>
+    <%#include%>resources/html/submit-buttons.html<%/include%>
   </body>
 </html>

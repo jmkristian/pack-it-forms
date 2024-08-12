@@ -40,13 +40,12 @@
       </div>
     </div>
     <form id="the-form" name="the-form">
-      <div data-include-html="ics-header">
-        {
-            "header-title": "MESSAGE FORM",
-            "header-subtitle": "SCCo ICS Form 213 (01/19/2022)",
-            "header-version": "PIF {{version}}"
-        }
-      </div>
+      <%#run%>include("resources/html/ics-header.html", {
+            "title": "MESSAGE FORM",
+            "subtitle": "SCCo ICS Form 213 (01/19/2022)",
+            "version": "PIF {{version}}"
+        })
+      <%/run%>
       <table id="form-body" class="noborder border">
         <tr>
           <td>
@@ -80,8 +79,8 @@
           </td>
         </tr>
       </table>
-      <div data-include-html="ics-footer"></div>
+      <%#include%>resources/html/ics-footer.html<%/include%>
     </form>
-    <div data-include-html="submit-buttons"></div>
+    <%#include%>resources/html/submit-buttons.html<%/include%>
   </body>
 </html>

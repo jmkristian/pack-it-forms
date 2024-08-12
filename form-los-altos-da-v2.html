@@ -131,17 +131,16 @@
       </div>
     </div>
     <form id="the-form" name="the-form">
-      <div data-include-html="scco-header">
-        {
-            "header-title": "Los Altos Damage Assessment Summary",
-            "header-version": "{{version}}",
-            "1b.": "{{time}}",
-            "5.": "PRIORITY",
-            "7a.": "Planning",
-            "8a.": "Planning",
-            "7b.": "Los Altos EOC"
-        }
-      </div>
+      <%#run%>include("resources/html/scco-header.html", {
+            "title": "Los Altos Damage Assessment Summary",
+            "version": "{{version}}",
+            "time": "{{time}}",
+            "handling": "PRIORITY",
+            "from-ics-position": "Planning",
+            "to-ics-position": "Planning",
+            "to-location": "Los Altos EOC"
+        })
+      <%/run%>
       <table id="form-body" class="noborder border">
         <tr>
           <td colspan="17">
@@ -422,8 +421,8 @@
                                      rows="6" cols="80"></textarea></td>
         </tr>
       </table>
-      <div data-include-html="scco-footer"></div>
+      <%#include%>resources/html/scco-footer.html<%/include%>
     </form>
-    <div data-include-html="submit-buttons"></div>
+    <%#include%>resources/html/submit-buttons.html<%/include%>
   </body>
 </html>

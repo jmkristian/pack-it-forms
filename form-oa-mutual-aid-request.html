@@ -38,12 +38,11 @@
       </div>
     </div>
     <form id="the-form" name="the-form">
-      <div data-include-html="scco-header">
-        {
-            "header-title": "Santa Clara County RACES -- Mutual Aid Request",
-            "header-version": "Version: 190419&lt;br/&gt;PIF: {{version}}"
-        }
-      </div>
+      <%#run%>include("resources/html/scco-header.html", {
+            "title": "Santa Clara County RACES -- Mutual Aid Request",
+            "version": "Version: 190419<br/>PIF: {{version}}"
+        })
+      <%/run%>
       <table class="fullsize-textfields">
         <tr>
           <td>
@@ -239,7 +238,7 @@
           </td>
         </tr>
       </table>
-      <div data-include-html="scco-footer"></div>
+      <%#include%>resources/html/scco-footer.html<%/include%>
     </form>
     <div class="print-only" style="page-break-inside:avoid;">
       <table>
@@ -338,6 +337,6 @@
         </tr>
       </table>
     </div>
-    <div data-include-html="submit-buttons"></div>
+    <%#include%>resources/html/submit-buttons.html<%/include%>
   </body>
 </html>

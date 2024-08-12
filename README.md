@@ -184,26 +184,24 @@ inputs, here are a few ways that generally work well with the default CSS:
      its position, similar to the way that field numbers are conveyed
      in the paper version of an ICS form.
 
-If your form fits the ICS standards, you will need a large number of
-fields that contain information about the way that the form was
-transmitted and who it is going to/who it is from.  *pack-it-forms*
-makes this easy to do: it is possible to include fragments of HTML
-from files in the resources/html directory.  If you create a `div`
-element that has a `data-include-html` attribute in it, the element
-will be replaced with the contents of the first `div` element in the
-file resources/html/\<attribute value\>.html where \<attribute value\>
-signifies the value of the `data-include-html` attribute.
+If your form fits the ICS standards, you'll need several fields to say
+who transmitted the form, to whom it was transmitted etc.
+To define these same fields in several forms, it's often convenient to
+include fragments of HTML from other files.
+If an HTML file contains a tag like
+`<%#include%>resources/html/file.html<%/include%>`.
+that tag will be replaced with the contents of file.html.
+You can customize an included file with a tag like:
 
-One thing that you may want to do with included HTML files is set the
-default values of included elements.  You can do that by putting a
-JSON object that maps form field names to default values for those
-fields inside the \<div\> that will be replaced with the included content.
-Most default values are in the same format as HTML.
-For a \<select\>, the value should match one of the option values.
-For a collection of radio buttons, the value should match
-the value of one of the buttons.
-For a checkbox, the value should be "false" for not checked, or
-anything else for checked.
+        <%#run%>include("resources/html/preamble.html", {title: "Status Report"})<%/run%>
+
+That's a JavaScript function call;
+the second parameter to the include function is a JavaScript object.
+Within the included file, a tag like `<%title>` or `<%&title>`
+will be replaced with the value of the title field
+or, if there is no such field, an empty string.
+A `<%title%>` tag will convert special characters like < and > to HTML codes;
+a `<%&title%>` tag won't convert them.
 
 If an input element represents a field that should have different
 values in a receiver's copy of a form than the senders, give the field
@@ -211,7 +209,7 @@ the class `no-msg-init` which will prevent the senders field value
 (which is included in the message data) from being populated into the
 field for display.  Use the template system (described in the next
 section) to substitute a different value for the receiver or the
-transmitter.  The `ics-header.html` and `ics-footer.html` html
+transmitter.  The `ics-header.html` and `ics-footer.html` HTML
 fragments provide good examples of this.
 
 
@@ -402,25 +400,28 @@ you can add a tag like this inside your form's HTML \<head\>:
 
 This content attribute may be a template.
 
-Mustache
---------
-Each form-xx.html file is rendered by [Mustache.js](https://github.com/janl/mustache.js),
-before input field values are expanded from `{{ }}` tags.
-The Mustache tag delimiters are `<%` and `%>`.
-Several Mustache keys are predefined:
+Mustache Tags
+-------------
+You can do more with tags delimited by `<% %>`.
+These tags are rendered by [Mustache.js](https://github.com/janl/mustache.js),
+before `{{ }}` tags are expanded.
+Several tags are predefined:
 - `<%nextTabIndex%>` the next integer in a sequence starting with 1.
 - `<%sameTabIndex%>` the same integer as the last nextTabIndex.
+  This is useful for a group of radio buttons, which usually all have the same tabindex.
 - `<%&nextFieldNumber%>` either an empty string, or `<span class="field-number">N</span>`
   where N is the next integer in a sequence.
-- `<%#run%> script <%/run%>` the [completion value](https://www.mattzeunert.com/2017/01/10/whats-a-statement-completion-value-in-javascript.html)
+- `<%#include%> fileName <%/include%>` shorthand for `<%#run%>include("fileName")<%/run%>`.
+- `<%#run%> script <%/run%>` the
+  [completion value](https://www.mattzeunert.com/2017/01/10/whats-a-statement-completion-value-in-javascript.html)
   of the given JavaScript script.
-  Several global objects are available to the script:
+  The script can use several global objects, including:
   - `envelope.readOnly` (boolean) the form is not editable by the operator.
   - `envelope.viewer` either "sender" or "receiver".
   - `nextTabIndex` the integer that will be rendered by <%nextTabIndex%>. The default value is 1.
-  - `nextFieldNumber` the integer that will be rendered by <%nextFieldNumber%>.
-    The default value is -1, meaning <%nextFieldNumber> will render an empty string.
-    Setting this variable to a non-negative value starts a sequence of consecutive field numbers.
+  - `nextFieldNumber` the integer that will be rendered by <%&nextFieldNumber%>.
+    The default value is -1, meaning <%&nextFieldNumber%> will render an empty string.
+    You can start a sequence of consecutive field numbers by setting this variable to a non-negative value.
   - `include(fileName, context)` a function that renders a template read from the named file,
     with keys defined by the optional given context.
     The fileName is relative to the folder pack-it-forms (which contains the form-xx.html files).
@@ -493,7 +494,7 @@ execution so that they can be presented to the user appropriately.
 The actual form itself replaces the ellipses here.  The Javascript
 requires that the id of the form have the value "the-form".
 
-        <div data-include-html="submit-buttons"></div>
+        <%#run%>include("resources/html/submit-buttons.html")<%/run%>
 
 An include reference that is replaced with the submit buttons and
 related markup.  This is required for the Javascript to work

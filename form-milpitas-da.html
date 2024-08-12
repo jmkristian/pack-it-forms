@@ -69,18 +69,16 @@
     </div>
     <form id="the-form" name="the-form">
          
-      <div data-include-html="scco-header">
-        {
-            "header-title": "Milpitas CERT Damage Assessment Summary",
-            "header-version": "MLP-CERT: 20190405&lt;br/&gt;PIF: {{version}}",
-            "1b.": "{{time}}",
-            "5.": "PRIORITY",
-            "7a.": "Planning",
-	        "7b.": "Milpitas EOC",
-            "8a.": "Operations",
-			"8b.": ""     
-        }
-      </div>
+      <%#run%>include("resources/html/scco-header.html", {
+            "title": "Milpitas CERT Damage Assessment Summary",
+            "version": "MLP-CERT: 20190405<br/>PIF: {{version}}",
+            "time": "{{time}}",
+            "handling": "PRIORITY",
+            "to-ics-position": "Planning",
+            "to-location": "Milpitas EOC",
+            "from-ics-position": "Operations"
+        })
+      <%/run%>
 	      
 		<table class="same-line-label-layout"> 
 		<tr>
@@ -181,8 +179,8 @@
                                      rows="6" cols="80" tabindex="50"></textarea></td>
         </tr>
       </table>
-      <div data-include-html="scco-footer"></div>
+      <%#include%>resources/html/scco-footer.html<%/include%>
     </form>
-    <div data-include-html="submit-buttons"></div>
+    <%#include%>resources/html/submit-buttons.html<%/include%>
   </body>
 </html>

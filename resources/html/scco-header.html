@@ -1,14 +1,12 @@
-<div>
-  <div class="version">0.1.0</div>
   <table id="scco-banner" class="block-caption noborder">
     <tr>
       <td style="border:none;padding:4pt 4pt;">
-        <span name="header-title" class="templated no-msg-init" style="font-size:150%;"></span>
+        <span class="templated" style="font-size:150%;"><%&title%></span>
         <br/>
-        <span name="header-subtitle" class="templated no-msg-init"></span>
+        <span class="templated"><%&subtitle%></span>
       </td>
       <td style="border:none;padding:2pt 4pt;text-align:right;vertical-align:bottom;">
-        <span name="header-version" class="templated no-msg-init" style="font-weight:normal;"></span>
+        <span class="templated" style="font-weight:normal;"><%&version%></span>
       </td>
     </tr>
   </table>
@@ -19,7 +17,7 @@
       </td><td>
         <b>Origin:</b>
         <input type="text" name="MsgNo" class="message-number no-msg-init" tabindex="1"
-               value="{{envelope:sender_message_number}}" required="required"/>
+               value="{{envelope:sender_message_number}}" required/>
       </td><td>
         <b>Destination:</b>
         <input type="text" class="message-number" disabled="disabled" tabindex="2"
@@ -31,26 +29,27 @@
     <tr>
       <td>
         <b>Date:</b>
-        <input type="text" name="1a.date" class="date" value="{{date}}" required="required" tabindex="3"/>
+        <input type="text" name="1a.date" class="date" value="{{date}}" required tabindex="3"/>
       </td><td>
         <b>Time:</b>
-        <input type="text" name="1b.time" class="time" required="required" tabindex="4"/>
+        <input type="text" name="1b.time" class="time" value="<%time%>" required tabindex="4"/>
       </td><td class="label-sameline">
         <b>Handling:</b>
         <div class="required-group" style="margin-left:0.5em;padding-left:0;padding-right:0.5em;">
           <label>
             <input type="radio" name="5.handling" tabindex="5"
-                   required="required" value="IMMEDIATE"/>Immediate
+                   data-default-value="<%handling%>"
+                   required value="IMMEDIATE"/>Immediate
             <span style="font-weight:normal;">(ASAP)</span>
           </label>
           <label style="margin-left:1em;margin-right:1em;">
             <input type="radio" name="5.handling" tabindex="6"
-                   required="required" value="PRIORITY"/>Priority
+                   required value="PRIORITY"/>Priority
             <span style="font-weight:normal;">(&lt;1 hr)</span>
           </label>
           <label>
             <input type="radio" name="5.handling" tabindex="7"
-                   required="required" value="ROUTINE"/>Routine
+                   required value="ROUTINE"/>Routine
             <span style="font-weight:normal;">(&lt;2 hrs)</span>
           </label>
         </div>
@@ -69,7 +68,7 @@
               <table class="combobox" id="to-ics-position-box">
                 <tr>
                   <td>
-                    <input type="text" name="7a.to-ics-position" required="required" tabindex="8"/>
+                    <input type="text" name="7a.to-ics-position" value="<%to-ics-position%>" required tabindex="8"/>
                   </td>
                   <td class="dropdown-toggle">
                     <span>
@@ -94,7 +93,7 @@
         <table class="same-line-label-layout">
           <tr>
             <th>ICS Position:</th>
-            <td><input type="text" name="8a.from-ics-position" required="required" tabindex="12"/></td>
+            <td><input type="text" name="8a.from-ics-position" value="<%from-ics-position%>" required tabindex="12"/></td>
           </tr>
         </table>
       </td>
@@ -107,7 +106,7 @@
               <table class="combobox" id="to-location-box">
                 <tr>
                   <td>
-                    <input type="text" name="7b.to-location" required="required" tabindex="9"/>
+                    <input type="text" name="7b.to-location" value="<%to-location%>" required tabindex="9"/>
                   </td>
                   <td class="dropdown-toggle">
                     <span>
@@ -130,7 +129,7 @@
         <table class="same-line-label-layout">
           <tr>
             <th>Location:</th>
-            <td><input type="text" name="8b.from-location" required="required" tabindex="13"/></td>
+            <td><input type="text" name="8b.from-location" value="<%from-location%>" required tabindex="13"/></td>
           </tr>
         </table>
       </td>
@@ -168,4 +167,3 @@
       </td>
     </tr>
   </table>
-</div>

@@ -78,12 +78,6 @@
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
     <script type="text/javascript">
-	  add_form_default_values({
-          '4x.suspect': '1',
-          '5x.vehicles': '1',
-          '6x.victims': '1',
-		  '7x.fire': '1'
-      });
       // Don't show the 'Add an Item' buttons in a read-only form:
       integration.after('late_startup', function() {
           if (envelope.readOnly) {
@@ -108,13 +102,12 @@
       </div>
     </div>
     <form id="the-form" name="the-form">
-      <div data-include-html="mlp-header">
-        {
-            "header-title": "Milpitas RACES - Incident Reporting Form",
-            "header-subtitle": "Field Numbers Correspond to Instructions on Back of Printed Form",
-            "header-version": "MLP-RACES: 20201026&lt;br/&gt;PIF: {{version}}"
-        }
-      </div>
+      <%#run%>include("parts/mlp-header.html", {
+            "title": "Milpitas RACES - Incident Reporting Form",
+            "subtitle": "Field Numbers Correspond to Instructions on Back of Printed Form",
+            "version": "MLP-RACES: 20201026<br/>PIF: {{version}}"
+        })
+      <%/run%>
       <span style="display:none;">
         <input type="text" name="1x.serviceValuesRequested" required/>
       </span>
@@ -218,7 +211,7 @@
       </table>
 <!-- START SUSPECT -->
 	  <span style="display:none">
-        <input type="text" name="4x.suspect"
+        <input type="text" name="4x.suspect" data-default-value="1"
                id="suspect-count" onchange="showItems('suspect', parseInt(this.value))" tabindex="21"/>
       </span>
       <table class="section">
@@ -485,7 +478,7 @@
       </table>
 <!-- START VEHICLE -->
       <span style="display:none">
-        <input type="text" name="5x.vehicles"
+        <input type="text" name="5x.vehicles" data-default-value="1"
                id="vehicle-count" onchange="showItems('vehicle', parseInt(this.value))"/>
       </span>
       <table class="section">
@@ -580,7 +573,7 @@
 
 <!-- START VICTIM -->
 	  <span style="display:none">
-        <input type="text" name="6x.victims"
+        <input type="text" name="6x.victims" data-default-value="1"
                id="victim-count" onchange="showItems('victim', parseInt(this.value))" tabindex="110"/>
       </span>
       <table class="section">
@@ -732,7 +725,7 @@
 	  
 	  <!-- START FIRE -->
       <span style="display:none">
-        <input type="text" name="7x.fire"
+        <input type="text" name="7x.fire" data-default-value="1"
                id="fire-count" onchange="showItems('fire', parseInt(this.value))"/>
       </span>
       <table class="section">
@@ -886,8 +879,8 @@
           <td><textarea name="8.details" rows="5" tabindex="170"></textarea></td>
         </tr>
       </table>
-      <div data-include-html="scco-footer"></div>
+      <%#include%>resources/html/scco-footer.html<%/include%>
     </form>
-    <div data-include-html="submit-buttons"></div>
+    <%#include%>resources/html/submit-buttons.html<%/include%>
   </body>
 </html>

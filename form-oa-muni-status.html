@@ -79,15 +79,14 @@
       </div>
     </div>
     <form id="the-form" name="the-form">
-      <div data-include-html="scco-header">
-        {
-            "header-title": "Santa Clara OA Jurisdiction Status",
-            "header-version": "WebEOC: 20190327&lt;br/&gt;PIF: {{version}}",
-            "5.": "IMMEDIATE",
-            "7a.": "Situation Analysis Unit",
-            "7b.": "County EOC"
-        }
-      </div>
+      <%#run%>include("resources/html/scco-header.html", {
+            "title": "Santa Clara OA Jurisdiction Status",
+            "version": "WebEOC: 20190327<br/>PIF: {{version}}",
+            "handling": "IMMEDIATE",
+            "to-ics-position": "Situation Analysis Unit",
+            "to-location": "County EOC"
+        })
+      <%/run%>
       <br/>
       <table class="same-line-label-layout">
         <tr>
@@ -542,8 +541,8 @@
         </table>
       </div>
       <br/>
-      <div data-include-html="scco-footer"></div>
+      <%#include%>resources/html/scco-footer.html<%/include%>
     </form>
-    <div data-include-html="submit-buttons"></div>
+    <%#include%>resources/html/submit-buttons.html<%/include%>
   </body>
 </html>

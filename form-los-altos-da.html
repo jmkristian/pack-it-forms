@@ -36,20 +36,17 @@
       </div>
     </div>
     <form id="the-form" name="the-form">
-      <div data-include-html="ics-header">
-        {
-            "1b.": "{{time}}",
-            "4.": "OTHER",
-            "5.": "PRIORITY",
-            "6a.": "No",
-            "6b.": "No",
-            "6c.": "checked",
-            "7.": "Planning",
-            "8.": "Planning",
-            "9a.": "Los Altos EOC",
-            "9b.": "{{envelope:sender_message_number|msgno2name}}"
-        }
-      </div>
+      <%#run%>include("resources/html/ics-header.html", {
+            "time": "{{time}}",
+            "handling": "PRIORITY",
+            "take-action": "No",
+            "reply": "No",
+            "to-ics-position": "Planning",
+            "from-ics-position": "Planning",
+            "to-location": "Los Altos EOC",
+            "from-location": "{{envelope:sender_message_number|msgno2name}}"
+        })
+      <%/run%>
       <table id="form-body" class="noborder border">
         <tr>
           <td colspan="17">
@@ -332,8 +329,8 @@
                                      rows="6" cols="80"></textarea></td>
         </tr>
       </table>
-      <div data-include-html="ics-footer"></div>
+      <%#include%>resources/html/ics-footer.html<%/include%>
     </form>
-    <div data-include-html="submit-buttons"></div>
+    <%#include%>resources/html/submit-buttons.html<%/include%>
   </body>
 </html>

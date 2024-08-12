@@ -41,7 +41,7 @@ var versions = {           // Version information
     includes: []           // versions of included HTML files
 };
 var formDefaultValues;     // Initial values for form inputs. May contain templates.
-var templatedElements = [];// Initial values for templated elements with no name. All templates.
+var templatedElements = [];// Initial values for elements with no name or a templated value.
 var errorLog = [];         // Errors that occurred before there was a place to show them.
 var EOL = "\r\n";
 var optionColors = {       // Backgrounds for color-coded options in a <select> or ComboBox.
@@ -143,15 +143,6 @@ function set_form_default_values() {
     });
     init_form_from_fields(formDefaultValues);
     init_form_from_fields(msgfields, true);
-}
-
-function add_form_default_values(values) {
-    if (!formDefaultValues) {
-        formDefaultValues = {};
-    }
-    for (fieldName in values) {
-        formDefaultValues[short_name(fieldName)] = values[fieldName];
-    }
 }
 
 /** Return the fields from the given message,
@@ -1829,9 +1820,30 @@ function find_default_values() {
     if (!formDefaultValues) {
         formDefaultValues = {};
     }
-    find_templated_text("[data-default-value]", "data-default-value");
     find_templated_text(".templated", "innerHTML");
     find_templated_text("input", "value");
+    array_for_each(document.querySelectorAll('[data-default-value]'), function(element) {
+        if (!element.classList.contains("no-load-init")) {
+            var value = element.getAttribute("data-default-value");
+            var name = element.name || element.getAttribute("name");
+            if (!name || is_a_template(value)) {
+                var init = get_init_function(element);
+                if (init) {
+                    templatedElements.push({init: init, element: element, value: value});
+                } else {
+                    logError("<" + element.tagName
+                             + (name ? (' name="' + name + '"') : "")
+                             + (element.type ? (' type="' + element.type + '"') : "")
+                             + "> can't be initialized with " + value + ".");
+                }
+            } else {
+                name = short_name(name);
+                if (formDefaultValues[name] == undefined) {
+                    formDefaultValues[name] = value;
+                }
+            }
+        }
+    });
 }
 
 /* Test whether the end of one string matches another */

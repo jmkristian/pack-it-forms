@@ -18,7 +18,6 @@ Function ChooseAddonFiles
 
   SetOutPath "$INSTDIR\pack-it-forms\parts"
   File pack-it-forms\parts\form-scco-*.css
-  File pack-it-forms\parts\mutual-aid-request.received.*
   File pack-it-forms\parts\resource-requested*.html
 
   SetOutPath "$INSTDIR\pdf"
