@@ -186,8 +186,8 @@
         </tr><tr>
           <td>
 <%#run%>nextFieldNumber =  8; nextTabIndex = 20; include('parts/report-victim.html', {row: "1"});<%/run%>
-<%#run%>nextFieldNumber = -1; include('parts/report-victim.html', {row: "2"});<%/run%>
-<%#run%>nextFieldNumber = -1; include('parts/report-victim.html', {row: "3"});<%/run%>
+<%#run%>nextFieldNumber = -1; include('parts/report-victim.html', {row: "2", hr: '<hr/>'});<%/run%>
+<%#run%>nextFieldNumber = -1; include('parts/report-victim.html', {row: "3", hr: '<hr/>'});<%/run%>
             <div id="add-victim" class="print-none" style="padding:1ex 1.5em;">
               <button onclick="return addItem('victim');">
                 <img src="add_circle_outline_black_18dp.png"
@@ -210,8 +210,8 @@
         </tr><tr>
           <td>
 <%#run%>nextFieldNumber = 16; include('parts/report-suspect.html', {row: "1"});<%/run%>
-<%#run%>nextFieldNumber = -1; include('parts/report-suspect.html', {row: "2"});<%/run%>
-<%#run%>nextFieldNumber = -1; include('parts/report-suspect.html', {row: "3"});<%/run%>
+<%#run%>nextFieldNumber = -1; include('parts/report-suspect.html', {row: "2", hr: '<hr/>'});<%/run%>
+<%#run%>nextFieldNumber = -1; include('parts/report-suspect.html', {row: "3", hr: '<hr/>'});<%/run%>
             <div id="add-suspect" class="print-none" style="padding:1ex 1.5em;">
               <button onclick="return addItem('suspect');">
                 <img src="add_circle_outline_black_18dp.png"
@@ -238,8 +238,8 @@
         </tr><tr>
           <td>
 <%#run%>nextFieldNumber = 26; include('parts/report-vehicle.html', {row: "1"});<%/run%>
-<%#run%>nextFieldNumber = -1; include('parts/report-vehicle.html', {row: "2"});<%/run%>
-<%#run%>nextFieldNumber = -1; include('parts/report-vehicle.html', {row: "3"});<%/run%>
+<%#run%>nextFieldNumber = -1; include('parts/report-vehicle.html', {row: "2", hr: '<hr/>'});<%/run%>
+<%#run%>nextFieldNumber = -1; include('parts/report-vehicle.html', {row: "3", hr: '<hr/>'});<%/run%>
             <div id="add-vehicle" class="print-none" style="padding:1ex 1.5em;">
               <button onclick="return addItem('vehicle');">
                 <img src="add_circle_outline_black_18dp.png"
@@ -262,8 +262,8 @@
         </tr><tr>
           <td>
 <%#run%>nextFieldNumber = 32; include('parts/report-fire.html', {row: "1"});<%/run%>
-<%#run%>nextFieldNumber = -1; include('parts/report-fire.html', {row: "2"});<%/run%>
-<%#run%>nextFieldNumber = -1; include('parts/report-fire.html', {row: "3"});<%/run%>
+<%#run%>nextFieldNumber = -1; include('parts/report-fire.html', {row: "2", hr: '<hr/>'});<%/run%>
+<%#run%>nextFieldNumber = -1; include('parts/report-fire.html', {row: "3", hr: '<hr/>'});<%/run%>
             <div id="add-fire" class="print-none" style="padding:1ex 1.5em;">
               <button onclick="return addItem('fire');">
                 <img src="add_circle_outline_black_18dp.png"
@@ -385,6 +385,6 @@
         </table>
       </div>
     </form>
-    <%#run%>include('resources/html/submit-buttons.html')<%/run%>
+    <div data-include-html="submit-buttons"></div>
   </body>
 </html>

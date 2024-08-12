@@ -25,7 +25,6 @@
 <%#run%>
       if (envelope.viewer == 'receiver')
           include('parts/mutual-aid-request.received.css');
-      else '';
 <%/run%>
     </style>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
@@ -115,7 +114,6 @@
 <%#run%>
           if (envelope.viewer == 'receiver')
               include('parts/mutual-aid-request.received.js');
-          else '';
 <%/run%>
       });
     </script>
@@ -500,8 +498,7 @@
     <%#run%>
     if (envelope.viewer == 'receiver')
         include('parts/mutual-aid-request.received.html');
-    else '';
     <%/run%>
-    <%#run%>include('resources/html/submit-buttons.html')<%/run%>
+    <div data-include-html="submit-buttons"></div>
   </body>
 </html>
