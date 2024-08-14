@@ -447,9 +447,7 @@ Standard HTML5 document start specifying a UTF-8 encoding.
 
         <link rel="stylesheet" type="text/css" href="resources/css/loading.css"/>
 
-CSS that works with the div element with id "loading" that will be
-encountered shortly, to hide the rest of the form as all the form
-structure and contents are loaded.
+CSS that works with loading.html, to hide the form during initialization.
 
         <link rel="stylesheet" type="text/css" href="resources/css/pack-it-forms.css"/>
 
@@ -471,21 +469,9 @@ These are required to have a functioning form.
 Completion of the normal HTML5 head section and start of the body
 section.  An appropriate title should be specified for each form.
 
-        <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
+        <%#include%>resources/html/loading.html<%/include%>
 
-Nested markup required to enable the animated loading progress bar
-without requiring any external graphics.
-
-        <div id="err">
-          <div>
-            <h1>Something went wrong.</h1>
-            The following log information may help resolve the problem.
-            <div id="error-log"></div>
-          </div>
-        </div>
-
-Markup required for logging errors that occur during Javascript
-execution so that they can be presented to the user appropriately.
+A loading progress bar, with diagnostic information if something goes wrong.
 
         <form id="the-form" name="the-form">
            ...
@@ -494,11 +480,11 @@ execution so that they can be presented to the user appropriately.
 The actual form itself replaces the ellipses here.  The Javascript
 requires that the id of the form have the value "the-form".
 
-        <%#run%>include("resources/html/submit-buttons.html")<%/run%>
+        <%#include%>resources/html/submit-buttons.html<%/include%>
 
-An include reference that is replaced with the submit buttons and
-related markup.  This is required for the Javascript to work
-correctly.  It should come after the form.
+Buttons to reset the form, submit the completed form etc.
+This is required for the Javascript to work correctly.
+It should come after the form.
 
       </body>
     </html>

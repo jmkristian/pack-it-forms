@@ -25,14 +25,7 @@
 
   <body>
     <div class="version">2.4</div>
-    <div id="loading"><div>Loading<div id="spin"><div id="spin_1" class="spin"></div></div></div></div>
-    <div id="err">
-      <div>
-        <h1>Something went wrong.</h1>
-        The following log information may help resolve the problem.
-        <div id="error-log"></div>
-      </div>
-    </div>
+    <%#include%>resources/html/loading.html<%/include%>
     <form id="the-form" name="the-form">
       <%#run%>include("resources/html/scco-header.html", {
             "title": "Santa Clara County EOC Resource Request Form 213RR",
