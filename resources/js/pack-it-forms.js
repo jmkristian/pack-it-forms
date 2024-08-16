@@ -1297,9 +1297,10 @@ ComboBox.prototype.chooseSelectedItem = function chooseSelectedItem() {
 /** Set editBox.value = item.innerText. */
 ComboBox.prototype.chooseItem = function chooseItem(item) {
     // console.log('chooseItem');
-    if (item != null) {
+    if (item != null && this.editBox.value != item.innerText) {
         this.editBox.value = item.innerText;
         fireEvent(this.editBox, 'change');
+        formChanged();
     }
     if (this.isOpen) {
         this.toggleOpen();

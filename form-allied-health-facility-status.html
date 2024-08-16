@@ -104,6 +104,7 @@
                           location.setOptions([locationOptions[o]]);
                           if (!location.wasChanged) {
                               location.setValue(locationOptions[o]);
+                              formChanged();
                           }
                       }
                   }
@@ -115,6 +116,7 @@
                       position.setOptions(positionOptions[o]);
                       if (!position.wasChanged) {
                           position.setValue(positionOptions[o][0]);
+                          formChanged();
                       }
                   }
               };
