@@ -286,7 +286,8 @@
                 </th><td>
                   <%#run%>include('resources/html/combobox.html', {
                   name: "33.reportingLocation",
-                  attributes: ' tabindex="<%nextTabIndex%>" placeholder="Fire Station 1, Town Center, Redwood Park, etc."'
+                  tabindex: "<%&nextTabIndex%>",
+                  attributes: 'placeholder="Fire Station 1, Town Center, Redwood Park, etc."'
                   })<%/run%>
                 </td>
               </tr><tr>
@@ -295,7 +296,8 @@
                 </th><td>
                   <%#run%>include('resources/html/combobox.html', {
                   name: "34.reportTaker",
-                  attributes: ' tabindex="<%nextTabIndex%>" placeholder="Name, Call Sign or CERT Team #"'
+                  tabindex: "<%&nextTabIndex%>",
+                  attributes: 'placeholder="Name, Call Sign or CERT Team #"'
                   })<%/run%>
                 </td>
               </tr>
