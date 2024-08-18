@@ -3,6 +3,12 @@
     <input type="text" name="18.<%row%>a.resources-qty" class="cardinal-number"
            tabindex="<%nextTabIndex%>"<%&required%>/>
   </td><td style="padding-right:1px;width:14em;">
+    <span style="height:0px;position:relative;">
+      <div id="18.<%row%>-prompt" class="bubble print-none">
+        Please provide additional details for this resource in the <b>Assignment</b> field.
+        <input type="button" id="18.<%row%>-ok" value="OK" tabindex="-1"/>
+      </div>
+    </span>
     <%#run%>include('resources/html/combobox.html', {
     name: "18.<%&row%>b.role",
     tabindex: "<%&nextTabIndex%>",
@@ -24,8 +30,6 @@
       <option value="4">Type IV</option>
       <option value="5">Type V</option>
     </select>
-    <input type="text" name="18.<%row%>h.preferred" style="display:none;width:6em;" tabindex="<%sameTabIndex%>"
-           title="Enter details (if needed) in the Assignment field."/>
   </td><td style="text-align:center;">
     <select name="18.<%row%>d.minimum" style="display:none;" tabindex="<%nextTabIndex%>">
       <option value=""></option>
@@ -35,7 +39,5 @@
       <option value="4">Type IV</option>
       <option value="5">Type V</option>
     </select>
-    <input type="text" name="18.<%row%>i.minimum" style="display:none;width:6em;" tabindex="<%sameTabIndex%>"
-           title="Enter details (if needed) in the Assignment field."/>
   </td>
 </tr>

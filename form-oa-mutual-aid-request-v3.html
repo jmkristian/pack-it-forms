@@ -38,6 +38,45 @@
       table.same-line-label-layout td[data-copy-from] {
           padding-left: 0px;
       }
+      div.bubble { /* a speech bubble */
+          position: absolute;
+          bottom: 15px;
+          background-color: #ffffdd;
+          border: 2px solid #666;
+          box-shadow: 3px 3px 15px 1px #888;
+          border-radius: 2ex;
+          -webkit-border-radius: 2ex;
+          -moz-border-radius: 2ex;
+          padding: 1ex;
+      }
+      div.bubble:before { /* the outside of the pointer */
+          content: "";
+          position: absolute;
+          bottom: -20px;
+          left: 10px;
+          border-width: 20px 10px 0;
+          border-style: solid;
+          border-color: #666 transparent;
+          display: block;
+          width: 0;
+      }
+      div.bubble:after { /* the inside of the pointer */
+          content: "";
+          position: absolute;
+          bottom: -16px;
+          left: 11px;
+          border-width: 18px 9px 0;
+          border-style: solid;
+          border-color: #ffffdd transparent;
+          display: block;
+          width: 0;
+      }
+      div.bubble>input[type="button"] {
+          background-color: #ffffff;
+          border: 2px solid #666;
+          margin-left: 1em;
+          width: 3em;
+      }
     </style>
     <script type="text/javascript" src="resources/js/pack-it-forms.js"></script>
     <script type="text/javascript" src="resources/integration/integration.js"></script>
@@ -70,17 +109,13 @@
               });
           });
       }
-      function showFreeFormTypes(row, show) {
-          ['h', 'i'].forEach(function(column) {
-              forEachSelected('input[name^="18.' + row + column + '."]', function(type) {
-                  if (show) {
-                      type.style.display = 'inline';
-                  } else {
-                      type.style.display = 'none';
-                      if (type.value) type.value = '';
-                  }
-              });
-          });
+      function showFreeFormPrompt(row, show) {
+          var prompt = document.getElementById('18.' + row + '-prompt');
+          if (show) {
+              prompt.style.removeProperty('visibility');
+          } else {
+              prompt.style.visibility = 'hidden';
+          }
       }
       function showTypes(row, role) {
           if (!role.required) {
@@ -92,15 +127,14 @@
                   }
               });
           }
-          const standard = standardRoles.indexOf(role.value) > 0;
+          var standard = standardRoles.indexOf(role.value) > 0;
           if (standard) {
-              showFreeFormTypes(row, false);
+              showFreeFormPrompt(row, false);
               showStandardTypes(row, true, role.value);
           } else {
               showStandardTypes(row, false);
-              showFreeFormTypes(row, !!role.value);
+              showFreeFormPrompt(row, !!role.value);
           }
-          return standard;
       }
       function setupResourceRow(row) {
           forEachSelected('input[name^="18.' + row + 'b."]', function(role) {
@@ -108,6 +142,12 @@
               role.addEventListener('change', function(event) {
                   showTypes(row, role);
               });
+          });
+          showFreeFormPrompt(row, false);
+          var ok = document.getElementById('18.' + row + '-ok');
+          ok.addEventListener('click', function(event) {
+              showFreeFormPrompt(row, false);
+              document.querySelector('textarea[name="17.assignment"]').focus();
           });
       }
       integration.after("load_configuration", function setComboBoxOptions() {
@@ -153,6 +193,7 @@
           }
       });
     </script>
+    <!-- meta name="pack-it-forms-pdf-URL" content="pdf/XSC_RACES_MA_Req_v20240711_fillable.pdf" -->
     <meta name="pack-it-forms-subject-suffix" content="_RACES-MAR_{{field:15.agency}}">
     <title>RACES Mutual Aid Request</title>
   </head>
@@ -343,7 +384,7 @@
         </tr><tr>
           <td style="white-space:normal;">
             <label>Amateur Radio Resources Requested, in order of priority needed.</label>
-            <span style="font-size:85%;">(A new request form is needed for each Location and Operational Period)</span>
+            <span style="font-size:85%;">(A new request form is needed for each Location and Operational Period.)</span>
           </td>
           <td colspan="4" style="padding:0px;">
             <table class="resource-table">
@@ -397,13 +438,21 @@
             <table class="same-line-label-layout">
               <tr>
                 <td style="width:1px;">From Date:</td>
-                <td style="padding:0px;"><input type="text" name="20a.from-date" class="date" tabindex="52" required/></td>
-                <td style="width:1px;">From Time:</td>
-                <td style="padding:0px;"><input type="text" name="20b.from-time" class="time" tabindex="53" required/></td>
+                <td style="padding:0px;">
+                  <input type="text" name="20a.from-date" class="date" tabindex="52" required/>
+                </td>
+                <td style="width:1px;">From Time (24hr):</td>
+                <td style="padding:0px;">
+                  <input type="text" name="20b.from-time" class="time" style="width:4em;" tabindex="53" required/>
+                </td>
                 <td style="width:1px;">To Date:</td>
-                <td style="padding:0px;"><input type="text" name="20c.from-date" class="date" tabindex="54" required/></td>
-                <td style="width:1px;">To Time:</td>
-                <td style="padding:0px;"><input type="text" name="20d.from-time" class="time" tabindex="55" required/></td>
+                <td style="padding:0px;">
+                  <input type="text" name="20c.from-date" class="date" tabindex="54" required/>
+                </td>
+                <td style="width:1px;">To Time (24hr):</td>
+                <td style="padding:0px;">
+                  <input type="text" name="20d.from-time" class="time" style="width:4em;" tabindex="55" required/>
+                </td>
               </tr>
             </table>
           </td>
