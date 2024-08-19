@@ -4,18 +4,11 @@
                 <tr>
                   <th>Structure Type:<%&nextFieldNumber%></th>
                   <td style="width:1px;">
-                    <table class="structure combobox" style="width:10em;">
-                      <tr>
-                        <td><input name="7<%row%>a.structure" type="text" tabindex="<%nextTabIndex%>"/></td>
-                        <td class="dropdown-toggle">
-                          <span><img src="icon-chevron-down.png"/></span>
-                        </td>
-                      </tr><tr>
-                        <td colspan="2" class="dropdown-menu" style="display:none;">
-                          <div><div></div></div>
-                        </td>
-                      </tr>
-                    </table>
+                    <%#run%>include('resources/html/combobox.html', {
+                    name: "7<%row%>a.structure",
+                    width: "10em",
+                    tabindex: "<%nextTabIndex%>",
+                    })<%/run%>
                   </td><td class="label-sameline">
                     Number of Stories:<%&nextFieldNumber%>
                     <input name="7<%row%>b.stories" type="text" class="cardinal-number"

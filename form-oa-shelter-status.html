@@ -51,9 +51,9 @@
               "Santa Clara",
               "Saratoga",
               "Sunnyvale"];
-          document.getElementById("to-ics-position-box")["PIFO-ComboBox"].setOptions(
+          ComboBox.getByName("7a.to-ics-position").setOptions(
               ["Mass Care and Shelter Unit", "Care and Shelter Branch", "Operations Section"]);
-          document.getElementById("shelter-city-box")["PIFO-ComboBox"].setOptions(cityOptions);
+          ComboBox.getByName("34b.shelter-city").setOptions(cityOptions);
           compatible_values("34b.shelter-city", cityOptions, "33b.shelter-city", "Unincorporated");
           compatible_values("49a.managed-by", managerOptions, "50a.managed-by", "Other")
           managerText = document.querySelector('input[name="49a.managed-by"][type="text"]');
@@ -213,26 +213,12 @@
           <td>City:</td>
           <td>
             <input type="text" name="33b.shelter-city" style="display:none;"/>
-            <table class="combobox" id="shelter-city-box" style="width:20em;">
-              <tr>
-                <td>
-                  <input type="text" name="34b.shelter-city" class="required-for-complete"
-                         placeholder="Select one..." tabindex="34"/>
-                </td>
-                <td class="dropdown-toggle">
-                  <span>
-                    <img src="icon-chevron-down.png"/>
-                  </span>
-                </td>
-              </tr><tr>
-                <td colspan="2" class="dropdown-menu">
-                  <div>
-                    <div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </table>
+            <%#run%>include('resources/html/combobox.html', {
+            name: "34b.shelter-city",
+            width: "20em",
+            tabindex: "34",
+            attributes: 'class="required-for-complete" placeholder="Select one..."',
+            })<%/run%>
           </td>
         </tr><tr>
           <td>State:</td>

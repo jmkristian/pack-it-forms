@@ -93,14 +93,11 @@ table.combobox .dropdown-toggle>span>img {
     width:0.6em;
 }
 table.combobox .dropdown-menu {
-    padding-right:0.2em;
-}
-table.combobox .dropdown-menu>div {
     position:relative;
     margin:0;
     padding:0;
 }
-table.combobox .dropdown-menu>div>div {
+table.combobox .dropdown-menu>div {
     position:absolute;
     top:-1px;
     overflow:auto;
@@ -110,7 +107,7 @@ table.combobox .dropdown-menu>div>div {
     background-color:#fff;
     border:1px solid #222;
 }
-table.combobox .dropdown-menu>div>div>a {
+table.combobox .dropdown-menu>div>a {
     display:block;
     font-family: consolas,monaco,profont,monospace;
     font-size: 10pt;

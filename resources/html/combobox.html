@@ -1,16 +1,16 @@
-<table class="combobox" id="<%name%>-box">
+<table class="combobox" id="<%name%>-box"<%#run%>if ('<%&width%>') ' style="width:<%width%>;"';<%/run%>>
   <tr>
-    <td style="padding-right:0px;">
+    <td style="padding:0px;">
       <input type="text" name="<%name%>" value="<%value%>" tabindex="<%tabindex%>" <%&attributes%>/>
     </td>
-    <td class="dropdown-toggle" style="padding-left:0px;padding-right:0px;">
+    <td class="dropdown-toggle" style="padding:0px;">
       <span>
         <img src="icon-chevron-down.png"/>
       </span>
     </td>
   </tr><tr>
-    <td colspan="2" class="dropdown-menu">
-      <div>
+    <td colspan="2" style="padding:0px 2px 0px 0px;<%#run%>if ('<%&width%>') 'width:<%width%>;';<%/run%>">
+      <div class="dropdown-menu">
         <div>
         </div>
       </div>

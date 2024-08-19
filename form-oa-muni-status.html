@@ -58,9 +58,9 @@
               'Santa Clara',
               'Saratoga',
               'Sunnyvale'];
-          document.getElementById("to-ics-position-box")["PIFO-ComboBox"].setOptions(
+          ComboBox.getByName("7a.to-ics-position").setOptions(
               ['Situation Analysis Unit', 'Planning Section']);
-          document.getElementById("jurisdiction-box")["PIFO-ComboBox"].setOptions(
+          ComboBox.getByName("22.jurisdiction").setOptions(
               jurisdictionNames);
           compatible_values("22.jurisdiction", jurisdictionNames, "21.jurisdiction", "Unincorporated");
       });
@@ -99,26 +99,12 @@
           <th style="padding-left:2em;">Jurisdiction Name:</th>
           <td>
             <input type="text" name="21.jurisdiction" style="display:none;"/>
-            <table class="combobox" id="jurisdiction-box" style="width:25em;">
-              <tr>
-                <td>
-                  <input type="text" name="22.jurisdiction" required tabindex="21"
-                         placeholder="Select one..."/>
-                </td>
-                <td class="dropdown-toggle">
-                  <span>
-                    <img src="icon-chevron-down.png"/>
-                  </span>
-                </td>
-              </tr><tr>
-                <td colspan="2" class="dropdown-menu">
-                  <div>
-                    <div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </table>
+            <%#run%>include('resources/html/combobox.html', {
+            name: "22.jurisdiction",
+            width: "25em",
+            tabindex: "21",
+            attributes: 'placeholder="Select one..." required'
+            })<%/run%>
           </td>
         </tr>
       </table>

@@ -35,18 +35,11 @@
                   </td>
                   <th>Hair:<%&nextFieldNumber%></th>
                   <td>
-                    <table class="hair combobox" style="width:15em;">
-                      <tr>
-                        <td><input name="4<%row%>f.hair" type="text" tabindex="<%nextTabIndex%>"/></td>
-                        <td class="dropdown-toggle">
-                          <span><img src="icon-chevron-down.png"/></span>
-                        </td>
-                      </tr><tr>
-                        <td colspan="2" class="dropdown-menu" style="display:none;">
-                          <div><div></div></div>
-                        </td>
-                      </tr>
-                    </table>
+                    <%#run%>include('resources/html/combobox.html', {
+                    name: "4<%row%>f.hair",
+                    width: "15em",
+                    tabindex: "<%nextTabIndex%>",
+                    })<%/run%>
                   </td>
                 </tr><tr>
                   <th>Build:<%&nextFieldNumber%></th>

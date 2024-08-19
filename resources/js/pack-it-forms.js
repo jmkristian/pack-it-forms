@@ -997,12 +997,13 @@ var ComboBox = function ComboBox(box) {
         default: return '' + event.keyCode;
         }
     };
-    this.dropdownToggle.addEventListener('mouseenter', function(event) {
+    var toggleBackground = this.dropdownToggle.querySelector('span');
+    toggleBackground.addEventListener('mouseenter', function(event) {
         if (that.options.length) {
             this.style.setProperty('background-color', '#ddd');
         }
     });
-    this.dropdownToggle.addEventListener('mouseleave', function(event) {
+    toggleBackground.addEventListener('mouseleave', function(event) {
         if (that.options.length) {
             this.style.removeProperty('background-color');
             that.isToggling = false;

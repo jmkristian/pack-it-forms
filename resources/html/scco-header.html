@@ -65,25 +65,12 @@
           <tr>
             <th>ICS Position:</th>
             <td style="padding-right:0;">
-              <table class="combobox" id="to-ics-position-box">
-                <tr>
-                  <td>
-                    <input type="text" name="7a.to-ics-position" value="<%to-ics-position%>" required tabindex="8"/>
-                  </td>
-                  <td class="dropdown-toggle">
-                    <span>
-                      <img src="icon-chevron-down.png"/>
-                    </span>
-                  </td>
-                </tr><tr>
-                  <td colspan="2" class="dropdown-menu">
-                    <div>
-                      <div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </table>
+              <%#run%>include('resources/html/combobox.html', {
+              name: "7a.to-ics-position",
+              value: '<%&to-ics-position%>',
+              tabindex: "8",
+              attributes: 'required'
+              })<%/run%>
             </td>
           </tr>
         </table>
@@ -103,25 +90,12 @@
           <tr>
             <th>Location:</th>
             <td style="padding-right:0;">
-              <table class="combobox" id="to-location-box">
-                <tr>
-                  <td>
-                    <input type="text" name="7b.to-location" value="<%to-location%>" required tabindex="9"/>
-                  </td>
-                  <td class="dropdown-toggle">
-                    <span>
-                      <img src="icon-chevron-down.png"/>
-                    </span>
-                  </td>
-                </tr><tr>
-                  <td colspan="2" class="dropdown-menu">
-                    <div>
-                      <div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </table>
+              <%#run%>include('resources/html/combobox.html', {
+              name: "7b.to-location",
+              value: '<%&to-location%>',
+              tabindex: "9",
+              attributes: 'required'
+              })<%/run%>
             </td>
           </tr>
         </table>

@@ -117,7 +117,7 @@
           });
       }
       integration.after("load_configuration", function() {
-          document.getElementById("to-ics-position-box")["PIFO-ComboBox"].setOptions(
+          ComboBox.getByName("7a.to-ics-position").setOptions(
               ['RACES Chief Radio Officer', 'RACES Unit', 'Operations Section']);
       });
       integration.after("get_old_message", function() {

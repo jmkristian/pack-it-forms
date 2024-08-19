@@ -74,13 +74,13 @@
                   <%#run%>recall('recentReportingLocations')<%/run%>);
           ComboBox.getByName("34.reportTaker").setOptions(
                   <%#run%>recall('recentReportTakers')<%/run%>);
-          array_for_each(document.querySelectorAll('.hair.combobox'), function(item) {
-              item["PIFO-ComboBox"].setOptions([
+          array_for_each(document.querySelectorAll('[name$=".hair"]'), function(item) {
+              ComboBox.getByName(item.name).setOptions([
                   "", "Black", "Brown", "Blonde", "Red", "White/Grey", "Bald"
               ]);
           });
-          array_for_each(document.querySelectorAll('.structure.combobox'), function(item) {
-              item["PIFO-ComboBox"].setOptions([
+          array_for_each(document.querySelectorAll('[name$=".structure"]'), function(item) {
+              ComboBox.getByName(item.name).setOptions([
                   "", "Single Family", "Condo", "Apartment", "Retail", "Industrial", "Vehicle", "Vegetation"
               ]);
           });

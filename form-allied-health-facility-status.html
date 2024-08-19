@@ -92,8 +92,8 @@
           integration.after("late_startup", function() {
               // Make it easy to route the message as recommended.
               // But don't automatically change anything the user has changed.
-              var position = document.getElementById("to-ics-position-box")["PIFO-ComboBox"];
-              var location = document.getElementById("to-location-box")["PIFO-ComboBox"];
+              var position = ComboBox.getByName("7a.to-ics-position");
+              var location = ComboBox.getByName("7b.to-location");
               location.setOptions(locationOptions);
               position.setOptions(positionOptions[0].concat(positionOptions[1]));
               var positionChanged = function positionChanged() {
