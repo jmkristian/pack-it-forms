@@ -3,10 +3,6 @@
 !define WINDOW_TITLE "${DisplayName}"
 
 Function ChooseAddonFiles
-  File /r /x "*~" /x .git* /x notes /x pacread /x integration.js \
-    /x form-*.html /x parts /x pdf /x build.cmd /x *.nsi /x *.launch \
-    pack-it-forms
-
   SetOutPath "$INSTDIR\pack-it-forms"
   File built\pack-it-forms\form-checkin-out.html
   File built\pack-it-forms\form-ics213*.html
