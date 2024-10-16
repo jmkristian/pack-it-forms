@@ -5,6 +5,8 @@ VERSION="$2"
 # The current working directory isn't the one that contains this script;
 # it's a clone of git@github.com:jmkristian/OutpostForSCCo.git (or a fork thereof).
 
+node ./buildHTML.js pack-it-forms
+
 $DECLARE Los_Altos "Los Altos Forms"\
  Outpost_Forms.exe LosAltosForms_Setup-"$VERSION".exe\
  || exit $?

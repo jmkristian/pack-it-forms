@@ -416,8 +416,6 @@ Several tags are predefined:
   [completion value](https://www.mattzeunert.com/2017/01/10/whats-a-statement-completion-value-in-javascript.html)
   of the given JavaScript script.
   The script can use several global objects, including:
-  - `envelope.readOnly` (boolean) the form is not editable by the operator.
-  - `envelope.viewer` either "sender" or "receiver".
   - `nextTabIndex` the integer that will be rendered by <%nextTabIndex%>. The default value is 1.
   - `nextFieldNumber` the integer that will be rendered by <%&nextFieldNumber%>.
     The default value is -1, meaning <%&nextFieldNumber%> will render an empty string.

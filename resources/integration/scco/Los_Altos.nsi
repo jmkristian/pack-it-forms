@@ -7,9 +7,7 @@ Function ChooseAddonFiles
     /x form-*.html /x parts /x pdf /x build.cmd /x *.nsi /x *.launch \
     pack-it-forms
   SetOutPath "$INSTDIR\pack-it-forms"
-  File pack-it-forms\form-los-altos-*.html
-  SetOutPath "$INSTDIR\pack-it-forms\parts"
-  File pack-it-forms\parts\form-los-altos-*.css
+  File built\pack-it-forms\form-los-altos-*.html
   SetOutPath "$INSTDIR\addons"
   File /oname=${addon_name}.launch pack-it-forms\resources\integration\scco\${addon_name}.launch
   SetOutPath "$INSTDIR\pdf"

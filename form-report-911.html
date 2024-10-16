@@ -71,9 +71,9 @@
       }
       integration.after("load_configuration", function() {
           ComboBox.getByName("33.reportingLocation").setOptions(
-                  <%#run%>recall('recentReportingLocations')<%/run%>);
+              {{recall:recentReportingLocations}});
           ComboBox.getByName("34.reportTaker").setOptions(
-                  <%#run%>recall('recentReportTakers')<%/run%>);
+              {{recall:recentReportTakers}});
           array_for_each(document.querySelectorAll('[name$=".hair"]'), function(item) {
               ComboBox.getByName(item.name).setOptions([
                   "", "Black", "Brown", "Blonde", "Red", "White/Grey", "Bald"

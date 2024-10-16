@@ -8,17 +8,13 @@ Function ChooseAddonFiles
     pack-it-forms
 
   SetOutPath "$INSTDIR\pack-it-forms"
-  File pack-it-forms\form-checkin-out.html
-  File pack-it-forms\form-ics213*.html
-  File pack-it-forms\form-oa-muni-status*.html
-  File pack-it-forms\form-oa-shelter-status*.html
-  File pack-it-forms\form-scco-eoc-213rr*.html
-  File pack-it-forms\form-allied-health-facility-status*.html
-  File pack-it-forms\form-oa-mutual-aid-request*.html
-
-  SetOutPath "$INSTDIR\pack-it-forms\parts"
-  File pack-it-forms\parts\form-scco-*.css
-  File pack-it-forms\parts\resource-requested*.html
+  File built\pack-it-forms\form-checkin-out.html
+  File built\pack-it-forms\form-ics213*.html
+  File built\pack-it-forms\form-oa-muni-status*.html
+  File built\pack-it-forms\form-oa-shelter-status*.html
+  File built\pack-it-forms\form-scco-eoc-213rr*.html
+  File built\pack-it-forms\form-allied-health-facility-status*.html
+  File built\pack-it-forms\form-oa-mutual-aid-request*.html
 
   SetOutPath "$INSTDIR\pdf"
   File pack-it-forms\pdf\ICS-213_*.pdf
