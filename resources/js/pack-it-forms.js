@@ -1442,6 +1442,7 @@ function on_report_type(complete) {
         }
     });
     setupRequiredGroups();
+    check_the_form_validity();
 }
 
 /* Disable "other" controls when not in use
